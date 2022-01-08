@@ -1,14 +1,24 @@
 import { registerRootComponent } from 'expo';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
+import { ThemeProvider } from 'styled-components/native';
+
+import { Box } from 'components/Box';
+import { coreTheme } from 'themes/core';
 
 class App extends React.Component {
   render() {
     return (
-      // eslint-disable-next-line react-native/no-inline-styles
-      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-        <Text>coco</Text>
-      </View>
+      <ThemeProvider theme={coreTheme}>
+        <Box
+          backgroundColor="primary500"
+          flex="1"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Text>coco</Text>
+        </Box>
+      </ThemeProvider>
     );
   }
 }

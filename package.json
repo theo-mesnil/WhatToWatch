@@ -1,7 +1,7 @@
 {
   "name": "whattowatch",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -14,22 +14,30 @@
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-is": "^17.0.2",
     "react-native": "0.64.3",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "styled-components": "^5.3.3",
+    "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.16.7",
     "@react-native-community/eslint-config": "^3.0.1",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@typescript-eslint/parser": "^5.9.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-sort-destructure-keys": "^1.4.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
     "typescript": "^4.5.4"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   },
   "private": true
 }
