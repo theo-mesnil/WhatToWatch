@@ -1,22 +1,35 @@
 import { registerRootComponent } from 'expo';
 import React from 'react';
-import { Text } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
+import {
+  Poppins_400Regular,
+  Poppins_600SemiBold,
+  useFonts
+} from '@expo-google-fonts/poppins';
+import AppLoading from 'expo-app-loading';
 
 import { Box } from 'components/Box';
 import { coreTheme } from 'themes/core';
+import { Text } from 'components/Text';
 
-class App extends React.Component {
-  render() {
+function App() {
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_600SemiBold
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
     return (
       <ThemeProvider theme={coreTheme}>
         <Box
-          backgroundColor="primary500"
-          flex="1"
-          alignItems="center"
+          backgroundColor="behind"
+          flex={1}
           justifyContent="center"
+          alignItems="center"
         >
-          <Text>coco</Text>
+          <Text variant="h1">WhatToWatch</Text>
         </Box>
       </ThemeProvider>
     );
