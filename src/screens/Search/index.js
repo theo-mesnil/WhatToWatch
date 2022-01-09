@@ -110,14 +110,22 @@ export function SearchScreen() {
         <Centered alignItems={noResultForSearch ? 'center' : undefined}>
           {noResultForSearch && (
             <>
-              <Text variant="h1" mt="xxl" mb="md">
+              <Text
+                fontSize={50}
+                weight="bold"
+                lineHeight={60}
+                mt="xxl"
+                mb="md"
+                color="primary500"
+              >
                 <FormattedMessage id="search.noResults.title" />
               </Text>
-              <Text variant="subtitle1" mb={70}>
+              <Text mb={30}>
                 <FormattedMessage id="search.noResults.subtitle" />
               </Text>
-              <Image
-                source={require('assets/images/saly.png')}
+              <Box
+                as={Image}
+                source={require('assets/images/pause.png')}
                 width={300}
                 height={300}
               />

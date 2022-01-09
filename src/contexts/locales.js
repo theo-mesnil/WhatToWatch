@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { getLocale } from 'utils/locales';
 import { INITIAL_LOCALE, LOCALE_AUTO } from 'constants/locales';
 
-export const STORAGE_LOCALE = 'SMOVIE_LOCALE';
+export const STORAGE_LOCALE = 'WHATTOWATCH_LOCALE';
 
 export const LocaleContext = createContext();
 

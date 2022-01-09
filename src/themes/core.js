@@ -1,9 +1,9 @@
-const primary100 = '#adb8ef';
-const primary500 = '#2742C4';
+const primary100 = '#ffece8';
+const primary500 = '#e5bbb2';
 
 const colors = {
   primary100,
-  primary300: '#2D52FF',
+  primary300: '#ffd0c6',
   primary500,
   dark400: '#383D49',
   dark600: '#22252C',

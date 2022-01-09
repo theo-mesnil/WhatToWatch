@@ -18,12 +18,7 @@ export function MoviesList({ movies }) {
       {Object.entries(movies)?.map(([key, value]) => (
         <Box mt="xxs" key={`movies_${key}`}>
           <>
-            <Text
-              fontWeight="bold"
-              color="light900"
-              variant="subtitle1"
-              mb="xs"
-            >
+            <Text weight="bold" color="light900" variant="subtitle1" mb="xs">
               {key === 'noDate' ? <FormattedMessage id="people.coming" /> : key}
             </Text>
             <Box height={1} mb="sm" width={1} backgroundColor="border" />

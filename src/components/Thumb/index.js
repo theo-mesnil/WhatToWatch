@@ -54,15 +54,20 @@ export const Thumb = memo(
                       position="absolute"
                       top={0}
                       left={0}
-                      backgroundColor="primary500"
-                      height={30}
-                      minWidth={30}
+                      backgroundColor="behind"
+                      height={40}
+                      minWidth={40}
                       px="xs"
                       borderBottomRightRadius="md"
                       alignItems="center"
                       justifyContent="center"
                     >
-                      <Text fontSize={28} lineHeight="35px" fontWeight="bold">
+                      <Text
+                        fontSize={28}
+                        color="primary300"
+                        lineHeight="35px"
+                        weight="bold"
+                      >
                         {number}
                       </Text>
                     </Box>

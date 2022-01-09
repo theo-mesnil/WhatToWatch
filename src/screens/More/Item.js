@@ -8,7 +8,7 @@ import { Touchable } from 'components/Touchable';
 export function Item({ items, title, ...rest }) {
   return (
     <Box backgroundColor="ahead" borderRadius="md" py="xxs" {...rest}>
-      <Text fontWeight="bold" mt="sm" mb="md" ml="md">
+      <Text weight="bold" mt="sm" mb="md" ml="md">
         {title}
       </Text>
       {items?.map((item) => (

@@ -68,7 +68,7 @@ export function EpisodeThumb({
                   <Text
                     textAlignVertical="center"
                     variant="subtitle1"
-                    fontWeight="bold"
+                    weight="bold"
                     color="yellow"
                   >
                     {number}

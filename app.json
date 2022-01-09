@@ -2,13 +2,14 @@
   "expo": {
     "name": "WhatToWatch",
     "slug": "WhatToWatch",
+    "description": "Find movies & tv shows guide recommendations - Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series and actors. It's an application based on themoviedb (TMDb)database.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "src/assets/icon.png",
     "splash": {
       "image": "src/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#121418"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,7 +21,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "src/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#121418"
       },
       "package": "com.theomesnil.WhatToWatch"
     },

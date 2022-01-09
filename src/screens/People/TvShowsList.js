@@ -22,12 +22,7 @@ export function TvShowsList({ tvShows }) {
         {Object.entries(tvShows)?.map(([key, value]) => (
           <Box mt="xxs" key={`tvShows_${key}`}>
             <>
-              <Text
-                fontWeight="bold"
-                color="light900"
-                variant="subtitle1"
-                mb="xs"
-              >
+              <Text weight="bold" color="light900" variant="subtitle1" mb="xs">
                 {key === 'noDate' ? (
                   <FormattedMessage id="people.coming" />
                 ) : (

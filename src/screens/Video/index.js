@@ -46,7 +46,10 @@ export function VideoScreen() {
         />
         <Box flexDirection="row" mt="xl">
           <Button onPress={togglePlaying} mr="md" isCustomChildren>
-            <Icon icon={isPlaying ? PauseCircleIcon : PlayCircleIcon} />
+            <Icon
+              color="dark900"
+              icon={isPlaying ? PauseCircleIcon : PlayCircleIcon}
+            />
           </Button>
           <Button
             onPress={() =>
@@ -54,7 +57,7 @@ export function VideoScreen() {
             }
             isCustomChildren
           >
-            <Icon icon={ExternalLinkIcon} />
+            <Icon color="dark900" icon={ExternalLinkIcon} />
           </Button>
         </Box>
       </Box>

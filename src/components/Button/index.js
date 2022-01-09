@@ -7,7 +7,7 @@ import { Loader } from 'components/Loader';
 
 export function ButtonText({ children }) {
   return (
-    <Text variant="h3" numberOfLines={1}>
+    <Text variant="h3" color="dark900" numberOfLines={1}>
       {children}
     </Text>
   );

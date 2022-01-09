@@ -27,7 +27,7 @@ export function MoreScreen() {
   }
 
   function sendMail() {
-    Linking.openURL('mailto:smovie.contact@gmail.com');
+    Linking.openURL('mailto:mesniltheo+whattowatch@gmail.com');
   }
 
   function openMyWebsite() {
