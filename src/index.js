@@ -1,3 +1,6 @@
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+import 'intl/locale-data/jsonp/fr';
 import { registerRootComponent } from 'expo';
 import React from 'react';
 import { ThemeProvider } from 'styled-components/native';
@@ -7,10 +10,14 @@ import {
   useFonts
 } from '@expo-google-fonts/poppins';
 import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'react-native';
 
 import { Box } from 'components/Box';
 import { coreTheme } from 'themes/core';
-import { Text } from 'components/Text';
+import { LocaleProvider } from 'contexts/locales';
+import { IntlMessages } from 'components/IntlMessages';
+import { GenresProvider } from 'contexts/genres';
+import { Navigation } from 'navigation';
 
 function App() {
   let [fontsLoaded] = useFonts({
@@ -23,14 +30,21 @@ function App() {
   } else {
     return (
       <ThemeProvider theme={coreTheme}>
-        <Box
-          backgroundColor="behind"
-          flex={1}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Text variant="h1">WhatToWatch</Text>
-        </Box>
+        <StatusBar
+          barStyle="light-content"
+          animated
+          backgroundColor="transparent"
+          translucent
+        />
+        <LocaleProvider>
+          <IntlMessages>
+            <GenresProvider>
+              <Box backgroundColor="behind" flex={1}>
+                <Navigation />
+              </Box>
+            </GenresProvider>
+          </IntlMessages>
+        </LocaleProvider>
       </ThemeProvider>
     );
   }

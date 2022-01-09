@@ -12,3 +12,6 @@ web-build/
 
 # macOS
 .DS_Store
+
+# api key from TheMovieDatabase
+src/api/apiKey.js
