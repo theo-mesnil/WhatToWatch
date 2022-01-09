@@ -8,7 +8,7 @@ import { useLocale } from 'contexts/locales';
 import { BasicLayout } from 'layouts/Basic';
 import { Centered } from 'components/Centered';
 import { LOCALE_AUTO, LOCALE_EN, LOCALE_FR } from 'constants/locales';
-import { EmailIcon, SmileIcon } from 'components/Icon';
+import { EmailIcon, SmileIcon, StarFillIcon } from 'components/Icon';
 import { Text } from 'components/Text';
 
 export function MoreScreen() {
@@ -87,6 +87,36 @@ export function MoreScreen() {
             }
           ]}
           title={<FormattedMessage id="more.author.title" />}
+        />
+        <Item
+          mt="lg"
+          items={[
+            {
+              name: <FormattedMessage id="more.sources.themoviedb.title" />,
+              description: (
+                <FormattedMessage id="more.sources.themoviedb.description" />
+              ),
+              key: 'themoviedb',
+              icon: StarFillIcon
+            },
+            {
+              name: <FormattedMessage id="more.sources.evaIcons.title" />,
+              description: (
+                <FormattedMessage id="more.sources.evaIcons.description" />
+              ),
+              key: 'eva_icons',
+              icon: StarFillIcon
+            },
+            {
+              name: <FormattedMessage id="more.sources.appIcon.title" />,
+              description: (
+                <FormattedMessage id="more.sources.appIcon.description" />
+              ),
+              key: 'app_icon',
+              icon: StarFillIcon
+            }
+          ]}
+          title={<FormattedMessage id="more.sources.title" />}
         />
       </Centered>
     </BasicLayout>

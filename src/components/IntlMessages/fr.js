@@ -54,6 +54,17 @@ export default {
         title: 'Contactez-moi',
         description: 'Des soucis, suggestions ou un coucou ?'
       }
+    },
+    sources: {
+      title: 'Sources',
+      themoviedb: {
+        title: 'The Movie Database',
+        description: 'Base de données pour les films et séries'
+      },
+      appIcon: {
+        title: '3DIcons',
+        description: 'Icônes 3D open source magnifiquement conçues'
+      }
     }
   },
   movie: {

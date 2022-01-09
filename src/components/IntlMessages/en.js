@@ -54,6 +54,21 @@ export default {
         title: 'Contact me',
         description: 'Any bugs, suggestions or just a hello?'
       }
+    },
+    sources: {
+      title: 'Sources',
+      themoviedb: {
+        title: 'The Movie Database',
+        description: 'Popular database for movies and TV shows.'
+      },
+      appIcon: {
+        title: '3DIcons',
+        description: 'Beautifully crafted open source 3D icons'
+      },
+      evaIcons: {
+        title: 'Eva Icons',
+        description: '+480 beautifully crafted Open Source icons.'
+      }
     }
   },
   movie: {

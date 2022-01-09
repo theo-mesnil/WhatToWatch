@@ -7,7 +7,7 @@ import { statusBarHeight } from 'constants/statusBar';
 export function BasicLayout(props) {
   return (
     <Box as={ScrollView} bounces={false} showsVerticalScrollIndicator={false}>
-      <Box paddingTop={statusBarHeight + 10} {...props} />
+      <Box paddingTop={statusBarHeight + 10} paddingBottom="xl" {...props} />
     </Box>
   );
 }
