@@ -56,12 +56,17 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-sort-destructure-keys": "^1.4.0",
     "husky": "^7.0.4",
-    "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
     "typescript": "^4.5.4"
   },
   "resolutions": {
     "styled-components": "^5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,json}": [
+      "prettier --write",
+      "eslint"
+    ]
   },
   "private": true
 }
