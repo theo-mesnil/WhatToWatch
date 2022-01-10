@@ -1,7 +1,6 @@
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/fr';
-import { registerRootComponent } from 'expo';
 import React from 'react';
 import { ThemeProvider } from 'styled-components/native';
 import {
@@ -19,7 +18,7 @@ import { IntlMessages } from 'components/IntlMessages';
 import { GenresProvider } from 'contexts/genres';
 import { Navigation } from 'navigation';
 
-function App() {
+export function AppIndex() {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold
@@ -49,5 +48,3 @@ function App() {
     );
   }
 }
-
-registerRootComponent(App);

@@ -1,7 +1,6 @@
-import { THEMOVIEDB_API_KEY } from './apiKey';
+import Constants from 'expo-constants';
 
 import { useLocale } from 'contexts/locales';
-
 export const API_URL = 'https://api.themoviedb.org/3/';
 
 export const useApiUrl = () => {
@@ -14,8 +13,8 @@ export const useApiUrl = () => {
       params.map((param) => {
         paramsUrl += `&${param.name}=${encodeURIComponent(param.value)}`;
       });
-
-    return `${API_URL}${query}?api_key=${THEMOVIEDB_API_KEY}&language=${locale}${paramsUrl}`;
+    console.log(Constants);
+    return `${API_URL}${query}?api_key=${Constants.manifest.extra.theMovieDbApiKey}&language=${locale}${paramsUrl}`;
   }
 
   return apiUrl;
