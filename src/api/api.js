@@ -13,7 +13,7 @@ export const useApiUrl = () => {
       params.map((param) => {
         paramsUrl += `&${param.name}=${encodeURIComponent(param.value)}`;
       });
-    console.log(Constants);
+
     return `${API_URL}${query}?api_key=${Constants.manifest.extra.theMovieDbApiKey}&language=${locale}${paramsUrl}`;
   }
 
