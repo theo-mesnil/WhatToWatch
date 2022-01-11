@@ -64,6 +64,10 @@ export default {
       appIcon: {
         title: '3DIcons',
         description: 'Icônes 3D open source magnifiquement conçues'
+      },
+      evaIcons: {
+        title: 'Eva Icons',
+        description: '+480 icônes Open Source magnifiquement conçues.'
       }
     }
   },
