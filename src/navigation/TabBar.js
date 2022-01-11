@@ -28,11 +28,11 @@ const Tab = createBottomTabNavigator();
 
 const androidTabBarStyle = isAndroid
   ? {
-      style: {
+      tabBarStyle: {
         paddingTop: 7,
         height: 60
       },
-      labelStyle: {
+      tabBarLabelStyle: {
         paddingBottom: 5
       }
     }
@@ -45,7 +45,7 @@ export function TabBar() {
   const screenOptions = merge(
     {
       headerShown: false,
-      tabBarActiveTintColor: theme.colors.light900,
+      tabBarActiveTintColor: theme.colors.primary500,
       tabBarInactiveTintColor: theme.colors.light400,
       tabBarStyle: {
         backgroundColor: theme.colors.ahead,
@@ -66,7 +66,7 @@ export function TabBar() {
   }) {
     return (
       <Icon
-        color={focused ? 'light900' : 'light400'}
+        color={focused ? 'primary500' : 'light400'}
         icon={focused ? IconComponentFocused : IconComponent}
       />
     );
