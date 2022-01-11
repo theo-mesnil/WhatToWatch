@@ -26,7 +26,7 @@ export default {
       backgroundColor: '#121418'
     },
     package: 'com.theomesnil.WhatToWatch',
-    versionCode: 2
+    versionCode: 3
   },
   web: {
     favicon: 'src/assets/favicon.png'
