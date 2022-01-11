@@ -2,7 +2,9 @@
 
 Play with react native (Expo), styled-components and [themoviedb API](https://developers.themoviedb.org/) 🥳
 
-![alt image](https://repository-images.githubusercontent.com/214838754/15cc4280-9494-11ea-9a9e-16a45c1c3ea7)
+![alt image](https://user-images.githubusercontent.com/50322149/149024555-ebc3d433-a2db-423d-b162-cfe52ff9faf4.png)
+
+WhatToWatch is the simplest and fastest way to discover movies, series and actors.
 
 ---
 
