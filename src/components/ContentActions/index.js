@@ -21,6 +21,7 @@ export function ContentActions({
   const voteCount = votes?.count;
   const showActions = isLoading || !!voteNumber || !!runtime || isVideo;
   const showVideo = isVideo && !!videoItem;
+  const runtimeNotOnlyStep = !!voteNumber || showVideo;
 
   return showActions ? (
     <ScreenSection>
@@ -61,9 +62,9 @@ export function ContentActions({
             {!!runtime && (
               <Box
                 alignItems="center"
-                pl={(!!voteNumber || showVideo) && 'xl'}
-                borderLeftWidth={(!!voteNumber || showVideo) && '1px'}
-                borderLeftColor="border"
+                pl={runtimeNotOnlyStep ? 'xl' : undefined}
+                borderLeftWidth={runtimeNotOnlyStep ? '1px' : undefined}
+                borderLeftColor={runtimeNotOnlyStep ? 'border' : undefined}
               >
                 <Icon size={18} icon={ClockFillIcon} color="light400" />
                 <Text variant="h3" mt="xxs">
