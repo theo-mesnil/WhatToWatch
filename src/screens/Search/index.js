@@ -113,7 +113,7 @@ export function SearchScreen() {
               <Text
                 fontSize={50}
                 weight="bold"
-                lineHeight={60}
+                lineHeight="60px"
                 mt="xxl"
                 mb="md"
                 color="primary500"
