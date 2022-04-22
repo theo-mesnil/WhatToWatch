@@ -28,6 +28,7 @@
     "expo-localization": "~12.0.1",
     "expo-splash-screen": "~0.14.2",
     "expo-status-bar": "~1.2.0",
+    "expo-updates": "~0.11.6",
     "intl": "^1.2.5",
     "lodash.merge": "^4.6.2",
     "react": "17.0.1",
