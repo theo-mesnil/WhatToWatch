@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { ButtonLoader } from 'components/ButtonLoader';
+import { Box } from 'components/Box';
+import { Button } from 'components/Button';
 
-import { Button, ButtonLoader } from 'components/Button';
 import { getNetworkColor, getNetworkLogo } from 'utils/networks';
 import { Icon } from 'components/Icon';
-import { Box } from 'components/Box';
 import { Text } from 'components/Text';
 import { useVideo } from 'utils/videos';
 
