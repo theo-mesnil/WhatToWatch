@@ -2,7 +2,6 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/fr';
 import React, { useCallback } from 'react';
-import { ThemeProvider } from 'styled-components/native';
 import {
   Poppins_400Regular,
   Poppins_600SemiBold,
@@ -10,9 +9,10 @@ import {
 } from '@expo-google-fonts/poppins';
 import { StatusBar } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-
-import { Box } from 'components/Box';
 import { coreTheme } from 'themes/core';
+import { ThemeProvider } from 'styled-components/native';
+import { Box } from 'components/Box';
+
 import { LocaleProvider } from 'contexts/locales';
 import { IntlMessages } from 'components/IntlMessages';
 import { GenresProvider } from 'contexts/genres';
@@ -47,7 +47,7 @@ export function AppIndex() {
       <LocaleProvider>
         <IntlMessages>
           <GenresProvider>
-            <Box backgroundColor="behind" flex={1} onLayout={onLayoutRootView}>
+            <Box flex={1} onLayout={onLayoutRootView}>
               <Navigation />
             </Box>
           </GenresProvider>

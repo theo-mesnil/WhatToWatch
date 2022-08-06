@@ -1,3 +1,5 @@
+import { DefaultTheme } from 'styled-components/native';
+
 const primary100 = '#ffece8';
 const primary500 = '#e5bbb2';
 
@@ -75,7 +77,7 @@ const colors = {
   }
 };
 
-export const coreTheme = {
+export const coreTheme: DefaultTheme = {
   colors: {
     ...colors,
     behind: colors.dark800,
