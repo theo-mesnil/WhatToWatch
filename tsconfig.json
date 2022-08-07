@@ -3,9 +3,9 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "*": ["*"],
+      "*": ["*", "types/*.d.ts"],
+      "components": ["src/components/*"]
     },
     "types": ["styled-components-react-native"]
   },
-  "include": ["./src/*", "styled.d.ts"]
 }

@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { Box } from 'components/Box';
+import { Box, BoxProps } from 'components/Box';
 import { Touchable, TouchableProps } from 'components/Touchable';
-
 import { Text } from 'components/Text';
 
-export interface ButtonProps {
+type ButtonProps = BoxProps & {
   onPress?: TouchableProps['onPress'];
   isCustomChildren?: boolean;
   backgroundColor?: string;
   children: React.ReactNode;
-}
+};
 
 export function Button({
   backgroundColor = 'primary500',

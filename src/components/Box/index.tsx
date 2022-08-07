@@ -16,7 +16,7 @@ import {
   SpaceProps
 } from 'styled-system';
 
-interface BoxProps
+export interface BoxProps
   extends FlexboxProps,
     BordersProps,
     ColorProps,

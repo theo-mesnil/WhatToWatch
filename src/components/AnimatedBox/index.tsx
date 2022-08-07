@@ -16,7 +16,7 @@ import {
   SpaceProps
 } from 'styled-system';
 
-interface AnimatedBoxProps
+export interface AnimatedBoxProps
   extends FlexboxProps,
     BordersProps,
     ColorProps,
