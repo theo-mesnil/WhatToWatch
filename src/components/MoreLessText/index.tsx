@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Text } from 'components/Text';
-import { Box } from 'components/Box';
-import { Loader } from 'components/Loader';
-import { Link } from 'components/Link';
 import { LayoutProps } from 'styled-system';
+
+import { Box } from 'components/Box';
+import { Link } from 'components/Link';
+import { Loader } from 'components/Loader';
+import { Text } from 'components/Text';
 
 type MoreLessTest = {
   children: React.ReactNode;

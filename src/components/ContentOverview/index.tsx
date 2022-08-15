@@ -1,8 +1,9 @@
-import React from 'react';
+import * as React from 'react';
+
 import { Centered } from 'components/Centered';
-import { Text } from 'components/Text';
 import { MoreLessText } from 'components/MoreLessText';
 import { ScreenSection } from 'components/ScreenSection';
+import { Text } from 'components/Text';
 import { formatGenreList } from 'utils/genres';
 
 export function ContentOverview({ description, genres }) {

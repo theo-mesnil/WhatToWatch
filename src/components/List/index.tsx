@@ -1,12 +1,11 @@
-import { screenWidth } from 'constants/screen';
-import { fakeData10 } from 'constants/mocks';
-
 import * as React from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { useTheme } from 'styled-components/native';
-import { Text } from 'components/Text';
+
 import { Box } from 'components/Box';
-import { TouchableProps } from 'components/Touchable';
+import { Text } from 'components/Text';
+import { fakeData10 } from 'constants/mocks';
+import { screenWidth } from 'constants/screen';
 
 import * as S from './styles';
 

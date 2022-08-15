@@ -1,13 +1,12 @@
-import React from 'react';
-import { Fragment } from 'react';
+import * as React from 'react';
 
 export function formatGenreList(genres) {
   return genres?.map((genre, index) => {
     return (
-      <Fragment key={genre?.name}>
+      <React.Fragment key={genre?.name}>
         {index > 0 && ', '}
         {genre?.name}
-      </Fragment>
+      </React.Fragment>
     );
   });
 }

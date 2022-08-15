@@ -1,19 +1,20 @@
-import React from 'react';
+import * as React from 'react';
+
 import { Box } from 'components/Box';
-import { Icon } from 'components/Icon';
 import { Gradient } from 'components/Gradient';
+import { Icon, IconElement } from 'components/Icon';
 
 type NoCoverProps = {
-  icon: JSX.Element;
+  icon: IconElement;
   opacity?: number;
-  size?: IconSize;
+  size?: number;
   withGradient?: boolean;
 };
 
 export function NoCover({
   icon,
   opacity = 0.3,
-  size = '60%',
+  size = 0.6,
   withGradient
 }: NoCoverProps) {
   return (

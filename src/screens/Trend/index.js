@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useRoute } from '@react-navigation/native';
 import { FormattedMessage } from 'react-intl';
 

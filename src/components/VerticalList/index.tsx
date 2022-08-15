@@ -1,11 +1,11 @@
-import { fakeData30 } from 'constants/mocks';
-
 import * as React from 'react';
 import { Animated } from 'react-native';
 import { useTheme } from 'styled-components/native';
+import { SpaceProps } from 'styled-system';
+
 import { Box } from 'components/Box';
 import { TouchableProps } from 'components/Touchable';
-import { SpaceProps } from 'styled-system';
+import { fakeData30 } from 'constants/mocks';
 
 type VerticalListProps = Pick<TouchableProps, 'onPress'> & {
   aspectRatio?: number;

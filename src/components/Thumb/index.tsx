@@ -1,11 +1,12 @@
-import React, { memo } from 'react';
-import { Touchable, TouchableProps } from 'components/Touchable';
-import { Text } from 'components/Text';
+import * as React from 'react';
+
 import { Box } from 'components/Box';
-import { Icon, PlayIcon } from 'components/Icon';
 import { Gradient } from 'components/Gradient';
+import { Icon, PlayIcon } from 'components/Icon';
 import { Loader } from 'components/Loader';
 import { NoCover } from 'components/NoCover';
+import { Text } from 'components/Text';
+import { Touchable, TouchableProps } from 'components/Touchable';
 import { getIconType } from 'utils/icons';
 import { getImageUrl } from 'utils/images';
 
@@ -26,7 +27,7 @@ type ThumbProps = Pick<TouchableProps, 'onPress'> & {
   type?: ContentType;
 };
 
-export const Thumb = memo(
+export const Thumb = React.memo(
   ({
     aspectRatio = 2 / 3,
     height,

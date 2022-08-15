@@ -49,7 +49,7 @@ export function getPlayVideoType({ homepage, videos }: getPlayVideoTypeProps) {
 
 type useVideoProps = {
   id: NetworkId;
-  link: string;
+  link?: string;
   name: string;
   platform: Platform;
   type: string;

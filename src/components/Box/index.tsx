@@ -24,7 +24,9 @@ export interface BoxProps
     PositionProps,
     SpaceProps,
     ViewProps {
+  as?: React.ElementType;
   children?: React.ReactNode;
+  aspectRatio?: number;
 }
 
 const BoxStyled = styled.View(flexbox, layout, position, space, color, border);

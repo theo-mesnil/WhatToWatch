@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Animated } from 'react-native';
+
 import { Header } from 'components/Header';
 
 type ContentLayoutProps = {
@@ -14,18 +15,19 @@ export function ContentLayout({
   titleOffsetSubtraction = 70,
   ...rest
 }: ContentLayoutProps) {
-  const [scrollY] = useState(new Animated.Value(0));
+  const [scrollY] = React.useState(new Animated.Value(0));
   const inputRange = titleOffset - titleOffsetSubtraction;
 
   return (
     <>
       <Header
         title={title}
-        offset={titleOffset}
-        opacity={scrollY.interpolate({
-          inputRange: [inputRange, inputRange],
-          outputRange: [0, 1]
-        })}
+        opacity={
+          scrollY.interpolate({
+            inputRange: [inputRange, inputRange],
+            outputRange: [0, 1]
+          }) as Animated.Value
+        }
       />
       <Animated.ScrollView
         bounces={false}

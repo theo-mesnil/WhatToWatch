@@ -1,16 +1,16 @@
 import axios from 'axios';
-import { useCallback, useMemo } from 'react';
+import * as React from 'react';
+
+import { convertArrayToMinutes } from 'utils/dates';
+import { formatImagesData } from 'utils/images';
+import { errorLog } from 'utils/logger';
 
 import { useApiUrl } from './api';
-
-import { formatImagesData } from 'utils/images';
-import { convertArrayToMinutes } from 'utils/dates';
-import { errorLog } from 'utils/logger';
 
 export const useGetTvShow = (tvID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl(`tv/${tvID}`, params));
@@ -79,7 +79,7 @@ export const useGetTvShow = (tvID) => {
 export const useGetTvShowCredits = (tvID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl(`tv/${tvID}/credits`, params));
@@ -104,7 +104,7 @@ export const useGetTvShowCredits = (tvID) => {
 export const useGetTvShowVideos = (tvID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl(`tv/${tvID}/videos`, params));
@@ -126,7 +126,7 @@ export const useGetTvShowVideos = (tvID) => {
 export const useGetTvShowImages = (tvID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl(`tv/${tvID}/images`, params));
@@ -152,7 +152,7 @@ export const useGetTvShowImages = (tvID) => {
 export const useGetTvShowRecommendations = (tvID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(
@@ -176,7 +176,7 @@ export const useGetTvShowRecommendations = (tvID) => {
 export const useGetTvShowSimilar = (tvID) => {
   const apiUrl = useApiUrl();
 
-  const getMovieSimilar = useCallback(
+  const getMovieSimilar = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl(`tv/${tvID}/similar`, params));
@@ -196,10 +196,10 @@ export const useGetTvShowSimilar = (tvID) => {
 };
 
 export const useGetTvShowSeason = (tvID, seasonNumber) => {
-  let episodesFormatted = useMemo(() => [], []);
+  let episodesFormatted = React.useMemo(() => [], []);
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(

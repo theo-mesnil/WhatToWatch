@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { useCallback, useMemo } from 'react';
-
-import { useApiUrl } from './api';
+import * as React from 'react';
 
 import { errorLog } from 'utils/logger';
 
+import { useApiUrl } from './api';
+
 export const useGetCollection = (collectionID) => {
-  let moviesFormatted = useMemo(() => [], []);
+  let moviesFormatted = React.useMemo(() => [], []);
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback) => {
       try {
         const response = await axios.get(apiUrl(`collection/${collectionID}`));

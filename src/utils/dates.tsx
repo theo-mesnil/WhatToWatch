@@ -1,5 +1,3 @@
-import * as React from 'react';
-import { enGB as en, fr } from 'date-fns/locale';
 import {
   isPast as DFNSisPast,
   isToday as DFNSisToday,
@@ -7,6 +5,8 @@ import {
   isYesterday as DFNSisYesterday,
   format
 } from 'date-fns';
+import { enGB as en, fr } from 'date-fns/locale';
+import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { useLocale } from 'contexts/locales';

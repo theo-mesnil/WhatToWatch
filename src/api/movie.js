@@ -1,16 +1,16 @@
 import axios from 'axios';
-import { useCallback } from 'react';
+import * as React from 'react';
+
+import { convertMinToHours } from 'utils/dates';
+import { formatImagesData } from 'utils/images';
+import { errorLog } from 'utils/logger';
 
 import { useApiUrl } from './api';
-
-import { formatImagesData } from 'utils/images';
-import { convertMinToHours } from 'utils/dates';
-import { errorLog } from 'utils/logger';
 
 export const useGetMovie = (movieID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl(`movie/${movieID}`, params));
@@ -66,7 +66,7 @@ export const useGetMovie = (movieID) => {
 export const useGetMovieCredits = (movieID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(
@@ -98,7 +98,7 @@ export const useGetMovieCredits = (movieID) => {
 export const useGetMovieVideos = (movieID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(
@@ -122,7 +122,7 @@ export const useGetMovieVideos = (movieID) => {
 export const useGetMovieImages = (movieID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(
@@ -150,7 +150,7 @@ export const useGetMovieImages = (movieID) => {
 export const useGetMovieRecommendations = (movieID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(
@@ -174,7 +174,7 @@ export const useGetMovieRecommendations = (movieID) => {
 export const useGetMovieSimilar = (movieID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(
@@ -198,7 +198,7 @@ export const useGetMovieSimilar = (movieID) => {
 export const useGetUpcoming = () => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback) => {
       try {
         const response = await axios.get(apiUrl('movie/upcoming'));

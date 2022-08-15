@@ -1,14 +1,15 @@
-import { statusBarHeight } from 'constants/statusBar';
-
-import React from 'react';
-import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AnimatedBox } from 'components/AnimatedBox';
+import * as React from 'react';
+import { Animated, Platform } from 'react-native';
+
 import { ArrowBackIcon, CrossIcon, Icon } from 'components/Icon';
 import { Touchable } from 'components/Touchable';
+import { statusBarHeight } from 'constants/statusBar';
 
+import { Box, BoxProps } from '../Box';
 import { Text } from '../Text';
-import { Box } from '../Box';
+
+import * as S from './styles';
 
 export const headerHeight =
   Platform.select({
@@ -16,21 +17,11 @@ export const headerHeight =
     default: 44
   }) + statusBarHeight;
 
-const styleWrapper = {
-  position: 'absolute',
-  alignItems: 'center',
-  bottom: 0,
-  flexDirection: 'row',
-  height: headerHeight,
-  left: 0,
-  paddingLeft: 'lg',
-  paddingRight: 'lg',
-  paddingTop: statusBarHeight,
-  right: '0',
-  top: '0'
+type BackButtonProps = {
+  withCrossIcon?: boolean;
 };
 
-const BackButton = ({ withCrossIcon }) => {
+const BackButton = ({ withCrossIcon }: BackButtonProps) => {
   const navigation = useNavigation();
 
   return (
@@ -42,7 +33,20 @@ const BackButton = ({ withCrossIcon }) => {
   );
 };
 
-export function Header({ opacity, subtitle, title, withCrossIcon, ...rest }) {
+type HeaderProps = Omit<BoxProps, 'opacity'> & {
+  subtitle?: string | React.ReactElement;
+  title: string;
+  withCrossIcon?: boolean;
+  opacity?: number | Animated.Value;
+};
+
+export function Header({
+  opacity,
+  subtitle,
+  title,
+  withCrossIcon,
+  ...rest
+}: HeaderProps) {
   return (
     <Box
       height={headerHeight}
@@ -52,11 +56,12 @@ export function Header({ opacity, subtitle, title, withCrossIcon, ...rest }) {
       zIndex={1}
       {...rest}
     >
-      <AnimatedBox {...styleWrapper}>
+      <S.Block headerHeight={headerHeight} statusBarHeight={statusBarHeight}>
         <BackButton withCrossIcon={withCrossIcon} />
-      </AnimatedBox>
-      <AnimatedBox
-        {...styleWrapper}
+      </S.Block>
+      <S.Block
+        headerHeight={headerHeight}
+        statusBarHeight={statusBarHeight}
         backgroundColor="behind"
         borderBottomWidth="1px"
         borderBottomColor="border"
@@ -73,7 +78,7 @@ export function Header({ opacity, subtitle, title, withCrossIcon, ...rest }) {
             </Text>
           )}
         </Box>
-      </AnimatedBox>
+      </S.Block>
     </Box>
   );
 }

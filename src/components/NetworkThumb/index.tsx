@@ -1,16 +1,24 @@
-import React from 'react';
+import * as React from 'react';
 
-import { Box } from 'components/Box';
-import { Touchable } from 'components/Touchable';
+import { Box, BoxProps } from 'components/Box';
 import { Icon } from 'components/Icon';
+import { Touchable, TouchableProps } from 'components/Touchable';
 import { getNetworkLogo } from 'utils/networks';
+
+type NetworkThumbProps = BoxProps &
+  Pick<TouchableProps, 'onPress'> & {
+    aspectRatio?: number;
+    item: {
+      id: number;
+    };
+  };
 
 export const NetworkThumb = ({
   aspectRatio = 1 / 1,
   onPress,
   item,
   ...rest
-}) => {
+}: NetworkThumbProps) => {
   return (
     <Box
       {...rest}
@@ -27,7 +35,7 @@ export const NetworkThumb = ({
             aspectRatio
           }}
         >
-          <Icon size="70%" icon={getNetworkLogo(item?.id)} />
+          <Icon size={0.7} icon={getNetworkLogo(item?.id)} />
         </Box>
       </Touchable>
     </Box>

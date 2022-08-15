@@ -1,10 +1,9 @@
-import { isAndroid } from 'constants/screen';
-
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useTheme } from 'styled-components/native';
 import merge from 'lodash.merge';
+import * as React from 'react';
 import { useIntl } from 'react-intl';
+import { useTheme } from 'styled-components/native';
+
 import {
   // BulbFillIcon,
   // BulbIcon,
@@ -18,12 +17,12 @@ import {
   SearchFillIcon,
   SearchIcon
 } from 'components/Icon';
-
-import { TrendsScreen } from 'screens/Trends';
+import { isAndroid } from 'constants/screen';
 import { DiscoverScreen } from 'screens/Discover';
 import { MoreScreen } from 'screens/More';
 // import { IdeasScreen } from 'screens/Ideas'
 import { SearchScreen } from 'screens/Search';
+import { TrendsScreen } from 'screens/Trends';
 
 const Tab = createBottomTabNavigator();
 

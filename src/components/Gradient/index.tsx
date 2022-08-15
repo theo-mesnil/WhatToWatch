@@ -1,7 +1,7 @@
-import React from 'react';
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
-import { Box, BoxProps } from 'components/Box';
+import * as React from 'react';
 
+import { Box, BoxProps } from 'components/Box';
 import { useTransformColors } from 'utils/colors';
 
 export interface GradientProps extends BoxProps {

@@ -1,13 +1,13 @@
-import { statusBarHeight } from 'constants/statusBar';
-
-import React from 'react';
+import * as React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
+
 import { Box, BoxProps } from 'components/Box';
+import { statusBarHeight } from 'constants/statusBar';
 
 export function BasicLayout(props: BoxProps) {
   return (
-    <Box as={ScrollView} bounces={false} showsVerticalScrollIndicator={false}>
+    <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
       <Box paddingTop={statusBarHeight + 10} paddingBottom="xl" {...props} />
-    </Box>
+    </ScrollView>
   );
 }

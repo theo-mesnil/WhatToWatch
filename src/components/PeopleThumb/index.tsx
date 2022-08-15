@@ -1,16 +1,26 @@
-import React from 'react';
+import * as React from 'react';
 import { ImageBackground } from 'react-native';
+
+import { Box } from 'components/Box';
+import { Gradient } from 'components/Gradient';
+import { PeopleFillIcon } from 'components/Icon';
+import { Loader } from 'components/Loader';
+import { NoCover } from 'components/NoCover';
+import { Text } from 'components/Text';
+import { Touchable, TouchableProps } from 'components/Touchable';
+import { getImageUrl } from 'utils/images';
 
 import * as S from './styles';
 
-import { getImageUrl } from 'utils/images';
-import { Text } from 'components/Text';
-import { Box } from 'components/Box';
-import { Touchable } from 'components/Touchable';
-import { Gradient } from 'components/Gradient';
-import { Loader } from 'components/Loader';
-import { PeopleFillIcon } from 'components/Icon';
-import { NoCover } from 'components/NoCover';
+type PeopleThumbProps = Pick<TouchableProps, 'onPress'> & {
+  aspectRatio?: number;
+  isLoading?: boolean;
+  item: {
+    name: string;
+    character: string;
+    profile_path: string;
+  };
+};
 
 export function PeopleThumb({
   aspectRatio = 3 / 5,
@@ -18,7 +28,7 @@ export function PeopleThumb({
   isLoading,
   item,
   ...rest
-}) {
+}: PeopleThumbProps) {
   const title = item?.name;
   const subtitle = item?.character;
   const cover = item?.profile_path;

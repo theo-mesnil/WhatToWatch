@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import * as React from 'react';
+
 import { Box } from 'components/Box';
 import { Centered } from 'components/Centered';
 import { Text } from 'components/Text';

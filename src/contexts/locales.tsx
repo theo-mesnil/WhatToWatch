@@ -1,28 +1,28 @@
-import { INITIAL_LOCALE, LOCALE_AUTO } from 'constants/locales';
-
-import * as React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useMemo } from 'react';
+import * as React from 'react';
 
+import { INITIAL_LOCALE, LOCALE_AUTO } from 'constants/locales';
 import { getLocale } from 'utils/locales';
 
 export const STORAGE_LOCALE = 'WHATTOWATCH_LOCALE';
 
 type LocaleContextInterface = {
-  locale: 'fr' | 'en';
-  setLocaleEntry: React.Dispatch<React.SetStateAction<string>>;
-  localeEntry: string;
+  locale: LocaleLanguage;
+  setLocaleEntry: React.Dispatch<React.SetStateAction<LocaleLanguage>>;
+  localeEntry: LocaleLanguage;
 };
 
 export const LocaleContext = React.createContext<LocaleContextInterface>(null);
 
 export function LocaleProvider({ children }) {
-  const [localeEntry, setLocaleEntry] = React.useState(LOCALE_AUTO);
+  const [localeEntry, setLocaleEntry] = React.useState(
+    LOCALE_AUTO as LocaleLanguage
+  );
 
   React.useEffect(() => {
     AsyncStorage.getItem(STORAGE_LOCALE).then((value) => {
       if (value) {
-        setLocaleEntry(value);
+        setLocaleEntry(value as LocaleLanguage);
       }
     });
   }, []);
@@ -33,7 +33,10 @@ export function LocaleProvider({ children }) {
     }
   }, [localeEntry]);
 
-  const locale = useMemo(() => getLocale(localeEntry), [localeEntry]);
+  const locale = React.useMemo(
+    () => getLocale(localeEntry as LocaleLanguage),
+    [localeEntry]
+  ) as LocaleLanguage;
 
   return (
     <LocaleContext.Provider value={{ locale, setLocaleEntry, localeEntry }}>

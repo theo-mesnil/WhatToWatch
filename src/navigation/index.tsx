@@ -1,10 +1,8 @@
 import 'react-native-gesture-handler';
-import React from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useTheme } from 'styled-components';
-
-import { TabBar } from './TabBar';
+import * as React from 'react';
+import { useTheme } from 'styled-components/native';
 
 import { CollectionScreen } from 'screens/Collection';
 import { GenreScreen } from 'screens/Genre';
@@ -13,10 +11,12 @@ import { ImagesScreen } from 'screens/Images';
 import { MovieScreen } from 'screens/Movie';
 import { NetworkScreen } from 'screens/Network';
 import { PeopleScreen } from 'screens/People';
-import { TvShowScreen } from 'screens/TvShow';
-import { VideoScreen } from 'screens/Video';
 import { SeasonScreen } from 'screens/Season';
 import { TrendScreen } from 'screens/Trend';
+import { TvShowScreen } from 'screens/TvShow';
+import { VideoScreen } from 'screens/Video';
+
+import { TabBar } from './TabBar';
 
 type MainStackParamList = {
   TabBar: undefined;

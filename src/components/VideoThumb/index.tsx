@@ -1,18 +1,18 @@
-import React from 'react';
+import * as React from 'react';
+
 import { Thumb } from 'components/Thumb';
 import { useVideo } from 'utils/videos';
 
-type VideoThumb = {
+type VideoThumbProps = {
   item: {
-    id: NetworkId;
-    key: string;
+    key: NetworkId;
     name: string;
     site: Platform;
     type: string;
   };
 };
 
-export function VideoThumb({ item, ...rest }: VideoThumb) {
+export function VideoThumb({ item, ...rest }: VideoThumbProps) {
   const { handleVideoPress, isYoutube } = useVideo({
     id: item?.key,
     name: item?.name,
@@ -22,7 +22,6 @@ export function VideoThumb({ item, ...rest }: VideoThumb) {
 
   return (
     <Thumb
-      id={item.id}
       imageUrl={
         isYoutube
           ? `https://i.ytimg.com/vi/${item.key}/hqdefault.jpg`

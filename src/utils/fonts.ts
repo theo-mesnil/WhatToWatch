@@ -1,4 +1,4 @@
-export const getFontFamily = (weight?: 'bold' | 'regular') => {
+export const getFontFamily = (weight?: 'bold' | 'regular' | string): string => {
   switch (weight) {
     case 'bold':
       return 'Poppins_600SemiBold';

@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Animated } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Animated } from 'react-native';
+
+import { useGetCollection } from 'api/collection';
+import { ContentCover } from 'components/ContentCover';
 import { Header } from 'components/Header';
 import { MovieThumb } from 'components/MovieThumb';
-import { ContentCover } from 'components/ContentCover';
-
 import { VerticalList } from 'components/VerticalList';
-import { useGetCollection } from 'api/collection';
 
 export function CollectionScreen() {
-  const [scrollY, setScrollY] = useState(new Animated.Value(0));
-  const [titleOffset, setTitleOffset] = useState(300);
-  const [collection, setCollection] = useState({
+  const [scrollY, setScrollY] = React.useState(new Animated.Value(0));
+  const [titleOffset, setTitleOffset] = React.useState(300);
+  const [collection, setCollection] = React.useState({
     backdrop: 'loading',
     movies: 'loading'
   });
@@ -31,8 +31,9 @@ export function CollectionScreen() {
     />
   );
 
-  useState(() => {
+  React.useEffect(() => {
     getCollection(setCollection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -40,11 +41,12 @@ export function CollectionScreen() {
       <Header
         title={title}
         subtitle={subtitle}
-        offset={titleOffset}
-        opacity={scrollY.interpolate({
-          inputRange: [inputRange, inputRange],
-          outputRange: [0, 1]
-        })}
+        opacity={
+          scrollY.interpolate({
+            inputRange: [inputRange, inputRange],
+            outputRange: [0, 1]
+          }) as Animated.Value
+        }
       />
       <VerticalList
         resultsData={movies}

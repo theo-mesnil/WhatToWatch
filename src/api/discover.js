@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { useCallback } from 'react';
-
-import { useApiUrl } from './api';
+import * as React from 'react';
 
 import { errorLog } from 'utils/logger';
+
+import { useApiUrl } from './api';
 
 export const useGetDiscoverMovie = () => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl('discover/movie', params));
@@ -26,7 +26,7 @@ export const useGetDiscoverMovie = () => {
 export const useGetDiscoverTvShow = () => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl('discover/tv', params));

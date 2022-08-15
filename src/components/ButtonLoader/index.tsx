@@ -1,6 +1,6 @@
-import React from 'react';
-import { Box } from 'components/Box';
+import * as React from 'react';
 
+import { Box } from 'components/Box';
 import { Loader } from 'components/Loader';
 
 export function ButtonLoader() {

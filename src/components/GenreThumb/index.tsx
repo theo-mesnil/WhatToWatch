@@ -1,10 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import { useTheme } from 'styled-components/native';
-import { Text, TextProps } from 'components/Text';
+
 import { Box, BoxProps } from 'components/Box';
-import { Touchable, TouchableProps } from 'components/Touchable';
 import { Gradient } from 'components/Gradient';
 import { Loader } from 'components/Loader';
+import { Text, TextProps } from 'components/Text';
+import { Touchable, TouchableProps } from 'components/Touchable';
 
 type GenreThumbProps = BoxProps &
   Pick<TouchableProps, 'onPress'> & {

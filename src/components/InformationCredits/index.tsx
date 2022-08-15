@@ -1,5 +1,6 @@
-import React from 'react';
 import { useNavigation } from '@react-navigation/core';
+import * as React from 'react';
+
 import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
 

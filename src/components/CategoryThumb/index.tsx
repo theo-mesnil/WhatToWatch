@@ -1,15 +1,15 @@
-import React from 'react';
+import * as React from 'react';
 import { ImageBackground } from 'react-native';
-import { Text } from 'components/Text';
+
 import { Box, BoxProps } from 'components/Box';
-import { Touchable, TouchableProps } from 'components/Touchable';
 import { Gradient, GradientProps } from 'components/Gradient';
 import { Icon } from 'components/Icon';
 import { Loader } from 'components/Loader';
+import { Text } from 'components/Text';
+import { Touchable, TouchableProps } from 'components/Touchable';
+import { getImageUrl } from 'utils/images';
 
 import * as S from './styles';
-
-import { getImageUrl } from 'utils/images';
 
 type CategoryThumbProps = BoxProps &
   Pick<TouchableProps, 'onPress'> & {

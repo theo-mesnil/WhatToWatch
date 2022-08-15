@@ -1,12 +1,19 @@
-import React from 'react';
+import * as React from 'react';
 import { Image } from 'react-native';
 
 import { Box } from 'components/Box';
-import { Text } from 'components/Text';
-import { Touchable } from 'components/Touchable';
-import { getImageUrl } from 'utils/images';
-import { NoCover } from 'components/NoCover';
 import { TvFillIcon } from 'components/Icon';
+import { NoCover } from 'components/NoCover';
+import { Text } from 'components/Text';
+import { Touchable, TouchableProps } from 'components/Touchable';
+import { getImageUrl } from 'utils/images';
+
+type SeasonThumb = Pick<TouchableProps, 'onPress'> & {
+  airDate?: string;
+  episodes: string;
+  imageUrl?: string;
+  title: string;
+};
 
 export function SeasonThumb({
   airDate,
@@ -23,10 +30,9 @@ export function SeasonThumb({
       <Touchable onPress={onPress}>
         <Box backgroundColor="thumbBackground" flexDirection="row">
           <Box width={55} height="auto">
-            <Box
-              as={Image}
-              width={1}
-              style={{ aspectRatio: 2 / 3 }}
+            <Image
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{ aspectRatio: 2 / 3, width: '100%' }}
               source={{ uri: getImageUrl(imageUrl) }}
             />
             {!imageUrl && <NoCover withGradient icon={TvFillIcon} />}

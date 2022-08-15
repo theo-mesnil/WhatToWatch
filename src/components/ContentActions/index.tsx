@@ -1,13 +1,13 @@
-import React from 'react';
+import * as React from 'react';
+
 import { Box } from 'components/Box';
 import { Centered } from 'components/Centered';
 import { ClockFillIcon, Icon, StarFillIcon } from 'components/Icon';
 import { Loader } from 'components/Loader';
 import { PlayButton } from 'components/PlayButton';
+import { ScreenSection } from 'components/ScreenSection';
 import { Text } from 'components/Text';
 import { getPlayVideoType } from 'utils/videos';
-
-import { ScreenSection } from 'components/ScreenSection';
 
 type ContentActionsProps = {
   homepage: string;

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Animated } from 'react-native';
+
+import { AnimatedBox } from 'components/AnimatedBox';
 import { Box, BoxProps } from 'components/Box';
 import { Gradient } from 'components/Gradient';
-import { AnimatedBox } from 'components/AnimatedBox';
 
 export interface LoaderProps extends BoxProps {
   colors?: [Color, Color];
@@ -13,9 +14,9 @@ export function Loader({
   ...rest
 }: LoaderProps) {
   const startValue = 0.1;
-  const [fadeAnim] = useState(new Animated.Value(startValue));
+  const [fadeAnim] = React.useState(new Animated.Value(startValue));
 
-  useEffect(() => {
+  React.useEffect(() => {
     Animated.loop(
       Animated.sequence([
         Animated.timing(fadeAnim, {

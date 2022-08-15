@@ -26,7 +26,7 @@ export type TextProps = ColorProps &
     color?: keyof DefaultTheme['colors'];
     theme: DefaultTheme;
     variant?: keyof DefaultTheme['fontSizes'];
-    weight?: 'regular' | 'bold';
+    weight?: 'regular' | 'bold' | undefined;
   };
 
 export const Text = styled.Text(

@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { IntlProvider } from 'react-intl';
 
-import fr from './fr';
-import en from './en';
-
 import { useLocale } from 'contexts/locales';
+
+import en from './en';
+import fr from './fr';
 
 function flattenMessages(nestedMessages, prefix = '') {
   return Object.keys(nestedMessages).reduce((messages, key) => {

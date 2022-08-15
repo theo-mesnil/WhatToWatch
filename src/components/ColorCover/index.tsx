@@ -1,7 +1,7 @@
-import { statusBarHeight } from 'constants/statusBar';
+import * as React from 'react';
 
-import React from 'react';
 import { Box, BoxProps } from 'components/Box';
+import { statusBarHeight } from 'constants/statusBar';
 
 export function ColorCover(props: BoxProps) {
   return (

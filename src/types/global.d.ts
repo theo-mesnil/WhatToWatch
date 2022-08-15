@@ -30,9 +30,10 @@ declare global {
 
   type Videos = Video[];
 
-  type IconSize = number | string;
+  type IconSize = number;
 
   type ContentType = 'tv' | 'movie' | 'people' | string;
+
   type Type = 'tv' | 'movie' | 'people' | 'all';
 
   type Image = {

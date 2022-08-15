@@ -55,7 +55,7 @@ export function getNetworkName(id: NetworkId) {
   }
 }
 
-export function getNetworkColor(id: number) {
+export function getNetworkColor(id: NetworkId) {
   switch (id) {
     case 213:
       return '#E50914';

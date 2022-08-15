@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ButtonLoader } from 'components/ButtonLoader';
+
 import { Box, BoxProps } from 'components/Box';
 import { Button } from 'components/Button';
+import { ButtonLoader } from 'components/ButtonLoader';
 import { Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { getNetworkColor, getNetworkLogo } from 'utils/networks';
@@ -24,7 +25,7 @@ export function PlayButton({
   type,
   ...rest
 }: PlayButtonProps) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = React.useState(true);
   const { handleVideoPress, isNetwork } = useVideo({
     id,
     name,
@@ -35,7 +36,7 @@ export function PlayButton({
   const color = isNetwork ? getNetworkColor(id) : undefined;
   const logo = isNetwork ? getNetworkLogo(id) : undefined;
 
-  useEffect(() => {
+  React.useEffect(() => {
     // avoid glitch
     setTimeout(() => setLoading(false), 0);
   }, []);

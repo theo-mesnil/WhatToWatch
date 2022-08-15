@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Text } from 'components/Text';
+
 import { Box } from 'components/Box';
+import { Text } from 'components/Text';
 
 type InformationProps = {
   children: React.ReactNode;

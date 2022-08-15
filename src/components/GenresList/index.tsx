@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useGenres } from 'contexts/genres';
+
 import { GenreThumb } from 'components/GenreThumb';
+import { List } from 'components/List';
+import { useGenres } from 'contexts/genres';
 
 import { Actions } from './Actions';
-
-import { List } from 'components/List';
 
 export function GenresList({ type = 'all', ...rest }) {
   const navigation = useNavigation();
   const bothTypes = type === 'all';
-  const [typeSelected, setTypeSelected] = useState(bothTypes ? 'tv' : type);
+  const [typeSelected, setTypeSelected] = React.useState(
+    bothTypes ? 'tv' : type
+  );
   const { movie, tv } = useGenres();
   const isTV = typeSelected === 'tv';
 

@@ -1,5 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
+
 import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
 

@@ -1,7 +1,8 @@
 import * as React from 'react';
+
 import { Box, BoxProps } from 'components/Box';
-import { Touchable, TouchableProps } from 'components/Touchable';
 import { Text } from 'components/Text';
+import { Touchable, TouchableProps } from 'components/Touchable';
 
 type ButtonProps = BoxProps & {
   onPress?: TouchableProps['onPress'];

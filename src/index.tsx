@@ -1,22 +1,23 @@
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/fr';
-import React, { useCallback } from 'react';
+
 import {
   Poppins_400Regular,
   Poppins_600SemiBold,
   useFonts
 } from '@expo-google-fonts/poppins';
-import { StatusBar } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import { coreTheme } from 'themes/core';
+import * as React from 'react';
+import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
-import { Box } from 'components/Box';
 
-import { LocaleProvider } from 'contexts/locales';
+import { Box } from 'components/Box';
 import { IntlMessages } from 'components/IntlMessages';
 import { GenresProvider } from 'contexts/genres';
+import { LocaleProvider } from 'contexts/locales';
 import { Navigation } from 'navigation';
+import { coreTheme } from 'themes/core';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,7 +27,7 @@ export function AppIndex() {
     Poppins_600SemiBold
   });
 
-  const onLayoutRootView = useCallback(async () => {
+  const onLayoutRootView = React.useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
     }

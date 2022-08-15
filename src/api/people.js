@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { useCallback, useMemo } from 'react';
-
-import { useApiUrl } from './api';
+import * as React from 'react';
 
 import { errorLog } from 'utils/logger';
+
+import { useApiUrl } from './api';
 
 export const useGetPeople = (peopleID) => {
   const apiUrl = useApiUrl();
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(apiUrl(`person/${peopleID}`, params));
@@ -47,9 +47,9 @@ export const useGetPeople = (peopleID) => {
 
 export const useGetPeopleImages = (peopleID) => {
   const apiUrl = useApiUrl();
-  let imagesFormatted = useMemo(() => [], []);
+  let imagesFormatted = React.useMemo(() => [], []);
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, params) => {
       try {
         const response = await axios.get(
@@ -86,7 +86,7 @@ export const useGetPeopleKnowFor = (peopleID) => {
     return array?.length > 0 ? array?.splice(0, 15) : undefined;
   }
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, department, params) => {
       const isAnActing = department === 'Acting';
       let dataSorted = {};
@@ -158,7 +158,7 @@ export const useGetPeopleCredits = (peopleID) => {
     return values;
   }
 
-  const handleData = useCallback(
+  const handleData = React.useCallback(
     async (callback, department, params) => {
       const isAnActing = department === 'Acting';
 

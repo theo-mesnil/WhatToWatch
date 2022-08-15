@@ -1,14 +1,14 @@
-import { isAndroid } from 'constants/screen';
-
-import React from 'react';
+import * as React from 'react';
 import { ImageBackground } from 'react-native';
+
 import { Box } from 'components/Box';
-import { Text } from 'components/Text';
 import { Gradient } from 'components/Gradient';
 import { Icon, StarFillIcon, TvFillIcon } from 'components/Icon';
 import { NoCover } from 'components/NoCover';
-import { getImageUrl } from 'utils/images';
+import { Text } from 'components/Text';
+import { isAndroid } from 'constants/screen';
 import { useFormatReleasedDate } from 'utils/dates';
+import { getImageUrl } from 'utils/images';
 
 type EpisodeThumbProps = {
   airDate?: string;
@@ -39,12 +39,11 @@ export function EpisodeThumb({
     <Box borderRadius="md" overflow="hidden" {...rest}>
       <Box backgroundColor="thumbBackground">
         <Box>
-          <Box
-            as={ImageBackground}
+          <ImageBackground
             style={{ aspectRatio: 16 / 9 }}
             source={{ uri: getImageUrl(cover, 780) }}
           >
-            {!cover && <NoCover icon={TvFillIcon} size="40%" />}
+            {!cover && <NoCover icon={TvFillIcon} size={0.4} />}
             <Gradient
               position="absolute"
               top="30%"
@@ -61,7 +60,7 @@ export function EpisodeThumb({
                 {title}
               </Text>
             </Box>
-          </Box>
+          </ImageBackground>
         </Box>
         {(!!airDate || (!!number && !!count) || !!overview) && (
           <Box p="md">

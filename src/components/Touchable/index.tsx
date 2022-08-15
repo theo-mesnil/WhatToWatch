@@ -1,4 +1,3 @@
-import { AnimatedBox } from 'components/AnimatedBox';
 import * as React from 'react';
 import { Animated, PressableProps } from 'react-native';
 import { useTheme } from 'styled-components/native';
@@ -10,6 +9,8 @@ import {
   PositionProps,
   SpaceProps
 } from 'styled-system';
+
+import { AnimatedBox } from 'components/AnimatedBox';
 
 import * as S from './styles';
 

@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+
 import { Thumb } from 'components/Thumb';
 
 type TvShowThumbProps = {
@@ -17,5 +18,5 @@ export function TvShowThumb({
 }: TvShowThumbProps) {
   const imageUrl = withBackdropImage ? item?.backdrop_path : item?.poster_path;
 
-  return <Thumb id={item.id} imageUrl={imageUrl} type="tv" {...rest} />;
+  return <Thumb imageUrl={imageUrl} type="tv" {...rest} />;
 }

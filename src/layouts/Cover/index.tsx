@@ -1,12 +1,14 @@
-import { windowWidth } from 'constants/screen';
-import { blurRadius } from 'constants/styles';
-
 import * as React from 'react';
-import { Animated, ImageBackground } from 'react-native';
-import { getImageUrl } from 'utils/images';
+import { Animated } from 'react-native';
+
+import { AnimatedBox } from 'components/AnimatedBox';
 import { Box } from 'components/Box';
 import { Gradient } from 'components/Gradient';
-import { AnimatedBox } from 'components/AnimatedBox';
+import { windowWidth } from 'constants/screen';
+import { blurRadius } from 'constants/styles';
+import { getImageUrl } from 'utils/images';
+
+import * as S from './styles';
 
 type CoverLayoutProps = {
   imageUrl: string;
@@ -14,7 +16,6 @@ type CoverLayoutProps = {
 
 export function CoverLayout({ imageUrl, ...rest }: CoverLayoutProps) {
   const [scrollY] = React.useState(new Animated.Value(0));
-  const [opacity] = React.useState(new Animated.Value(1));
   const aspectRatio = 16 / 9;
   const inputRange = windowWidth / aspectRatio;
 
@@ -31,11 +32,9 @@ export function CoverLayout({ imageUrl, ...rest }: CoverLayoutProps) {
           })
         }}
       >
-        <ImageBackground
-          flex={1}
+        <S.Image
           source={{ uri: getImageUrl(imageUrl) }}
           style={{ aspectRatio }}
-          opacity={0.5}
           blurRadius={blurRadius}
         />
       </AnimatedBox>
@@ -55,16 +54,6 @@ export function CoverLayout({ imageUrl, ...rest }: CoverLayoutProps) {
             {
               nativeEvent: {
                 contentOffset: { y: scrollY }
-              }
-            }
-          ],
-          {
-            useNativeDriver: true
-          },
-          [
-            {
-              nativeEvent: {
-                contentOffset: { y: opacity }
               }
             }
           ],
