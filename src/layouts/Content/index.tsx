@@ -7,9 +7,11 @@ type ContentLayoutProps = {
   title: string;
   titleOffset?: number;
   titleOffsetSubtraction?: number;
+  children: React.ReactNode;
 };
 
 export function ContentLayout({
+  children,
   title,
   titleOffset = 300,
   titleOffsetSubtraction = 70,
@@ -46,7 +48,9 @@ export function ContentLayout({
           }
         )}
         {...rest}
-      />
+      >
+        {children}
+      </Animated.ScrollView>
     </>
   );
 }

@@ -5,8 +5,6 @@ import { useIntl } from 'react-intl';
 import { useTheme } from 'styled-components/native';
 
 import {
-  // BulbFillIcon,
-  // BulbIcon,
   FlashFillIcon,
   FlashIcon,
   GlobeFillIcon,
@@ -20,11 +18,12 @@ import {
 import { isAndroid } from 'constants/screen';
 import { DiscoverScreen } from 'screens/Discover';
 import { MoreScreen } from 'screens/More';
-// import { IdeasScreen } from 'screens/Ideas'
 import { SearchScreen } from 'screens/Search';
 import { TrendsScreen } from 'screens/Trends';
 
-const Tab = createBottomTabNavigator();
+import { MainTabParamList } from './types';
+
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const androidTabBarStyle = isAndroid
   ? {
@@ -75,9 +74,10 @@ export function TabBar() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
-        name={intl.formatMessage({ id: 'tabs.discover' })}
+        name="Discover"
         component={DiscoverScreen}
         options={{
+          title: intl.formatMessage({ id: 'tabs.discover' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -86,22 +86,11 @@ export function TabBar() {
             })
         }}
       />
-      {/* <Tab.Screen
-        name={intl.formatMessage({ id: 'tabs.ideas' })}
-        component={IdeasScreen}
-        options={{
-          tabBarIcon: (props) =>
-            tabBarIcon({
-              ...props,
-              icon: BulbIcon,
-              iconFocused: BulbFillIcon
-            })
-        }}
-      /> */}
       <Tab.Screen
-        name={intl.formatMessage({ id: 'tabs.search' })}
+        name="Search"
         component={SearchScreen}
         options={{
+          title: intl.formatMessage({ id: 'tabs.search' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -111,9 +100,10 @@ export function TabBar() {
         }}
       />
       <Tab.Screen
-        name={intl.formatMessage({ id: 'tabs.trends' })}
+        name="Trends"
         component={TrendsScreen}
         options={{
+          title: intl.formatMessage({ id: 'tabs.trends' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -123,9 +113,10 @@ export function TabBar() {
         }}
       />
       <Tab.Screen
-        name={intl.formatMessage({ id: 'tabs.more' })}
+        name="More"
         component={MoreScreen}
         options={{
+          title: intl.formatMessage({ id: 'tabs.more' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,

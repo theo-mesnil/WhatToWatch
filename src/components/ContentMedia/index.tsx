@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
+import { RootStackScreenProps } from 'navigation/types';
 import * as React from 'react';
 
-import { Box } from 'components/Box';
+import { Box, BoxProps } from 'components/Box';
 import { Centered } from 'components/Centered';
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 
-type ContentMediaProps = {
+type ContentMediaProps = BoxProps & {
   backdrops?: Images;
   posters?: Images;
 };
@@ -16,7 +17,8 @@ export function ContentMedia({
   posters,
   ...rest
 }: ContentMediaProps) {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<RootStackScreenProps<'Images'>['navigation']>();
 
   const navigateToImagesPosters = () =>
     navigation.push('Images', { images: posters });

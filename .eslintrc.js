@@ -25,7 +25,7 @@ module.exports = {
         ],
         'newlines-between': 'always',
         pathGroups: [
-          { pattern: 'api', group: 'internal' },
+          { pattern: 'api/**', group: 'internal' },
           { pattern: 'assets/**', group: 'internal', position: 'after' },
           { pattern: 'components/**', group: 'internal' },
           { pattern: 'constants/**', group: 'internal' },

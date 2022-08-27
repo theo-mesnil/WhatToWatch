@@ -35,7 +35,7 @@ const BackButton = ({ withCrossIcon }: BackButtonProps) => {
 
 type HeaderProps = Omit<BoxProps, 'opacity'> & {
   subtitle?: string | React.ReactElement;
-  title: string;
+  title: string | React.ReactElement;
   withCrossIcon?: boolean;
   opacity?: number | Animated.Value;
 };

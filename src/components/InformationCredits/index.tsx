@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
+import { RootStackScreenProps } from 'navigation/types';
 import * as React from 'react';
 
 import { Text } from 'components/Text';
@@ -7,7 +8,7 @@ import { Touchable } from 'components/Touchable';
 type Credit = {
   name: string;
   job: string;
-  id: string;
+  id: number;
 };
 
 type InformationCreditsProps = {
@@ -15,7 +16,8 @@ type InformationCreditsProps = {
 };
 
 export function InformationCredits({ credits }: InformationCreditsProps) {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<RootStackScreenProps<'People'>['navigation']>();
 
   return credits?.map((credit, index) => {
     const navigateToPeople = () =>

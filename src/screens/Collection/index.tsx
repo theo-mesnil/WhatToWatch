@@ -1,4 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackScreenProps } from 'navigation/types';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Animated } from 'react-native';
@@ -14,10 +15,12 @@ export function CollectionScreen() {
   const [titleOffset, setTitleOffset] = React.useState(300);
   const [collection, setCollection] = React.useState({
     backdrop: 'loading',
-    movies: 'loading'
+    movies: 'loading',
+    title: undefined
   });
-  const navigation = useNavigation();
-  const route = useRoute();
+  const navigation =
+    useNavigation<RootStackScreenProps<'Movie'>['navigation']>();
+  const route = useRoute<RootStackScreenProps<'Collection'>['route']>();
   const collectionID = route?.params?.id || 1241;
   const getCollection = useGetCollection(collectionID);
   const inputRange = titleOffset - 70;

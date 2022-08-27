@@ -2,20 +2,12 @@ import * as React from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
-import { Box } from 'components/Box';
+import { Box, BoxProps } from 'components/Box';
 import { Text } from 'components/Text';
 import { fakeData10 } from 'constants/mocks';
 import { screenWidth } from 'constants/screen';
 
 import * as S from './styles';
-
-type OnPressParams = {
-  id?: number;
-  index: number;
-  mediaType?: string;
-  name?: string;
-  type?: string;
-};
 
 type Item = {
   id?: number;
@@ -25,19 +17,19 @@ type Item = {
   type?: string;
 };
 
-type ListItem = React.ComponentType;
+type ListItem = React.ElementType;
 
-type ListProps = {
+export type ListProps = BoxProps & {
   actions?: React.ReactNode;
-  onPress?: (params: OnPressParams) => any;
+  onPress?: (params: any) => any;
   aspectRatio?: number;
-  data: any[];
+  data?: any[];
   imageWidth?: number;
   itemPerPage?: number;
   keyName: string;
   listItem: ListItem;
   pagingEnabled?: boolean;
-  title: string;
+  title?: React.ReactElement;
   withBackdropImage?: boolean;
   withNumber?: boolean;
   withTitleOnCover?: boolean;
@@ -117,9 +109,11 @@ export const List = React.memo(
           mb="sm"
           {...rest}
         >
-          <Text numberOfLines={1} variant="h2">
-            {title}
-          </Text>
+          {!!title && (
+            <Text numberOfLines={1} variant="h2">
+              {title}
+            </Text>
+          )}
           {!!actions && (
             <Box flexGrow={0} flexDirection="row" alignItems="center">
               {actions}
@@ -127,7 +121,7 @@ export const List = React.memo(
           )}
         </Box>
         <Box flex={1}>
-          <FlatList<ListItem>
+          <FlatList
             initialNumToRender={itemPerPage + 1}
             horizontal
             data={dataFormatted}

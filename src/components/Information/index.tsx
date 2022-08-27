@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { Box } from 'components/Box';
+import { Box, BoxProps } from 'components/Box';
 import { Text } from 'components/Text';
 
-type InformationProps = {
+type InformationProps = BoxProps & {
   children: React.ReactNode;
-  title: string;
+  title: React.ReactNode;
 };
 
 export function Information({ children, title, ...rest }: InformationProps) {

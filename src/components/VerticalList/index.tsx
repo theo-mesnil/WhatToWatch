@@ -4,22 +4,27 @@ import { useTheme } from 'styled-components/native';
 import { SpaceProps } from 'styled-system';
 
 import { Box } from 'components/Box';
-import { TouchableProps } from 'components/Touchable';
 import { fakeData30 } from 'constants/mocks';
 
-type VerticalListProps = Pick<TouchableProps, 'onPress'> & {
+type Param = {
+  value: number | string;
+  name: string;
+};
+
+type VerticalListProps = {
   aspectRatio?: number;
-  children: React.ReactNode;
-  getApi: () => void;
-  handleScroll: () => void;
+  children?: React.ReactNode;
+  getApi?: (a: any, b: any, c?: any) => void;
+  handleScroll?: (scrollY: Animated.Value) => void;
   initialNumToRender?: number;
   maxPage?: number;
   numberOfColumns?: number;
-  paddingTop: SpaceProps['pt'];
-  param: string;
-  params: string[];
-  renderItem: React.ReactNode;
-  resultsData: any;
+  paddingTop?: SpaceProps['pt'];
+  param?: string;
+  params?: Param[];
+  renderItem: React.ElementType;
+  resultsData?: any;
+  onPress?: (props: any) => void;
 };
 
 export function VerticalList({
@@ -41,7 +46,7 @@ export function VerticalList({
   const [results, setResults] = React.useState(resultsData || 'loading');
   const [page, setPage] = React.useState(1);
   const theme = useTheme();
-  const allParams = [{ name: 'page', value: page }].concat(params);
+  const allParams = params.push({ name: 'page', value: page });
   const resultFromParent = !!resultsData;
   const isLoading = results === 'loading' || resultsData === 'loading';
   const dataFormatted = isLoading ? fakeData30 : results;
@@ -109,9 +114,11 @@ export function VerticalList({
         isLoading ? `loading_${index}` : `${index}_${item.id}`
       }
       ListHeaderComponent={
-        <Box mb="lg" pt={paddingTop}>
-          {children}
-        </Box>
+        !!children && (
+          <Box mb="lg" pt={paddingTop}>
+            {children}
+          </Box>
+        )
       }
       ListFooterComponent={<Box mt="lg" />}
       numColumns={numberOfColumns}

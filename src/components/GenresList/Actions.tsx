@@ -4,7 +4,14 @@ import { FormattedMessage } from 'react-intl';
 import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
 
-export function Actions({ handleClick, type }) {
+type Type = 'tv' | 'movie';
+
+type ActionsProps = {
+  handleClick: (type: Type) => void;
+  type: Type;
+};
+
+export function Actions({ handleClick, type }: ActionsProps) {
   return (
     <>
       <Touchable onPress={() => handleClick('tv')}>

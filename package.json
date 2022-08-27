@@ -9,7 +9,9 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "yarn build:android": "eas build --platform android",
-    "yarn build:ios": "eas build --platform ios"
+    "yarn build:ios": "eas build --platform ios",
+    "lint": "npx eslint",
+    "lint:ts": "npx tsc --noEmit"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.2",
@@ -70,12 +72,6 @@
     "styled-components": "^5",
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0"
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,json}": [
-      "prettier --write",
-      "eslint"
-    ]
   },
   "private": true
 }

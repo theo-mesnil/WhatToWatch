@@ -10,8 +10,8 @@ type GenresContextInterface = {
 export const GenresContext = React.createContext<GenresContextInterface>(null);
 
 export function GenresProvider({ children }) {
-  const [genresTv, setGenresTv] = React.useState();
-  const [genresMovie, setGenresMovie] = React.useState();
+  const [genresTv, setGenresTv] = React.useState(undefined);
+  const [genresMovie, setGenresMovie] = React.useState(undefined);
   const getGenres = useGetGenres();
 
   React.useEffect(() => {

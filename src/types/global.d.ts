@@ -34,7 +34,7 @@ declare global {
 
   type ContentType = 'tv' | 'movie' | 'people' | string;
 
-  type Type = 'tv' | 'movie' | 'people' | 'all';
+  type Type = 'tv' | 'movie' | 'people' | 'person' | 'all';
 
   type Image = {
     aspectRatio?: number;

@@ -17,39 +17,9 @@ import { TvShowScreen } from 'screens/TvShow';
 import { VideoScreen } from 'screens/Video';
 
 import { TabBar } from './TabBar';
+import { RootStackParamList } from './types';
 
-type MainStackParamList = {
-  TabBar: undefined;
-  Movie: { id: number };
-  TvShow: { id: number };
-  Collection: { id: number };
-  Genre: { id: number; name: String; type: 'movie' | 'tv' };
-  Genres: { type: 'movie' | 'tv' };
-  Network: { id: number };
-  People: { id: number };
-  Trend: { type: 'movie' | 'tv' | 'people' | 'all' };
-};
-
-type ModalStackParamList = {
-  Main: MainStackParamList;
-  Images: {
-    title?: string;
-    images: {
-      aspectRatio?: number;
-      source: string;
-    };
-  };
-  Video: { title: string; id: number };
-  Season: {
-    seasonNumber: number;
-    seasonTitle: string;
-    tvID: number;
-    tvShowTitle: string;
-  };
-};
-
-const Main = createStackNavigator<MainStackParamList>();
-const Modal = createStackNavigator<ModalStackParamList>();
+const Main = createStackNavigator<RootStackParamList>();
 
 function navigatorTheme(theme) {
   return {
@@ -61,33 +31,29 @@ function navigatorTheme(theme) {
   };
 }
 
-const MainStack = () => (
-  <Main.Navigator screenOptions={{ headerShown: false }}>
-    <Main.Screen name="TabBar" component={TabBar} />
-    <Main.Screen name="Movie" component={MovieScreen} />
-    <Main.Screen name="TvShow" component={TvShowScreen} />
-    <Main.Screen name="Collection" component={CollectionScreen} />
-    <Main.Screen name="Genre" component={GenreScreen} />
-    <Main.Screen name="Genres" component={GenresScreen} />
-    <Main.Screen name="Network" component={NetworkScreen} />
-    <Main.Screen name="People" component={PeopleScreen} />
-    <Main.Screen name="Trend" component={TrendScreen} />
-  </Main.Navigator>
-);
-
 export function Navigation() {
   const theme = useTheme();
 
   return (
     <NavigationContainer theme={navigatorTheme(theme)}>
-      <Modal.Navigator
-        screenOptions={{ presentation: 'modal', headerShown: false }}
-      >
-        <Modal.Screen name="Main" component={MainStack} />
-        <Modal.Screen name="Images" component={ImagesScreen} />
-        <Modal.Screen name="Video" component={VideoScreen} />
-        <Modal.Screen name="Season" component={SeasonScreen} />
-      </Modal.Navigator>
+      <Main.Navigator screenOptions={{ headerShown: false }}>
+        <Main.Group>
+          <Main.Screen name="TabBar" component={TabBar} />
+          <Main.Screen name="Movie" component={MovieScreen} />
+          <Main.Screen name="TvShow" component={TvShowScreen} />
+          <Main.Screen name="Collection" component={CollectionScreen} />
+          <Main.Screen name="Genre" component={GenreScreen} />
+          <Main.Screen name="Genres" component={GenresScreen} />
+          <Main.Screen name="Network" component={NetworkScreen} />
+          <Main.Screen name="People" component={PeopleScreen} />
+          <Main.Screen name="Trend" component={TrendScreen} />
+        </Main.Group>
+        <Main.Group screenOptions={{ presentation: 'modal' }}>
+          <Main.Screen name="Images" component={ImagesScreen} />
+          <Main.Screen name="Video" component={VideoScreen} />
+          <Main.Screen name="Season" component={SeasonScreen} />
+        </Main.Group>
+      </Main.Navigator>
     </NavigationContainer>
   );
 }

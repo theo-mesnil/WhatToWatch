@@ -13,7 +13,7 @@ import { getImageUrl } from 'utils/images';
 interface ContentCoverProps extends BoxProps {
   backdrop?: string;
   setTitleOffset: (y: number) => void;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   title?: string;
   type?: ContentType;
 }

@@ -12,9 +12,10 @@ import * as S from './styles';
 
 type CoverLayoutProps = {
   imageUrl: string;
+  children: React.ReactNode;
 };
 
-export function CoverLayout({ imageUrl, ...rest }: CoverLayoutProps) {
+export function CoverLayout({ children, imageUrl, ...rest }: CoverLayoutProps) {
   const [scrollY] = React.useState(new Animated.Value(0));
   const aspectRatio = 16 / 9;
   const inputRange = windowWidth / aspectRatio;
@@ -62,7 +63,9 @@ export function CoverLayout({ imageUrl, ...rest }: CoverLayoutProps) {
           }
         )}
       >
-        <Box pb="xl" pt="xxl" {...rest} />
+        <Box pb="xl" pt="xxl" {...rest}>
+          {children}
+        </Box>
       </Animated.ScrollView>
     </>
   );
