@@ -20,7 +20,6 @@ export const Item = memo(({ item }: ItemProps) => {
         aspectRatio={item?.aspectRatio}
         maxWidth={700}
         width={screenWidth}
-        as={Image}
         source={{ uri: getImageUrl(item?.source, 500) }}
       />
     </Box>
