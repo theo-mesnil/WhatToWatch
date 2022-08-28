@@ -68,7 +68,7 @@ export function PeopleThumb({
                       variant="h3"
                       mt="xxs"
                       numberOfLines={!subtitle ? 2 : 1}
-                      textAlign={!subtitle && 'center'}
+                      textAlign={!subtitle ? 'center' : undefined}
                     >
                       {title}
                     </Text>

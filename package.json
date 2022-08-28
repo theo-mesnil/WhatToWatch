@@ -8,8 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "yarn build:android": "eas build --platform android",
-    "yarn build:ios": "eas build --platform ios",
+    "build:android": "eas build --platform android",
+    "build:ios": "eas build --platform ios",
     "lint": "npx eslint",
     "lint:ts": "npx tsc --noEmit",
     "prepare": "husky install"
