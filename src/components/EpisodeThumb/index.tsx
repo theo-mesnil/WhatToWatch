@@ -77,19 +77,10 @@ export function EpisodeThumb({
                   mt={isAndroid && -3}
                 >
                   <Icon color="yellow" mr={2} size={12} icon={StarFillIcon} />
-                  <Text
-                    textAlignVertical="center"
-                    variant="subtitle1"
-                    weight="bold"
-                    color="yellow"
-                  >
+                  <Text variant="subtitle1" weight="bold" color="yellow">
                     {number}
                   </Text>
-                  <Text
-                    textAlignVertical="center"
-                    variant="subtitle2"
-                    mt={isAndroid && 3}
-                  >
+                  <Text variant="subtitle2" mt={isAndroid && 3}>
                     {' '}
                     ({count})
                   </Text>

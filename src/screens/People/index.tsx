@@ -37,7 +37,7 @@ import { TvShows, TvShowsList } from './TvShowsList';
 const avatarSize = 150;
 
 export function PeopleScreen() {
-  const [titleOffset, setTitleOffset] = useState();
+  const [titleOffset, setTitleOffset] = useState(0);
   const [people, setPeople] = useState({
     name: 'loading',
     biography: 'loading',

@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components/native';
 
-export const Image = styled.ImageBackground(
+import { ImageBackground } from 'components/ImageBackground';
+
+export const Image = styled(ImageBackground)(
   ({ theme }) => css`
     overflow: hidden;
     border-radius: ${theme.radii.md}px;

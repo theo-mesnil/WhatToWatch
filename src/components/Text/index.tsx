@@ -10,6 +10,7 @@ import {
   PositionProps,
   space,
   SpaceProps,
+  TextAlignProps,
   typography,
   TypographyProps
 } from 'styled-system';
@@ -22,7 +23,8 @@ export type TextProps = ColorProps &
   PositionProps &
   SpaceProps &
   TypographyProps &
-  Omit<ColorProps, 'color'> & {
+  Omit<ColorProps, 'color'> &
+  TextAlignProps & {
     color?: keyof DefaultTheme['colors'];
     theme: DefaultTheme;
     variant?: keyof DefaultTheme['fontSizes'];
