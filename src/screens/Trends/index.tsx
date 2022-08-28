@@ -10,6 +10,11 @@ import { GridFillIcon, MovieFillIcon, TvFillIcon } from 'components/Icon';
 import { BasicLayout } from 'layouts/Basic';
 import { getTrendTitle } from 'utils/trends';
 
+type Trending = {
+  backdrop_path: string;
+  profile_path: string;
+}[];
+
 function CategoryItem(props) {
   return (
     <Box width={'50%'} p="xs">
@@ -21,12 +26,19 @@ function CategoryItem(props) {
 }
 
 export function TrendsScreen() {
-  const [trendingMovie, setTrendingMovie] = useState('loading');
-  const [trendingTv, setTrendingTv] = useState('loading');
-  const [trendingPeople, setTrendingPeople] = useState('loading');
+  const [trendingMovie, setTrendingMovie] = useState<Trending | 'loading'>(
+    'loading'
+  );
+  const [trendingTv, setTrendingTv] = useState<Trending | 'loading'>('loading');
+  const [trendingPeople, setTrendingPeople] = useState<Trending | 'loading'>(
+    'loading'
+  );
   const getTrending = useGetTrending();
   const theme = useTheme();
   const navigation = useNavigation();
+  const trendingMovieIsLoading = trendingMovie === 'loading';
+  const trendingTvIsLoading = trendingTv === 'loading';
+  const trendingPeopleIsLoading = trendingPeople === 'loading';
 
   useEffect(() => {
     getTrending(setTrendingTv);
@@ -39,22 +51,24 @@ export function TrendsScreen() {
     <BasicLayout>
       <Box p="sm" flexDirection="row" flexWrap="wrap">
         <CategoryItem
-          imageUrl={trendingMovie?.[0].backdrop_path}
-          isLoading={trendingMovie === 'loading'}
+          imageUrl={!trendingMovieIsLoading && trendingMovie?.[0].backdrop_path}
+          isLoading={trendingMovieIsLoading}
           onPress={() => navigation.navigate('Trend', { type: 'movie' })}
           subtitle={<FormattedMessage id="common.trends" />}
           title={getTrendTitle('movie')}
         />
         <CategoryItem
-          imageUrl={trendingTv?.[0].backdrop_path}
-          isLoading={trendingTv === 'loading'}
+          imageUrl={!trendingTvIsLoading && trendingTv?.[0].backdrop_path}
+          isLoading={trendingTvIsLoading}
           onPress={() => navigation.navigate('Trend', { type: 'tv' })}
           subtitle={<FormattedMessage id="common.trends" />}
           title={getTrendTitle('tv')}
         />
         <CategoryItem
-          imageUrl={trendingPeople?.[0].profile_path}
-          isLoading={trendingPeople === 'loading'}
+          imageUrl={
+            !trendingPeopleIsLoading && trendingPeople?.[0].profile_path
+          }
+          isLoading={trendingPeopleIsLoading}
           onPress={() => navigation.navigate('Trend', { type: 'people' })}
           subtitle={<FormattedMessage id="common.trends" />}
           title={getTrendTitle('people')}

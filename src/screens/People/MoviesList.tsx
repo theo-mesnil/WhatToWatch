@@ -11,7 +11,23 @@ import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
 import { getImageUrl } from 'utils/images';
 
-export function MoviesList({ movies }) {
+type Movie = {
+  id: number;
+  poster_path?: string;
+  title: string;
+  character: string;
+  job: string;
+};
+
+export type Movies = {
+  [key: number]: Movie[];
+};
+
+type MoviesListProps = {
+  movies: Movies;
+};
+
+export function MoviesList({ movies }: MoviesListProps) {
   const navigation =
     useNavigation<RootStackScreenProps<'Movie'>['navigation']>();
 

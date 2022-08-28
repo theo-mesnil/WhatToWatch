@@ -1,4 +1,5 @@
 import { useRoute } from '@react-navigation/native';
+import { RootStackScreenProps } from 'navigation/types';
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -11,8 +12,8 @@ const Separator = () => <Box py="sm" />;
 const Footer = () => <Box pb="xl" />;
 
 export function SeasonScreen() {
-  const route = useRoute();
-  const [season, setSeason] = useState('loading');
+  const route = useRoute<RootStackScreenProps<'Season'>['route']>();
+  const [season, setSeason] = useState<any[] | 'loading'>('loading');
   const { seasonNumber, seasonTitle, tvID, tvShowTitle } = route?.params;
   const getTvShowSeason = useGetTvShowSeason(tvID, seasonNumber);
 
@@ -37,7 +38,7 @@ export function SeasonScreen() {
         <FlatList
           showsVerticalScrollIndicator={false}
           bounces={false}
-          data={season}
+          data={season === 'loading' ? undefined : season}
           renderItem={renderItem}
           keyExtractor={(item, index) => `${item.episode}_${index}`}
           ItemSeparatorComponent={Separator}

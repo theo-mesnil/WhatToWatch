@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
+import { RootStackScreenProps } from 'navigation/types';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -10,8 +11,25 @@ import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
 import { getImageUrl } from 'utils/images';
 
-export function TvShowsList({ tvShows }) {
-  const navigation = useNavigation();
+type TvShow = {
+  id: number;
+  poster_path?: string;
+  name: string;
+  character: string;
+  job: string;
+};
+
+export type TvShows = {
+  [key: number]: TvShow[];
+};
+
+type TvShowsListProps = {
+  tvShows: TvShows;
+};
+
+export function TvShowsList({ tvShows }: TvShowsListProps) {
+  const navigation =
+    useNavigation<RootStackScreenProps<'TvShow'>['navigation']>();
 
   return (
     <>

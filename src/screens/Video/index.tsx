@@ -1,4 +1,5 @@
 import { useRoute } from '@react-navigation/native';
+import { RootStackScreenProps } from 'navigation/types';
 import React, { useCallback, useState } from 'react';
 import { Linking } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
@@ -20,7 +21,7 @@ const height = ratio * 9;
 
 export function VideoScreen() {
   const [isPlaying, setIsPlaying] = useState(true);
-  const route = useRoute();
+  const route = useRoute<RootStackScreenProps<'Video'>['route']>();
   const { id, title } = route?.params;
 
   const onStateChange = useCallback((state) => {
@@ -41,7 +42,7 @@ export function VideoScreen() {
           height={height}
           width={width}
           play={isPlaying}
-          videoId={id}
+          videoId={`${id}`}
           onChangeState={onStateChange}
         />
         <Box flexDirection="row" mt="xl">

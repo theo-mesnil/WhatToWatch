@@ -44,4 +44,10 @@ declare global {
   type Images = Image[];
 
   type LocaleLanguage = 'fr' | 'en' | 'auto';
+
+  type Credit = {
+    name: string;
+    job: string;
+    id: number;
+  };
 }

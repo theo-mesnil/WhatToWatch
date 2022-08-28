@@ -11,12 +11,14 @@ type InformationCompaniesProps = {
 };
 
 export function InformationCompanies({ companies }: InformationCompaniesProps) {
-  return companies?.map((company, index) => {
-    return (
-      <Text key={company?.name}>
-        {company?.name}
-        {index < companies?.length - 1 && ', '}
-      </Text>
-    );
-  });
+  return (
+    <>
+      {companies?.map((company, index) => (
+        <Text key={company?.name}>
+          {company?.name}
+          {index < companies?.length - 1 && ', '}
+        </Text>
+      ))}
+    </>
+  );
 }

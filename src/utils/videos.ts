@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { RootStackScreenProps } from 'navigation/types';
 import { Linking } from 'react-native';
 
 import { getNetworkFromUrl } from './networks';
@@ -61,7 +62,8 @@ export function useVideo({ id, link, name, platform, type }: useVideoProps): {
   isYoutube: boolean;
   isVimeo: boolean;
 } {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<RootStackScreenProps<'Video'>['navigation']>();
   const isNetwork = type === 'network';
   const isYoutube = platform === 'YouTube';
   const isVimeo = platform === 'Vimeo';

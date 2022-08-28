@@ -1,4 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackScreenProps } from 'navigation/types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -32,22 +33,39 @@ import { ContentLayout } from 'layouts/Content';
 import { formatTvShowSubtitle } from 'utils/tvshows';
 
 export function TvShowScreen() {
-  const route = useRoute();
+  const route = useRoute<RootStackScreenProps<'TvShow'>['route']>();
   const [tvShow, setTvShow] = useState({
     backdrop: 'loading',
     description: 'loading',
     genres: 'loading',
-    seasons: 'loading'
+    seasons: 'loading',
+    airDate: undefined,
+    creators: undefined,
+    episodesNumber: undefined,
+    homepage: undefined,
+    networks: undefined,
+    originalTitle: undefined,
+    runtime: undefined,
+    seasonsNumber: undefined,
+    status: undefined,
+    title: undefined,
+    type: undefined,
+    votes: undefined
   });
   const [credits, setCredits] = useState({
     cast: 'loading'
   });
-  const [videos, setVideos] = useState('loading');
+  const [videos, setVideos] = useState<Videos | 'loading'>('loading');
   const [images, setImages] = useState({ backdrops: null, posters: null });
   const [recommendations, setRecommendations] = useState();
   const [similar, setSimilar] = useState();
-  const [titleOffset, setTitleOffset] = useState();
-  const navigation = useNavigation();
+  const [titleOffset, setTitleOffset] = useState(0);
+  const navigation =
+    useNavigation<
+      RootStackScreenProps<
+        'TvShow' | 'People' | 'Genre' | 'People'
+      >['navigation']
+    >();
   const tvID = route?.params?.id || 1399;
   const getTvShow = useGetTvShow(tvID);
   const getTvShowCredits = useGetTvShowCredits(tvID);
@@ -131,6 +149,8 @@ export function TvShowScreen() {
               </>
             )}
             {!isSeasonLoading &&
+              Array.isArray(seasons) &&
+              seasons?.length > 0 &&
               seasons.map((season, index) =>
                 season.episode_count === 0 ? null : (
                   <SeasonThumb

@@ -7,7 +7,7 @@ import { errorLog } from 'utils/logger';
 
 import { Params, useApiUrl } from './api';
 
-export const useGetTvShow = (tvID: string) => {
+export const useGetTvShow = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
@@ -76,7 +76,7 @@ export const useGetTvShow = (tvID: string) => {
   return handleData;
 };
 
-export const useGetTvShowCredits = (tvID: string) => {
+export const useGetTvShowCredits = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
@@ -101,7 +101,7 @@ export const useGetTvShowCredits = (tvID: string) => {
   return handleData;
 };
 
-export const useGetTvShowVideos = (tvID: string) => {
+export const useGetTvShowVideos = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
@@ -123,7 +123,7 @@ export const useGetTvShowVideos = (tvID: string) => {
   return handleData;
 };
 
-export const useGetTvShowImages = (tvID: string) => {
+export const useGetTvShowImages = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
@@ -149,7 +149,7 @@ export const useGetTvShowImages = (tvID: string) => {
   return handleData;
 };
 
-export const useGetTvShowRecommendations = (tvID: string) => {
+export const useGetTvShowRecommendations = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
@@ -173,7 +173,7 @@ export const useGetTvShowRecommendations = (tvID: string) => {
   return handleData;
 };
 
-export const useGetTvShowSimilar = (tvID: string) => {
+export const useGetTvShowSimilar = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const getMovieSimilar = React.useCallback(
@@ -195,7 +195,7 @@ export const useGetTvShowSimilar = (tvID: string) => {
   return getMovieSimilar;
 };
 
-export const useGetTvShowSeason = (tvID: string, seasonNumber: string) => {
+export const useGetTvShowSeason = (tvID: number, seasonNumber: number) => {
   let episodesFormatted = React.useMemo(() => [], []);
   const apiUrl = useApiUrl();
 

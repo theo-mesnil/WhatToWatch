@@ -4,7 +4,7 @@ import { Box, BoxProps } from 'components/Box';
 import { Text } from 'components/Text';
 
 type InformationProps = BoxProps & {
-  children: React.ReactNode;
+  children: React.ReactElement;
   title: React.ReactNode;
 };
 

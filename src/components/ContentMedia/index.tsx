@@ -10,6 +10,7 @@ import { Thumb } from 'components/Thumb';
 type ContentMediaProps = BoxProps & {
   backdrops?: Images;
   posters?: Images;
+  title?: string;
 };
 
 export function ContentMedia({

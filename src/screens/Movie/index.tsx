@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { RootStackParamList, RootStackScreenProps } from 'navigation/types';
+import { RootStackScreenProps } from 'navigation/types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -35,12 +35,28 @@ export function MovieScreen() {
   const [movie, setMovie] = useState({
     backdrop: 'loading',
     description: 'loading',
-    genres: 'loading'
+    genres: 'loading',
+    budget: undefined,
+    collection: undefined,
+    homepage: undefined,
+    originalTitle: undefined,
+    productionCompanies: undefined,
+    releaseDate: undefined,
+    revenue: undefined,
+    runtime: undefined,
+    title: undefined,
+    votes: undefined
   });
-  const [credits, setCredits] = useState({
-    cast: 'loading'
+  const [credits, setCredits] = useState<{
+    cast: Credit[] | 'loading';
+    directors?: Credit[];
+    writers?: Credit[];
+  }>({
+    cast: 'loading',
+    directors: undefined,
+    writers: undefined
   });
-  const [videos, setVideos] = useState('loading');
+  const [videos, setVideos] = useState<Videos | 'loading'>('loading');
   const [images, setImages] = useState({ backdrops: null, posters: null });
   const [recommendations, setRecommendations] = useState();
   const [similar, setSimilar] = useState();

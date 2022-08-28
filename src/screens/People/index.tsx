@@ -4,7 +4,6 @@ import { RootStackScreenProps } from 'navigation/types';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ImageBackground } from 'react-native';
 
 import {
   useGetPeople,
@@ -12,10 +11,10 @@ import {
   useGetPeopleImages,
   useGetPeopleKnowFor
 } from 'api/people';
-import { Box } from 'components/Box';
 import { Centered } from 'components/Centered';
 import { Gradient } from 'components/Gradient';
 import { PeopleFillIcon } from 'components/Icon';
+import { ImageBackground } from 'components/ImageBackground';
 import { ImageThumb } from 'components/ImageThumb';
 import { List } from 'components/List';
 import { Loader } from 'components/Loader';
@@ -32,8 +31,8 @@ import { useDateFnsLocale } from 'utils/dates';
 import { getImageUrl } from 'utils/images';
 
 import { ListLoader } from './ListLoader';
-import { MoviesList } from './MoviesList';
-import { TvShowsList } from './TvShowsList';
+import { Movies, MoviesList } from './MoviesList';
+import { TvShows, TvShowsList } from './TvShowsList';
 
 const avatarSize = 150;
 
@@ -48,9 +47,12 @@ export function PeopleScreen() {
     placeOfBirth: undefined,
     deathday: undefined
   });
-  const [images, setImages] = useState('loading');
+  const [images, setImages] = useState<Images | 'loading'>('loading');
   const [knowFor, setKnowFor] = useState('loading');
-  const [credits, setCredits] = useState({
+  const [credits, setCredits] = useState<{
+    movies: Movies | 'loading';
+    tvShows: TvShows | 'loading';
+  }>({
     movies: 'loading',
     tvShows: 'loading'
   });
@@ -79,6 +81,7 @@ export function PeopleScreen() {
   const departmentIsLoading = department === 'loading';
   const birthdayIsLoading = birthday === 'loading';
   const imagesIsLoading = images === 'loading';
+  const withImages = !imagesIsLoading && images?.length > 0;
   const profilePictureUri = getImageUrl(profilePicture);
 
   useEffect(() => {
@@ -106,7 +109,7 @@ export function PeopleScreen() {
   }
 
   function handleImageClick() {
-    if (!imagesIsLoading && images?.length > 0) {
+    if (withImages) {
       navigation.push('Images', {
         title: name,
         images
@@ -120,8 +123,7 @@ export function PeopleScreen() {
       titleOffset={titleOffset}
       titleOffsetSubtraction={0}
     >
-      <Box
-        as={ImageBackground}
+      <ImageBackground
         width={1}
         source={{ uri: profilePictureUri }}
         blurRadius={blurRadius}
@@ -144,8 +146,7 @@ export function PeopleScreen() {
         />
         <Centered alignItems="center" pb="md" mt="xxl">
           <Touchable onPress={handleImageClick}>
-            <Box
-              as={ImageBackground}
+            <ImageBackground
               width={avatarSize}
               height={avatarSize}
               borderRadius={avatarSize / 2}
@@ -157,7 +158,7 @@ export function PeopleScreen() {
               {profilePicture !== 'loading' && !profilePictureUri && (
                 <NoCover icon={PeopleFillIcon} opacity={0.7} />
               )}
-            </Box>
+            </ImageBackground>
           </Touchable>
           {nameIsLoading && <Loader mt="sm" width={200} height={30} />}
           {!nameIsLoading && !!name && (
@@ -181,7 +182,7 @@ export function PeopleScreen() {
             </Text>
           )}
         </Centered>
-      </Box>
+      </ImageBackground>
       {(!!biography || !!birthday || !!placeOfBirth || !!deathday) && (
         <ScreenSection>
           <Centered>
@@ -232,11 +233,13 @@ export function PeopleScreen() {
               keyName="knowFor"
               title={<FormattedMessage id="people.knowFor" />}
               itemPerPage={4}
-              onPress={({ id, mediaType }) =>
-                navigation.push(mediaType === 'movie' ? 'Movie' : 'TvShow', {
-                  id
-                })
-              }
+              onPress={({ id, mediaType }) => {
+                if (withImages) {
+                  navigation.push(mediaType === 'movie' ? 'Movie' : 'TvShow', {
+                    id
+                  });
+                }
+              }}
               listItem={knowForItem}
             />
           )}
@@ -247,13 +250,15 @@ export function PeopleScreen() {
               title={<FormattedMessage id="people.images" />}
               mt={!!knowFor && 'lg'}
               itemPerPage={5}
-              onPress={({ index }) =>
-                navigation.push('Images', {
-                  title: name,
-                  images,
-                  startAt: index
-                })
-              }
+              onPress={({ index }) => {
+                if (withImages) {
+                  navigation.push('Images', {
+                    title: name,
+                    images,
+                    startAt: index
+                  });
+                }
+              }}
               listItem={ImageThumb}
             />
           )}

@@ -23,7 +23,7 @@ export type ListProps = BoxProps & {
   actions?: React.ReactNode;
   onPress?: (params: any) => any;
   aspectRatio?: number;
-  data?: any[];
+  data?: any;
   imageWidth?: number;
   itemPerPage?: number;
   keyName: string;

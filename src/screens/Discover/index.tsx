@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { MainTabScreenProps } from 'navigation/types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -15,7 +16,7 @@ import { TvShowThumb } from 'components/TvShowThumb';
 import { networksList } from 'constants/networks';
 import { CoverLayout } from 'layouts/Cover';
 
-export function DiscoverScreen({ navigation }: MainTabScreenProps<'Discover'>) {
+export function DiscoverScreen() {
   const [spotlight, setSpotlight] = useState(undefined);
   const [trendingTv, setTrendingTv] = useState(undefined);
   const [popularTv, setPopularTv] = useState(undefined);
@@ -34,6 +35,8 @@ export function DiscoverScreen({ navigation }: MainTabScreenProps<'Discover'>) {
   const getUpcoming = useGetUpcoming();
   const getDiscoverMovie = useGetDiscoverMovie();
   const getDiscoverTv = useGetDiscoverTvShow();
+  const navigation =
+    useNavigation<MainTabScreenProps<'Discover'>['navigation']>();
 
   function spotlightPress({ id, type }) {
     if (type === 'movie') {
