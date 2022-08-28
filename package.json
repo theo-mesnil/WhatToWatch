@@ -11,7 +11,8 @@
     "yarn build:android": "eas build --platform android",
     "yarn build:ios": "eas build --platform ios",
     "lint": "npx eslint",
-    "lint:ts": "npx tsc --noEmit"
+    "lint:ts": "npx tsc --noEmit",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.2",
@@ -64,7 +65,7 @@
     "eslint": "^8.21.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-sort-destructure-keys": "^1.4.0",
-    "husky": "^8.0.1",
+    "husky": "^8.0.0",
     "prettier": "^2.7.1",
     "typescript": "^4.6.3"
   },
