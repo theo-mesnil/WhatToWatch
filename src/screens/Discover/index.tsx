@@ -51,21 +51,43 @@ export function DiscoverScreen() {
   }
 
   useEffect(() => {
-    getTrending(setTrendingPeople, 'person');
-    getTrending(setTrendingTv);
-    getTrending(setTrendingMovie, 'movie');
+    getTrending({ callback: setTrendingPeople, type: 'person' });
+    getTrending({ callback: setTrendingTv });
+    getTrending({ callback: setTrendingMovie, type: 'movie' });
     setTimeout(() => {
-      getDiscoverTv(setComedies, [{ name: 'with_genres', value: '35' }]);
-      getUpcoming(setUpcomingMovies);
-      getPopular(setPopularTv);
+      getDiscoverTv({
+        callback: setComedies,
+        params: [{ name: 'with_genres', value: '35' }]
+      });
+      getUpcoming({
+        callback: setUpcomingMovies
+      });
+      getPopular({
+        callback: setPopularTv
+      });
+      getPopular({ callback: setPopularMovie, type: 'movie' });
     }, 500);
     setTimeout(() => {
-      getPopular(setPopularMovie, 'movie');
-      getDiscoverTv(setDocumentaries, [{ name: 'with_genres', value: '99' }]);
-      getDiscoverMovie(setFamily, [{ name: 'with_genres', value: '10751' }]);
-      getDiscoverTv(setReality, [{ name: 'with_genres', value: '10764' }]);
-      getDiscoverMovie(setHorror, [{ name: 'with_genres', value: '27' }]);
-      getDiscoverTv(setDrama, [{ name: 'with_genres', value: '18' }]);
+      getDiscoverTv({
+        callback: setDocumentaries,
+        params: [{ name: 'with_genres', value: '99' }]
+      });
+      getDiscoverMovie({
+        callback: setFamily,
+        params: [{ name: 'with_genres', value: '10751' }]
+      });
+      getDiscoverTv({
+        callback: setReality,
+        params: [{ name: 'with_genres', value: '10764' }]
+      });
+      getDiscoverMovie({
+        callback: setHorror,
+        params: [{ name: 'with_genres', value: '27' }]
+      });
+      getDiscoverTv({
+        callback: setDrama,
+        params: [{ name: 'with_genres', value: '18' }]
+      });
     }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

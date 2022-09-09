@@ -41,9 +41,9 @@ export function TrendsScreen() {
   const trendingPeopleIsLoading = trendingPeople === 'loading';
 
   useEffect(() => {
-    getTrending(setTrendingTv);
-    getTrending(setTrendingMovie, 'movie');
-    getTrending(setTrendingPeople, 'person');
+    getTrending({ callback: setTrendingTv });
+    getTrending({ callback: setTrendingMovie, type: 'movie' });
+    getTrending({ callback: setTrendingPeople, type: 'person' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

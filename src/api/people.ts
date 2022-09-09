@@ -1,9 +1,8 @@
-import axios from 'axios';
 import * as React from 'react';
 
 import { errorLog } from 'utils/logger';
 
-import { Params, useApiUrl } from './api';
+import { GetApi, Params, useApiUrl } from './api';
 
 type PeopleCredit = {
   id: string;
@@ -17,11 +16,13 @@ export const useGetPeople = (peopleID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl(`person/${peopleID}`, params));
+        const response = await fetch(
+          apiUrl({ query: `person/${peopleID}`, params })
+        );
 
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const {
           biography,
           birthday,
@@ -58,13 +59,13 @@ export const useGetPeopleImages = (peopleID: number) => {
   let imagesFormatted = React.useMemo(() => [], []);
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(
-          apiUrl(`person/${peopleID}/images`, params)
+        const response = await fetch(
+          apiUrl({ query: `person/${peopleID}/images`, params })
         );
 
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { profiles } = dataResponse;
 
         profiles?.map((profile) =>
@@ -87,6 +88,12 @@ export const useGetPeopleImages = (peopleID: number) => {
   return handleData;
 };
 
+type GetPeople = {
+  callback: (data: any) => void;
+  department: string;
+  params?: Params;
+};
+
 export const useGetPeopleKnowFor = (peopleID: number) => {
   const apiUrl = useApiUrl();
 
@@ -95,19 +102,15 @@ export const useGetPeopleKnowFor = (peopleID: number) => {
   }
 
   const handleData = React.useCallback(
-    async (
-      callback: (data: any) => void,
-      department: string,
-      params?: Params
-    ) => {
+    async ({ callback, department, params }: GetPeople) => {
       const isAnActing = department === 'Acting';
       let dataSorted = {};
 
       try {
-        const response = await axios.get(
-          apiUrl(`person/${peopleID}/combined_credits`, params)
+        const response = await fetch(
+          apiUrl({ query: `person/${peopleID}/combined_credits`, params })
         );
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { cast, crew } = dataResponse;
 
         if (isAnActing) {
@@ -171,18 +174,14 @@ export const useGetPeopleCredits = (peopleID: number) => {
   }
 
   const handleData = React.useCallback(
-    async (
-      callback: (data: any) => void,
-      department: string,
-      params?: Params
-    ) => {
+    async ({ callback, department, params }: GetPeople) => {
       const isAnActing = department === 'Acting';
 
       try {
-        const response = await axios.get(
-          apiUrl(`person/${peopleID}/combined_credits`, params)
+        const response = await fetch(
+          apiUrl({ query: `person/${peopleID}/combined_credits`, params })
         );
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { cast, crew } = dataResponse;
 
         // Data sorted by year

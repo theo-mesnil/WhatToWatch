@@ -15,8 +15,8 @@ export function GenresProvider({ children }) {
   const getGenres = useGetGenres();
 
   React.useEffect(() => {
-    getGenres(setGenresTv);
-    getGenres(setGenresMovie, 'movie');
+    getGenres({ callback: setGenresTv });
+    getGenres({ callback: setGenresMovie, type: 'movie' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

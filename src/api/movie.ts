@@ -1,21 +1,23 @@
-import axios from 'axios';
 import * as React from 'react';
 
 import { convertMinToHours } from 'utils/dates';
 import { formatImagesData } from 'utils/images';
 import { errorLog } from 'utils/logger';
 
-import { Params, useApiUrl } from './api';
+import { GetApi, useApiUrl } from './api';
 
 export const useGetMovie = (movieID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl(`movie/${movieID}`, params));
+        const response = await fetch(
+          apiUrl({ query: `movie/${movieID}`, params })
+        );
 
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
+
         const {
           backdrop_path,
           belongs_to_collection,
@@ -67,13 +69,12 @@ export const useGetMovieCredits = (movieID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(
-          apiUrl(`movie/${movieID}/credits`, params)
+        const response = await fetch(
+          apiUrl({ query: `movie/${movieID}/credits`, params })
         );
-        const dataResponse = response?.data;
-        const { cast, crew } = dataResponse;
+        const { cast, crew } = await response.json();
         const directors = crew?.filter((credit) => credit.job === 'Director');
         const writers = crew?.filter(
           (credit) => credit.department === 'Writing'
@@ -99,12 +100,12 @@ export const useGetMovieVideos = (movieID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(
-          apiUrl(`movie/${movieID}/videos`, params)
+        const response = await fetch(
+          apiUrl({ query: `movie/${movieID}/videos`, params })
         );
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { results } = dataResponse;
         const data = results?.length > 0 ? results : undefined;
 
@@ -123,12 +124,12 @@ export const useGetMovieImages = (movieID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(
-          apiUrl(`movie/${movieID}/images`, params)
+        const response = await fetch(
+          apiUrl({ query: `movie/${movieID}/images`, params })
         );
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { backdrops, posters } = dataResponse;
         const data = {
           backdrops:
@@ -151,12 +152,12 @@ export const useGetMovieRecommendations = (movieID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(
-          apiUrl(`movie/${movieID}/recommendations`, params)
+        const response = await fetch(
+          apiUrl({ query: `movie/${movieID}/recommendations`, params })
         );
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { results } = dataResponse;
         const data = results?.length > 0 ? results?.slice(0, 10) : undefined;
 
@@ -175,12 +176,12 @@ export const useGetMovieSimilar = (movieID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(
-          apiUrl(`movie/${movieID}/similar`, params)
+        const response = await fetch(
+          apiUrl({ query: `movie/${movieID}/similar`, params })
         );
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { results } = dataResponse;
         const data = results?.length > 0 ? results?.slice(0, 10) : undefined;
 
@@ -199,10 +200,11 @@ export const useGetUpcoming = () => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void) => {
+    async ({ callback }: Pick<GetApi, 'callback'>) => {
       try {
-        const response = await axios.get(apiUrl('movie/upcoming'));
-        callback(response?.data?.results);
+        const response = await fetch(apiUrl({ query: 'movie/upcoming' }));
+        const json = await response.json();
+        callback(json?.results);
       } catch (error) {
         errorLog(error);
       }

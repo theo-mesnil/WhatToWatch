@@ -31,7 +31,7 @@ export function TrendScreen() {
       <VerticalList
         getApi={getTrending}
         renderItem={renderItem}
-        param={type === 'people' ? 'person' : type}
+        type={type === 'people' ? 'person' : type}
         onPress={handlePressItemList}
       />
     </>

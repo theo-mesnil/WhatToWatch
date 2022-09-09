@@ -1,22 +1,20 @@
-import axios from 'axios';
 import * as React from 'react';
 
 import { errorLog } from 'utils/logger';
 
-import { Params, useApiUrl } from './api';
+import { GetApi, useApiUrl } from './api';
 
 export const useGetPopular = () => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (
-      callback: (data: any) => void,
-      type: Type = 'tv',
-      params?: Params
-    ) => {
+    async ({ callback, params, type = 'tv' }: GetApi) => {
       try {
-        const response = await axios.get(apiUrl(`${type}/popular`, params));
-        callback(response?.data?.results);
+        const response = await fetch(
+          apiUrl({ query: `${type}/popular`, params })
+        );
+        const json = await response.json();
+        callback(json?.results);
       } catch (error) {
         errorLog(error);
       }

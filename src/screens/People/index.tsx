@@ -85,15 +85,15 @@ export function PeopleScreen() {
   const profilePictureUri = getImageUrl(profilePicture);
 
   useEffect(() => {
-    getPeople(setPeople);
-    getImages(setImages);
+    getPeople({ callback: setPeople });
+    getImages({ callback: setImages });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!!department && !departmentIsLoading) {
-      getKnowFor(setKnowFor, department);
-      setTimeout(() => getCredits(setCredits, department), 500);
+      getKnowFor({ callback: setKnowFor, department });
+      setTimeout(() => getCredits({ callback: setCredits, department }), 500);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [department]);

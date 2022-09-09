@@ -18,7 +18,7 @@ export function SeasonScreen() {
   const getTvShowSeason = useGetTvShowSeason(tvID, seasonNumber);
 
   useEffect(() => {
-    getTvShowSeason(setSeason);
+    getTvShowSeason({ callback: setSeason });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

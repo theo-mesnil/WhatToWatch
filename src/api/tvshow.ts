@@ -1,21 +1,20 @@
-import axios from 'axios';
 import * as React from 'react';
 
 import { convertArrayToMinutes } from 'utils/dates';
 import { formatImagesData } from 'utils/images';
 import { errorLog } from 'utils/logger';
 
-import { Params, useApiUrl } from './api';
+import { GetApi, useApiUrl } from './api';
 
 export const useGetTvShow = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl(`tv/${tvID}`, params));
+        const response = await fetch(apiUrl({ query: `tv/${tvID}`, params }));
 
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const {
           backdrop_path,
           created_by,
@@ -80,10 +79,12 @@ export const useGetTvShowCredits = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl(`tv/${tvID}/credits`, params));
-        const dataResponse = response?.data;
+        const response = await fetch(
+          apiUrl({ query: `tv/${tvID}/credits`, params })
+        );
+        const dataResponse = await response.json();
         const { cast } = dataResponse;
 
         const data = {
@@ -105,10 +106,12 @@ export const useGetTvShowVideos = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl(`tv/${tvID}/videos`, params));
-        const dataResponse = response?.data;
+        const response = await fetch(
+          apiUrl({ query: `tv/${tvID}/videos`, params })
+        );
+        const dataResponse = await response.json();
         const { results } = dataResponse;
         const data = results?.length > 0 ? results : undefined;
 
@@ -127,10 +130,12 @@ export const useGetTvShowImages = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl(`tv/${tvID}/images`, params));
-        const dataResponse = response?.data;
+        const response = await fetch(
+          apiUrl({ query: `tv/${tvID}/images`, params })
+        );
+        const dataResponse = await response.json();
         const { backdrops, posters } = dataResponse;
         const data = {
           backdrops:
@@ -153,12 +158,12 @@ export const useGetTvShowRecommendations = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(
-          apiUrl(`tv/${tvID}/recommendations`, params)
+        const response = await fetch(
+          apiUrl({ query: `tv/${tvID}/recommendations`, params })
         );
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { results } = dataResponse;
         const data = results?.length > 0 ? results?.slice(0, 10) : undefined;
 
@@ -177,10 +182,12 @@ export const useGetTvShowSimilar = (tvID: number) => {
   const apiUrl = useApiUrl();
 
   const getMovieSimilar = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl(`tv/${tvID}/similar`, params));
-        const dataResponse = response?.data;
+        const response = await await fetch(
+          apiUrl({ query: `tv/${tvID}/similar`, params })
+        );
+        const dataResponse = await response.json();
         const { results } = dataResponse;
         const data = results?.length > 0 ? results?.slice(0, 10) : undefined;
 
@@ -200,12 +207,12 @@ export const useGetTvShowSeason = (tvID: number, seasonNumber: number) => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(
-          apiUrl(`tv/${tvID}/season/${seasonNumber}`, params)
+        const response = await fetch(
+          apiUrl({ query: `tv/${tvID}/season/${seasonNumber}`, params })
         );
-        const dataResponse = response?.data;
+        const dataResponse = await response.json();
         const { episodes } = dataResponse;
 
         episodes?.map((episode) => {

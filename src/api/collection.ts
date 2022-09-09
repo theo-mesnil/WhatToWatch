@@ -1,19 +1,20 @@
-import axios from 'axios';
 import * as React from 'react';
 
 import { errorLog } from 'utils/logger';
 
-import { useApiUrl } from './api';
+import { GetApi, useApiUrl } from './api';
 
 export const useGetCollection = (collectionID: number) => {
   let moviesFormatted = React.useMemo(() => [], []);
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void) => {
+    async ({ callback }: Pick<GetApi, 'callback'>) => {
       try {
-        const response = await axios.get(apiUrl(`collection/${collectionID}`));
-        const dataResponse = response?.data;
+        const response = await fetch(
+          apiUrl({ query: `collection/${collectionID}` })
+        );
+        const dataResponse = await response.json();
         const { backdrop_path, name, overview, parts } = dataResponse;
 
         parts?.map((movie) => {

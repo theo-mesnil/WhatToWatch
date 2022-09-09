@@ -107,12 +107,12 @@ export function TvShowScreen() {
 
   useEffect(
     () => {
-      getTvShow(setTvShow);
-      getTvShowVideos(setVideos);
-      getTvShowCredits(setCredits);
-      getTvShowImages(setImages);
-      getTvShowRecommendations(setRecommendations);
-      getTvShowSimilar(setSimilar);
+      getTvShow({ callback: setTvShow });
+      getTvShowVideos({ callback: setVideos });
+      getTvShowCredits({ callback: setCredits });
+      getTvShowImages({ callback: setImages });
+      getTvShowRecommendations({ callback: setRecommendations });
+      getTvShowSimilar({ callback: setSimilar });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []

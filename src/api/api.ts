@@ -5,15 +5,26 @@ export const API_URL = 'https://api.themoviedb.org/3/';
 
 type Param = {
   name: string;
-  value: string;
+  value: string | number;
 };
 
 export type Params = Param[];
 
+export type GetApi = {
+  callback: (data: any) => void;
+  type?: Type;
+  params?: Params;
+};
+
+export type ApiUrl = {
+  query: string;
+  params?: Params;
+};
+
 export const useApiUrl = () => {
   const { locale } = useLocale();
 
-  function apiUrl(query: string, params?: Params) {
+  function apiUrl({ params, query }: ApiUrl) {
     let paramsUrl = '';
 
     params &&

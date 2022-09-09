@@ -1,18 +1,20 @@
-import axios from 'axios';
 import * as React from 'react';
 
 import { errorLog } from 'utils/logger';
 
-import { Params, useApiUrl } from './api';
+import { GetApi, useApiUrl } from './api';
 
 export const useGetDiscoverMovie = () => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl('discover/movie', params));
-        callback(response?.data?.results);
+        const response = await fetch(
+          apiUrl({ query: 'discover/movie', params })
+        );
+        const json = await response.json();
+        callback(json?.results);
       } catch (error) {
         errorLog(error);
       }
@@ -27,10 +29,11 @@ export const useGetDiscoverTvShow = () => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl('discover/tv', params));
-        callback(response?.data?.results);
+        const response = await fetch(apiUrl({ query: 'discover/tv', params }));
+        const json = await response.json();
+        callback(json?.results);
       } catch (error) {
         errorLog(error);
       }

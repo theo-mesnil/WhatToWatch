@@ -1,18 +1,18 @@
-import axios from 'axios';
 import * as React from 'react';
 
 import { errorLog } from 'utils/logger';
 
-import { Params, useApiUrl } from './api';
+import { GetApi, useApiUrl } from './api';
 
 export const useGetSearch = () => {
   const apiUrl = useApiUrl();
 
   const handleData = React.useCallback(
-    async (callback: (data: any) => void, params?: Params) => {
+    async ({ callback, params }: Omit<GetApi, 'type'>) => {
       try {
-        const response = await axios.get(apiUrl('search/multi', params));
-        callback(response?.data?.results);
+        const response = await fetch(apiUrl({ query: 'search/multi', params }));
+        const json = await response.json();
+        callback(json?.results);
       } catch (error) {
         errorLog(error);
       }

@@ -105,12 +105,12 @@ export function MovieScreen() {
   const withGenres = !!genres && genres?.length > 0;
 
   useEffect(() => {
-    getMovie(setMovie);
-    getMovieVideos(setVideos);
-    getMovieCredits(setCredits);
-    getMovieImages(setImages);
-    getMovieRecommendations(setRecommendations);
-    getMovieSimilar(setSimilar);
+    getMovie({ callback: setMovie });
+    getMovieVideos({ callback: setVideos });
+    getMovieCredits({ callback: setCredits });
+    getMovieImages({ callback: setImages });
+    getMovieRecommendations({ callback: setRecommendations });
+    getMovieSimilar({ callback: setSimilar });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

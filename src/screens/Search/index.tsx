@@ -36,7 +36,7 @@ export function SearchScreen() {
   const noResultForSearch = !noSearchYet && !resultsLength;
 
   useEffect(() => {
-    getTrending(setTrending, 'all');
+    getTrending({ callback: setTrending, type: 'all' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,7 +46,10 @@ export function SearchScreen() {
     }
     const delayDebounceFn = setTimeout(() => {
       if (query) {
-        getSearch(setResults, [{ name: 'query', value: query }]);
+        getSearch({
+          callback: setResults,
+          params: [{ name: 'query', value: query }]
+        });
       }
     }, 400);
 

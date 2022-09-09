@@ -3,6 +3,7 @@ import { Animated } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { SpaceProps } from 'styled-system';
 
+import { GetApi } from 'api/api';
 import { Box } from 'components/Box';
 import { fakeData30 } from 'constants/mocks';
 
@@ -14,13 +15,13 @@ type Param = {
 type VerticalListProps = {
   aspectRatio?: number;
   children?: React.ReactNode;
-  getApi?: (a: any, b: any, c?: any) => void;
+  getApi?: ({ callback, params, type }: GetApi) => void;
   handleScroll?: (scrollY: Animated.Value) => void;
   initialNumToRender?: number;
   maxPage?: number;
   numberOfColumns?: number;
   paddingTop?: SpaceProps['pt'];
-  param?: string;
+  type?: Type;
   params?: Param[];
   renderItem: React.ElementType;
   resultsData?: any;
@@ -37,7 +38,7 @@ export function VerticalList({
   numberOfColumns = 3,
   onPress,
   paddingTop,
-  param,
+  type,
   params = [],
   renderItem: Item,
   resultsData
@@ -46,7 +47,6 @@ export function VerticalList({
   const [results, setResults] = React.useState(resultsData || 'loading');
   const [page, setPage] = React.useState(1);
   const theme = useTheme();
-  const allParams = params.push({ name: 'page', value: page });
   const resultFromParent = !!resultsData;
   const isLoading = results === 'loading' || resultsData === 'loading';
   const dataFormatted = isLoading ? fakeData30 : results;
@@ -88,15 +88,11 @@ export function VerticalList({
 
   React.useEffect(() => {
     if (!resultFromParent) {
-      if (page === 1) {
-        param
-          ? getApi(setResults, param, allParams)
-          : getApi(setResults, allParams);
-      } else if (page < maxPage) {
-        param
-          ? getApi(getNewPageData, param, allParams)
-          : getApi(getNewPageData, allParams);
-      }
+      getApi({
+        callback: page === 1 ? setResults : getNewPageData,
+        params: [{ name: 'page', value: page }, ...params],
+        type
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);

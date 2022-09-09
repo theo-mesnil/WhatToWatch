@@ -35,7 +35,7 @@ export function CollectionScreen() {
   );
 
   React.useEffect(() => {
-    getCollection(setCollection);
+    getCollection({ callback: setCollection });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
