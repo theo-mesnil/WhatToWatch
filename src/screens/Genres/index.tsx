@@ -30,8 +30,7 @@ export function GenresScreen() {
       />
       {genre && (
         <VerticalList
-          numberOfColumns={3}
-          aspectRatio={5 / 4}
+          numberOfColumns={2}
           resultsData={genre}
           onPress={({ id, name }) =>
             navigation.push('Genre', { id, name, type })

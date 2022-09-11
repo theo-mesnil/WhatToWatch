@@ -26,6 +26,9 @@ type VerticalListProps = {
   renderItem: React.ElementType;
   resultsData?: any;
   onPress?: (props: any) => void;
+  itemProps?: {
+    [key: string]: any;
+  };
 };
 
 export function VerticalList({
@@ -40,6 +43,7 @@ export function VerticalList({
   paddingTop,
   type,
   params = [],
+  itemProps = {},
   renderItem: Item,
   resultsData
 }: VerticalListProps) {
@@ -71,6 +75,7 @@ export function VerticalList({
             })
           }
           isLoading={isLoading}
+          {...itemProps}
         />
       </Box>
     );

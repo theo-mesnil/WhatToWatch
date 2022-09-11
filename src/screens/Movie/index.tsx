@@ -243,8 +243,7 @@ export function MovieScreen() {
               }
               listItem={GenreThumb}
               title={<FormattedMessage id="common.genres" />}
-              itemPerPage={3}
-              aspectRatio={5 / 2}
+              autoWidthOnItem
             />
           )}
           {showMedia && (

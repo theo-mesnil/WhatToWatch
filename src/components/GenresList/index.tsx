@@ -33,8 +33,9 @@ export function GenresList({ type = 'all', ...rest }: GenresListProps) {
       data={isTV ? tv : movie}
       onPress={navigateToGenre}
       listItem={GenreThumb}
+      itemProps={{ isTV, withIcon: true }}
       title={<FormattedMessage id="common.genres" />}
-      itemPerPage={3}
+      itemPerPage={2}
       actions={
         bothTypes && (
           <Actions handleClick={setTypeSelected} type={typeSelected} />

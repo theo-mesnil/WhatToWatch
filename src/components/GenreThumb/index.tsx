@@ -3,8 +3,9 @@ import { useTheme } from 'styled-components/native';
 
 import { Box, BoxProps } from 'components/Box';
 import { Gradient } from 'components/Gradient';
+import { Icon, MovieFillIcon, TvFillIcon } from 'components/Icon';
 import { Loader } from 'components/Loader';
-import { Text, TextProps } from 'components/Text';
+import { Text } from 'components/Text';
 import { Touchable, TouchableProps } from 'components/Touchable';
 
 type GenreThumbProps = BoxProps &
@@ -12,29 +13,41 @@ type GenreThumbProps = BoxProps &
     aspectRatio?: number;
     item: Genre;
     isLoading?: boolean;
-    textVariant?: TextProps['variant'];
+    isTV?: boolean;
+    isTag?: boolean;
+    withIcon?: boolean;
   };
 
 export const GenreThumb = ({
-  aspectRatio = 7 / 4,
+  aspectRatio = 5 / 2,
+  isLoading,
+  isTV,
   item,
   onPress,
-  isLoading,
-  textVariant = 'h3',
+  isTag,
+  withIcon,
   ...rest
 }: GenreThumbProps) => {
   const theme = useTheme();
   const id = item?.id;
   const title = item?.name;
 
+  const tagStyle = isTag
+    ? {
+        height: '40px',
+        width: '100%'
+      }
+    : {};
+
   return (
     <Box {...rest}>
       <Touchable onPress={!isLoading ? onPress : undefined} flex={1}>
         <Box
           backgroundColor="dark600"
-          overflow="hidden"
-          style={{ aspectRatio }}
+          aspectRatio={isTag ? undefined : aspectRatio}
           borderRadius="md"
+          overflow="hidden"
+          {...tagStyle}
         >
           {isLoading ? (
             <Loader height="100%" />
@@ -50,21 +63,20 @@ export const GenreThumb = ({
                 colors={theme.colors.genres[id] || theme.colors.genres.default}
                 angle={-0.4}
               />
-              <Box
-                pb="xxs"
-                pl="xs"
-                pr="xs"
-                justifyContent="center"
-                flexGrow={1}
-              >
-                <Text
-                  variant={textVariant}
-                  mt="xxs"
-                  numberOfLines={2}
-                  textAlign="center"
-                >
-                  {title}
+              <Box p="sm" flexGrow={1} justifyContent="flex-end">
+                <Text fontSize={14} weight="bold" numberOfLines={2}>
+                  {title?.toUpperCase()}
                 </Text>
+                {withIcon && (
+                  <Box position="absolute" right="xs" bottom="-10px">
+                    <Icon
+                      size={80}
+                      transform={[{ rotate: '20deg' }]}
+                      opacity={0.4}
+                      icon={isTV ? TvFillIcon : MovieFillIcon}
+                    />
+                  </Box>
+                )}
               </Box>
             </>
           )}

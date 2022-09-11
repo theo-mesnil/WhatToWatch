@@ -26,6 +26,7 @@ export type ListProps = BoxProps & {
   data?: any;
   imageWidth?: number;
   itemPerPage?: number;
+  autoWidthOnItem?: boolean;
   keyName: string;
   listItem: ListItem;
   pagingEnabled?: boolean;
@@ -33,6 +34,9 @@ export type ListProps = BoxProps & {
   withBackdropImage?: boolean;
   withNumber?: boolean;
   withTitleOnCover?: boolean;
+  itemProps?: {
+    [key: string]: any;
+  };
 };
 
 export const List = React.memo(
@@ -50,6 +54,8 @@ export const List = React.memo(
     withBackdropImage,
     withNumber,
     withTitleOnCover,
+    itemProps = {},
+    autoWidthOnItem,
     ...rest
   }: ListProps) => {
     const theme = useTheme();
@@ -68,9 +74,7 @@ export const List = React.memo(
     const propsForPagingEnabled = pagingEnabled
       ? {
           pagingEnabled: true,
-          // snapToAlignment: 'start',
           snapToInterval: width + marginItem / 2
-          // decelerationRate: 'fast'
         }
       : {};
 
@@ -90,11 +94,13 @@ export const List = React.memo(
               mediaType: item?.media_type
             })
           }
-          width={`${width}px`}
+          isTag={autoWidthOnItem}
+          width={!autoWidthOnItem ? `${width}px` : undefined}
           isLoading={isLoading}
           number={!!withNumber && index + 1}
           withTitleOnCover={withTitleOnCover}
           withBackdropImage={withBackdropImage}
+          {...itemProps}
         />
       );
     };
