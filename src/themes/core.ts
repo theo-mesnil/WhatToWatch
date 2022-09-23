@@ -89,6 +89,7 @@ export const coreTheme: DefaultTheme = {
     thumbBackground: colors.dark600
   },
   fontSizes: {
+    h0: 24,
     h1: 20,
     h2: 16,
     h3: 12,
@@ -100,6 +101,7 @@ export const coreTheme: DefaultTheme = {
     text: 13
   },
   fontWeights: {
+    h0: 'bold',
     h1: 'bold',
     h2: 'bold',
     h3: 'bold',

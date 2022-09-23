@@ -23,8 +23,8 @@ type ThumbProps = Pick<TouchableProps, 'onPress'> & {
   smallTitleOnCover?: boolean;
   subtitle?: string;
   title?: string;
-  withTitleOnCover?: boolean;
   type?: ContentType;
+  withTitleOnCover?: boolean;
 };
 
 export const Thumb = React.memo(
@@ -40,14 +40,46 @@ export const Thumb = React.memo(
     smallTitleOnCover,
     subtitle,
     title,
-    withTitleOnCover,
     type,
+    withTitleOnCover,
     ...rest
   }: ThumbProps) => {
     return (
-      <Box borderRadius="md" overflow="hidden" {...rest}>
-        <Touchable onPress={!isLoading ? onPress : undefined}>
-          <Box>
+      <Touchable onPress={!isLoading ? onPress : undefined}>
+        <Box {...rest}>
+          {!!number && (
+            <Box
+              position="absolute"
+              bottom={10}
+              left={number > 1 ? '-15%' : 0}
+              width={number > 1 ? (number === 10 ? '100px' : '80px') : '40px'}
+              overflow="hidden"
+              height="100px"
+              zIndex={1}
+            >
+              <Text
+                ml="-25%"
+                fontSize="130px"
+                color="primary300"
+                letterSpacing="-15px"
+                lineHeight="145px"
+                weight="bold"
+                // eslint-disable-next-line react-native/no-inline-styles
+                style={{
+                  textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                  textShadowOffset: { width: -1, height: 1 },
+                  textShadowRadius: 10
+                }}
+              >
+                {number}
+              </Text>
+            </Box>
+          )}
+          <Box
+            borderRadius="md"
+            width={number ? '75%' : '100%'}
+            ml={!!number && '10%'}
+          >
             <S.Image
               source={{
                 uri: isVideo ? imageUrl : getImageUrl(imageUrl, imageWidth)
@@ -64,29 +96,6 @@ export const Thumb = React.memo(
                   {!isVideo && !imageUrl && (
                     <NoCover icon={getIconType(type)} />
                   )}
-                  {!!number && (
-                    <Box
-                      position="absolute"
-                      top={0}
-                      left={0}
-                      backgroundColor="behind"
-                      height={40}
-                      minWidth={40}
-                      px="xs"
-                      borderBottomRightRadius="md"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Text
-                        fontSize={28}
-                        color="primary300"
-                        lineHeight="35px"
-                        weight="bold"
-                      >
-                        {number}
-                      </Text>
-                    </Box>
-                  )}
                   {isVideo && (
                     <Box
                       backgroundColor="opacity"
@@ -101,27 +110,31 @@ export const Thumb = React.memo(
                     <>
                       <Gradient
                         position="absolute"
-                        top="10%"
+                        height="100px"
                         bottom={0}
                         left={0}
                         right={0}
-                        opacity={0.6}
+                        opacity={1}
                       />
                       <Box
-                        px="xs"
+                        alignItems="center"
                         justifyContent="flex-end"
-                        alignItems={smallTitleOnCover ? 'flex-start' : 'center'}
                         flexGrow={1}
-                        mb={smallTitleOnCover ? 'xs' : 'lg'}
+                        mb="md"
                       >
                         <Text
-                          variant={smallTitleOnCover ? 'h3' : 'h1'}
-                          numberOfLines={2}
-                          width={!smallTitleOnCover && 0.8}
-                          px="xxs"
+                          variant="h2"
+                          numberOfLines={3}
                           textAlign="center"
+                          width="80%"
+                          // eslint-disable-next-line react-native/no-inline-styles
+                          style={{
+                            textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                            textShadowOffset: { width: -1, height: 1 },
+                            textShadowRadius: 10
+                          }}
                         >
-                          {title}
+                          {smallTitleOnCover ? title : title}
                         </Text>
                       </Box>
                     </>
@@ -140,8 +153,8 @@ export const Thumb = React.memo(
               </Text>
             )}
           </Box>
-        </Touchable>
-      </Box>
+        </Box>
+      </Touchable>
     );
   }
 );

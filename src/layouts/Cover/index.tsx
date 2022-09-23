@@ -5,7 +5,6 @@ import { AnimatedBox } from 'components/AnimatedBox';
 import { Box } from 'components/Box';
 import { Gradient } from 'components/Gradient';
 import { windowWidth } from 'constants/screen';
-import { blurRadius } from 'constants/styles';
 import { getImageUrl } from 'utils/images';
 
 import * as S from './styles';
@@ -17,7 +16,7 @@ type CoverLayoutProps = {
 
 export function CoverLayout({ children, imageUrl, ...rest }: CoverLayoutProps) {
   const [scrollY] = React.useState(new Animated.Value(0));
-  const aspectRatio = 16 / 9;
+  const aspectRatio = 16 / 12;
   const inputRange = windowWidth / aspectRatio;
 
   return (
@@ -36,7 +35,7 @@ export function CoverLayout({ children, imageUrl, ...rest }: CoverLayoutProps) {
         <S.Image
           source={{ uri: getImageUrl(imageUrl) }}
           style={{ aspectRatio }}
-          blurRadius={blurRadius}
+          blurRadius={3}
         />
       </AnimatedBox>
       <Gradient

@@ -25,7 +25,7 @@ import { ScreenSection } from 'components/ScreenSection';
 import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
 import { TvShowThumb } from 'components/TvShowThumb';
-import { blurRadius } from 'constants/styles';
+import { isAndroid } from 'constants/screen';
 import { ContentLayout } from 'layouts/Content';
 import { useDateFnsLocale } from 'utils/dates';
 import { getImageUrl } from 'utils/images';
@@ -83,6 +83,7 @@ export function PeopleScreen() {
   const imagesIsLoading = images === 'loading';
   const withImages = !imagesIsLoading && images?.length > 0;
   const profilePictureUri = getImageUrl(profilePicture);
+  const blurRadius = isAndroid ? 3 : 7;
 
   useEffect(() => {
     getPeople({ callback: setPeople });

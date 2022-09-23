@@ -56,6 +56,7 @@ declare module 'styled-components/native' {
       thumbBackground: string;
     };
     fontSizes: {
+      h0: number;
       h1: number;
       h2: number;
       h3: number;
@@ -67,6 +68,7 @@ declare module 'styled-components/native' {
       text: number;
     };
     fontWeights: {
+      h0: string;
       h1: string;
       h2: string;
       h3: string;

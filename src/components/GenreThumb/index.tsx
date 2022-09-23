@@ -59,7 +59,7 @@ export const GenreThumb = ({
                 bottom={0}
                 left={0}
                 right={0}
-                opacity={0.6}
+                opacity={0.5}
                 colors={theme.colors.genres[id] || theme.colors.genres.default}
                 angle={-0.4}
               />
@@ -72,7 +72,7 @@ export const GenreThumb = ({
                     <Icon
                       size={80}
                       transform={[{ rotate: '20deg' }]}
-                      opacity={0.4}
+                      opacity={0.3}
                       icon={isTV ? TvFillIcon : MovieFillIcon}
                     />
                   </Box>

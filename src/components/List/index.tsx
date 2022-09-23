@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
+import { Animated, ListRenderItem } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
 import { Box, BoxProps } from 'components/Box';
@@ -30,13 +30,14 @@ export type ListProps = BoxProps & {
   keyName: string;
   listItem: ListItem;
   pagingEnabled?: boolean;
-  title?: React.ReactElement;
+  title?: React.ReactElement | string;
   withBackdropImage?: boolean;
   withNumber?: boolean;
   withTitleOnCover?: boolean;
   itemProps?: {
     [key: string]: any;
   };
+  withMargin?: boolean;
 };
 
 export const List = React.memo(
@@ -71,12 +72,6 @@ export const List = React.memo(
         (marginItem + marginList) / itemPerPage,
       [itemPerPage, marginItem, marginList]
     );
-    const propsForPagingEnabled = pagingEnabled
-      ? {
-          pagingEnabled: true,
-          snapToInterval: width + marginItem / 2
-        }
-      : {};
 
     const renderItem: ListRenderItem<Item> = ({ index, item }) => {
       return (
@@ -106,28 +101,29 @@ export const List = React.memo(
     };
 
     return (
-      <>
-        <Box
-          flex={1}
-          justifyContent="space-between"
-          flexDirection="row"
-          px="lg"
-          mb="sm"
-          {...rest}
-        >
-          {!!title && (
-            <Text numberOfLines={1} variant="h2">
-              {title}
-            </Text>
-          )}
-          {!!actions && (
-            <Box flexGrow={0} flexDirection="row" alignItems="center">
-              {actions}
-            </Box>
-          )}
-        </Box>
+      <Box {...rest}>
+        {(!!title || !!actions) && (
+          <Box
+            flex={1}
+            justifyContent="space-between"
+            flexDirection="row"
+            px="lg"
+            mb="sm"
+          >
+            {!!title && (
+              <Text numberOfLines={1} variant="h2">
+                {title}
+              </Text>
+            )}
+            {!!actions && (
+              <Box flexGrow={0} flexDirection="row" alignItems="center">
+                {actions}
+              </Box>
+            )}
+          </Box>
+        )}
         <Box flex={1}>
-          <FlatList
+          <Animated.FlatList
             initialNumToRender={itemPerPage + 1}
             horizontal
             data={dataFormatted}
@@ -135,14 +131,16 @@ export const List = React.memo(
               `${isLoading ? item : item.id}_${keyName}_${index}`
             }
             showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={S.Separator}
+            ItemSeparatorComponent={withNumber ? undefined : S.Separator}
             ListHeaderComponent={S.BeforeAndAfter}
-            ListFooterComponent={S.BeforeAndAfter}
+            ListFooterComponent={withNumber ? S.BeforeAndAfter : undefined}
             renderItem={renderItem}
-            {...propsForPagingEnabled}
+            decelerationRate={pagingEnabled ? 'fast' : undefined}
+            pagingEnabled={pagingEnabled}
+            snapToInterval={pagingEnabled ? width + marginItem / 2 : undefined}
           />
         </Box>
-      </>
+      </Box>
     );
   }
 );
