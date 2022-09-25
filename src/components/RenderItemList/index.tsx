@@ -10,12 +10,7 @@ type RenderItemList = {
 };
 
 export function RenderItemList({ data, type = 'all' }: RenderItemList) {
-  const mediaType =
-    type === 'all'
-      ? data?.item?.media_type
-      : type === 'people'
-      ? 'person'
-      : type;
+  const mediaType = type === 'all' ? data?.item?.media_type : type;
 
   if (mediaType === 'person') {
     return <PeopleThumb {...data} aspectRatio={2 / 3} />;

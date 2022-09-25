@@ -13,6 +13,7 @@ import { List } from 'components/List';
 import { MovieThumb } from 'components/MovieThumb';
 import { NetworkThumb } from 'components/NetworkThumb';
 import { PeopleThumb } from 'components/PeopleThumb';
+import { TopList } from 'components/TopList';
 import { TvShowThumb } from 'components/TvShowThumb';
 import { networksList } from 'constants/networks';
 import { CoverLayout } from 'layouts/Cover';
@@ -37,14 +38,14 @@ export function DiscoverScreen() {
   const navigation =
     useNavigation<MainTabScreenProps<'Discover'>['navigation']>();
 
-  function spotlightPress({ id, media_type }) {
-    if (media_type === 'movie') {
+  function spotlightPress({ id, type }) {
+    if (type === 'movie') {
       navigation.push('Movie', { id });
     }
-    if (media_type === 'tv') {
+    if (type === 'tv') {
       navigation.push('TvShow', { id });
     }
-    if (media_type === 'people') {
+    if (type === 'person') {
       navigation.push('People', { id });
     }
   }
@@ -54,7 +55,7 @@ export function DiscoverScreen() {
     getTrending({ callback: setTrendingTv });
     getTrending({ callback: setTrendingMovie, type: 'movie' });
     setTimeout(() => {
-      getTrending({ callback: setTrendingPeople, type: 'person' });
+      getPopular({ callback: setTrendingPeople, type: 'person' });
       getDiscoverTv({
         callback: setComedies,
         params: [{ name: 'with_genres', value: '35' }]
@@ -96,7 +97,6 @@ export function DiscoverScreen() {
         data={trendings?.slice(0, 5)}
         onPress={spotlightPress}
         itemPerPage={1}
-        pagingEnabled
         aspectRatio={7 / 4}
         withBackdropImage
         withTitleOnCover
@@ -112,24 +112,22 @@ export function DiscoverScreen() {
         itemPerPage={4}
       />
       <List
-        mt="xl"
-        listItem={ContentThumb}
-        keyName="top10"
-        data={trendings?.slice(0, 10)}
-        onPress={spotlightPress}
-        title="Top 10"
-        itemProps={{ withTitle: false }}
-        imageWidth={342}
-        itemPerPage={2}
-        withNumber
-      />
-      <List
         keyName="upcoming_movies"
         mt="xl"
         listItem={MovieThumb}
         data={upcomingMovies}
         title={<FormattedMessage id="discover.upcomingMovies" />}
         onPress={({ id }) => navigation.push('Movie', { id })}
+      />
+      <TopList
+        mt="xl"
+        listItem={ContentThumb}
+        keyName="top10"
+        data={trendings?.slice(0, 10)}
+        onPress={spotlightPress}
+        title="Top 10"
+        imageWidth={342}
+        itemPerPage={2}
       />
       <List
         keyName="trending_shows"

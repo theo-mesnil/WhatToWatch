@@ -11,7 +11,7 @@ export type RootStackParamList = {
   Genres: { type: 'movie' | 'tv' };
   Network: { id: number };
   People: { id?: number };
-  Trend: { type: 'movie' | 'tv' | 'people' | 'all' };
+  Trend: { type: 'movie' | 'tv' | 'person' | 'all' };
   Images: {
     title?: string;
     startAt?: number;

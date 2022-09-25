@@ -4,8 +4,7 @@ export function useHandlePressItemList(type: Type = 'all') {
   const navigation = useNavigation();
 
   function handlePressItemList({ id, mediaType }) {
-    const mediaTypeFormatted =
-      type === 'all' ? mediaType : type === 'people' ? 'person' : type;
+    const mediaTypeFormatted = type === 'all' ? mediaType : type;
 
     if (mediaTypeFormatted === 'person') {
       navigation.navigate('People', { id });

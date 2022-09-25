@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useTheme } from 'styled-components/native';
 
+import { useGetPopular } from 'api/popular';
 import { useGetTrending } from 'api/trending';
 import { Box } from 'components/Box';
 import { CategoryThumb } from 'components/CategoryThumb';
@@ -34,6 +35,7 @@ export function TrendsScreen() {
     'loading'
   );
   const getTrending = useGetTrending();
+  const getPopular = useGetPopular();
   const theme = useTheme();
   const navigation = useNavigation();
   const trendingMovieIsLoading = trendingMovie === 'loading';
@@ -43,7 +45,7 @@ export function TrendsScreen() {
   useEffect(() => {
     getTrending({ callback: setTrendingTv });
     getTrending({ callback: setTrendingMovie, type: 'movie' });
-    getTrending({ callback: setTrendingPeople, type: 'person' });
+    getPopular({ callback: setTrendingPeople, type: 'person' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -69,9 +71,9 @@ export function TrendsScreen() {
             !trendingPeopleIsLoading && trendingPeople?.[0].profile_path
           }
           isLoading={trendingPeopleIsLoading}
-          onPress={() => navigation.navigate('Trend', { type: 'people' })}
+          onPress={() => navigation.navigate('Trend', { type: 'person' })}
           subtitle={<FormattedMessage id="common.trends" />}
-          title={getTrendTitle('people')}
+          title={getTrendTitle('person')}
         />
         <CategoryItem
           gradient={theme.colors.genres[10767]}

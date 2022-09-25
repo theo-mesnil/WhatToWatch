@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Animated, ListRenderItem } from 'react-native';
-import { useTheme } from 'styled-components/native';
 
 import { Box, BoxProps } from 'components/Box';
 import { Text } from 'components/Text';
@@ -29,15 +28,18 @@ export type ListProps = BoxProps & {
   autoWidthOnItem?: boolean;
   keyName: string;
   listItem: ListItem;
+  pagingEnabled?: boolean;
   title?: React.ReactElement | string;
   withBackdropImage?: boolean;
+  withNumber?: boolean;
   withTitleOnCover?: boolean;
   itemProps?: {
     [key: string]: any;
   };
+  withMargin?: boolean;
 };
 
-export const List = React.memo(
+export const TopList = React.memo(
   ({
     actions,
     aspectRatio,
@@ -48,24 +50,14 @@ export const List = React.memo(
     listItem: ListItem,
     onPress,
     title,
-    withBackdropImage,
-    withTitleOnCover,
     itemProps = {},
-    autoWidthOnItem,
     ...rest
   }: ListProps) => {
-    const theme = useTheme();
     const isLoading = !data;
     const dataFormatted = data || fakeData10;
-    const marginList = theme.space.lg;
-    const marginItem = theme.space.sm;
     const width = React.useMemo(
-      () =>
-        screenWidth / itemPerPage -
-        (marginItem - marginItem / itemPerPage) -
-        (marginItem * 2) / itemPerPage -
-        (marginItem + marginList) / itemPerPage,
-      [itemPerPage, marginItem, marginList]
+      () => screenWidth / itemPerPage - 30,
+      [itemPerPage]
     );
 
     function handlePress({ index, item }) {
@@ -85,11 +77,10 @@ export const List = React.memo(
           item={item}
           imageWidth={imageWidth}
           onPress={() => handlePress({ index, item })}
-          isTag={autoWidthOnItem}
-          width={!autoWidthOnItem ? `${width}px` : undefined}
+          width={`${width}px`}
           isLoading={isLoading}
-          withTitleOnCover={withTitleOnCover}
-          withBackdropImage={withBackdropImage}
+          number={index + 1}
+          withTitle={false}
           {...itemProps}
         />
       );
@@ -126,9 +117,7 @@ export const List = React.memo(
               `${isLoading ? item : item.id}_${keyName}_${index}`
             }
             showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={S.Separator}
-            ListHeaderComponent={S.BeforeAndAfter}
-            ListFooterComponent={S.BeforeAndAfter}
+            ListHeaderComponent={S.Before}
             renderItem={renderItem}
           />
         </Box>

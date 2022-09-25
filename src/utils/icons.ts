@@ -6,7 +6,7 @@ export function getIconType(type: ContentType) {
       return MovieFillIcon;
     case 'tv':
       return TvFillIcon;
-    case 'people':
+    case 'person':
       return PeopleFillIcon;
     default:
       return null;

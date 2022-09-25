@@ -11,7 +11,7 @@ export default {
     similar: 'Similar',
     recommendations: 'Recommendations',
     trends: 'Trends',
-    people: 'People',
+    person: 'People',
     all: 'All'
   },
   tabs: {

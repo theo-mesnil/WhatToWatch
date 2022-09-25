@@ -32,9 +32,9 @@ declare global {
 
   type IconSize = number;
 
-  type ContentType = 'tv' | 'movie' | 'people' | string;
+  type ContentType = 'tv' | 'movie' | 'person' | string;
 
-  type Type = 'tv' | 'movie' | 'people' | 'person' | 'all';
+  type Type = 'tv' | 'movie' | 'person' | 'all';
 
   type Image = {
     aspectRatio?: number;
