@@ -38,7 +38,6 @@ export function ContentMedia({
             height={200}
             imageUrl={posters[0]?.source}
             onPress={navigateToImagesPosters}
-            smallTitleOnCover={true}
             title={`${posters?.length} Posters`}
             withTitleOnCover
           />
@@ -50,7 +49,6 @@ export function ContentMedia({
             imageUrl={backdrops[0]?.source}
             imageWidth={780}
             onPress={navigateToImagesBackdrops}
-            smallTitleOnCover={true}
             title={`${backdrops?.length} Backdrops`}
             withTitleOnCover
           />

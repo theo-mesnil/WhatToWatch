@@ -20,7 +20,6 @@ type ThumbProps = Pick<TouchableProps, 'onPress'> & {
   isLoading?: boolean;
   isVideo?: boolean;
   number?: number;
-  smallTitleOnCover?: boolean;
   subtitle?: string;
   title?: string;
   type?: ContentType;
@@ -37,17 +36,18 @@ export const Thumb = React.memo(
     isVideo,
     number,
     onPress,
-    smallTitleOnCover,
     subtitle,
     title,
     type,
     withTitleOnCover,
     ...rest
   }: ThumbProps) => {
+    const isNumber = !!number;
+
     return (
       <Touchable onPress={!isLoading ? onPress : undefined}>
         <Box {...rest}>
-          {!!number && (
+          {!!isNumber && (
             <Box
               position="absolute"
               bottom={10}
@@ -77,8 +77,8 @@ export const Thumb = React.memo(
           )}
           <Box
             borderRadius="md"
-            width={number ? '75%' : '100%'}
-            ml={!!number && '10%'}
+            width={isNumber ? '75%' : '100%'}
+            ml={isNumber && '10%'}
           >
             <S.Image
               source={{
@@ -123,18 +123,12 @@ export const Thumb = React.memo(
                         mb="md"
                       >
                         <Text
-                          variant="h2"
-                          numberOfLines={3}
+                          variant="h1"
+                          numberOfLines={2}
                           textAlign="center"
                           width="80%"
-                          // eslint-disable-next-line react-native/no-inline-styles
-                          style={{
-                            textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                            textShadowOffset: { width: -1, height: 1 },
-                            textShadowRadius: 10
-                          }}
                         >
-                          {smallTitleOnCover ? title : title}
+                          {title}
                         </Text>
                       </Box>
                     </>

@@ -19,7 +19,7 @@ type GenreThumbProps = BoxProps &
   };
 
 export const GenreThumb = ({
-  aspectRatio = 5 / 2,
+  aspectRatio = 5 / 4,
   isLoading,
   isTV,
   item,
@@ -59,16 +59,16 @@ export const GenreThumb = ({
                 bottom={0}
                 left={0}
                 right={0}
-                opacity={0.5}
+                opacity={0.6}
                 colors={theme.colors.genres[id] || theme.colors.genres.default}
                 angle={-0.4}
               />
               <Box p="sm" flexGrow={1} justifyContent="flex-end">
-                <Text fontSize={14} weight="bold" numberOfLines={2}>
+                <Text fontSize={14} weight="bold" numberOfLines={3}>
                   {title?.toUpperCase()}
                 </Text>
                 {withIcon && (
-                  <Box position="absolute" right="xs" bottom="-10px">
+                  <Box position="absolute" right="-20px" bottom="-10px">
                     <Icon
                       size={80}
                       transform={[{ rotate: '20deg' }]}

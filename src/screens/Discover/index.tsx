@@ -97,7 +97,7 @@ export function DiscoverScreen() {
         data={trendings?.slice(0, 5)}
         onPress={spotlightPress}
         itemPerPage={1}
-        aspectRatio={7 / 4}
+        aspectRatio={10 / 7}
         withBackdropImage
         withTitleOnCover
         imageWidth={780}

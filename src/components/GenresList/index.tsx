@@ -35,7 +35,7 @@ export function GenresList({ type = 'all', ...rest }: GenresListProps) {
       listItem={GenreThumb}
       itemProps={{ isTV, withIcon: true }}
       title={<FormattedMessage id="common.genres" />}
-      itemPerPage={2}
+      itemPerPage={3}
       actions={
         bothTypes && (
           <Actions handleClick={setTypeSelected} type={typeSelected} />
