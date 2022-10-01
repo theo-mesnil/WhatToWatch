@@ -20,6 +20,16 @@ export function getPlayVideoType({ homepage, videos }: getPlayVideoTypeProps) {
     videos !== 'loading' &&
     videos?.filter((video) => video?.type === 'Trailer')?.[0];
 
+  if (network) {
+    return {
+      withVideo: true,
+      item: {
+        id: network,
+        type: 'network'
+      }
+    };
+  }
+
   if (trailer) {
     return {
       withVideo: true,
@@ -28,16 +38,6 @@ export function getPlayVideoType({ homepage, videos }: getPlayVideoTypeProps) {
         type: 'trailer',
         name: trailer.name,
         platform: trailer.site
-      }
-    };
-  }
-
-  if (network) {
-    return {
-      withVideo: true,
-      item: {
-        id: network,
-        type: 'network'
       }
     };
   }
@@ -76,7 +76,7 @@ export function useVideo({ id, link, name, platform, type }: useVideoProps): {
       Linking.openURL(`https://vimeo.com/${id}`);
     }
     if (isYoutube) {
-      navigation.push('Video', { title: name, id });
+      navigation.push('Video', { name, id });
     }
   }
 

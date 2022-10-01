@@ -17,7 +17,7 @@ export function InformationCredits({ credits }: InformationCreditsProps) {
     <>
       {credits?.map((credit, index) => {
         const navigateToPeople = () =>
-          navigation.push('People', { id: credit?.id });
+          navigation.push('People', { id: credit?.id, name: credit?.name });
 
         return (
           <Touchable

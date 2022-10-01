@@ -66,7 +66,7 @@ export function getNetworkColor(id: NetworkId) {
     case 2739:
       return '#0063e5';
     case 2552:
-      return '#000';
+      return '#fff';
     case 453:
       return '#3DBB3D';
     case 67:
@@ -90,7 +90,7 @@ export function getNetworkFromUrl(url: string) {
   if (url.includes('hbomax.com') || url.includes('hbo.com')) {
     network = 49;
   }
-  if (url.includes('disney.com') || url.includes('disneyplus.com')) {
+  if (url.includes('disney.com') || url.includes('disneyplus')) {
     network = 2739;
   }
   if (url.includes('apple.com')) {

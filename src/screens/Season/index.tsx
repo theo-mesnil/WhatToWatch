@@ -6,7 +6,6 @@ import { FlatList } from 'react-native-gesture-handler';
 import { useGetTvShowSeason } from 'api/tvshow';
 import { Box } from 'components/Box';
 import { EpisodeThumb } from 'components/EpisodeThumb';
-import { Header } from 'components/Header';
 
 const Separator = () => <Box py="sm" />;
 const Footer = () => <Box pb="xl" />;
@@ -14,7 +13,7 @@ const Footer = () => <Box pb="xl" />;
 export function SeasonScreen() {
   const route = useRoute<RootStackScreenProps<'Season'>['route']>();
   const [season, setSeason] = useState<any[] | 'loading'>('loading');
-  const { seasonNumber, seasonTitle, tvID, tvShowTitle } = route?.params;
+  const { seasonNumber, tvID } = route?.params;
   const getTvShowSeason = useGetTvShowSeason(tvID, seasonNumber);
 
   useEffect(() => {
@@ -23,17 +22,11 @@ export function SeasonScreen() {
   }, []);
 
   const renderItem = ({ index, item }) => (
-    <EpisodeThumb mt={index === 0 && 110} {...item} />
+    <EpisodeThumb mt={index === 0 && 80} {...item} />
   );
 
   return (
     <>
-      <Header
-        withCrossIcon
-        opacity={1}
-        title={seasonTitle}
-        subtitle={tvShowTitle}
-      />
       <Box px="lg">
         <FlatList
           showsVerticalScrollIndicator={false}

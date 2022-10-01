@@ -13,7 +13,6 @@ import { getImageUrl } from 'utils/images';
 interface ContentCoverProps extends BoxProps {
   backdrop?: string;
   setTitleOffset: (y: number) => void;
-  subtitle?: React.ReactNode;
   title?: string;
   type?: ContentType;
 }
@@ -21,7 +20,6 @@ interface ContentCoverProps extends BoxProps {
 export function ContentCover({
   backdrop,
   setTitleOffset,
-  subtitle,
   title,
   type,
   ...rest
@@ -29,11 +27,11 @@ export function ContentCover({
   const backdropIsLoading = backdrop === 'loading';
 
   return (
-    <Box aspectRatio={16 / 10} {...rest}>
+    <Box {...rest}>
       <ImageBackground
         // eslint-disable-next-line react-native/no-inline-styles
-        style={{ flex: 1 }}
-        source={{ uri: getImageUrl(backdrop, 780) }}
+        style={{ flex: 1, height: 350 }}
+        source={{ uri: getImageUrl(backdrop, 1280) }}
       >
         {backdropIsLoading && (
           <Loader position="absolute" top={0} bottom={0} left={0} right={0} />
@@ -43,17 +41,18 @@ export function ContentCover({
         )}
         <Gradient
           position="absolute"
-          top="20%"
+          colors={['transparent', 'behind']}
+          height="80%"
           bottom={0}
           left={0}
           right={0}
-          opacity={0.9}
+          opacity={1}
         />
-        <Centered justifyContent="flex-end" flexGrow={1} pb="md">
+        <Centered justifyContent="flex-end" flexGrow={1} pb="lg">
           {!!title && (
             <Text
-              variant="h1"
-              numberOfLines={1}
+              variant="h0"
+              textAlign="center"
               onLayout={({
                 nativeEvent: {
                   layout: { y }
@@ -61,11 +60,6 @@ export function ContentCover({
               }) => setTitleOffset(y)}
             >
               {title}
-            </Text>
-          )}
-          {subtitle && (
-            <Text variant="subtitle1" numberOfLines={1}>
-              {subtitle}
             </Text>
           )}
         </Centered>

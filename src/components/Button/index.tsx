@@ -23,17 +23,15 @@ export function Button({
       <Box
         backgroundColor={backgroundColor}
         justifyContent="center"
-        overflow="hidden"
-        height={34}
-        borderRadius={34}
+        height={40}
+        borderRadius={25}
         px="md"
-        alignSelf="flex-start"
         {...rest}
       >
         {isCustomChildren ? (
           children
         ) : (
-          <Text variant="h3" color="dark900" numberOfLines={1}>
+          <Text variant="h2" color="dark900">
             {children}
           </Text>
         )}

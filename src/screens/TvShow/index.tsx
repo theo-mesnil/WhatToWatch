@@ -15,6 +15,7 @@ import { Box } from 'components/Box';
 import { Centered } from 'components/Centered';
 import { ContentActions } from 'components/ContentActions';
 import { ContentCover } from 'components/ContentCover';
+import { ContentDescription } from 'components/ContentDescription';
 import { ContentMedia } from 'components/ContentMedia';
 import { ContentOverview } from 'components/ContentOverview';
 import { GenreThumb } from 'components/GenreThumb';
@@ -31,6 +32,21 @@ import { TvShowThumb } from 'components/TvShowThumb';
 import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
 import { formatTvShowSubtitle } from 'utils/tvshows';
+
+function getReleaseDate(first, last) {
+  if (first || last) {
+    const firstYear = `${new Date(first).getFullYear()}`;
+    const lastYear = `${new Date(last).getFullYear()}`;
+
+    if (firstYear === lastYear) {
+      return firstYear;
+    }
+
+    return `${firstYear}/${lastYear}`;
+  }
+
+  return;
+}
 
 export function TvShowScreen() {
   const route = useRoute<RootStackScreenProps<'TvShow'>['route']>();
@@ -104,6 +120,8 @@ export function TvShowScreen() {
     withNetworks;
   const isVideosLoading = videos === 'loading';
   const isSeasonLoading = seasons === 'loading';
+  const airDateFormatted = !!status && formatTvShowSubtitle(airDate, status);
+  const releaseYears = getReleaseDate(airDate?.first, airDate?.last);
 
   useEffect(
     () => {
@@ -119,22 +137,24 @@ export function TvShowScreen() {
   );
 
   return (
-    <ContentLayout title={title} titleOffset={titleOffset}>
+    <ContentLayout titleOffset={titleOffset}>
       <ContentCover
-        subtitle={!!status && formatTvShowSubtitle(airDate, status)}
         backdrop={backdrop}
         title={title}
         setTitleOffset={setTitleOffset}
         type="tv"
       />
-      <ContentOverview description={description} genres={genres} />
+      <ContentOverview
+        releaseDate={releaseYears}
+        genres={genres}
+        runtime={runtime}
+      />
       <ContentActions
         homepage={homepage}
-        runtime={runtime}
-        videos={videos}
         isLoading={isVideosLoading}
-        votes={votes}
+        videos={videos}
       />
+      <ContentDescription description={description} votes={votes} />
       {!!seasons && (
         <ScreenSection>
           <Centered>
@@ -163,7 +183,7 @@ export function TvShowScreen() {
                     onPress={() =>
                       navigation.push('Season', {
                         seasonNumber: season.season_number,
-                        seasonTitle: season.name,
+                        name: season.name,
                         tvID,
                         tvShowTitle: title
                       })
@@ -183,7 +203,9 @@ export function TvShowScreen() {
                 keyName="casting"
                 title={<FormattedMessage id="common.casting" />}
                 itemPerPage={4}
-                onPress={({ id }) => navigation.push('People', { id })}
+                onPress={({ id, name }) =>
+                  navigation.push('People', { id, name })
+                }
                 listItem={PeopleThumb}
               />
             )}
@@ -205,6 +227,11 @@ export function TvShowScreen() {
         <ScreenSection>
           <Centered>
             <Text variant="h2">Information</Text>
+            {!!airDateFormatted && (
+              <Information title="Date" mt="sm">
+                <Text>{airDateFormatted}</Text>
+              </Information>
+            )}
             {!!creators && (
               <Information
                 title={<FormattedMessage id="tvShows.creators" />}
@@ -286,7 +313,9 @@ export function TvShowScreen() {
           {!!similar && (
             <List
               data={similar}
-              onPress={({ id }) => navigation.push('TvShow', { id })}
+              onPress={({ id, name }) =>
+                navigation.push('TvShow', { id, name })
+              }
               keyName="similar"
               title={<FormattedMessage id="common.similar" />}
               listItem={TvShowThumb}
@@ -295,7 +324,9 @@ export function TvShowScreen() {
           {!!recommendations && (
             <List
               keyName="recommendations"
-              onPress={({ id }) => navigation.push('TvShow', { id })}
+              onPress={({ id, name }) =>
+                navigation.push('TvShow', { id, name })
+              }
               mt={similar ? 'xl' : undefined}
               data={recommendations}
               title={<FormattedMessage id="common.recommendations" />}

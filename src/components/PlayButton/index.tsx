@@ -35,6 +35,7 @@ export function PlayButton({
   });
   const color = isNetwork ? getNetworkColor(id) : undefined;
   const logo = isNetwork ? getNetworkLogo(id) : undefined;
+  const isAppleTv = isNetwork && id === 2552;
 
   React.useEffect(() => {
     // avoid glitch
@@ -42,7 +43,7 @@ export function PlayButton({
   }, []);
 
   return (
-    <Box alignItems="center" my={isNetwork ? -7 : undefined} {...rest}>
+    <Box alignItems="center" {...rest}>
       {isNetwork && (
         <Text fontWeight="bold" mb="xxs" variant="subtitle2">
           <FormattedMessage id="playButton.availableOn" />
@@ -51,13 +52,16 @@ export function PlayButton({
       {loading && <ButtonLoader />}
       {!loading && (
         <Button
-          alignItems="center"
           backgroundColor={color}
           isCustomChildren={isNetwork}
           onPress={handleVideoPress}
         >
           {isNetwork ? (
-            <Icon size={60} icon={logo} />
+            <Icon
+              size={60}
+              color={isAppleTv ? 'dark900' : 'light900'}
+              icon={logo}
+            />
           ) : (
             <FormattedMessage id="playButton.watchTrailer" />
           )}

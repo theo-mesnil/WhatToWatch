@@ -112,18 +112,14 @@ export function PeopleScreen() {
   function handleImageClick() {
     if (withImages) {
       navigation.push('Images', {
-        title: name,
+        name,
         images
       });
     }
   }
 
   return (
-    <ContentLayout
-      title={name}
-      titleOffset={titleOffset}
-      titleOffsetSubtraction={0}
-    >
+    <ContentLayout titleOffset={titleOffset} titleOffsetSubtraction={0}>
       <ImageBackground
         width={1}
         source={{ uri: profilePictureUri }}
@@ -234,10 +230,11 @@ export function PeopleScreen() {
               keyName="knowFor"
               title={<FormattedMessage id="people.knowFor" />}
               itemPerPage={4}
-              onPress={({ id, mediaType }) => {
+              onPress={({ id, name: mediaName, type }) => {
                 if (withImages) {
-                  navigation.push(mediaType === 'movie' ? 'Movie' : 'TvShow', {
-                    id
+                  navigation.push(type === 'movie' ? 'Movie' : 'TvShow', {
+                    id,
+                    name: mediaName
                   });
                 }
               }}
@@ -254,7 +251,7 @@ export function PeopleScreen() {
               onPress={({ index }) => {
                 if (withImages) {
                   navigation.push('Images', {
-                    title: name,
+                    name,
                     images,
                     startAt: index
                   });

@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { useTheme } from 'styled-components/native';
 
+import { screenHeight } from 'constants/screen';
 import { CollectionScreen } from 'screens/Collection';
 import { GenreScreen } from 'screens/Genre';
 import { GenresScreen } from 'screens/Genres';
@@ -16,6 +17,7 @@ import { TrendScreen } from 'screens/Trend';
 import { TvShowScreen } from 'screens/TvShow';
 import { VideoScreen } from 'screens/Video';
 
+import { modalHeaderOptions } from './headers';
 import { TabBar } from './TabBar';
 import { RootStackParamList } from './types';
 
@@ -39,16 +41,23 @@ export function Navigation() {
       <Main.Navigator screenOptions={{ headerShown: false }}>
         <Main.Group>
           <Main.Screen name="TabBar" component={TabBar} />
-          <Main.Screen name="Movie" component={MovieScreen} />
-          <Main.Screen name="TvShow" component={TvShowScreen} />
-          <Main.Screen name="Collection" component={CollectionScreen} />
           <Main.Screen name="Genre" component={GenreScreen} />
           <Main.Screen name="Genres" component={GenresScreen} />
           <Main.Screen name="Network" component={NetworkScreen} />
-          <Main.Screen name="People" component={PeopleScreen} />
           <Main.Screen name="Trend" component={TrendScreen} />
         </Main.Group>
-        <Main.Group screenOptions={{ presentation: 'modal' }}>
+        <Main.Group
+          screenOptions={({ navigation, route }) => ({
+            presentation: 'modal',
+            gestureDirection: 'vertical',
+            gestureResponseDistance: screenHeight,
+            ...modalHeaderOptions({ navigation, route, theme })
+          })}
+        >
+          <Main.Screen name="Movie" component={MovieScreen} />
+          <Main.Screen name="TvShow" component={TvShowScreen} />
+          <Main.Screen name="Collection" component={CollectionScreen} />
+          <Main.Screen name="People" component={PeopleScreen} />
           <Main.Screen name="Images" component={ImagesScreen} />
           <Main.Screen name="Video" component={VideoScreen} />
           <Main.Screen name="Season" component={SeasonScreen} />

@@ -43,7 +43,7 @@ export function NetworkScreen() {
         getApi={getDiscoverTvShow}
         renderItem={TvShowThumb}
         params={[{ name: 'with_networks', value: `${networkID}` }]}
-        onPress={({ id }) => navigation.push('TvShow', { id })}
+        onPress={({ id, name }) => navigation.push('TvShow', { id, name })}
         handleScroll={setScrollY}
       >
         <>
