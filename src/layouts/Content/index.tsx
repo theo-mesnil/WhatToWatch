@@ -1,10 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { Animated } from 'react-native';
+import { useTheme } from 'styled-components/native';
 
-import { Header } from 'components/Header';
+import { getTextFont } from 'components/Text';
 
 type ContentLayoutProps = {
-  title: string;
   titleOffset?: number;
   titleOffsetSubtraction?: number;
   children: React.ReactNode;
@@ -12,25 +13,33 @@ type ContentLayoutProps = {
 
 export function ContentLayout({
   children,
-  title,
-  titleOffset = 300,
-  titleOffsetSubtraction = 70,
+  titleOffset = 400,
+  titleOffsetSubtraction = 50,
   ...rest
 }: ContentLayoutProps) {
   const [scrollY] = React.useState(new Animated.Value(0));
-  const inputRange = titleOffset - titleOffsetSubtraction;
+  const navigation = useNavigation();
+  const theme = useTheme();
+
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [titleOffset - titleOffsetSubtraction, titleOffset],
+    outputRange: [0, 1]
+  });
+
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerBackgroundContainerStyle: {
+        opacity: headerOpacity || 0
+      },
+      headerTitleStyle: {
+        ...getTextFont('h2', theme),
+        opacity: headerOpacity || 0
+      }
+    });
+  }, [headerOpacity, navigation, theme]);
 
   return (
     <>
-      <Header
-        title={title}
-        opacity={
-          scrollY.interpolate({
-            inputRange: [inputRange, inputRange],
-            outputRange: [0, 1]
-          }) as Animated.Value
-        }
-      />
       <Animated.ScrollView
         bounces={false}
         scrollEventThrottle={1}

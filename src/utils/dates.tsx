@@ -24,11 +24,11 @@ export function convertMinToHours(number: number): string {
   const rHours = Math.floor(hours);
   const minutes = (hours - rHours) * 60;
   const rMinutes = Math.round(minutes);
+  const formatMinutes = rMinutes < 10 ? `0${rMinutes}` : rMinutes;
   const formatHour = `${rHours}h`;
-  const formatMinutes = `${rMinutes}m`;
 
   if (rHours === 0 && rMinutes !== 0) {
-    return formatMinutes;
+    return `${formatMinutes}m`;
   } else if (rMinutes === 0 && rHours !== 0) {
     return formatHour;
   } else {

@@ -26,7 +26,7 @@ export const NetworkThumb = ({
         {...rest}
         borderColor="dark400"
         borderWidth="1px"
-        borderRadius="50%"
+        borderRadius={200}
         overflow="hidden"
       >
         <Gradient

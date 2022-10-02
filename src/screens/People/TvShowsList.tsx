@@ -53,7 +53,12 @@ export function TvShowsList({ tvShows }: TvShowsListProps) {
               return (
                 <Touchable
                   key={`tvShows_${key}_${index}`}
-                  onPress={() => navigation.push('TvShow', { id: item?.id })}
+                  onPress={() =>
+                    navigation.push('TvShow', {
+                      id: item?.id,
+                      name: item?.name
+                    })
+                  }
                 >
                   <Box
                     borderRadius="md"

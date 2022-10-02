@@ -14,6 +14,7 @@ import {
 import { Centered } from 'components/Centered';
 import { ContentActions } from 'components/ContentActions';
 import { ContentCover } from 'components/ContentCover';
+import { ContentDescription } from 'components/ContentDescription';
 import { ContentMedia } from 'components/ContentMedia';
 import { ContentOverview } from 'components/ContentOverview';
 import { GenreThumb } from 'components/GenreThumb';
@@ -103,6 +104,8 @@ export function MovieScreen() {
   const isVideosLoading = videos === 'loading';
   const showMedia = !!posters && !!backdrops;
   const withGenres = !!genres && genres?.length > 0;
+  const releaseYear =
+    !!releaseDate && new Date(releaseDate).getFullYear()?.toString();
 
   useEffect(() => {
     getMovie({ callback: setMovie });
@@ -115,22 +118,24 @@ export function MovieScreen() {
   }, []);
 
   return (
-    <ContentLayout title={title} titleOffset={titleOffset}>
+    <ContentLayout titleOffset={titleOffset}>
       <ContentCover
-        subtitle={!!releaseDate && formatReleasedDate(releaseDate)}
         backdrop={backdrop}
         title={title}
         setTitleOffset={setTitleOffset}
         type="movie"
       />
-      <ContentOverview description={description} genres={genres} />
+      <ContentOverview
+        releaseDate={releaseYear}
+        genres={genres}
+        runtime={runtime}
+      />
       <ContentActions
         homepage={homepage}
-        runtime={runtime}
         isLoading={isVideosLoading}
         videos={videos}
-        votes={votes}
       />
+      <ContentDescription description={description} votes={votes} />
       {(!!cast || !!videos) && (
         <ScreenSection>
           <>
@@ -140,7 +145,9 @@ export function MovieScreen() {
                 keyName="casting"
                 title={<FormattedMessage id="common.casting" />}
                 itemPerPage={4}
-                onPress={({ id }) => navigation.push('People', { id })}
+                onPress={({ id, name }) =>
+                  navigation.push('People', { id, name })
+                }
                 listItem={PeopleThumb}
               />
             )}
@@ -164,6 +171,11 @@ export function MovieScreen() {
             <Text variant="h2">
               <FormattedMessage id="common.information" />
             </Text>
+            {!!releaseDate && (
+              <Information title="Date" mt="sm">
+                <Text>{formatReleasedDate(releaseDate)}</Text>
+              </Information>
+            )}
             {!!directors && (
               <Information
                 title={<FormattedMessage id="movie.directors" />}
@@ -224,7 +236,8 @@ export function MovieScreen() {
                 title={collection?.name}
                 onPress={() =>
                   navigation.push('Collection', {
-                    id: collection?.id
+                    id: collection?.id,
+                    name: collection?.name
                   })
                 }
                 imageUrl={collection?.backdrop_path}
@@ -251,6 +264,7 @@ export function MovieScreen() {
               mt={!!genres || !!collection ? 'xl' : undefined}
               posters={posters}
               backdrops={backdrops}
+              title={title}
             />
           )}
         </ScreenSection>
@@ -260,7 +274,7 @@ export function MovieScreen() {
           {!!similar && (
             <List
               data={similar}
-              onPress={({ id }) => navigation.push('Movie', { id })}
+              onPress={({ id, name }) => navigation.push('Movie', { id, name })}
               keyName="similar"
               title={<FormattedMessage id="common.similar" />}
               listItem={MovieThumb}
@@ -269,7 +283,7 @@ export function MovieScreen() {
           {!!recommendations && (
             <List
               keyName="recommendations"
-              onPress={({ id }) => navigation.push('Movie', { id })}
+              onPress={({ id, name }) => navigation.push('Movie', { id, name })}
               mt={similar ? 'xl' : undefined}
               data={recommendations}
               title={<FormattedMessage id="common.recommendations" />}

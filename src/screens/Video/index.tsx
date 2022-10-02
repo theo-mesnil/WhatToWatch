@@ -6,7 +6,6 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 
 import { Box } from 'components/Box';
 import { Button } from 'components/Button';
-import { Header } from 'components/Header';
 import {
   ExternalLinkIcon,
   Icon,
@@ -22,7 +21,7 @@ const height = ratio * 9;
 export function VideoScreen() {
   const [isPlaying, setIsPlaying] = useState(true);
   const route = useRoute<RootStackScreenProps<'Video'>['route']>();
-  const { id, title } = route?.params;
+  const { id } = route?.params;
 
   const onStateChange = useCallback((state) => {
     if (state === 'ended') {
@@ -36,7 +35,6 @@ export function VideoScreen() {
 
   return (
     <>
-      <Header position="relative" withCrossIcon opacity={1} title={title} />
       <Box flex={1} justifyContent="center" alignItems="center">
         <YoutubePlayer
           height={height}

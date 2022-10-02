@@ -45,7 +45,9 @@ export function MoviesList({ movies }: MoviesListProps) {
             return (
               <Touchable
                 key={`movies_${key}_${index}`}
-                onPress={() => navigation.push('Movie', { id: item?.id })}
+                onPress={() =>
+                  navigation.push('Movie', { id: item?.id, name: item?.title })
+                }
               >
                 <Box
                   borderRadius="md"

@@ -16,15 +16,16 @@ type ContentMediaProps = BoxProps & {
 export function ContentMedia({
   backdrops,
   posters,
+  title,
   ...rest
 }: ContentMediaProps) {
   const navigation =
     useNavigation<RootStackScreenProps<'Images'>['navigation']>();
 
   const navigateToImagesPosters = () =>
-    navigation.push('Images', { images: posters });
+    navigation.push('Images', { images: posters, name: title });
   const navigateToImagesBackdrops = () =>
-    navigation.push('Images', { images: backdrops });
+    navigation.push('Images', { images: backdrops, name: title });
 
   return (
     <Centered maxWidth={700} {...rest}>

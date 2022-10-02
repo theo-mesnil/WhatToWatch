@@ -38,15 +38,15 @@ export function DiscoverScreen() {
   const navigation =
     useNavigation<MainTabScreenProps<'Discover'>['navigation']>();
 
-  function spotlightPress({ id, type }) {
+  function spotlightPress({ id, name, type }) {
     if (type === 'movie') {
-      navigation.push('Movie', { id });
+      navigation.push('Movie', { id, name });
     }
     if (type === 'tv') {
-      navigation.push('TvShow', { id });
+      navigation.push('TvShow', { id, name });
     }
     if (type === 'person') {
-      navigation.push('People', { id });
+      navigation.push('People', { id, name });
     }
   }
 
@@ -117,7 +117,7 @@ export function DiscoverScreen() {
         listItem={MovieThumb}
         data={upcomingMovies}
         title={<FormattedMessage id="discover.upcomingMovies" />}
-        onPress={({ id }) => navigation.push('Movie', { id })}
+        onPress={({ id, name }) => navigation.push('Movie', { id, name })}
       />
       <TopList
         mt="xl"
@@ -136,7 +136,7 @@ export function DiscoverScreen() {
         imageWidth={342}
         data={trendingTv}
         title={<FormattedMessage id="discover.trendsShows" />}
-        onPress={({ id }) => navigation.push('TvShow', { id })}
+        onPress={({ id, name }) => navigation.push('TvShow', { id, name })}
       />
       <List
         mt="xl"
@@ -144,7 +144,7 @@ export function DiscoverScreen() {
         data={trendingPeople}
         title={<FormattedMessage id="discover.popularPeople" />}
         itemPerPage={4}
-        onPress={({ id }) => navigation.push('People', { id })}
+        onPress={({ id, name }) => navigation.push('People', { id, name })}
         listItem={PeopleThumb}
       />
       <List
@@ -152,7 +152,7 @@ export function DiscoverScreen() {
         listItem={MovieThumb}
         keyName="trending_movies"
         data={trendingMovie}
-        onPress={({ id }) => navigation.push('Movie', { id })}
+        onPress={({ id, name }) => navigation.push('Movie', { id, name })}
         title={<FormattedMessage id="discover.trendsMovies" />}
         imageWidth={342}
       />
@@ -163,7 +163,7 @@ export function DiscoverScreen() {
         listItem={TvShowThumb}
         data={comedies}
         title={<FormattedMessage id="discover.comedies" />}
-        onPress={({ id }) => navigation.push('TvShow', { id })}
+        onPress={({ id, name }) => navigation.push('TvShow', { id, name })}
       />
       <List
         keyName="documentaries"
@@ -171,7 +171,7 @@ export function DiscoverScreen() {
         listItem={TvShowThumb}
         data={documentaries}
         title={<FormattedMessage id="discover.documentaries" />}
-        onPress={({ id }) => navigation.push('TvShow', { id })}
+        onPress={({ id, name }) => navigation.push('TvShow', { id, name })}
       />
       <List
         keyName="family"
@@ -179,7 +179,7 @@ export function DiscoverScreen() {
         listItem={MovieThumb}
         data={family}
         title={<FormattedMessage id="discover.family" />}
-        onPress={({ id }) => navigation.push('Movie', { id })}
+        onPress={({ id, name }) => navigation.push('Movie', { id, name })}
       />
       <List
         keyName="reality"
@@ -187,7 +187,7 @@ export function DiscoverScreen() {
         listItem={TvShowThumb}
         data={reality}
         title={<FormattedMessage id="discover.reality" />}
-        onPress={({ id }) => navigation.push('TvShow', { id })}
+        onPress={({ id, name }) => navigation.push('TvShow', { id, name })}
       />
       <List
         keyName="horror"
@@ -195,7 +195,7 @@ export function DiscoverScreen() {
         listItem={MovieThumb}
         data={horror}
         title={<FormattedMessage id="discover.horror" />}
-        onPress={({ id }) => navigation.push('Movie', { id })}
+        onPress={({ id, name }) => navigation.push('Movie', { id, name })}
       />
       <List
         keyName="drama"
@@ -203,7 +203,7 @@ export function DiscoverScreen() {
         listItem={TvShowThumb}
         data={drama}
         title={<FormattedMessage id="discover.drama" />}
-        onPress={({ id }) => navigation.push('TvShow', { id })}
+        onPress={({ id, name }) => navigation.push('TvShow', { id, name })}
       />
     </CoverLayout>
   );

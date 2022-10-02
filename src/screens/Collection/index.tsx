@@ -2,17 +2,16 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackScreenProps } from 'navigation/types';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Animated } from 'react-native';
 
 import { useGetCollection } from 'api/collection';
 import { ContentCover } from 'components/ContentCover';
-import { Header } from 'components/Header';
+import { ContentOverview } from 'components/ContentOverview';
 import { MovieThumb } from 'components/MovieThumb';
 import { VerticalList } from 'components/VerticalList';
+import { ContentLayout } from 'layouts/Content';
 
 export function CollectionScreen() {
-  const [scrollY, setScrollY] = React.useState(new Animated.Value(0));
-  const [titleOffset, setTitleOffset] = React.useState(300);
+  const [titleOffset, setTitleOffset] = React.useState(undefined);
   const [collection, setCollection] = React.useState({
     backdrop: 'loading',
     movies: 'loading',
@@ -23,7 +22,6 @@ export function CollectionScreen() {
   const route = useRoute<RootStackScreenProps<'Collection'>['route']>();
   const collectionID = route?.params?.id || 1241;
   const getCollection = useGetCollection(collectionID);
-  const inputRange = titleOffset - 70;
   const title = collection?.title;
   const backdrop = collection?.backdrop;
   const movies = collection?.movies;
@@ -40,33 +38,19 @@ export function CollectionScreen() {
   }, []);
 
   return (
-    <>
-      <Header
+    <ContentLayout titleOffset={titleOffset}>
+      <ContentCover
+        backdrop={backdrop}
+        setTitleOffset={setTitleOffset}
         title={title}
-        subtitle={subtitle}
-        opacity={
-          scrollY.interpolate({
-            inputRange: [inputRange, inputRange],
-            outputRange: [0, 1]
-          }) as Animated.Value
-        }
       />
+      <ContentOverview releaseDate={subtitle} mb="xl" />
       <VerticalList
         resultsData={movies}
         getApi={getCollection}
         renderItem={MovieThumb}
-        onPress={({ id }) => navigation.push('Movie', { id })}
-        handleScroll={setScrollY}
-      >
-        <ContentCover
-          backdrop={backdrop}
-          setTitleOffset={setTitleOffset}
-          subtitle={subtitle}
-          title={title}
-          borderBottomWidth={1}
-          borderBottomColor="border"
-        />
-      </VerticalList>
-    </>
+        onPress={({ id, name }) => navigation.push('Movie', { id, name })}
+      />
+    </ContentLayout>
   );
 }

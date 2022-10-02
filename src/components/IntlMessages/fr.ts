@@ -34,9 +34,6 @@ export default {
     horror: 'Donne des frissons...',
     drama: 'Dramaaaaaaa'
   },
-  collection: {
-    subtitle: '{length} {length, plural, one {film} other {films}}'
-  },
   more: {
     languages: {
       title: 'Langue',

@@ -4,26 +4,26 @@ import { StackScreenProps } from '@react-navigation/stack';
 
 export type RootStackParamList = {
   TabBar: BottomTabScreenProps<MainTabParamList>;
-  Movie: { id: number };
-  TvShow: { id: number };
-  Collection: { id: number };
+  Movie: { id: number; name: string };
+  TvShow: { id: number; name: string };
+  Collection: { id: number; name: string };
   Genre: { id: number; name: string; type: 'movie' | 'tv' };
   Genres: { type: 'movie' | 'tv' };
   Network: { id: number };
-  People: { id?: number };
+  People: { id?: number; name: string };
   Trend: { type: 'movie' | 'tv' | 'person' | 'all' };
   Images: {
-    title?: string;
+    name: string;
     startAt?: number;
     images: {
       aspectRatio?: number;
       source: string;
     }[];
   };
-  Video: { title: string; id: number };
+  Video: { name: string; id: number };
   Season: {
     seasonNumber: number;
-    seasonTitle: string;
+    name: string;
     tvID: number;
     tvShowTitle: string;
   };

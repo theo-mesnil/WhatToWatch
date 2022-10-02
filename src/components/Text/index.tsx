@@ -31,6 +31,14 @@ export type TextProps = ColorProps &
     weight?: 'regular' | 'bold' | undefined;
   };
 
+export function getTextFont(variant: TextProps['variant'], theme) {
+  return {
+    fontFamily: getFontFamily(theme.fontWeights[variant]),
+    lineHeight: `${theme.fontSizes[variant] + 6}px`,
+    fontSize: `${theme.fontSizes[variant]}px`
+  };
+}
+
 export const Text = styled.Text(
   ({ color = 'light800', theme, variant = 'text', weight }: TextProps) => css`
     font-family: ${getFontFamily(weight || theme.fontWeights[variant])};

@@ -48,7 +48,9 @@ export function GenreScreen() {
         getApi={isTV ? getDiscoverTvShow : getDiscoverMovie}
         renderItem={isTV ? TvShowThumb : MovieThumb}
         params={[{ name: 'with_genres', value: `${genreID}` }]}
-        onPress={({ id }) => navigation.push(isTV ? 'TvShow' : 'Movie', { id })}
+        onPress={({ id, name }) =>
+          navigation.push(isTV ? 'TvShow' : 'Movie', { id, name })
+        }
         handleScroll={setScrollY}
       >
         <>
