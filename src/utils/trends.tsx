@@ -8,7 +8,7 @@ export const getTrendTitle = (type: Type) => {
     case 'tv':
       return <FormattedMessage id="common.tvShows" />;
     case 'person':
-      return <FormattedMessage id="common.people" />;
+      return <FormattedMessage id="common.person" />;
     case 'all':
       return <FormattedMessage id="common.all" />;
     default:

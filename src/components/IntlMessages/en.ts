@@ -32,7 +32,8 @@ export default {
     comedies: 'Passion for comedies',
     reality: 'Reality show',
     horror: 'Be afraid...',
-    drama: 'Dramaaaaaaa'
+    drama: 'Dramaaaaaaa',
+    people: 'People'
   },
   collection: {
     subtitle: '{length} {length, plural, one {movie} other {movies}}'

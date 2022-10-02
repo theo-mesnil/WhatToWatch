@@ -11,7 +11,7 @@ export default {
     similar: 'Similaire',
     recommendations: 'Recommandations',
     trends: 'Populaires',
-    people: 'Artistes',
+    person: 'Artistes',
     all: 'Tous'
   },
   tabs: {
@@ -33,6 +33,9 @@ export default {
     reality: 'Télé-réalité',
     horror: 'Donne des frissons...',
     drama: 'Dramaaaaaaa'
+  },
+  collection: {
+    subtitle: '{length} {length, plural, one {film} other {films}}'
   },
   more: {
     languages: {
