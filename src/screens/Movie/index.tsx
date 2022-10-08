@@ -17,7 +17,6 @@ import { ContentCover } from 'components/ContentCover';
 import { ContentDescription } from 'components/ContentDescription';
 import { ContentMedia } from 'components/ContentMedia';
 import { ContentOverview } from 'components/ContentOverview';
-import { GenreThumb } from 'components/GenreThumb';
 import { Information } from 'components/Information';
 import { InformationCompanies } from 'components/InformationCompanies';
 import { InformationCredits } from 'components/InformationCredits';
@@ -94,16 +93,17 @@ export function MovieScreen() {
   const { backdrops, posters } = images;
   const withProductions =
     !!productionCompanies && productionCompanies?.length > 0;
+  const withGenres = !!genres && genres?.length > 0 && genres !== 'loading';
   const showInformation =
     !!directors ||
     !!writers ||
     !!originalTitle ||
     !!budget ||
     !!revenue ||
-    withProductions;
+    withProductions ||
+    withGenres;
   const isVideosLoading = videos === 'loading';
   const showMedia = !!posters && !!backdrops;
-  const withGenres = !!genres && genres?.length > 0;
   const releaseYear =
     !!releaseDate && new Date(releaseDate).getFullYear()?.toString();
 
@@ -224,10 +224,22 @@ export function MovieScreen() {
                 <InformationCompanies companies={productionCompanies} />
               </Information>
             )}
+            {withGenres && Array.isArray(genres) && (
+              <Information
+                title={<FormattedMessage id="common.genres" />}
+                mt="sm"
+              >
+                <>
+                  {genres.map(
+                    (genre, index) => `${index === 0 ? '' : ', '}${genre.name}`
+                  )}
+                </>
+              </Information>
+            )}
           </Centered>
         </ScreenSection>
       )}
-      {(withGenres || !!collection || !!showMedia) && (
+      {(!!collection || !!showMedia) && (
         <ScreenSection>
           {!!collection && (
             <Centered maxWidth={700}>
@@ -246,22 +258,9 @@ export function MovieScreen() {
               />
             </Centered>
           )}
-          {withGenres && (
-            <List
-              mt={collection ? 'xl' : undefined}
-              data={genres !== 'loading' && genres}
-              keyName="genres"
-              onPress={({ id, name }) =>
-                navigation.push('Genre', { id, type: 'movie', name })
-              }
-              listItem={GenreThumb}
-              title={<FormattedMessage id="common.genres" />}
-              autoWidthOnItem
-            />
-          )}
           {showMedia && (
             <ContentMedia
-              mt={!!genres || !!collection ? 'xl' : undefined}
+              mt={collection ? 'xl' : undefined}
               posters={posters}
               backdrops={backdrops}
               title={title}

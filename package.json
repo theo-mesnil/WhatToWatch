@@ -38,7 +38,7 @@
     "react-dom": "18.0.0",
     "react-intl": "^6.1.1",
     "react-is": "18.0.0",
-    "react-native": "0.69.3",
+    "react-native": "0.69.6",
     "react-native-gesture-handler": "2.5.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-safe-area-context": "4.3.1",

@@ -34,8 +34,8 @@ export type TextProps = ColorProps &
 export function getTextFont(variant: TextProps['variant'], theme) {
   return {
     fontFamily: getFontFamily(theme.fontWeights[variant]),
-    lineHeight: `${theme.fontSizes[variant] + 6}px`,
-    fontSize: `${theme.fontSizes[variant]}px`
+    lineHeight: theme.fontSizes[variant] + 6,
+    fontSize: theme.fontSizes[variant]
   };
 }
 

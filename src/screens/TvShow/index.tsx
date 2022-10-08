@@ -18,7 +18,6 @@ import { ContentCover } from 'components/ContentCover';
 import { ContentDescription } from 'components/ContentDescription';
 import { ContentMedia } from 'components/ContentMedia';
 import { ContentOverview } from 'components/ContentOverview';
-import { GenreThumb } from 'components/GenreThumb';
 import { Information } from 'components/Information';
 import { InformationCompanies } from 'components/InformationCompanies';
 import { InformationCredits } from 'components/InformationCredits';
@@ -111,13 +110,15 @@ export function TvShowScreen() {
   const { backdrops, posters } = images;
   const showMedia = !!posters && !!backdrops;
   const withNetworks = !!networks && networks?.length > 0;
+  const withGenres = !!genres && genres?.length > 0 && genres !== 'loading';
   const showInformation =
     !!creators ||
     !!originalTitle ||
     !!seasonsNumber ||
     !!episodesNumber ||
     !!type ||
-    withNetworks;
+    withNetworks ||
+    withGenres;
   const isVideosLoading = videos === 'loading';
   const isSeasonLoading = seasons === 'loading';
   const airDateFormatted = !!status && formatTvShowSubtitle(airDate, status);
@@ -281,26 +282,25 @@ export function TvShowScreen() {
                 <InformationCompanies companies={networks} />
               </Information>
             )}
+            {withGenres && Array.isArray(genres) && (
+              <Information
+                title={<FormattedMessage id="common.genres" />}
+                mt="sm"
+              >
+                <>
+                  {genres.map(
+                    (genre, index) => `${index === 0 ? '' : ', '}${genre.name}`
+                  )}
+                </>
+              </Information>
+            )}
           </Centered>
         </ScreenSection>
       )}
-      {((!!genres && genres?.length > 0) || !!showMedia) && (
+      {!!showMedia && (
         <ScreenSection>
-          {!!genres && (
-            <List
-              data={genres !== 'loading' && genres}
-              keyName="genres"
-              onPress={({ id, name }) =>
-                navigation.push('Genre', { id, type: 'tv', name })
-              }
-              listItem={GenreThumb}
-              title={<FormattedMessage id="common.genres" />}
-              autoWidthOnItem
-            />
-          )}
           {showMedia && (
             <ContentMedia
-              mt={genres ? 'xl' : undefined}
               posters={posters}
               backdrops={backdrops}
               title={title}

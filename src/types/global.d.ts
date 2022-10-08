@@ -43,6 +43,16 @@ declare global {
 
   type Images = Image[];
 
+  type Collection = {
+    name: string;
+    id: number;
+    backdrop_path: string;
+  };
+
+  type ProductionCompany = {
+    name: string;
+  };
+
   type LocaleLanguage = 'fr' | 'en' | 'auto';
 
   type Credit = {

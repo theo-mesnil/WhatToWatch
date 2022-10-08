@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import { Box } from 'components/Box';
 import { CrossIcon, Icon } from 'components/Icon';
 import { Touchable } from 'components/Touchable';
+import { isAndroid } from 'constants/screen';
 
 export const modalHeaderOptions = ({ navigation, route, theme }) => {
   return {
@@ -20,8 +21,11 @@ export const modalHeaderOptions = ({ navigation, route, theme }) => {
     title: route.params.name,
     headerTintColor: theme.colors.light900,
     headerTransparent: true,
-    headerBackground: () => (
-      <BlurView tint="dark" intensity={100} style={StyleSheet.absoluteFill} />
-    )
+    headerBackground: () =>
+      isAndroid ? (
+        <Box backgroundColor="behind" width="100%" height="100%" />
+      ) : (
+        <BlurView tint="dark" intensity={100} style={StyleSheet.absoluteFill} />
+      )
   };
 };

@@ -9,7 +9,7 @@ import { formatGenreList } from 'utils/genres';
 type ContentOverviewProps = {
   genres?: Genre[] | string;
   releaseDate?: string | React.ReactElement;
-  runtime?: string;
+  runtime?: number;
   mb?: BoxProps['mb'];
 };
 
