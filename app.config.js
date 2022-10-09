@@ -7,6 +7,7 @@ export default {
     "Find movies & tv shows guide recommendations - Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series and actors. It's an application based on themoviedb (TMDb)database.",
   version: '1.0.0',
   orientation: 'portrait',
+  githubUrl: 'https://github.com/theo-mesnil/WhatToWatch',
   icon: 'src/assets/icon.png',
   splash: {
     image: 'src/assets/splash.png',
@@ -17,9 +18,7 @@ export default {
     fallbackToCacheTimeout: 0
   },
   assetBundlePatterns: ['**/*'],
-  ios: {
-    supportsTablet: true
-  },
+
   android: {
     adaptiveIcon: {
       foregroundImage: 'src/assets/adaptive-icon.png',
