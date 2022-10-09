@@ -1,8 +1,10 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { Animated } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
+import { Box } from 'components/Box';
 import { getTextFont } from 'components/Text';
 
 type BasicLayoutProps = {
@@ -20,6 +22,7 @@ export function BasicLayout({
   const [scrollY] = React.useState(new Animated.Value(0));
   const navigation = useNavigation();
   const theme = useTheme();
+  const tabBarHeight = useBottomTabBarHeight();
 
   const headerOpacity = scrollY.interpolate({
     inputRange: [titleOffset - titleOffsetSubtraction, titleOffset],
@@ -54,9 +57,10 @@ export function BasicLayout({
           useNativeDriver: true
         }
       )}
-      {...rest}
     >
-      {children}
+      <Box pb={tabBarHeight + theme.space.lg} {...rest}>
+        {children}
+      </Box>
     </Animated.ScrollView>
   );
 }

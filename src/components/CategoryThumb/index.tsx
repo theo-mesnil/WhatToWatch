@@ -24,8 +24,8 @@ export function CategoryThumb({
   ...rest
 }: CategoryThumbProps) {
   return (
-    <Box {...rest}>
-      <Touchable onPress={!isLoading ? onPress : undefined} flex={1}>
+    <Box flex={1} {...rest}>
+      <Touchable onPress={!isLoading ? onPress : undefined}>
         <S.People aspectRatio={aspectRatio}>
           <Box justifyContent="center" flexGrow={1} alignItems="center">
             {!!icon && <Icon size={25} icon={icon} opacity={0.9} mb="sm" />}

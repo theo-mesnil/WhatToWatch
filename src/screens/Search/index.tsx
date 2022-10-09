@@ -103,7 +103,7 @@ export function SearchScreen() {
   if (noResultForSearch) {
     return (
       <Centered alignItems="center" mt={headerHeight}>
-        <Text variant="h2">
+        <Text textAlign="center" variant="h2" maxWidth="80%">
           <FormattedMessage id="search.noResults.subtitle" values={{ query }} />
         </Text>
       </Centered>
@@ -123,35 +123,37 @@ export function SearchScreen() {
           !query && (
             <>
               <Box
-                flex={1}
                 px="lg"
                 mb="lg"
                 flexDirection="row"
                 flexWrap="wrap"
                 justifyContent="space-between"
               >
-                <CategoryThumb
-                  onPress={() =>
-                    navigation.navigate('Trend', { type: 'movie' })
-                  }
-                  title={<FormattedMessage id="common.movies" />}
-                  icon={MovieFillIcon}
-                  width={'32%'}
-                />
-                <CategoryThumb
-                  onPress={() => navigation.navigate('Trend', { type: 'tv' })}
-                  title={<FormattedMessage id="common.tvShows" />}
-                  icon={TvFillIcon}
-                  width={'32%'}
-                />
-                <CategoryThumb
-                  onPress={() =>
-                    navigation.navigate('Trend', { type: 'person' })
-                  }
-                  title={<FormattedMessage id="common.person" />}
-                  icon={PeopleFillIcon}
-                  width={'32%'}
-                />
+                <Box width={'32%'}>
+                  <CategoryThumb
+                    onPress={() =>
+                      navigation.navigate('Trend', { type: 'movie' })
+                    }
+                    title={<FormattedMessage id="common.movies" />}
+                    icon={MovieFillIcon}
+                  />
+                </Box>
+                <Box width={'32%'}>
+                  <CategoryThumb
+                    onPress={() => navigation.navigate('Trend', { type: 'tv' })}
+                    title={<FormattedMessage id="common.tvShows" />}
+                    icon={TvFillIcon}
+                  />
+                </Box>
+                <Box width={'32%'}>
+                  <CategoryThumb
+                    onPress={() =>
+                      navigation.navigate('Trend', { type: 'person' })
+                    }
+                    title={<FormattedMessage id="common.person" />}
+                    icon={PeopleFillIcon}
+                  />
+                </Box>
               </Box>
               <Text px="lg" mb="sm" numberOfLines={1} variant="h2">
                 <FormattedMessage id="search.title" />

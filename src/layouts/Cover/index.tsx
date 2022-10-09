@@ -1,5 +1,7 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import { Animated } from 'react-native';
+import { useTheme } from 'styled-components/native';
 
 import { AnimatedBox } from 'components/AnimatedBox';
 import { Box } from 'components/Box';
@@ -16,6 +18,8 @@ type CoverLayoutProps = {
 
 export function CoverLayout({ children, imageUrl, ...rest }: CoverLayoutProps) {
   const [scrollY] = React.useState(new Animated.Value(0));
+  const theme = useTheme();
+  const tabBarHeight = useBottomTabBarHeight();
   const aspectRatio = 16 / 12;
   const inputRange = windowWidth / aspectRatio;
 
@@ -62,7 +66,7 @@ export function CoverLayout({ children, imageUrl, ...rest }: CoverLayoutProps) {
           }
         )}
       >
-        <Box pb="xl" pt="xxl" {...rest}>
+        <Box pb={tabBarHeight + theme.space.lg} pt="xxl" {...rest}>
           {children}
         </Box>
       </Animated.ScrollView>

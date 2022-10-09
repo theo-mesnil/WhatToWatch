@@ -21,7 +21,7 @@ type ItemProps = BoxProps & {
 
 export function Item({ items, title, ...rest }: ItemProps) {
   return (
-    <Box backgroundColor="ahead" borderRadius="md" py="xxs" {...rest}>
+    <Box backgroundColor="ahead" py="xxs" {...rest}>
       <Text weight="bold" mt="sm" mb="md" ml="md">
         {title}
       </Text>

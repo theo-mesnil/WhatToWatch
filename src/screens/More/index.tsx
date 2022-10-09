@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Linking } from 'react-native';
 
-import { Centered } from 'components/Centered';
+import { Box } from 'components/Box';
 import { EmailIcon, SmileIcon, StarFillIcon } from 'components/Icon';
 import { LOCALE_AUTO, LOCALE_EN, LOCALE_FR } from 'constants/locales';
 import { useHeaderHeights } from 'constants/statusBar';
@@ -37,7 +37,7 @@ export function MoreScreen() {
 
   return (
     <BasicLayout>
-      <Centered paddingTop={headerHeight}>
+      <Box pt={headerHeight}>
         <Item
           items={[
             {
@@ -116,7 +116,7 @@ export function MoreScreen() {
           ]}
           title={<FormattedMessage id="more.sources.title" />}
         />
-      </Centered>
+      </Box>
     </BasicLayout>
   );
 }

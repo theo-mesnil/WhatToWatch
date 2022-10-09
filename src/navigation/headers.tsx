@@ -37,6 +37,7 @@ export const tabBarHeaderOptions = ({ theme }) => {
     headerRight: () => null,
     headerTintColor: theme.colors.light900,
     headerTransparent: true,
+    headerTitleAlign: 'center',
     headerBackground: () =>
       isAndroid ? (
         <Box backgroundColor="behind" width="100%" height="100%" />

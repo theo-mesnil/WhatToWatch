@@ -1,7 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BlurView } from 'expo-blur';
 import merge from 'lodash.merge';
 import * as React from 'react';
 import { useIntl } from 'react-intl';
+import { StyleSheet } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
 import {
@@ -15,7 +17,7 @@ import {
   SearchFillIcon,
   SearchIcon
 } from 'components/Icon';
-import { isAndroid } from 'constants/screen';
+import { isAndroid, isIos } from 'constants/screen';
 import { DiscoverScreen } from 'screens/Discover';
 import { MoreScreen } from 'screens/More';
 import { NetworksScreen } from 'screens/Networks';
@@ -23,6 +25,12 @@ import { SearchScreen } from 'screens/Search';
 
 import { tabBarHeaderOptions } from './headers';
 import { MainTabParamList } from './types';
+
+function BottomBarBackground() {
+  return (
+    <BlurView tint="dark" intensity={150} style={StyleSheet.absoluteFill} />
+  );
+}
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -47,10 +55,14 @@ export function TabBar() {
       ...tabBarHeaderOptions({ theme }),
       tabBarActiveTintColor: theme.colors.primary500,
       tabBarInactiveTintColor: theme.colors.light400,
-      tabBarStyle: {
-        backgroundColor: theme.colors.ahead,
-        borderTopColor: theme.colors.ahead
-      },
+      tabBarBackground: isIos ? BottomBarBackground : undefined,
+      tabBarStyle: isAndroid
+        ? {
+            backgroundColor: theme.colors.ahead,
+            borderTopColor: theme.colors.ahead,
+            position: 'absolute'
+          }
+        : { borderTopColor: 'transparent', position: 'absolute' },
       tabBarLabelStyle: {
         fontSize: theme.fontSizes.h4,
         fontFamily: 'Poppins_600SemiBold'
