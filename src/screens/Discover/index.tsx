@@ -13,6 +13,7 @@ import { List } from 'components/List';
 import { MovieThumb } from 'components/MovieThumb';
 import { NetworkThumb } from 'components/NetworkThumb';
 import { PeopleThumb } from 'components/PeopleThumb';
+import { SpotlightList } from 'components/SpotlightList';
 import { TopList } from 'components/TopList';
 import { TvShowThumb } from 'components/TvShowThumb';
 import { networksList } from 'constants/networks';
@@ -91,16 +92,11 @@ export function DiscoverScreen() {
 
   return (
     <CoverLayout imageUrl={trendings?.[0]?.backdrop_path}>
-      <List
+      <SpotlightList
         mt="xl"
         keyName="trendings"
         data={trendings?.slice(0, 5)}
         onPress={spotlightPress}
-        itemPerPage={1}
-        aspectRatio={10 / 7}
-        withBackdropImage
-        withTitleOnCover
-        imageWidth={780}
         listItem={ContentThumb}
       />
       <List
