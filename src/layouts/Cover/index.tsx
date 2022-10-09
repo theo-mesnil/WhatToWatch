@@ -20,7 +20,7 @@ export function CoverLayout({ children, imageUrl, ...rest }: CoverLayoutProps) {
   const [scrollY] = React.useState(new Animated.Value(0));
   const theme = useTheme();
   const tabBarHeight = useBottomTabBarHeight();
-  const aspectRatio = 16 / 12;
+  const aspectRatio = 16 / 14;
   const inputRange = windowWidth / aspectRatio;
 
   return (

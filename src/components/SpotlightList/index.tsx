@@ -23,6 +23,7 @@ export type SpotlightListProps = BoxProps & {
   onPress?: (params: any) => any;
   aspectRatio?: number;
   listItem: ListItem;
+  getActiveSlide: (activeSlide: number) => void;
   data?: any;
   keyName: string;
 };
@@ -30,6 +31,7 @@ export type SpotlightListProps = BoxProps & {
 export const SpotlightList = React.memo(
   ({
     data,
+    getActiveSlide,
     keyName,
     listItem: ListItem,
     onPress,
@@ -63,7 +65,9 @@ export const SpotlightList = React.memo(
 
       if (active || active === 0) {
         setActiveSlide(active);
+        getActiveSlide(active);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const renderItem: ListRenderItem<Item> = ({ index, item }) => {
@@ -104,22 +108,18 @@ export const SpotlightList = React.memo(
               itemVisiblePercentThreshold: 60
             }}
           />
-          {!isLoading && (
-            <Centered flexDirection="row" justifyContent="center" mt="sm">
-              {[...Array(data.length)].map((item, index) => (
-                <Box
-                  key={index}
-                  width={10}
-                  height={10}
-                  borderRadius={10}
-                  backgroundColor={
-                    index === activeSlide ? 'light900' : 'dark400'
-                  }
-                  ml={index === 0 ? undefined : 'md'}
-                />
-              ))}
-            </Centered>
-          )}
+          <Centered flexDirection="row" justifyContent="center" mt="sm">
+            {[...Array(data?.length || 5)].map((item, index) => (
+              <Box
+                key={index}
+                width={10}
+                height={10}
+                borderRadius={10}
+                backgroundColor={index === activeSlide ? 'light900' : 'dark400'}
+                ml={index === 0 ? undefined : 'md'}
+              />
+            ))}
+          </Centered>
         </Box>
       </Box>
     );

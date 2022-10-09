@@ -31,6 +31,7 @@ export function DiscoverScreen() {
   const [reality, setReality] = useState();
   const [horror, setHorror] = useState();
   const [drama, setDrama] = useState();
+  const [spotlightActiveSlide, setSpotlightActiveSlide] = React.useState(0);
   const getTrending = useGetTrending();
   const getPopular = useGetPopular();
   const getUpcoming = useGetUpcoming();
@@ -90,14 +91,18 @@ export function DiscoverScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function getActiveSlide(activeSlide) {
+    setSpotlightActiveSlide(activeSlide);
+  }
+
   return (
-    <CoverLayout imageUrl={trendings?.[0]?.backdrop_path}>
+    <CoverLayout imageUrl={trendings?.[spotlightActiveSlide]?.backdrop_path}>
       <SpotlightList
-        mt="xl"
         keyName="trendings"
         data={trendings?.slice(0, 5)}
         onPress={spotlightPress}
         listItem={ContentThumb}
+        getActiveSlide={getActiveSlide}
       />
       <List
         mt="xl"
