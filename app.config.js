@@ -18,7 +18,9 @@ export default {
     fallbackToCacheTimeout: 0
   },
   assetBundlePatterns: ['**/*'],
-
+  ios: {
+    supportsTablet: false
+  },
   android: {
     adaptiveIcon: {
       foregroundImage: 'src/assets/adaptive-icon.png',
