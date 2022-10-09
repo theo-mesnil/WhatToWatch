@@ -26,6 +26,7 @@ export default {
       backgroundColor: '#121418'
     },
     package: 'com.theomesnil.WhatToWatch',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch',
     versionCode: 3
   },
   web: {
