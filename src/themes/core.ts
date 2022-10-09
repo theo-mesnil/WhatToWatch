@@ -100,6 +100,18 @@ export const coreTheme: DefaultTheme = {
     link: 12,
     text: 13
   },
+  fontLineHeights: {
+    h0: 46,
+    h1: 30,
+    h2: 22,
+    h3: 18,
+    h4: 16,
+    subtitle1: 18,
+    subtitle2: 16,
+    subtitle3: 15,
+    link: 18,
+    text: 19
+  },
   fontWeights: {
     h0: 'bold',
     h1: 'bold',

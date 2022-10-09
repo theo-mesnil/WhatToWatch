@@ -12,12 +12,14 @@ type NetworkThumbProps = BoxProps &
     item: {
       id: number;
     };
+    isSquare?: boolean;
   };
 
 export const NetworkThumb = ({
   aspectRatio = 1 / 1,
   onPress,
   item,
+  isSquare,
   ...rest
 }: NetworkThumbProps) => {
   return (
@@ -26,7 +28,7 @@ export const NetworkThumb = ({
         {...rest}
         borderColor="dark400"
         borderWidth="1px"
-        borderRadius={200}
+        borderRadius={isSquare ? undefined : 200}
         overflow="hidden"
       >
         <Gradient

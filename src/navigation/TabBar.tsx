@@ -18,9 +18,10 @@ import {
 import { isAndroid } from 'constants/screen';
 import { DiscoverScreen } from 'screens/Discover';
 import { MoreScreen } from 'screens/More';
+import { NetworksScreen } from 'screens/Networks';
 import { SearchScreen } from 'screens/Search';
-import { TrendsScreen } from 'screens/Trends';
 
+import { tabBarHeaderOptions } from './headers';
 import { MainTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -43,7 +44,7 @@ export function TabBar() {
 
   const screenOptions = merge(
     {
-      headerShown: false,
+      ...tabBarHeaderOptions({ theme }),
       tabBarActiveTintColor: theme.colors.primary500,
       tabBarInactiveTintColor: theme.colors.light400,
       tabBarStyle: {
@@ -77,6 +78,7 @@ export function TabBar() {
         name="Discover"
         component={DiscoverScreen}
         options={{
+          headerShown: false,
           title: intl.formatMessage({ id: 'tabs.discover' }),
           tabBarIcon: (props) =>
             tabBarIcon({
@@ -100,10 +102,10 @@ export function TabBar() {
         }}
       />
       <Tab.Screen
-        name="Trends"
-        component={TrendsScreen}
+        name="Networks"
+        component={NetworksScreen}
         options={{
-          title: intl.formatMessage({ id: 'tabs.trends' }),
+          title: intl.formatMessage({ id: 'tabs.networks' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,

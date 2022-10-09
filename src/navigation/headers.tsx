@@ -29,3 +29,19 @@ export const modalHeaderOptions = ({ navigation, route, theme }) => {
       )
   };
 };
+
+export const tabBarHeaderOptions = ({ theme }) => {
+  return {
+    headerShown: true,
+    headerLeft: () => null,
+    headerRight: () => null,
+    headerTintColor: theme.colors.light900,
+    headerTransparent: true,
+    headerBackground: () =>
+      isAndroid ? (
+        <Box backgroundColor="behind" width="100%" height="100%" />
+      ) : (
+        <BlurView tint="dark" intensity={100} style={StyleSheet.absoluteFill} />
+      )
+  };
+};

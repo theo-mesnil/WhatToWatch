@@ -79,6 +79,18 @@ declare module 'styled-components/native' {
       link: string;
       text: string;
     };
+    fontLineHeights: {
+      h0: number;
+      h1: number;
+      h2: number;
+      h3: number;
+      h4: number;
+      subtitle1: number;
+      subtitle2: number;
+      subtitle3: number;
+      link: number;
+      text: number;
+    };
     fontColors: {
       subtitle1: string;
       subtitle2: string;

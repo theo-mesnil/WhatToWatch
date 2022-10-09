@@ -1,24 +1,30 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useTheme } from 'styled-components/native';
 
 import { useGetSearch } from 'api/search';
 import { useGetTrending } from 'api/trending';
 import { Box } from 'components/Box';
+import { CategoryThumb } from 'components/CategoryThumb';
 import { Centered } from 'components/Centered';
-import { headerHeight } from 'components/Header';
-import { CrossIcon, Icon, SearchIcon } from 'components/Icon';
-import { Image } from 'components/Image';
+import {
+  CrossIcon,
+  Icon,
+  MovieFillIcon,
+  PeopleFillIcon,
+  SearchIcon,
+  TvFillIcon
+} from 'components/Icon';
 import { RenderItemList } from 'components/RenderItemList';
 import { Text } from 'components/Text';
 import { TextInput } from 'components/TextInput';
 import { Touchable } from 'components/Touchable';
 import { VerticalList } from 'components/VerticalList';
-import { isAndroid } from 'constants/screen';
-import { statusBarHeight } from 'constants/statusBar';
+import { windowWidth } from 'constants/screen';
+import { useHeaderHeights } from 'constants/statusBar';
+import { BasicLayout } from 'layouts/Basic';
 import { useHandlePressItemList } from 'utils/lists';
-
-const searchHeaderHeight = headerHeight + 5;
-const searchPaddingTop = isAndroid ? statusBarHeight + 10 : statusBarHeight;
 
 function renderItem(props) {
   return <RenderItemList data={props} />;
@@ -31,8 +37,12 @@ export function SearchScreen() {
   const getSearch = useGetSearch();
   const getTrending = useGetTrending();
   const handlePressItemList = useHandlePressItemList();
+  const navigation = useNavigation();
+  const theme = useTheme();
   const noSearchYet = results === undefined;
   const resultsLength = results?.length > 0;
+  const { headerHeight } = useHeaderHeights();
+
   const noResultForSearch = !noSearchYet && !resultsLength;
 
   useEffect(() => {
@@ -61,75 +71,95 @@ export function SearchScreen() {
     setQuery(undefined);
   }
 
-  return (
-    <>
-      <Box
-        paddingTop={searchPaddingTop}
-        height={searchHeaderHeight}
-        alignItems="center"
-        backgroundColor="ahead"
-        position="absolute"
-        zIndex="1"
-        width={1}
-      >
-        <Box
-          width="90%"
-          height={40}
-          maxWidth={360}
-          backgroundColor="dark600"
-          borderRadius="md"
-          px="sm"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Icon color="light900" mr="sm" size={18} icon={SearchIcon} />
-          <TextInput autoFocus onChangeText={setQuery} value={query} />
-          {!!query && (
-            <Touchable ml="sm" onPress={resetSearch}>
-              <Icon color="light900" icon={CrossIcon} />
-            </Touchable>
-          )}
+  React.useEffect(() => {
+    navigation.setOptions({
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerTitle: () => (
+        <Box height={50}>
+          <Box
+            width={windowWidth - theme.space.lg * 2}
+            height={40}
+            backgroundColor="dark400"
+            borderRadius="md"
+            px="sm"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Icon color="light900" mr="sm" size={18} icon={SearchIcon} />
+            <TextInput onChangeText={setQuery} value={query} />
+            {!!query && (
+              <Touchable ml="sm" onPress={resetSearch}>
+                <Icon color="light900" icon={CrossIcon} />
+              </Touchable>
+            )}
+          </Box>
         </Box>
-      </Box>
+      )
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation, query]);
+
+  if (noResultForSearch) {
+    return (
+      <Centered alignItems="center" mt={headerHeight}>
+        <Text variant="h2">
+          <FormattedMessage id="search.noResults.subtitle" values={{ query }} />
+        </Text>
+      </Centered>
+    );
+  }
+
+  return (
+    <BasicLayout>
       <VerticalList
         resultsData={query ? results : trending}
         renderItem={renderItem}
         maxPage={1}
         numberOfColumns={3}
         onPress={handlePressItemList}
-        paddingTop={searchHeaderHeight}
-      >
-        <Centered alignItems={noResultForSearch ? 'center' : undefined}>
-          {noResultForSearch && (
+        contentContainerStyle={{ paddingTop: headerHeight }}
+        ListHeaderComponent={
+          !query && (
             <>
-              <Text
-                fontSize={50}
-                weight="bold"
-                lineHeight="60px"
-                mt="xxl"
-                mb="md"
-                color="primary500"
+              <Box
+                flex={1}
+                px="lg"
+                mb="lg"
+                flexDirection="row"
+                flexWrap="wrap"
+                justifyContent="space-between"
               >
-                <FormattedMessage id="search.noResults.title" />
+                <CategoryThumb
+                  onPress={() =>
+                    navigation.navigate('Trend', { type: 'movie' })
+                  }
+                  title={<FormattedMessage id="common.movies" />}
+                  icon={MovieFillIcon}
+                  width={'32%'}
+                />
+                <CategoryThumb
+                  onPress={() => navigation.navigate('Trend', { type: 'tv' })}
+                  title={<FormattedMessage id="common.tvShows" />}
+                  icon={TvFillIcon}
+                  width={'32%'}
+                />
+                <CategoryThumb
+                  onPress={() =>
+                    navigation.navigate('Trend', { type: 'person' })
+                  }
+                  title={<FormattedMessage id="common.person" />}
+                  icon={PeopleFillIcon}
+                  width={'32%'}
+                />
+              </Box>
+              <Text px="lg" mb="sm" numberOfLines={1} variant="h2">
+                <FormattedMessage id="search.title" />
               </Text>
-              <Text mb={30}>
-                <FormattedMessage id="search.noResults.subtitle" />
-              </Text>
-              <Image
-                source={require('assets/images/pause.png')}
-                width={300}
-                height={300}
-              />
             </>
-          )}
-          {!query && (
-            <Text variant="h2" mt="xl">
-              <FormattedMessage id="search.title" />
-            </Text>
-          )}
-        </Centered>
-      </VerticalList>
-    </>
+          )
+        }
+      />
+    </BasicLayout>
   );
 }

@@ -17,7 +17,7 @@ export default {
   tabs: {
     discover: 'Discover',
     search: 'Search',
-    trends: 'Trends',
+    networks: 'Networks',
     more: 'More'
   },
   discover: {
@@ -32,8 +32,7 @@ export default {
     comedies: 'Passion for comedies',
     reality: 'Reality show',
     horror: 'Be afraid...',
-    drama: 'Dramaaaaaaa',
-    people: 'People'
+    drama: 'Dramaaaaaaa'
   },
   collection: {
     subtitle: '{length} {length, plural, one {movie} other {movies}}'
@@ -107,7 +106,7 @@ export default {
     title: 'Popular',
     noResults: {
       title: 'Oh no...',
-      subtitle: 'We didn’t find anything 🥺'
+      subtitle: 'We didn’t find anything for «{query}» 🥺'
     }
   },
   tvShows: {

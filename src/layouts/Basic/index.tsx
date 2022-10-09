@@ -1,13 +1,62 @@
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Animated } from 'react-native';
+import { useTheme } from 'styled-components/native';
 
-import { Box, BoxProps } from 'components/Box';
-import { statusBarHeight } from 'constants/statusBar';
+import { getTextFont } from 'components/Text';
 
-export function BasicLayout(props: BoxProps) {
+type BasicLayoutProps = {
+  titleOffset?: number;
+  titleOffsetSubtraction?: number;
+  children: React.ReactNode;
+};
+
+export function BasicLayout({
+  children,
+  titleOffset = 50,
+  titleOffsetSubtraction = 50,
+  ...rest
+}: BasicLayoutProps) {
+  const [scrollY] = React.useState(new Animated.Value(0));
+  const navigation = useNavigation();
+  const theme = useTheme();
+
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [titleOffset - titleOffsetSubtraction, titleOffset],
+    outputRange: [0, 1]
+  });
+
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerBackgroundContainerStyle: {
+        opacity: headerOpacity || 0
+      },
+      headerTitleStyle: {
+        ...getTextFont('h2', theme)
+      }
+    });
+  }, [headerOpacity, navigation, theme]);
+
   return (
-    <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-      <Box paddingTop={statusBarHeight + 10} paddingBottom="xl" {...props} />
-    </ScrollView>
+    <Animated.ScrollView
+      bounces={false}
+      scrollEventThrottle={1}
+      showsVerticalScrollIndicator={false}
+      onScroll={Animated.event(
+        [
+          {
+            nativeEvent: {
+              contentOffset: { y: scrollY }
+            }
+          }
+        ],
+        {
+          useNativeDriver: true
+        }
+      )}
+      {...rest}
+    >
+      {children}
+    </Animated.ScrollView>
   );
 }

@@ -34,9 +34,9 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> =
 
 export type MainTabParamList = {
   Discover: undefined;
+  Networks: undefined;
   More: undefined;
   Search: undefined;
-  Trends: undefined;
 };
 
 export type MainTabScreenProps<T extends keyof MainTabParamList> =

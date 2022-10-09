@@ -15,37 +15,41 @@ type Param = {
 type VerticalListProps = {
   aspectRatio?: number;
   children?: React.ReactNode;
+  contentContainerStyle?: any;
   getApi?: ({ callback, params, type }: GetApi) => void;
   handleScroll?: (scrollY: Animated.Value) => void;
   initialNumToRender?: number;
-  maxPage?: number;
-  numberOfColumns?: number;
-  paddingTop?: SpaceProps['pt'];
-  type?: Type;
-  params?: Param[];
-  renderItem: React.ElementType;
-  resultsData?: any;
-  onPress?: (props: any) => void;
   itemProps?: {
     [key: string]: any;
   };
+  ListHeaderComponent?: React.ReactElement;
+  maxPage?: number;
+  numberOfColumns?: number;
+  onPress?: (props: any) => void;
+  paddingTop?: SpaceProps['pt'];
+  params?: Param[];
+  renderItem: React.ElementType;
+  resultsData?: any;
+  type?: Type;
 };
 
 export function VerticalList({
   aspectRatio,
   children,
+  contentContainerStyle = {},
   getApi,
   handleScroll,
   initialNumToRender = 20,
+  itemProps = {},
+  ListHeaderComponent,
   maxPage = 20,
   numberOfColumns = 3,
   onPress,
   paddingTop,
-  type,
   params = [],
-  itemProps = {},
   renderItem: Item,
-  resultsData
+  resultsData,
+  type
 }: VerticalListProps) {
   const [scrollY] = React.useState(new Animated.Value(0));
   const [results, setResults] = React.useState(resultsData || 'loading');
@@ -115,13 +119,13 @@ export function VerticalList({
         isLoading ? `loading_${index}` : `${index}_${item.id}`
       }
       ListHeaderComponent={
-        !!children && (
+        ListHeaderComponent ||
+        (!!children && (
           <Box mb="lg" pt={paddingTop}>
             {children}
           </Box>
-        )
+        ))
       }
-      ListFooterComponent={<Box mt="lg" />}
       numColumns={numberOfColumns}
       onEndReached={!resultFromParent && setNewPage}
       onEndReachedThreshold={1}
@@ -140,6 +144,10 @@ export function VerticalList({
       )}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingBottom: theme.space.lg,
+        ...contentContainerStyle
+      }}
     />
   );
 }

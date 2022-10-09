@@ -41,10 +41,26 @@ export function Navigation() {
       <Main.Navigator screenOptions={{ headerShown: false }}>
         <Main.Group>
           <Main.Screen name="TabBar" component={TabBar} />
-          <Main.Screen name="Genre" component={GenreScreen} />
-          <Main.Screen name="Genres" component={GenresScreen} />
-          <Main.Screen name="Network" component={NetworkScreen} />
-          <Main.Screen name="Trend" component={TrendScreen} />
+          <Main.Screen
+            options={{ headerShown: false }}
+            name="Genre"
+            component={GenreScreen}
+          />
+          <Main.Screen
+            options={{ headerShown: false }}
+            name="Genres"
+            component={GenresScreen}
+          />
+          <Main.Screen
+            options={{ headerShown: false }}
+            name="Network"
+            component={NetworkScreen}
+          />
+          <Main.Screen
+            options={{ headerShown: false }}
+            name="Trend"
+            component={TrendScreen}
+          />
         </Main.Group>
         <Main.Group
           screenOptions={({ navigation, route }) => ({

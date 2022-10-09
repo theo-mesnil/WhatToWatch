@@ -4,8 +4,8 @@ import { Linking } from 'react-native';
 
 import { Centered } from 'components/Centered';
 import { EmailIcon, SmileIcon, StarFillIcon } from 'components/Icon';
-import { Text } from 'components/Text';
 import { LOCALE_AUTO, LOCALE_EN, LOCALE_FR } from 'constants/locales';
+import { useHeaderHeights } from 'constants/statusBar';
 import { useLocale } from 'contexts/locales';
 import { BasicLayout } from 'layouts/Basic';
 
@@ -13,6 +13,7 @@ import { Item } from './Item';
 
 export function MoreScreen() {
   const { localeEntry, setLocaleEntry } = useLocale();
+  const { headerHeight } = useHeaderHeights();
 
   function setEnglishLocale() {
     setLocaleEntry(LOCALE_EN);
@@ -36,10 +37,7 @@ export function MoreScreen() {
 
   return (
     <BasicLayout>
-      <Centered>
-        <Text variant="h1" mb="md">
-          More
-        </Text>
+      <Centered paddingTop={headerHeight}>
         <Item
           items={[
             {

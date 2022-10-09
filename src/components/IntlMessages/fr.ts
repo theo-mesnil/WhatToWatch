@@ -17,7 +17,7 @@ export default {
   tabs: {
     discover: 'Découvrir',
     search: 'Rechercher',
-    trends: 'Tendances',
+    networks: 'Networks',
     more: 'En plus'
   },
   discover: {
@@ -106,7 +106,7 @@ export default {
     title: 'Populaire',
     noResults: {
       title: 'Oh non...',
-      subtitle: 'Nous n’avons rien trouvé 🥺'
+      subtitle: 'Nous n’avons rien trouvé pour «{query}» 🥺'
     }
   },
   tvShows: {

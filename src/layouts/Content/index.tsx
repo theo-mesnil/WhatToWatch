@@ -39,27 +39,25 @@ export function ContentLayout({
   }, [headerOpacity, navigation, theme]);
 
   return (
-    <>
-      <Animated.ScrollView
-        bounces={false}
-        scrollEventThrottle={1}
-        showsVerticalScrollIndicator={false}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: { y: scrollY }
-              }
-            }
-          ],
+    <Animated.ScrollView
+      bounces={false}
+      scrollEventThrottle={1}
+      showsVerticalScrollIndicator={false}
+      onScroll={Animated.event(
+        [
           {
-            useNativeDriver: true
+            nativeEvent: {
+              contentOffset: { y: scrollY }
+            }
           }
-        )}
-        {...rest}
-      >
-        {children}
-      </Animated.ScrollView>
-    </>
+        ],
+        {
+          useNativeDriver: true
+        }
+      )}
+      {...rest}
+    >
+      {children}
+    </Animated.ScrollView>
   );
 }
