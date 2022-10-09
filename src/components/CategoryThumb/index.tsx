@@ -1,13 +1,9 @@
 import * as React from 'react';
-import { ImageBackground } from 'react-native';
 
 import { Box, BoxProps } from 'components/Box';
-import { Gradient, GradientProps } from 'components/Gradient';
 import { Icon, IconElement } from 'components/Icon';
-import { Loader } from 'components/Loader';
 import { Text } from 'components/Text';
 import { Touchable, TouchableProps } from 'components/Touchable';
-import { getImageUrl } from 'utils/images';
 
 import * as S from './styles';
 
