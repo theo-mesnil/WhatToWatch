@@ -65,7 +65,7 @@ export const TopList = React.memo(
         onPress({
           id: item?.id,
           type: item?.type || item?.media_type,
-          name: item?.name,
+          name: item?.name || item?.title,
           index
         });
     }
