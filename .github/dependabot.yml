@@ -1,6 +1,12 @@
 version: 2
 updates:
-  - package-ecosystem: "yarn"
-    directory: "/"
+  - package-ecosystem: npm
+    directory: '/'
+    pull-request-branch-name:
+      separator: '-'
     schedule:
       interval: "weekly"
+    allow:
+      - dependency-type: 'direct'
+    reviewers:
+      - 'theo-mesnil'
