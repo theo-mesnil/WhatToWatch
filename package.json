@@ -60,7 +60,7 @@
     "@types/styled-components": "^5.1.26",
     "@types/styled-components-react-native": "^5.2.0",
     "@types/styled-system": "^5.1.15",
-    "@typescript-eslint/parser": "^5.42.1",
+    "@typescript-eslint/parser": "^5.45.1",
     "babel-plugin-module-resolver": "^4.1.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.27.0",
