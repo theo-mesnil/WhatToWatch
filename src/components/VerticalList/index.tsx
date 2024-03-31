@@ -8,11 +8,12 @@ import { Box } from 'components/Box';
 import { fakeData30 } from 'constants/mocks';
 
 type Param = {
-  value: number | string;
   name: string;
+  value: number | string;
 };
 
 type VerticalListProps = {
+  ListHeaderComponent?: React.ReactElement;
   aspectRatio?: number;
   children?: React.ReactNode;
   contentContainerStyle?: any;
@@ -22,7 +23,6 @@ type VerticalListProps = {
   itemProps?: {
     [key: string]: any;
   };
-  ListHeaderComponent?: React.ReactElement;
   maxPage?: number;
   numberOfColumns?: number;
   onPress?: (props: any) => void;
@@ -92,7 +92,9 @@ export function VerticalList({
   }
 
   function getNewPageData(newData) {
-    setResults(results.concat(newData));
+    if (results) {
+      setResults(results.concat(newData));
+    }
   }
 
   React.useEffect(() => {
@@ -129,7 +131,6 @@ export function VerticalList({
       numColumns={numberOfColumns}
       onEndReached={!resultFromParent && setNewPage}
       onEndReachedThreshold={1}
-      columnWrapperStyle={{ paddingHorizontal: theme.space.md }}
       onScroll={Animated.event(
         [
           {

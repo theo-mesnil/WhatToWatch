@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackScreenProps } from 'navigation/types';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import {
   useGetMovie,
@@ -32,6 +32,7 @@ import { useFormatReleasedDate } from 'utils/dates';
 import { formatMoney } from 'utils/formatMoney';
 
 export function MovieScreen() {
+  const { formatMessage } = useIntl();
   const [movie, setMovie] = useState({
     backdrop: 'loading',
     description: 'loading',
@@ -143,7 +144,7 @@ export function MovieScreen() {
               <List
                 data={cast === 'loading' ? undefined : cast}
                 keyName="casting"
-                title={<FormattedMessage id="common.casting" />}
+                title={formatMessage({ id: 'common.casting' })}
                 itemPerPage={4}
                 onPress={({ id, name }) =>
                   navigation.push('People', { id, name })
@@ -156,7 +157,7 @@ export function MovieScreen() {
                 mt={cast ? 'xl' : undefined}
                 keyName="videos"
                 data={isVideosLoading ? undefined : videos}
-                title={<FormattedMessage id="common.videos" />}
+                title={formatMessage({ id: 'common.videos' })}
                 aspectRatio={16 / 9}
                 itemPerPage={2}
                 listItem={VideoThumb}
@@ -169,7 +170,7 @@ export function MovieScreen() {
         <ScreenSection>
           <Centered>
             <Text variant="h2">
-              <FormattedMessage id="common.information" />
+              {formatMessage({ id: 'common.information' })}
             </Text>
             {!!releaseDate && (
               <Information title="Date" mt="sm">
@@ -178,7 +179,7 @@ export function MovieScreen() {
             )}
             {!!directors && (
               <Information
-                title={<FormattedMessage id="movie.directors" />}
+                title={formatMessage({ id: 'movie.directors' })}
                 mt="sm"
               >
                 <InformationCredits credits={directors} />
@@ -186,7 +187,7 @@ export function MovieScreen() {
             )}
             {!!writers && (
               <Information
-                title={<FormattedMessage id="movie.writers" />}
+                title={formatMessage({ id: 'movie.writers' })}
                 mt="sm"
               >
                 <InformationCredits credits={writers} />
@@ -194,7 +195,7 @@ export function MovieScreen() {
             )}
             {!!originalTitle && (
               <Information
-                title={<FormattedMessage id="common.originalTitle" />}
+                title={formatMessage({ id: 'common.originalTitle' })}
                 mt="sm"
               >
                 <Text>{originalTitle}</Text>
@@ -202,7 +203,7 @@ export function MovieScreen() {
             )}
             {!!budget && (
               <Information
-                title={<FormattedMessage id="movie.budget" />}
+                title={formatMessage({ id: 'movie.budget' })}
                 mt="sm"
               >
                 <Text>{formatMoney(budget)}</Text>
@@ -210,7 +211,7 @@ export function MovieScreen() {
             )}
             {!!revenue && (
               <Information
-                title={<FormattedMessage id="movie.revenue" />}
+                title={formatMessage({ id: 'movie.revenue' })}
                 mt="sm"
               >
                 <Text>{formatMoney(revenue)}</Text>
@@ -218,7 +219,7 @@ export function MovieScreen() {
             )}
             {withProductions && (
               <Information
-                title={<FormattedMessage id="movie.productionCompanies" />}
+                title={formatMessage({ id: 'movie.productionCompanies' })}
                 mt="sm"
               >
                 <InformationCompanies companies={productionCompanies} />
@@ -226,7 +227,7 @@ export function MovieScreen() {
             )}
             {withGenres && Array.isArray(genres) && (
               <Information
-                title={<FormattedMessage id="common.genres" />}
+                title={formatMessage({ id: 'common.genres' })}
                 mt="sm"
               >
                 <>
@@ -275,7 +276,7 @@ export function MovieScreen() {
               data={similar}
               onPress={({ id, name }) => navigation.push('Movie', { id, name })}
               keyName="similar"
-              title={<FormattedMessage id="common.similar" />}
+              title={formatMessage({ id: 'common.similar' })}
               listItem={MovieThumb}
             />
           )}
@@ -285,7 +286,7 @@ export function MovieScreen() {
               onPress={({ id, name }) => navigation.push('Movie', { id, name })}
               mt={similar ? 'xl' : undefined}
               data={recommendations}
-              title={<FormattedMessage id="common.recommendations" />}
+              title={formatMessage({ id: 'common.recommendations' })}
               listItem={MovieThumb}
             />
           )}

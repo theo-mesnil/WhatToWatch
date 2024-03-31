@@ -4,8 +4,8 @@ import { Box, BoxProps } from 'components/Box';
 import { Text } from 'components/Text';
 
 type InformationProps = BoxProps & {
-  children: React.ReactElement;
-  title: React.ReactNode;
+  children: JSX.Element;
+  title: string | JSX.Element;
 };
 
 export function Information({ children, title, ...rest }: InformationProps) {

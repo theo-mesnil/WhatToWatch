@@ -4,15 +4,15 @@ import { Thumb } from 'components/Thumb';
 
 type ContentThumbProps = {
   item: {
-    id: string;
-    name?: string;
     backdrop_path?: string;
+    id: string;
+    media_type: 'tv' | 'movie';
+    name?: string;
     poster_path?: string;
     title?: string;
-    media_type: 'tv' | 'movie';
   };
-  withTitle?: boolean;
   withBackdropImage?: boolean;
+  withTitle?: boolean;
 };
 
 export function ContentThumb({

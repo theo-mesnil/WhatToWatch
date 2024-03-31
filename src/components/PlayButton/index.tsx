@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { Box, BoxProps } from 'components/Box';
 import { Button } from 'components/Button';
@@ -10,7 +10,7 @@ import { getNetworkColor, getNetworkLogo } from 'utils/networks';
 import { useVideo } from 'utils/videos';
 
 type PlayButtonProps = BoxProps & {
-  id: NetworkId;
+  id?: NetworkId;
   link: string;
   name?: string;
   platform?: Platform;
@@ -25,6 +25,7 @@ export function PlayButton({
   type,
   ...rest
 }: PlayButtonProps) {
+  const { formatMessage } = useIntl();
   const [loading, setLoading] = React.useState(true);
   const { handleVideoPress, isNetwork } = useVideo({
     id,
@@ -46,7 +47,7 @@ export function PlayButton({
     <Box alignItems="center" {...rest}>
       {isNetwork && (
         <Text fontWeight="bold" mb="xxs" variant="subtitle2">
-          <FormattedMessage id="playButton.availableOn" />
+          {formatMessage({ id: 'playButton.availableOn' })}
         </Text>
       )}
       {loading && <ButtonLoader />}
@@ -63,7 +64,7 @@ export function PlayButton({
               icon={logo}
             />
           ) : (
-            <FormattedMessage id="playButton.watchTrailer" />
+            formatMessage({ id: 'playButton.watchTrailer' })
           )}
         </Button>
       )}

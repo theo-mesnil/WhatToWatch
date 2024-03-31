@@ -21,37 +21,37 @@ type ListItem = React.ElementType;
 
 export type ListProps = BoxProps & {
   actions?: React.ReactNode;
-  onPress?: (params: any) => any;
   aspectRatio?: number;
+  autoWidthOnItem?: boolean;
   data?: any;
   imageWidth?: number;
   itemPerPage?: number;
-  autoWidthOnItem?: boolean;
-  keyName: string;
-  listItem: ListItem;
-  title?: React.ReactElement | string;
-  withBackdropImage?: boolean;
-  withTitleOnCover?: boolean;
   itemProps?: {
     [key: string]: any;
   };
+  keyName: string;
+  listItem: ListItem;
+  onPress?: (params: any) => any;
+  title?: JSX.Element | string;
+  withBackdropImage?: boolean;
+  withTitleOnCover?: boolean;
 };
 
 export const List = React.memo(
   ({
     actions,
     aspectRatio,
+    autoWidthOnItem,
     data,
     imageWidth,
     itemPerPage = 3,
+    itemProps = {},
     keyName,
     listItem: ListItem,
     onPress,
     title,
     withBackdropImage,
     withTitleOnCover,
-    itemProps = {},
-    autoWidthOnItem,
     ...rest
   }: ListProps) => {
     const theme = useTheme();
@@ -126,9 +126,10 @@ export const List = React.memo(
               `${isLoading ? item : item.id}_${keyName}_${index}`
             }
             showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={S.Separator}
-            ListHeaderComponent={S.BeforeAndAfter}
-            ListFooterComponent={S.BeforeAndAfter}
+            // @ts-ignore
+            ItemSeparatorComponent={<S.Separator />}
+            ListHeaderComponent={<S.BeforeAndAfter />}
+            ListFooterComponent={<S.BeforeAndAfter />}
             renderItem={renderItem}
           />
         </Box>

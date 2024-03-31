@@ -6,17 +6,17 @@ import { Text } from 'components/Text';
 import { Touchable, TouchableProps } from 'components/Touchable';
 
 type Item = Pick<TouchableProps, 'onPress'> & {
-  description?: React.ReactNode;
+  description?: string | JSX.Element;
   icon?: IconElement;
   isCheckable?: boolean;
   isChecked?: boolean;
   key: string;
-  name?: React.ReactNode;
+  name?: string | JSX.Element;
 };
 
 type ItemProps = BoxProps & {
   items: Item[];
-  title: React.ReactNode;
+  title: string | JSX.Element;
 };
 
 export function Item({ items, title, ...rest }: ItemProps) {

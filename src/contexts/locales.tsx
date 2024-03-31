@@ -8,8 +8,8 @@ export const STORAGE_LOCALE = 'WHATTOWATCH_LOCALE';
 
 type LocaleContextInterface = {
   locale: LocaleLanguage;
-  setLocaleEntry: React.Dispatch<React.SetStateAction<LocaleLanguage>>;
   localeEntry: LocaleLanguage;
+  setLocaleEntry: React.Dispatch<React.SetStateAction<LocaleLanguage>>;
 };
 
 export const LocaleContext = React.createContext<LocaleContextInterface>(null);

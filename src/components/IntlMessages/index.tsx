@@ -27,6 +27,7 @@ export function IntlMessages({ children }) {
   const localeMessages = locales[locale];
 
   return (
+    // @ts-ignore
     <IntlProvider
       key={locale}
       locale={locale}

@@ -6,9 +6,9 @@ import { useTheme } from 'styled-components/native';
 import { getTextFont } from 'components/Text';
 
 type ContentLayoutProps = {
+  children: React.ReactNode;
   titleOffset?: number;
   titleOffsetSubtraction?: number;
-  children: React.ReactNode;
 };
 
 export function ContentLayout({

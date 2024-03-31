@@ -9,17 +9,17 @@ import { getNetworkLogo } from 'utils/networks';
 type NetworkThumbProps = BoxProps &
   Pick<TouchableProps, 'onPress'> & {
     aspectRatio?: number;
+    isSquare?: boolean;
     item: {
       id: number;
     };
-    isSquare?: boolean;
   };
 
 export const NetworkThumb = ({
   aspectRatio = 1 / 1,
-  onPress,
-  item,
   isSquare,
+  item,
+  onPress,
   ...rest
 }: NetworkThumbProps) => {
   return (

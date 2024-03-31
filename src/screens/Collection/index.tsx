@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackScreenProps } from 'navigation/types';
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { useGetCollection } from 'api/collection';
 import { ContentCover } from 'components/ContentCover';
@@ -11,6 +11,7 @@ import { VerticalList } from 'components/VerticalList';
 import { ContentLayout } from 'layouts/Content';
 
 export function CollectionScreen() {
+  const { formatMessage } = useIntl();
   const [titleOffset, setTitleOffset] = React.useState(undefined);
   const [collection, setCollection] = React.useState({
     backdrop: 'loading',
@@ -25,12 +26,9 @@ export function CollectionScreen() {
   const title = collection?.title;
   const backdrop = collection?.backdrop;
   const movies = collection?.movies;
-  const subtitle = !!movies && (
-    <FormattedMessage
-      id="collection.subtitle"
-      values={{ length: movies?.length }}
-    />
-  );
+  const subtitle =
+    !!movies &&
+    formatMessage({ id: 'collection.subtitle' }, { length: movies?.length });
 
   React.useEffect(() => {
     getCollection({ callback: setCollection });

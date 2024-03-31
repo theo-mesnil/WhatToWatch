@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 export default {
   name: 'WhatToWatch',
   slug: 'WhatToWatch',
@@ -27,7 +25,8 @@ export default {
       backgroundColor: '#121418'
     },
     package: 'com.theomesnil.WhatToWatch',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch',
+    playStoreUrl:
+      'https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch',
     versionCode: 3
   },
   web: {
@@ -38,5 +37,6 @@ export default {
       projectId: 'deb154a5-6b12-419a-a3c5-d704888f7df2'
     },
     theMovieDbApiKey: process.env.THEMOVIEDB_API_KEY
-  }
+  },
+  plugins: ['expo-font', 'expo-localization']
 };

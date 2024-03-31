@@ -35,6 +35,7 @@ export function ContentActions({
           {showVideo && (
             <PlayButton
               type={videoItem.type}
+              // @ts-ignore
               id={videoItem.id}
               name={videoItem.name}
               platform={videoItem.platform}

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { useTheme } from 'styled-components/native';
 
 import { useGetSearch } from 'api/search';
@@ -31,6 +31,7 @@ function renderItem(props) {
 }
 
 export function SearchScreen() {
+  const { formatMessage } = useIntl();
   const [query, setQuery] = useState(undefined);
   const [trending, setTrending] = useState('loading');
   const [results, setResults] = useState(undefined);
@@ -104,7 +105,7 @@ export function SearchScreen() {
     return (
       <Centered alignItems="center" mt={headerHeight}>
         <Text textAlign="center" variant="h2" maxWidth="80%">
-          <FormattedMessage id="search.noResults.subtitle" values={{ query }} />
+          {formatMessage({ id: 'search.noResults.subtitle' }, { query })}
         </Text>
       </Centered>
     );
@@ -134,14 +135,14 @@ export function SearchScreen() {
                     onPress={() =>
                       navigation.navigate('Trend', { type: 'movie' })
                     }
-                    title={<FormattedMessage id="common.movies" />}
+                    title={formatMessage({ id: 'common.movies' })}
                     icon={MovieFillIcon}
                   />
                 </Box>
                 <Box width={'32%'}>
                   <CategoryThumb
                     onPress={() => navigation.navigate('Trend', { type: 'tv' })}
-                    title={<FormattedMessage id="common.tvShows" />}
+                    title={formatMessage({ id: 'common.tvShows' })}
                     icon={TvFillIcon}
                   />
                 </Box>
@@ -150,13 +151,13 @@ export function SearchScreen() {
                     onPress={() =>
                       navigation.navigate('Trend', { type: 'person' })
                     }
-                    title={<FormattedMessage id="common.person" />}
+                    title={formatMessage({ id: 'common.person' })}
                     icon={PeopleFillIcon}
                   />
                 </Box>
               </Box>
               <Text px="lg" mb="sm" numberOfLines={1} variant="h2">
-                <FormattedMessage id="search.title" />
+                {formatMessage({ id: 'search.title' })}
               </Text>
             </>
           )

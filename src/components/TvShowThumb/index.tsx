@@ -4,8 +4,8 @@ import { Thumb } from 'components/Thumb';
 
 type TvShowThumbProps = {
   item: {
-    id: number;
     backdrop_path: string;
+    id: number;
     poster_path: string;
   };
   withBackdropImage?: boolean;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
@@ -12,6 +12,8 @@ type ActionsProps = {
 };
 
 export function Actions({ handleClick, type }: ActionsProps) {
+  const { formatMessage } = useIntl();
+
   return (
     <>
       <Touchable onPress={() => handleClick('tv')}>
@@ -21,7 +23,7 @@ export function Actions({ handleClick, type }: ActionsProps) {
           py="xxs"
           px="xs"
         >
-          <FormattedMessage id="common.tvShows" />
+          {formatMessage({ id: 'common.tvShows' })}
         </Text>
       </Touchable>
       <Touchable onPress={() => handleClick('movie')}>
@@ -31,7 +33,7 @@ export function Actions({ handleClick, type }: ActionsProps) {
           py="xxs"
           pl="xs"
         >
-          <FormattedMessage id="common.movies" />
+          {formatMessage({ id: 'common.movies' })}
         </Text>
       </Touchable>
     </>

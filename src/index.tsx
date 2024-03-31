@@ -38,6 +38,7 @@ export function AppIndex() {
   }
 
   return (
+    // @ts-ignore
     <ThemeProvider theme={coreTheme}>
       <StatusBar
         barStyle="light-content"

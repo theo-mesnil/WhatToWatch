@@ -20,12 +20,12 @@ type Item = {
 };
 
 export type SpotlightListProps = BoxProps & {
-  onPress?: (params: any) => any;
   aspectRatio?: number;
-  listItem: ListItem;
-  getActiveSlide: (activeSlide: number) => void;
   data?: any;
+  getActiveSlide: (activeSlide: number) => void;
   keyName: string;
+  listItem: ListItem;
+  onPress?: (params: any) => any;
 };
 
 export const SpotlightList = React.memo(
@@ -96,9 +96,10 @@ export const SpotlightList = React.memo(
               `${isLoading ? item : item.id}_${keyName}_${index}`
             }
             showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={S.Separator}
-            ListHeaderComponent={S.Separator}
-            ListFooterComponent={S.Separator}
+            // @ts-ignore
+            ItemSeparatorComponent={<S.Separator />}
+            ListHeaderComponent={<S.Separator />}
+            ListFooterComponent={<S.Separator />}
             renderItem={renderItem}
             decelerationRate="fast"
             pagingEnabled

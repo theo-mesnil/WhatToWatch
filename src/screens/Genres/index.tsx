@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { RootStackScreenProps } from 'navigation/types';
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { GenreThumb } from 'components/GenreThumb';
 import { Header } from 'components/Header';
@@ -9,6 +9,7 @@ import { VerticalList } from 'components/VerticalList';
 import { useGenres } from 'contexts/genres';
 
 export function GenresScreen() {
+  const { formatMessage } = useIntl();
   const genres = useGenres();
   const route = useRoute<RootStackScreenProps<'Genres'>['route']>();
   const navigation =
@@ -19,12 +20,10 @@ export function GenresScreen() {
   return (
     <>
       <Header
-        title={<FormattedMessage id="common.genres" />}
-        subtitle={
-          <FormattedMessage
-            id={`common.${type === 'movie' ? 'movies' : 'tvShows'}`}
-          />
-        }
+        title={formatMessage({ id: 'common.genres' })}
+        subtitle={formatMessage({
+          id: `common.${type === 'movie' ? 'movies' : 'tvShows'}`
+        })}
         opacity={1}
         position="relative"
       />

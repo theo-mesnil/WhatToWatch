@@ -8,9 +8,9 @@ import { formatGenreList } from 'utils/genres';
 
 type ContentOverviewProps = {
   genres?: Genre[] | string;
+  mb?: BoxProps['mb'];
   releaseDate?: string | React.ReactElement;
   runtime?: number;
-  mb?: BoxProps['mb'];
 };
 
 export function ContentOverview({

@@ -5,9 +5,9 @@ import { errorLog } from 'utils/logger';
 import { GetApi, Params, useApiUrl } from './api';
 
 type PeopleCredit = {
+  character?: string;
   id: string;
   job?: string;
-  character?: string;
 };
 
 type PeopleCredits = { [key: string]: PeopleCredit[] };

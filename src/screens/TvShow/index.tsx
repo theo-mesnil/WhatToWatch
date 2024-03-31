@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackScreenProps } from 'navigation/types';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import {
   useGetTvShow,
@@ -48,6 +48,7 @@ function getReleaseDate(first, last) {
 }
 
 export function TvShowScreen() {
+  const { formatMessage } = useIntl();
   const route = useRoute<RootStackScreenProps<'TvShow'>['route']>();
   const [tvShow, setTvShow] = useState({
     backdrop: 'loading',
@@ -160,7 +161,7 @@ export function TvShowScreen() {
         <ScreenSection>
           <Centered>
             <Text variant="h2" mb="md">
-              <FormattedMessage id="tvShows.seasons" />
+              {formatMessage({ id: 'tvShows.seasons' })}
             </Text>
             {isSeasonLoading && (
               <>
@@ -202,7 +203,7 @@ export function TvShowScreen() {
               <List
                 data={cast === 'loading' ? undefined : cast}
                 keyName="casting"
-                title={<FormattedMessage id="common.casting" />}
+                title={formatMessage({ id: 'common.casting' })}
                 itemPerPage={4}
                 onPress={({ id, name }) =>
                   navigation.push('People', { id, name })
@@ -215,7 +216,7 @@ export function TvShowScreen() {
                 mt={cast ? 'xl' : undefined}
                 keyName="videos"
                 data={isVideosLoading ? undefined : videos}
-                title={<FormattedMessage id="common.videos" />}
+                title={formatMessage({ id: 'common.videos' })}
                 aspectRatio={16 / 9}
                 itemPerPage={2}
                 listItem={VideoThumb}
@@ -235,7 +236,7 @@ export function TvShowScreen() {
             )}
             {!!creators && (
               <Information
-                title={<FormattedMessage id="tvShows.creators" />}
+                title={formatMessage({ id: 'tvShows.creators' })}
                 mt="sm"
               >
                 <InformationCredits credits={creators} />
@@ -243,7 +244,7 @@ export function TvShowScreen() {
             )}
             {!!originalTitle && (
               <Information
-                title={<FormattedMessage id="common.originalTitle" />}
+                title={formatMessage({ id: 'common.originalTitle' })}
                 mt="sm"
               >
                 <Text>{originalTitle}</Text>
@@ -253,7 +254,7 @@ export function TvShowScreen() {
               <Box flexDirection="row" mt="md">
                 {!!seasonsNumber && (
                   <Information
-                    title={<FormattedMessage id="tvShows.seasons" />}
+                    title={formatMessage({ id: 'tvShows.seasons' })}
                     mr="md"
                   >
                     <Text>{seasonsNumber}</Text>
@@ -261,14 +262,14 @@ export function TvShowScreen() {
                 )}
                 {!!episodesNumber && (
                   <Information
-                    title={<FormattedMessage id="tvShows.episodes" />}
+                    title={formatMessage({ id: 'tvShows.episodes' })}
                     mr="md"
                   >
                     <Text>{episodesNumber}</Text>
                   </Information>
                 )}
                 {!!type && (
-                  <Information title={<FormattedMessage id="tvShows.type" />}>
+                  <Information title={formatMessage({ id: 'tvShows.type' })}>
                     <Text>{type}</Text>
                   </Information>
                 )}
@@ -276,7 +277,7 @@ export function TvShowScreen() {
             )}
             {withNetworks && (
               <Information
-                title={<FormattedMessage id="common.networks" />}
+                title={formatMessage({ id: 'common.networks' })}
                 mt="sm"
               >
                 <InformationCompanies companies={networks} />
@@ -284,7 +285,7 @@ export function TvShowScreen() {
             )}
             {withGenres && Array.isArray(genres) && (
               <Information
-                title={<FormattedMessage id="common.genres" />}
+                title={formatMessage({ id: 'common.genres' })}
                 mt="sm"
               >
                 <>
@@ -317,7 +318,7 @@ export function TvShowScreen() {
                 navigation.push('TvShow', { id, name })
               }
               keyName="similar"
-              title={<FormattedMessage id="common.similar" />}
+              title={formatMessage({ id: 'common.similar' })}
               listItem={TvShowThumb}
             />
           )}
@@ -329,7 +330,7 @@ export function TvShowScreen() {
               }
               mt={similar ? 'xl' : undefined}
               data={recommendations}
-              title={<FormattedMessage id="common.recommendations" />}
+              title={formatMessage({ id: 'common.recommendations' })}
               listItem={TvShowThumb}
             />
           )}

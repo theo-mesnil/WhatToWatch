@@ -6,8 +6,7 @@ import {
   format
 } from 'date-fns';
 import { enGB as en, fr } from 'date-fns/locale';
-import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { useLocale } from 'contexts/locales';
 
@@ -46,11 +45,9 @@ export function convertArrayToMinutes(numbers: number[]): string {
 
 export function useFormatReleasedDate() {
   const dateFnsLocale = useDateFnsLocale();
+  const { formatMessage } = useIntl();
 
-  function formatReleasedDate(
-    date: string,
-    noReleasedPast?: boolean
-  ): React.ReactNode {
+  function formatReleasedDate(date: string, noReleasedPast?: boolean) {
     const newDate = new Date(date);
     const isToday = DFNSisToday(newDate);
     const isYesterday = DFNSisYesterday(newDate);
@@ -60,22 +57,18 @@ export function useFormatReleasedDate() {
 
     if (isPast) {
       if (isYesterday) {
-        return <FormattedMessage id="dates.releasedYesterday" />;
+        return formatMessage({ id: 'dates.releasedYesterday' });
       } else {
-        return noReleasedPast ? (
-          todayWords
-        ) : (
-          <FormattedMessage id="dates.released" values={{ date: todayWords }} />
-        );
+        return noReleasedPast
+          ? todayWords
+          : formatMessage({ id: 'dates.released' }, { date: todayWords });
       }
     } else if (isToday) {
-      return <FormattedMessage id="dates.releasedToday" />;
+      return formatMessage({ id: 'dates.releasedToday' });
     } else if (isTomorrow) {
-      return <FormattedMessage id="dates.releasedTomorrow" />;
+      return formatMessage({ id: 'dates.releasedTomorrow' });
     } else {
-      return (
-        <FormattedMessage id="dates.coming" values={{ date: todayWords }} />
-      );
+      return formatMessage({ id: 'dates.coming' }, { date: todayWords });
     }
   }
 

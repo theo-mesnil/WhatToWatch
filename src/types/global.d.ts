@@ -22,10 +22,10 @@ declare global {
   type Platform = 'YouTube' | 'Vimeo' | string;
 
   type Video = {
-    type: string;
     key: string;
-    site: string;
     name: string;
+    site: string;
+    type: string;
   };
 
   type Videos = Video[];
@@ -44,9 +44,9 @@ declare global {
   type Images = Image[];
 
   type Collection = {
-    name: string;
-    id: number;
     backdrop_path: string;
+    id: number;
+    name: string;
   };
 
   type ProductionCompany = {
@@ -56,8 +56,8 @@ declare global {
   type LocaleLanguage = 'fr' | 'en' | 'auto';
 
   type Credit = {
-    name: string;
-    job: string;
     id: number;
+    job: string;
+    name: string;
   };
 }
