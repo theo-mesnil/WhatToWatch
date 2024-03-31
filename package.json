@@ -44,7 +44,7 @@
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-status-bar-height": "^2.6.0",
-    "react-native-svg": "14.1.0",
+    "react-native-svg": "15.1.0",
     "react-native-web": "~0.19.6",
     "react-native-webview": "13.6.4",
     "react-native-youtube-iframe": "^2.0.1",
