@@ -165,9 +165,9 @@ export function TvShowScreen() {
             </Text>
             {isSeasonLoading && (
               <>
-                <Loader borderRadius="md" mb="md" height={80} />
-                <Loader borderRadius="md" mb="md" height={80} />
-                <Loader borderRadius="md" height={80} />
+                <Loader borderRadius={4} mb="md" height={80} />
+                <Loader borderRadius={4} mb="md" height={80} />
+                <Loader borderRadius={4} height={80} />
               </>
             )}
             {!isSeasonLoading &&

@@ -60,7 +60,7 @@ export function TvShowsList({ tvShows }: TvShowsListProps) {
                   }
                 >
                   <Box
-                    borderRadius="md"
+                    borderRadius={4}
                     backgroundColor="thumbBackground"
                     mb="sm"
                     flexDirection="row"

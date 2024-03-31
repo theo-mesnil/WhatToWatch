@@ -26,7 +26,7 @@ export function SeasonThumb({
   const year = new Date(airDate).getFullYear();
 
   return (
-    <Box borderRadius="md" overflow="hidden" {...rest}>
+    <Box borderRadius={4} overflow="hidden" {...rest}>
       <Touchable onPress={onPress}>
         <Box backgroundColor="thumbBackground" flexDirection="row">
           <Box width={55} height="auto">

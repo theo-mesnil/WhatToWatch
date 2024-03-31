@@ -45,7 +45,7 @@ export const GenreThumb = ({
         <Box
           backgroundColor="dark600"
           aspectRatio={isTag ? undefined : aspectRatio}
-          borderRadius="md"
+          borderRadius={4}
           overflow="hidden"
           {...tagStyle}
         >
