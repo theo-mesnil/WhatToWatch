@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackScreenProps } from 'navigation/types';
 import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { Animated } from 'react-native';
 
 import { useGetDiscoverTvShow } from 'api/discover';
@@ -26,12 +26,13 @@ export function NetworkScreen() {
   const getDiscoverTvShow = useGetDiscoverTvShow();
   const networkID = route?.params?.id || 213;
   const inputRange = titleOffset - 100;
+  const { formatMessage } = useIntl();
 
   return (
     <>
       <Header
         title={getNetworkName(networkID)}
-        subtitle={<FormattedMessage id="common.tvShows" />}
+        subtitle={formatMessage({ id: 'common.tvShows' })}
         opacity={
           scrollY.interpolate({
             inputRange: [inputRange, inputRange],

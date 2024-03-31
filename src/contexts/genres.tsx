@@ -3,8 +3,8 @@ import * as React from 'react';
 import { useGetGenres } from 'api/genres';
 
 type GenresContextInterface = {
-  tv: Genre[];
   movie: Genre[];
+  tv: Genre[];
 };
 
 export const GenresContext = React.createContext<GenresContextInterface>(null);

@@ -1,17 +1,22 @@
-import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
-export const getTrendTitle = (type: Type) => {
-  switch (type) {
-    case 'movie':
-      return <FormattedMessage id="common.movies" />;
-    case 'tv':
-      return <FormattedMessage id="common.tvShows" />;
-    case 'person':
-      return <FormattedMessage id="common.person" />;
-    case 'all':
-      return <FormattedMessage id="common.all" />;
-    default:
-      return '';
-  }
+export const useGetTrendTitle = () => {
+  const { formatMessage } = useIntl();
+
+  const getTrendTitle = (type: Type) => {
+    switch (type) {
+      case 'movie':
+        return formatMessage({ id: 'common.movies' });
+      case 'tv':
+        return formatMessage({ id: 'common.tvShows' });
+      case 'person':
+        return formatMessage({ id: 'common.person' });
+      case 'all':
+        return formatMessage({ id: 'common.all' });
+      default:
+        return '';
+    }
+  };
+
+  return getTrendTitle;
 };

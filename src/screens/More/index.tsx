@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { Linking } from 'react-native';
 
 import { Box } from 'components/Box';
@@ -12,6 +12,7 @@ import { BasicLayout } from 'layouts/Basic';
 import { Item } from './Item';
 
 export function MoreScreen() {
+  const { formatMessage } = useIntl();
   const { localeEntry, setLocaleEntry } = useLocale();
   const { headerHeight } = useHeaderHeights();
 
@@ -42,79 +43,79 @@ export function MoreScreen() {
           items={[
             {
               isCheckable: true,
-              name: <FormattedMessage id="more.languages.auto" />,
+              name: formatMessage({ id: 'more.languages.auto' }),
               onPress: setAutoLocale,
               isChecked: localeEntry === LOCALE_AUTO,
               key: 'language_auto'
             },
             {
               isCheckable: true,
-              name: <FormattedMessage id="more.languages.en" />,
+              name: formatMessage({ id: 'more.languages.en' }),
               onPress: setEnglishLocale,
               isChecked: localeEntry === LOCALE_EN,
               key: 'language_en'
             },
             {
               isCheckable: true,
-              name: <FormattedMessage id="more.languages.fr" />,
+              name: formatMessage({ id: 'more.languages.fr' }),
               onPress: setFrenchLocale,
               isChecked: localeEntry === LOCALE_FR,
               key: 'language_fr'
             }
           ]}
-          title={<FormattedMessage id="more.languages.title" />}
+          title={formatMessage({ id: 'more.languages.title' })}
         />
         <Item
           mt="lg"
           items={[
             {
-              name: <FormattedMessage id="more.author.me.title" />,
-              description: <FormattedMessage id="more.author.me.description" />,
+              name: formatMessage({ id: 'more.author.me.title' }),
+              description: formatMessage({ id: 'more.author.me.description' }),
               key: 'author_me',
               icon: SmileIcon,
               onPress: openMyWebsite
             },
             {
-              name: <FormattedMessage id="more.author.contactMe.title" />,
-              description: (
-                <FormattedMessage id="more.author.contactMe.description" />
-              ),
+              name: formatMessage({ id: 'more.author.contactMe.title' }),
+              description: formatMessage({
+                id: 'more.author.contactMe.description'
+              }),
               key: 'author_contact',
               icon: EmailIcon,
               onPress: sendMail
             }
           ]}
-          title={<FormattedMessage id="more.author.title" />}
+          title={formatMessage({ id: 'more.author.title' })}
         />
         <Item
           mt="lg"
           items={[
             {
-              name: <FormattedMessage id="more.sources.themoviedb.title" />,
-              description: (
-                <FormattedMessage id="more.sources.themoviedb.description" />
-              ),
+              name: formatMessage({ id: 'more.sources.themoviedb.title' }),
+              description: formatMessage({
+                id: 'more.sources.themoviedb.description'
+              }),
               key: 'themoviedb',
               icon: StarFillIcon
             },
             {
-              name: <FormattedMessage id="more.sources.evaIcons.title" />,
-              description: (
-                <FormattedMessage id="more.sources.evaIcons.description" />
-              ),
+              name: formatMessage({ id: 'more.sources.evaIcons.title' }),
+              description: formatMessage({
+                id: 'more.sources.evaIcons.description'
+              }),
               key: 'eva_icons',
               icon: StarFillIcon
             },
             {
-              name: <FormattedMessage id="more.sources.appIcon.title" />,
-              description: (
-                <FormattedMessage id="more.sources.appIcon.description" />
-              ),
+              name: formatMessage({ id: 'more.sources.appIcon.title' }),
+              description: formatMessage({
+                id: 'more.sources.appIcon.description'
+              }),
               key: 'app_icon',
               icon: StarFillIcon
             }
           ]}
-          title={<FormattedMessage id="more.sources.title" />}
+          title={formatMessage({ id: 'more.sources.title' })}
         />
       </Box>
     </BasicLayout>

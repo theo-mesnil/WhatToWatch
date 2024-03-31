@@ -9,8 +9,8 @@ import { Text } from 'components/Text';
 type ContentDescriptionProps = {
   description?: string;
   votes: {
-    number: number;
     count: number;
+    number: number;
   };
 };
 

@@ -12,8 +12,8 @@ import { getImageUrl } from 'utils/images';
 import * as S from './styles';
 
 type CoverLayoutProps = {
-  imageUrl: string;
   children: React.ReactNode;
+  imageUrl: string;
 };
 
 export function CoverLayout({ children, imageUrl, ...rest }: CoverLayoutProps) {

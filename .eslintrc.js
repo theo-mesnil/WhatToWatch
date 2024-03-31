@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
-  plugins: ['import', 'sort-destructure-keys'],
+  extends: ['@react-native-community', 'plugin:typescript-sort-keys/recommended'],
+  plugins: ['import', 'sort-destructure-keys', 'eslint-plugin-prettier'],
   parser: '@typescript-eslint/parser',
   rules: {
     'no-console': 'warn',

@@ -9,7 +9,20 @@ type getPlayVideoTypeProps = {
   videos: Videos | 'loading';
 };
 
-export function getPlayVideoType({ homepage, videos }: getPlayVideoTypeProps) {
+type GetPlayVideoTypeReturn = {
+  item: {
+    id?: string;
+    name?: string;
+    platform?: Platform;
+    type?: 'trailer' | 'network';
+  };
+  withVideo: boolean;
+};
+
+export function getPlayVideoType({
+  homepage,
+  videos
+}: getPlayVideoTypeProps): GetPlayVideoTypeReturn {
   let network;
 
   if (homepage) {
@@ -59,8 +72,8 @@ type useVideoProps = {
 export function useVideo({ id, link, name, platform, type }: useVideoProps): {
   handleVideoPress: () => void;
   isNetwork: boolean;
-  isYoutube: boolean;
   isVimeo: boolean;
+  isYoutube: boolean;
 } {
   const navigation =
     useNavigation<RootStackScreenProps<'Video'>['navigation']>();

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { LayoutProps } from 'styled-system';
 
 import { Box } from 'components/Box';
@@ -8,9 +8,9 @@ import { Loader } from 'components/Loader';
 import { Text } from 'components/Text';
 
 type MoreLessTest = {
-  children: React.ReactNode;
-  numberOfLines?: number;
+  children: string | JSX.Element;
   maxWidth?: LayoutProps['maxWidth'];
+  numberOfLines?: number;
 };
 
 export function MoreLessText({
@@ -18,6 +18,7 @@ export function MoreLessText({
   maxWidth,
   numberOfLines = 3
 }: MoreLessTest) {
+  const { formatMessage } = useIntl();
   const [showMore, setShowMore] = React.useState(true);
   const isLoading = children === 'loading';
   const numberOfLoadingLines = numberOfLines + 1;
@@ -47,9 +48,9 @@ export function MoreLessText({
             {children}
           </Text>
           <Link onPress={() => setShowMore(!showMore)} mt="xxs">
-            <FormattedMessage
-              id={`moreLessText.${showMore ? 'readMore' : 'less'}`}
-            />
+            {formatMessage({
+              id: `moreLessText.${showMore ? 'readMore' : 'less'}`
+            })}
           </Link>
         </>
       )}

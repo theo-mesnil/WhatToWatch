@@ -8,9 +8,9 @@ import { Box } from 'components/Box';
 import { getTextFont } from 'components/Text';
 
 type BasicLayoutProps = {
+  children: React.ReactNode;
   titleOffset?: number;
   titleOffsetSubtraction?: number;
-  children: React.ReactNode;
 };
 
 export function BasicLayout({

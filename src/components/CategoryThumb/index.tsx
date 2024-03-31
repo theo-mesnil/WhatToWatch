@@ -12,7 +12,7 @@ type CategoryThumbProps = BoxProps &
     aspectRatio?: number;
     icon?: IconElement;
     isLoading?: boolean;
-    title?: string | React.ReactElement;
+    title?: string | JSX.Element;
   };
 
 export function CategoryThumb({

@@ -20,23 +20,23 @@ type ListItem = React.ElementType;
 
 export type ListProps = BoxProps & {
   actions?: React.ReactNode;
-  onPress?: (params: any) => any;
   aspectRatio?: number;
+  autoWidthOnItem?: boolean;
   data?: any;
   imageWidth?: number;
   itemPerPage?: number;
-  autoWidthOnItem?: boolean;
-  keyName: string;
-  listItem: ListItem;
-  pagingEnabled?: boolean;
-  title?: React.ReactElement | string;
-  withBackdropImage?: boolean;
-  withNumber?: boolean;
-  withTitleOnCover?: boolean;
   itemProps?: {
     [key: string]: any;
   };
+  keyName: string;
+  listItem: ListItem;
+  onPress?: (params: any) => any;
+  pagingEnabled?: boolean;
+  title?: JSX.Element | string;
+  withBackdropImage?: boolean;
   withMargin?: boolean;
+  withNumber?: boolean;
+  withTitleOnCover?: boolean;
 };
 
 export const TopList = React.memo(
@@ -46,11 +46,11 @@ export const TopList = React.memo(
     data,
     imageWidth,
     itemPerPage = 3,
+    itemProps = {},
     keyName,
     listItem: ListItem,
     onPress,
     title,
-    itemProps = {},
     ...rest
   }: ListProps) => {
     const isLoading = !data;
@@ -117,7 +117,7 @@ export const TopList = React.memo(
               `${isLoading ? item : item.id}_${keyName}_${index}`
             }
             showsHorizontalScrollIndicator={false}
-            ListHeaderComponent={S.Before}
+            ListHeaderComponent={<S.Before />}
             renderItem={renderItem}
           />
         </Box>

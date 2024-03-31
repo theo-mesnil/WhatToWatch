@@ -12,13 +12,13 @@ export type Params = Param[];
 
 export type GetApi = {
   callback: (data: any) => void;
-  type?: Type;
   params?: Params;
+  type?: Type;
 };
 
 export type ApiUrl = {
-  query: string;
   params?: Params;
+  query: string;
 };
 
 export const useApiUrl = () => {
@@ -32,7 +32,7 @@ export const useApiUrl = () => {
         paramsUrl += `&${param.name}=${encodeURIComponent(param.value)}`;
       });
 
-    return `${API_URL}${query}?api_key=${Constants.manifest.extra.theMovieDbApiKey}&language=${locale}${paramsUrl}`;
+    return `${API_URL}${query}?api_key=${Constants.expoConfig.extra.theMovieDbApiKey}&language=${locale}${paramsUrl}`;
   }
 
   return apiUrl;

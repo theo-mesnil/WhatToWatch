@@ -11,20 +11,20 @@ import { Touchable, TouchableProps } from 'components/Touchable';
 type GenreThumbProps = BoxProps &
   Pick<TouchableProps, 'onPress'> & {
     aspectRatio?: number;
-    item: Genre;
     isLoading?: boolean;
     isTV?: boolean;
     isTag?: boolean;
+    item: Genre;
     withIcon?: boolean;
   };
 
 export const GenreThumb = ({
   aspectRatio = 5 / 4,
   isLoading,
+  isTag,
   isTV,
   item,
   onPress,
-  isTag,
   withIcon,
   ...rest
 }: GenreThumbProps) => {

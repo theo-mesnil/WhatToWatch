@@ -4,9 +4,9 @@ import { Thumb } from 'components/Thumb';
 
 type MovieThumbProps = {
   item: {
+    backdrop_path?: string;
     id: string;
     name: string;
-    backdrop_path?: string;
     poster_path?: string;
   };
   withBackdropImage?: boolean;

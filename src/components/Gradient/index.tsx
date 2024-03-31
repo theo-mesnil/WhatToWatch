@@ -5,13 +5,13 @@ import { Box, BoxProps } from 'components/Box';
 import { useTransformColors } from 'utils/colors';
 
 export interface GradientProps extends BoxProps {
-  colors?: [Color, Color];
   angle?: number;
+  colors?: [Color, Color];
 }
 
 export function Gradient({
-  colors = ['transparent', 'dark900'],
   angle,
+  colors = ['transparent', 'dark900'],
   ...rest
 }: GradientProps) {
   const transformColors = useTransformColors();

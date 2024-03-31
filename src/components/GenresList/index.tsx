@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { RootStackScreenProps } from 'navigation/types';
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { BoxProps } from 'components/Box';
 import { GenreThumb } from 'components/GenreThumb';
@@ -15,6 +15,7 @@ type GenresListProps = BoxProps & {
 };
 
 export function GenresList({ type = 'all', ...rest }: GenresListProps) {
+  const { formatMessage } = useIntl();
   const navigation =
     useNavigation<RootStackScreenProps<'Genre'>['navigation']>();
   const bothTypes = type === 'all';
@@ -34,7 +35,7 @@ export function GenresList({ type = 'all', ...rest }: GenresListProps) {
       onPress={navigateToGenre}
       listItem={GenreThumb}
       itemProps={{ isTV, withIcon: true }}
-      title={<FormattedMessage id="common.genres" />}
+      title={formatMessage({ id: 'common.genres' })}
       itemPerPage={3}
       actions={
         bothTypes && (

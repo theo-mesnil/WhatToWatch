@@ -25,12 +25,13 @@ export interface BoxProps
     SpaceProps,
     ViewProps {
   as?: React.ElementType;
-  children?: React.ReactNode;
   aspectRatio?: number;
+  children?: React.ReactNode;
 }
 
 const BoxStyled = styled.View(flexbox, layout, position, space, color, border);
 
 export function Box(props: BoxProps) {
+  // @ts-ignore
   return <BoxStyled {...props} />;
 }

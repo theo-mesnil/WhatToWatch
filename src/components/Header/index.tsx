@@ -34,10 +34,10 @@ const BackButton = ({ withCrossIcon }: BackButtonProps) => {
 };
 
 type HeaderProps = Omit<BoxProps, 'opacity'> & {
-  subtitle?: string | React.ReactElement;
-  title: string | React.ReactElement;
-  withCrossIcon?: boolean;
   opacity?: number | Animated.Value;
+  subtitle?: string | JSX.Element;
+  title: string | JSX.Element;
+  withCrossIcon?: boolean;
 };
 
 export function Header({

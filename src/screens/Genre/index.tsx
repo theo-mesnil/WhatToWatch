@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackScreenProps } from 'navigation/types';
 import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { Animated } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
@@ -16,6 +16,7 @@ import { TvShowThumb } from 'components/TvShowThumb';
 import { VerticalList } from 'components/VerticalList';
 
 export function GenreScreen() {
+  const { formatMessage } = useIntl();
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [titleOffset, setTitleOffset] = useState(300);
   const navigation =
@@ -34,9 +35,9 @@ export function GenreScreen() {
     <>
       <Header
         title={genreName}
-        subtitle={
-          <FormattedMessage id={`common.${isTV ? 'tvShows' : 'movies'}`} />
-        }
+        subtitle={formatMessage({
+          id: `common.${isTV ? 'tvShows' : 'movies'}`
+        })}
         opacity={
           scrollY.interpolate({
             inputRange: [inputRange, inputRange],

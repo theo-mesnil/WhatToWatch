@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { RootStackScreenProps } from 'navigation/types';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import {
   useGetPeople,
@@ -37,6 +37,7 @@ import { TvShows, TvShowsList } from './TvShowsList';
 const avatarSize = 150;
 
 export function PeopleScreen() {
+  const { formatMessage } = useIntl();
   const [titleOffset, setTitleOffset] = useState(0);
   const [people, setPeople] = useState({
     name: 'loading',
@@ -186,32 +187,30 @@ export function PeopleScreen() {
             {birthdayIsLoading && <Loader height={10} width={0.7} />}
             {!birthdayIsLoading && !!birthday && (
               <Text mb={!!biography && 'sm'} variant="subtitle1">
-                <FormattedMessage
-                  id="people.born"
-                  values={{
+                {formatMessage(
+                  { id: 'people.born' },
+                  {
                     date: format(new Date(birthday), 'PPP', {
                       locale: dateFnsLocale
                     })
-                  }}
-                />
-                {!!placeOfBirth && (
-                  <FormattedMessage
-                    id="people.placeOfBirth"
-                    values={{
-                      place: placeOfBirth
-                    }}
-                  />
+                  }
                 )}
-                {!!deathday && (
-                  <FormattedMessage
-                    id="people.die"
-                    values={{
+                {!!placeOfBirth &&
+                  formatMessage(
+                    { id: 'people.placeOfBirth' },
+                    {
+                      place: placeOfBirth
+                    }
+                  )}
+                {!!deathday &&
+                  formatMessage(
+                    { id: 'people.die' },
+                    {
                       date: format(new Date(deathday), 'PPP', {
                         locale: dateFnsLocale
                       })
-                    }}
-                  />
-                )}
+                    }
+                  )}
               </Text>
             )}
             {!!biography && (
@@ -228,7 +227,7 @@ export function PeopleScreen() {
             <List
               data={knowFor === 'loading' ? undefined : knowFor}
               keyName="knowFor"
-              title={<FormattedMessage id="people.knowFor" />}
+              title={formatMessage({ id: 'people.knowFor' })}
               itemPerPage={4}
               onPress={({ id, name: mediaName, type }) => {
                 if (withImages) {
@@ -245,7 +244,7 @@ export function PeopleScreen() {
             <List
               data={images === 'loading' ? undefined : images}
               keyName="images"
-              title={<FormattedMessage id="people.images" />}
+              title={formatMessage({ id: 'people.images' })}
               mt={!!knowFor && 'lg'}
               itemPerPage={5}
               onPress={({ index }) => {
@@ -266,7 +265,7 @@ export function PeopleScreen() {
         <ScreenSection>
           <Centered>
             <Text numberOfLines={1} variant="h2" mb="xs">
-              <FormattedMessage id="common.movies" />
+              {formatMessage({ id: 'common.movies' })}
             </Text>
             {movies === 'loading' ? (
               <ListLoader />

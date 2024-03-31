@@ -27,6 +27,7 @@ export interface AnimatedBoxProps
   children?: React.ReactNode;
 }
 
+// @ts-ignore
 const BoxStyled = styled(Animated.View)(
   border,
   color,

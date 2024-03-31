@@ -48,7 +48,7 @@ const androidTabBarStyle = isAndroid
 
 export function TabBar() {
   const theme = useTheme();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
 
   const screenOptions = merge(
     {
@@ -91,7 +91,7 @@ export function TabBar() {
         component={DiscoverScreen}
         options={{
           headerShown: false,
-          title: intl.formatMessage({ id: 'tabs.discover' }),
+          title: formatMessage({ id: 'tabs.discover' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -104,7 +104,7 @@ export function TabBar() {
         name="Search"
         component={SearchScreen}
         options={{
-          title: intl.formatMessage({ id: 'tabs.search' }),
+          title: formatMessage({ id: 'tabs.search' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -117,7 +117,7 @@ export function TabBar() {
         name="Networks"
         component={NetworksScreen}
         options={{
-          title: intl.formatMessage({ id: 'tabs.networks' }),
+          title: formatMessage({ id: 'tabs.networks' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -130,7 +130,7 @@ export function TabBar() {
         name="More"
         component={MoreScreen}
         options={{
-          title: intl.formatMessage({ id: 'tabs.more' }),
+          title: formatMessage({ id: 'tabs.more' }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,

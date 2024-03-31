@@ -16,17 +16,17 @@ type PeopleThumbProps = Pick<TouchableProps, 'onPress'> & {
   aspectRatio?: number;
   isLoading?: boolean;
   item: {
-    name: string;
     character: string;
+    name: string;
     profile_path: string;
   };
 };
 
 export function PeopleThumb({
   aspectRatio = 3 / 5,
-  onPress,
   isLoading,
   item,
+  onPress,
   ...rest
 }: PeopleThumbProps) {
   const title = item?.name;
