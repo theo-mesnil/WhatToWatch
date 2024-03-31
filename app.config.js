@@ -27,7 +27,7 @@ export default {
     package: 'com.theomesnil.WhatToWatch',
     playStoreUrl:
       'https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch',
-    versionCode: 3
+    versionCode: 4
   },
   web: {
     favicon: 'src/assets/favicon.png'
