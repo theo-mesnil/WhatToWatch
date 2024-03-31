@@ -36,7 +36,7 @@ export function EpisodeThumb({
   const number = votes?.number;
 
   return (
-    <Box borderRadius="md" overflow="hidden" {...rest}>
+    <Box borderRadius={4} overflow="hidden" {...rest}>
       <Box backgroundColor="thumbBackground">
         <Box>
           <ImageBackground

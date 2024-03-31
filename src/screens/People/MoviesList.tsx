@@ -51,7 +51,7 @@ export function MoviesList({ movies }: MoviesListProps) {
                 }
               >
                 <Box
-                  borderRadius="md"
+                  borderRadius={4}
                   backgroundColor="thumbBackground"
                   mb="sm"
                   flexDirection="row"

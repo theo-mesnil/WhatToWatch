@@ -81,7 +81,7 @@ export function SearchScreen() {
             width={windowWidth - theme.space.lg * 2}
             height={40}
             backgroundColor="dark400"
-            borderRadius="md"
+            borderRadius={4}
             px="sm"
             flexDirection="row"
             alignItems="center"

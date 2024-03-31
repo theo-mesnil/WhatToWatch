@@ -76,7 +76,7 @@ export const Thumb = React.memo(
             </Box>
           )}
           <Box
-            borderRadius="md"
+            borderRadius={4}
             width={isNumber ? '75%' : '100%'}
             ml={isNumber && '10%'}
           >
