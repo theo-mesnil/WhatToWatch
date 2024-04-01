@@ -46,7 +46,7 @@
     "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "14.1.0",
     "react-native-web": "~0.19.6",
-    "react-native-webview": "13.6.4",
+    "react-native-webview": "13.8.4",
     "react-native-youtube-iframe": "^2.3.0",
     "styled-components": "^6.1.8",
     "styled-system": "^5.1.5"
