@@ -17,8 +17,7 @@ export default {
   tabs: {
     discover: 'Discover',
     search: 'Search',
-    networks: 'Networks',
-    more: 'More'
+    networks: 'Networks'
   },
   discover: {
     trendsShows: 'Trends shows',

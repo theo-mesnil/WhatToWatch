@@ -11,7 +11,6 @@ import * as React from 'react';
 import { StatusBar } from 'react-native';
 
 import { IntlMessages } from 'components/IntlMessages';
-// import { GenresProvider } from 'contexts/genres';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,9 +41,7 @@ export default function Layout() {
         translucent
       />
       <IntlMessages>
-        {/* <GenresProvider> */}
         <Stack screenOptions={{ headerShown: false }} />
-        {/* </GenresProvider> */}
       </IntlMessages>
     </>
   );

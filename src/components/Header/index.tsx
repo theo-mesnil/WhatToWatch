@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
           marginTop: statusBarHeight
         }}
       >
-        <Text>{title}</Text>
+        <Text variant="h1">{title}</Text>
         <Icon icon={MoreFillIcon} />
       </View>
     </View>

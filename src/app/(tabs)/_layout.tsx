@@ -13,8 +13,6 @@ import {
   GlobeFillIcon,
   GlobeIcon,
   Icon,
-  MoreFillIcon,
-  MoreIcon,
   SearchFillIcon,
   SearchIcon
 } from 'components/Icon';
@@ -55,8 +53,8 @@ export default function Layout() {
     tabBarBackground: isIos ? BottomBarBackground : undefined,
     tabBarInactiveTintColor: theme.colors.text,
     tabBarLabelStyle: {
-      // fontSize: 12, todo
-      fontFamily: 'Poppins_600SemiBold'
+      fontSize: 12,
+      fontFamily: 'Poppins_400Regular'
     },
     tabBarStyle: isAndroid
       ? {
@@ -107,18 +105,6 @@ export default function Layout() {
               ...props,
               icon: GlobeIcon,
               iconFocused: GlobeFillIcon
-            })
-        }}
-      />
-      <Tabs.Screen
-        name="more/index"
-        options={{
-          title: formatMessage({ id: 'tabs.more' }),
-          tabBarIcon: (props) =>
-            tabBarIcon({
-              ...props,
-              icon: MoreIcon,
-              iconFocused: MoreFillIcon
             })
         }}
       />

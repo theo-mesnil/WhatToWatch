@@ -17,8 +17,7 @@ export default {
   tabs: {
     discover: 'Découvrir',
     search: 'Rechercher',
-    networks: 'Networks',
-    more: 'En plus'
+    networks: 'Networks'
   },
   discover: {
     trendsShows: 'Séries du moment',
