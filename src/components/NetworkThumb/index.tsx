@@ -1,57 +1,66 @@
+import type { Href } from 'expo-router';
+import { Link } from 'expo-router';
 import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
 
-import { Box, BoxProps } from 'components/Box';
 import { Gradient } from 'components/Gradient';
 import { Icon } from 'components/Icon';
-import { Touchable, TouchableProps } from 'components/Touchable';
-import { getNetworkLogo } from 'utils/networks';
+import { Touchable } from 'components/Touchable';
+import { getNetworkColor, getNetworkLogo } from 'utils/networks';
 
-type NetworkThumbProps = BoxProps &
-  Pick<TouchableProps, 'onPress'> & {
-    aspectRatio?: number;
-    isSquare?: boolean;
-    item: {
-      id: number;
-    };
+export type NetworkThumbProps = {
+  aspectRatio?: number;
+  href?: Href<string>;
+  isRounded?: boolean;
+  item: {
+    id: number;
   };
+};
 
 export const NetworkThumb = ({
   aspectRatio = 1 / 1,
-  isSquare,
-  item,
-  onPress,
-  ...rest
+  href,
+  isRounded,
+  item
 }: NetworkThumbProps) => {
+  const styles = useStyles();
+
   return (
-    <Touchable onPress={onPress}>
-      <Box
-        {...rest}
-        borderColor="dark400"
-        borderWidth="1px"
-        borderRadius={isSquare ? undefined : 200}
-        overflow="hidden"
-      >
-        <Gradient
-          position="absolute"
-          top={0}
-          bottom={0}
-          left={0}
-          right={0}
-          opacity={0.6}
-          colors={['dark400', 'dark900']}
-          angle={-1}
-        />
-        <Box
-          flex={1}
-          justifyContent="center"
-          alignItems="center"
-          style={{
-            aspectRatio
-          }}
-        >
-          <Icon size={0.7} icon={getNetworkLogo(item?.id)} />
-        </Box>
-      </Box>
-    </Touchable>
+    <Link href={href} asChild>
+      <Touchable>
+        <View style={[styles.wrapper, isRounded ? styles.rounded : undefined]}>
+          <Gradient
+            colors={getNetworkColor(isRounded ? undefined : item?.id)}
+            angle={-0.4}
+          />
+          <View
+            style={{
+              ...styles.icon,
+              aspectRatio
+            }}
+          >
+            <Icon size="80%" icon={getNetworkLogo(item?.id)} />
+          </View>
+        </View>
+      </Touchable>
+    </Link>
   );
 };
+
+function useStyles() {
+  return StyleSheet.create({
+    wrapper: {
+      borderRadius: theme.radii.sm,
+      overflow: 'hidden'
+    },
+    rounded: {
+      borderRadius: 200
+    },
+    icon: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
+  });
+}

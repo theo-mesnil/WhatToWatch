@@ -9,8 +9,7 @@ module.exports = function (api) {
           root: ['./src'],
           extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json']
         }
-      ],
-      'babel-plugin-styled-components'
+      ]
     ]
   };
 };

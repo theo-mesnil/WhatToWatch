@@ -1,4 +1,5 @@
 import { MovieFillIcon, PeopleFillIcon, TvFillIcon } from 'components/Icon';
+import type { ContentType } from 'types/content';
 
 export function getIconType(type: ContentType) {
   switch (type) {

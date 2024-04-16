@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { useTheme } from 'styled-components/native';
-import { ColorProps, SpaceProps } from 'styled-system';
+import type { DimensionValue } from 'react-native';
+import { theme } from 'theme';
+import type { Color } from 'theme/colors';
 
 import ArrowBackIcon from './icons/ArrowBack';
 import BulbIcon from './icons/Bulb';
@@ -35,7 +36,6 @@ import SearchFillIcon from './icons/SearchFill';
 import SmileIcon from './icons/Smile';
 import StarFillIcon from './icons/StarFill';
 import TvFillIcon from './icons/TvFill';
-import * as S from './styles';
 
 export type IconElement =
   | typeof StarFillIcon
@@ -74,26 +74,27 @@ export type IconElement =
   | typeof StarFillIcon
   | typeof TvFillIcon;
 
-export interface IconProps extends SpaceProps, ColorProps {
+export type IconProps = {
+  color?: Color;
   icon: IconElement;
-  size?: number;
-}
+  size?: DimensionValue;
+};
 
-function Icon({ color = 'light800', icon: IconComponent, size = 24, ...rest }) {
-  const theme = useTheme();
-
-  const iconSize = size < 1 ? `${size * 100}%` : size;
-
+const Icon: React.FC<IconProps> = ({
+  color = 'white',
+  icon: IconComponent,
+  size = 24
+}) => {
   return (
-    <S.Icon
-      as={IconComponent}
-      width={iconSize}
-      height={iconSize}
-      color={theme.colors[color] || color}
-      {...rest}
+    <IconComponent
+      color={theme.colors[color]}
+      style={{
+        width: size,
+        height: size
+      }}
     />
   );
-}
+};
 
 export {
   ArrowBackIcon,

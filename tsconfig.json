@@ -2,10 +2,8 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "baseUrl": "./src",
-    "paths": {
-      "*": ["*", "types/*.d.ts"],
-      "components": ["src/components/*"]
-    },
-    "types": ["styled-components-react-native"]
+    "noImplicitAny": true,
+    "types": ["node"]
   },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

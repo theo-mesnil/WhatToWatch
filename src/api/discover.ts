@@ -1,29 +1,7 @@
 import * as React from 'react';
 
-import { errorLog } from 'utils/logger';
-
-import { GetApi, useApiUrl } from './api';
-
-export const useGetDiscoverMovie = () => {
-  const apiUrl = useApiUrl();
-
-  const handleData = React.useCallback(
-    async ({ callback, params }: Omit<GetApi, 'type'>) => {
-      try {
-        const response = await fetch(
-          apiUrl({ query: 'discover/movie', params })
-        );
-        const json = await response.json();
-        callback(json?.results);
-      } catch (error) {
-        errorLog(error);
-      }
-    },
-    [apiUrl]
-  );
-
-  return handleData;
-};
+import type { GetApi } from './api';
+import { useApiUrl } from './api';
 
 export const useGetDiscoverTvShow = () => {
   const apiUrl = useApiUrl();
@@ -35,7 +13,8 @@ export const useGetDiscoverTvShow = () => {
         const json = await response.json();
         callback(json?.results);
       } catch (error) {
-        errorLog(error);
+        // eslint-disable-next-line no-console
+        console.error(error);
       }
     },
     [apiUrl]

@@ -8,6 +8,7 @@ import {
   LogoNetflix,
   LogoShowtime
 } from 'components/Icon';
+import type { NetworkId } from 'types/content';
 
 export function getNetworkLogo(id: NetworkId) {
   switch (id) {
@@ -55,26 +56,26 @@ export function getNetworkName(id: NetworkId) {
   }
 }
 
-export function getNetworkColor(id: NetworkId) {
+export function getNetworkColor(id?: NetworkId): [string, string] {
   switch (id) {
     case 213:
-      return '#E50914';
+      return ['#E50914', '#72050a'];
     case 1024:
-      return '#00a8e1';
+      return ['#1C97FE', '#014d8c'];
     case 49:
-      return '#2bb0d8';
+      return ['#7B2ABF', '#3d155f'];
     case 2739:
-      return '#0063e5';
+      return ['#049FAA', '#013945'];
     case 2552:
-      return '#fff';
+      return ['#464646', '#323232'];
     case 453:
-      return '#3DBB3D';
+      return ['#1EE783', '#0d7641'];
     case 67:
-      return '#0086bd';
+      return ['#0086BD', '#00435e'];
     case 19:
-      return '#b10000';
+      return ['#FF1928', '#8c0009'];
     default:
-      return null;
+      return ['#464646', '#323232'];
   }
 }
 

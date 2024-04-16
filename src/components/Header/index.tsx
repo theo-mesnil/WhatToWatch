@@ -1,84 +1,76 @@
-import { useNavigation } from '@react-navigation/native';
-import * as React from 'react';
-import { Animated, Platform } from 'react-native';
+import { BlurView } from 'expo-blur';
+import { Animated, StyleSheet, View } from 'react-native';
+import { globalStyles } from 'styles';
+import { theme } from 'theme';
 
-import { ArrowBackIcon, CrossIcon, Icon } from 'components/Icon';
-import { Touchable } from 'components/Touchable';
-import { statusBarHeight } from 'constants/statusBar';
+import { Icon, MoreFillIcon } from 'components/Icon';
+import { Text } from 'components/Text';
+import { isAndroid } from 'constants/screen';
+import { useSafeHeights } from 'constants/useSafeHeights';
 
-import { Box, BoxProps } from '../Box';
-import { Text } from '../Text';
-
-import * as S from './styles';
-
-export const headerHeight =
-  Platform.select({
-    android: 56,
-    default: 44
-  }) + statusBarHeight;
-
-type BackButtonProps = {
-  withCrossIcon?: boolean;
+type HeaderProps = {
+  scrollY?: Animated.Value;
+  title: React.ReactNode;
 };
 
-const BackButton = ({ withCrossIcon }: BackButtonProps) => {
-  const navigation = useNavigation();
+export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
+  const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights();
+  const styles = useStyles();
+
+  const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
   return (
-    <Box mr="sm">
-      <Touchable onPress={() => navigation.goBack()}>
-        <Icon size={25} icon={withCrossIcon ? CrossIcon : ArrowBackIcon} />
-      </Touchable>
-    </Box>
-  );
-};
-
-type HeaderProps = Omit<BoxProps, 'opacity'> & {
-  opacity?: number | Animated.Value;
-  subtitle?: string | JSX.Element;
-  title: string | JSX.Element;
-  withCrossIcon?: boolean;
-};
-
-export function Header({
-  opacity,
-  subtitle,
-  title,
-  withCrossIcon,
-  ...rest
-}: HeaderProps) {
-  return (
-    <Box
-      height={headerHeight}
-      position="absolute"
-      top="0"
-      width={1}
-      zIndex={1}
-      {...rest}
-    >
-      <S.Block headerHeight={headerHeight} statusBarHeight={statusBarHeight}>
-        <BackButton withCrossIcon={withCrossIcon} />
-      </S.Block>
-      <S.Block
-        headerHeight={headerHeight}
-        statusBarHeight={statusBarHeight}
-        backgroundColor="behind"
-        borderBottomWidth="1px"
-        borderBottomColor="border"
-        style={{ opacity }}
+    <View style={{ ...styles.wrapper, height: headerSafeHeight }}>
+      {isAndroid ? (
+        <Animated.View
+          style={{
+            opacity: scrollY?.interpolate({
+              inputRange: [0, 50],
+              outputRange: [0, 1]
+            }),
+            backgroundColor: theme.colors.ahead,
+            ...globalStyles.absoluteFill
+          }}
+        />
+      ) : (
+        <AnimatedBlurView
+          style={{
+            opacity: scrollY?.interpolate({
+              inputRange: [0, 50],
+              outputRange: [0, 1]
+            }),
+            ...globalStyles.absoluteFill
+          }}
+          tint="dark"
+          intensity={150}
+        />
+      )}
+      <View
+        style={{
+          ...styles.content,
+          height: headerHeight,
+          marginTop: statusBarHeight
+        }}
       >
-        <BackButton withCrossIcon={withCrossIcon} />
-        <Box flex={1}>
-          <Text variant="h2" numberOfLines={1}>
-            {title}
-          </Text>
-          {subtitle && (
-            <Text mt={-3} variant="subtitle2" numberOfLines={1}>
-              {subtitle}
-            </Text>
-          )}
-        </Box>
-      </S.Block>
-    </Box>
+        <Text>{title}</Text>
+        <Icon icon={MoreFillIcon} />
+      </View>
+    </View>
   );
+};
+
+function useStyles() {
+  return StyleSheet.create({
+    wrapper: {
+      width: '100%',
+      position: 'absolute',
+      zIndex: 999
+    },
+    content: {
+      paddingHorizontal: theme.space.lg,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    }
+  });
 }

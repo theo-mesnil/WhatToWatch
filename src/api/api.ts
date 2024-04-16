@@ -1,7 +1,8 @@
-import Constants from 'expo-constants';
+import { LOCALE } from 'constants/locales';
 
-import { useLocale } from 'contexts/locales';
 export const API_URL = 'https://api.themoviedb.org/3/';
+
+export type ApiType = 'tv' | 'movie' | 'person' | 'all';
 
 type Param = {
   name: string;
@@ -13,7 +14,7 @@ export type Params = Param[];
 export type GetApi = {
   callback: (data: any) => void;
   params?: Params;
-  type?: Type;
+  type?: ApiType;
 };
 
 export type ApiUrl = {
@@ -22,8 +23,6 @@ export type ApiUrl = {
 };
 
 export const useApiUrl = () => {
-  const { locale } = useLocale();
-
   function apiUrl({ params, query }: ApiUrl) {
     let paramsUrl = '';
 
@@ -32,7 +31,7 @@ export const useApiUrl = () => {
         paramsUrl += `&${param.name}=${encodeURIComponent(param.value)}`;
       });
 
-    return `${API_URL}${query}?api_key=${Constants.expoConfig.extra.theMovieDbApiKey}&language=${locale}${paramsUrl}`;
+    return `${API_URL}${query}?api_key=${process.env.EXPO_PUBLIC_THEMOVIEDB_API_KEY}&language=${LOCALE}${paramsUrl}`;
   }
 
   return apiUrl;

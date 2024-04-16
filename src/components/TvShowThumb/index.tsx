@@ -1,8 +1,9 @@
 import * as React from 'react';
 
+import type { ThumbProps } from 'components/Thumb';
 import { Thumb } from 'components/Thumb';
 
-type TvShowThumbProps = {
+type TvShowThumbProps = ThumbProps & {
   item: {
     backdrop_path: string;
     id: number;
@@ -10,7 +11,6 @@ type TvShowThumbProps = {
   };
   withBackdropImage?: boolean;
 };
-
 export function TvShowThumb({
   item,
   withBackdropImage,

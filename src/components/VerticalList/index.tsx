@@ -1,136 +1,68 @@
 import * as React from 'react';
-import { Animated } from 'react-native';
-import { useTheme } from 'styled-components/native';
-import { SpaceProps } from 'styled-system';
+import { Animated, Dimensions, View } from 'react-native';
+import { space } from 'theme/space';
 
-import { GetApi } from 'api/api';
-import { Box } from 'components/Box';
 import { fakeData30 } from 'constants/mocks';
 
-type Param = {
-  name: string;
-  value: number | string;
-};
-
 type VerticalListProps = {
-  ListHeaderComponent?: React.ReactElement;
+  ListHeaderComponent?: React.ReactNode;
   aspectRatio?: number;
-  children?: React.ReactNode;
   contentContainerStyle?: any;
-  getApi?: ({ callback, params, type }: GetApi) => void;
-  handleScroll?: (scrollY: Animated.Value) => void;
+  gap?: number;
+  getScrollYPosition?: (value: Animated.Value) => void;
   initialNumToRender?: number;
-  itemProps?: {
-    [key: string]: any;
-  };
+  isLoading?: boolean;
+  item: React.ElementType;
+  listMargin?: number;
   maxPage?: number;
-  numberOfColumns?: number;
-  onPress?: (props: any) => void;
-  paddingTop?: SpaceProps['pt'];
-  params?: Param[];
-  renderItem: React.ElementType;
-  resultsData?: any;
-  type?: Type;
+  numColumns?: number;
+  onEndReached?: (info: { distanceFromEnd: number }) => void;
+  results?: any;
 };
 
 export function VerticalList({
   aspectRatio,
-  children,
   contentContainerStyle = {},
-  getApi,
-  handleScroll,
+  gap = space.sm,
+  getScrollYPosition,
   initialNumToRender = 20,
-  itemProps = {},
+  isLoading,
+  item: Item,
   ListHeaderComponent,
-  maxPage = 20,
-  numberOfColumns = 3,
-  onPress,
-  paddingTop,
-  params = [],
-  renderItem: Item,
-  resultsData,
-  type
+  listMargin = space.md,
+  numColumns = 3,
+  onEndReached,
+  results
 }: VerticalListProps) {
-  const [scrollY] = React.useState(new Animated.Value(0));
-  const [results, setResults] = React.useState(resultsData || 'loading');
-  const [page, setPage] = React.useState(1);
-  const theme = useTheme();
-  const resultFromParent = !!resultsData;
-  const isLoading = results === 'loading' || resultsData === 'loading';
   const dataFormatted = isLoading ? fakeData30 : results;
 
-  React.useEffect(() => {
-    handleScroll && handleScroll(scrollY);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scrollY]);
+  const screenWidth = Dimensions.get('window').width;
+  const availableSpace = screenWidth - listMargin * 2 - (numColumns - 1) * gap;
+  const itemSize = availableSpace / numColumns;
+  const [scrollY] = React.useState(new Animated.Value(0));
 
-  function renderItem({ item }) {
+  React.useEffect(
+    () => getScrollYPosition?.(scrollY),
+    [getScrollYPosition, scrollY]
+  );
+
+  function renderItem(props: any) {
     return (
-      <Box flex={1} maxWidth={`${100 / numberOfColumns}%`} p="xs">
-        <Item
-          item={item}
-          aspectRatio={aspectRatio}
-          onPress={() =>
-            onPress &&
-            onPress({
-              id: item?.id,
-              name: item?.name,
-              mediaType: item?.media_type
-            })
-          }
-          isLoading={isLoading}
-          {...itemProps}
-        />
-      </Box>
+      <View style={{ width: itemSize }}>
+        <Item {...props} isLoading={isLoading} aspectRatio={aspectRatio} />
+      </View>
     );
   }
 
-  function setNewPage() {
-    if (page < maxPage) {
-      setPage(page + 1);
-    }
-  }
-
-  function getNewPageData(newData) {
-    if (results) {
-      setResults(results.concat(newData));
-    }
-  }
-
-  React.useEffect(() => {
-    if (!resultFromParent) {
-      getApi({
-        callback: page === 1 ? setResults : getNewPageData,
-        params: [{ name: 'page', value: page }, ...params],
-        type
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
-
-  React.useEffect(() => {
-    setResults(resultsData);
-  }, [resultsData]);
-
   return (
     <Animated.FlatList
+      onEndReached={onEndReached}
       bounces={false}
       data={dataFormatted}
       initialNumToRender={initialNumToRender}
       keyExtractor={(item, index) =>
         isLoading ? `loading_${index}` : `${index}_${item.id}`
       }
-      ListHeaderComponent={
-        ListHeaderComponent ||
-        (!!children && (
-          <Box mb="lg" pt={paddingTop}>
-            {children}
-          </Box>
-        ))
-      }
-      numColumns={numberOfColumns}
-      onEndReached={!resultFromParent && setNewPage}
-      onEndReachedThreshold={1}
       onScroll={Animated.event(
         [
           {
@@ -143,10 +75,21 @@ export function VerticalList({
           useNativeDriver: true
         }
       )}
+      numColumns={numColumns}
+      onEndReachedThreshold={1}
+      ListHeaderComponent={
+        ListHeaderComponent ? (
+          <View style={{ width: screenWidth - listMargin * 2 }}>
+            {ListHeaderComponent}
+          </View>
+        ) : undefined
+      }
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
+      columnWrapperStyle={{ gap }}
       contentContainerStyle={{
-        paddingBottom: theme.space.lg,
+        gap,
+        marginLeft: listMargin,
         ...contentContainerStyle
       }}
     />

@@ -1,66 +1,42 @@
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import { Animated } from 'react-native';
-import { useTheme } from 'styled-components/native';
-
-import { Box } from 'components/Box';
-import { getTextFont } from 'components/Text';
+import { Animated, StyleSheet } from 'react-native';
+import { theme } from 'theme';
 
 type BasicLayoutProps = {
   children: React.ReactNode;
+  contentContainerStyle?: any;
+  isView?: boolean;
   titleOffset?: number;
   titleOffsetSubtraction?: number;
 };
 
 export function BasicLayout({
   children,
-  titleOffset = 50,
-  titleOffsetSubtraction = 50,
-  ...rest
+  contentContainerStyle = {},
+  isView = false
 }: BasicLayoutProps) {
-  const [scrollY] = React.useState(new Animated.Value(0));
-  const navigation = useNavigation();
-  const theme = useTheme();
-  const tabBarHeight = useBottomTabBarHeight();
+  const styles = useStyles();
 
-  const headerOpacity = scrollY.interpolate({
-    inputRange: [titleOffset - titleOffsetSubtraction, titleOffset],
-    outputRange: [0, 1]
-  });
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      headerBackgroundContainerStyle: {
-        opacity: headerOpacity || 0
-      },
-      headerTitleStyle: {
-        ...getTextFont('h2', theme)
-      }
-    });
-  }, [headerOpacity, navigation, theme]);
+  const AnimateComponent = isView ? Animated.View : Animated.ScrollView;
 
   return (
-    <Animated.ScrollView
+    <AnimateComponent
+      style={styles.wrapper}
       bounces={false}
       scrollEventThrottle={1}
+      contentContainerStyle={contentContainerStyle}
       showsVerticalScrollIndicator={false}
-      onScroll={Animated.event(
-        [
-          {
-            nativeEvent: {
-              contentOffset: { y: scrollY }
-            }
-          }
-        ],
-        {
-          useNativeDriver: true
-        }
-      )}
     >
-      <Box pb={tabBarHeight + theme.space.lg} {...rest}>
-        {children}
-      </Box>
-    </Animated.ScrollView>
+      {children}
+    </AnimateComponent>
   );
+}
+
+function useStyles() {
+  return StyleSheet.create({
+    wrapper: {
+      backgroundColor: theme.colors.behind,
+      flex: 1
+    }
+  });
 }

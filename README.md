@@ -1,6 +1,6 @@
 # WhatToWatch
 
-Play with react native (Expo), styled-components and [themoviedb API](https://developers.themoviedb.org/) 🥳
+Play with react native (Expo) and [themoviedb API](https://developers.themoviedb.org/) 🥳
 
 ![alt image](https://user-images.githubusercontent.com/50322149/149024555-ebc3d433-a2db-423d-b162-cfe52ff9faf4.png)
 
@@ -14,7 +14,7 @@ WhatToWatch is the simplest and fastest way to discover movies, series and actor
 
 1. Clone the repository
 2. Create your own api key from [themoviedb](https://developers.themoviedb.org/)
-3. Add `THEMOVIEDB_API_KEY` key on your EAS secrets
+3. Add `EXPO_PUBLIC_THEMOVIEDB_API_KEY` key on your EAS secrets
 4. create a `.env` (see the example file)
 5. Have fun 👌
 

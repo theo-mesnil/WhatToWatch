@@ -1,41 +1,58 @@
 import * as React from 'react';
+import type { ViewProps } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
+import type { Color } from 'theme/colors';
 
-import { Box, BoxProps } from 'components/Box';
 import { Text } from 'components/Text';
-import { Touchable, TouchableProps } from 'components/Touchable';
+import type { TouchableProps } from 'components/Touchable';
+import { Touchable } from 'components/Touchable';
 
-type ButtonProps = BoxProps & {
-  backgroundColor?: string;
+type ButtonProps = ViewProps & {
+  backgroundColor?: Color;
   children: string | JSX.Element;
   isCustomChildren?: boolean;
+  isTransparent?: boolean;
   onPress?: TouchableProps['onPress'];
 };
 
 export function Button({
-  backgroundColor = 'primary500',
+  backgroundColor = 'brand-500',
   children,
   isCustomChildren,
+  isTransparent,
   onPress,
+  style = {},
   ...rest
 }: ButtonProps) {
+  const styles = useStyles();
+
   return (
-    <Touchable alignSelf="flex-start" onPress={onPress}>
-      <Box
-        backgroundColor={backgroundColor}
-        justifyContent="center"
-        height={40}
-        borderRadius={25}
-        px="md"
+    <Touchable onPress={onPress}>
+      <View
+        style={[
+          styles.wrapper,
+          isTransparent ? styles.transparent : { backgroundColor },
+          style
+        ]}
         {...rest}
       >
-        {isCustomChildren ? (
-          children
-        ) : (
-          <Text variant="h2" color="dark900">
-            {children}
-          </Text>
-        )}
-      </Box>
+        {isCustomChildren ? children : <Text>{children}</Text>}
+      </View>
     </Touchable>
   );
+}
+
+function useStyles() {
+  return StyleSheet.create({
+    wrapper: {
+      justifyContent: 'center',
+      height: 40,
+      borderRadius: 25,
+      paddingHorizontal: theme.space.md
+    },
+    transparent: {
+      backgroundColor: 'transparent'
+    }
+  });
 }
