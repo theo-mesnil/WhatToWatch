@@ -6,6 +6,7 @@ import {
   Poppins_600SemiBold,
   useFonts
 } from '@expo-google-fonts/poppins';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SplashScreen, Stack } from 'expo-router';
 import * as React from 'react';
 import { StatusBar } from 'react-native';
@@ -13,6 +14,8 @@ import { StatusBar } from 'react-native';
 import { IntlMessages } from 'components/IntlMessages';
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function Layout() {
   let [fontsLoaded, fontError] = useFonts({
@@ -41,7 +44,9 @@ export default function Layout() {
         translucent
       />
       <IntlMessages>
-        <Stack screenOptions={{ headerShown: false }} />
+        <QueryClientProvider client={queryClient}>
+          <Stack screenOptions={{ headerShown: false }} />
+        </QueryClientProvider>
       </IntlMessages>
     </>
   );

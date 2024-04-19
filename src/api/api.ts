@@ -1,38 +1,47 @@
 import { LOCALE } from 'constants/locales';
 
-export const API_URL = 'https://api.themoviedb.org/3/';
+export const BASE_API_URL = 'https://api.themoviedb.org/3/';
 
-export type ApiType = 'tv' | 'movie' | 'person' | 'all';
+export type SpecificApiParam<Params> = keyof Params extends infer K
+  ? K extends keyof Params
+    ? { name: K; value: Params[K] }
+    : never
+  : never;
 
-type Param = {
+export type ApiParams = {
   name: string;
-  value: string | number;
-};
+  value: string | number | boolean;
+}[];
 
-export type Params = Param[];
-
-export type GetApi = {
-  callback: (data: any) => void;
-  params?: Params;
-  type?: ApiType;
-};
-
-export type ApiUrl = {
-  params?: Params;
+export type GetApiUrlProps = {
+  params?: ApiParams;
   query: string;
 };
 
-export const useApiUrl = () => {
-  function apiUrl({ params, query }: ApiUrl) {
-    let paramsUrl = '';
-
-    params &&
-      params.map((param) => {
-        paramsUrl += `&${param.name}=${encodeURIComponent(param.value)}`;
-      });
-
-    return `${API_URL}${query}?api_key=${process.env.EXPO_PUBLIC_THEMOVIEDB_API_KEY}&language=${LOCALE}${paramsUrl}`;
-  }
-
-  return apiUrl;
+export type GetApiUrlReturn = {
+  queryParams: string[];
+  queryUrl: (page?: number) => string;
 };
+
+export function getApi({ params, query }: GetApiUrlProps): GetApiUrlReturn {
+  let queryParamsUrl = '';
+  let queryParams = [] as string[];
+
+  params &&
+    params.map((param) => {
+      const value = encodeURIComponent(param.value);
+      queryParamsUrl += `&${param.name}=${value}`;
+      queryParams.push(`${param.name}:${value}`);
+    });
+
+  const queryUrl = (page?: number) => {
+    const pageParam = page ? `&page=${page}` : '';
+
+    return `${BASE_API_URL}${query}?api_key=${process.env.EXPO_PUBLIC_THEMOVIEDB_API_KEY}&language=${LOCALE}${pageParam}${queryParamsUrl}`;
+  };
+
+  return {
+    queryParams,
+    queryUrl
+  };
+}

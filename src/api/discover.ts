@@ -1,24 +1,37 @@
-import * as React from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-import type { GetApi } from './api';
-import { useApiUrl } from './api';
+import type { SpecificApiParam } from './api';
+import { getApi } from './api';
+import type { paths } from './types';
 
-export const useGetDiscoverTvShow = () => {
-  const apiUrl = useApiUrl();
+export type UseGetDiscoverTvShowApiResponse =
+  paths['/3/discover/tv']['get']['responses']['200']['content']['application/json'];
 
-  const handleData = React.useCallback(
-    async ({ callback, params }: Omit<GetApi, 'type'>) => {
-      try {
-        const response = await fetch(apiUrl({ query: 'discover/tv', params }));
-        const json = await response.json();
-        callback(json?.results);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-      }
+export type UseGetDiscoverTvShowApiParams =
+  paths['/3/discover/tv']['get']['parameters']['query'];
+
+type UseGetDiscoverTvShowParams =
+  SpecificApiParam<UseGetDiscoverTvShowApiParams>[];
+
+export const useGetDiscoverTvShow = (params: UseGetDiscoverTvShowParams) => {
+  const { queryParams, queryUrl } = getApi({
+    query: 'discover/tv',
+    params
+  });
+
+  return useInfiniteQuery({
+    queryKey: ['discover', 'tv', ...queryParams],
+    queryFn: async ({ pageParam }) => {
+      const { data }: AxiosResponse<UseGetDiscoverTvShowApiResponse> =
+        await axios.get(queryUrl(pageParam));
+      return data.results;
     },
-    [apiUrl]
-  );
-
-  return handleData;
+    initialPageParam: 1,
+    getNextPageParam: (_, allPages) => {
+      return allPages.length + 1;
+    },
+    maxPages: 30
+  });
 };

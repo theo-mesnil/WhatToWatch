@@ -1,11 +1,12 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { useGetDiscoverTvShow } from 'api/discover';
 import { Gradient } from 'components/Gradient';
+import { LargeThumb } from 'components/LargeThumb';
 import { TvShowThumb } from 'components/TvShowThumb';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
@@ -15,10 +16,7 @@ import { getNetworkColor } from 'utils/networks';
 import { Header } from './components/Header';
 
 export default function Network() {
-  const [page, setPage] = useState(1);
-  const [results, setResults] = useState('isLoading');
   const params = useLocalSearchParams();
-  const getDiscoverTvShow = useGetDiscoverTvShow();
   const networkID = Number(params?.id);
   const navigation = useNavigation();
   const { containerStyle } = useSafeHeights();
@@ -26,6 +24,15 @@ export default function Network() {
     new Animated.Value(0)
   );
   const styles = useStyles();
+
+  const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTvShow([
+    {
+      name: 'with_networks',
+      value: networkID
+    }
+  ]);
+
+  const firstItem = !isLoading && data?.pages?.[0][0];
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -35,37 +42,11 @@ export default function Network() {
     });
   }, [navigation, networkID, scrollYPosition]);
 
-  function addPage(data: any) {
-    setResults(results.concat(data));
-  }
-
-  useEffect(() => {
-    if (networkID) {
-      getDiscoverTvShow({
-        callback: setResults,
-        params: [
-          {
-            name: 'with_networks',
-            value: `${networkID}`
-          }
-        ]
-      });
+  const loadMore = () => {
+    if (hasNextPage) {
+      fetchNextPage();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [networkID]);
-
-  useEffect(() => {
-    if (page > 1 && page < 30) {
-      getDiscoverTvShow({
-        callback: addPage,
-        params: [
-          { name: 'with_networks', value: `${networkID}` },
-          { name: 'page', value: page }
-        ]
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  };
 
   return (
     <BasicLayout isView>
@@ -86,22 +67,19 @@ export default function Network() {
         />
       </Animated.View>
       <VerticalList
-        // ListHeaderComponent={
-        //   <TvShowThumb
-        //     isLoading={results === 'isLoading'}
-        //     aspectRatio={16 / 12}
-        //     withTitleOnCover
-        //     imageWidth={780}
-        //     title={Object.values(results)[0]?.name}
-        //     item={{ backdrop_path: Object.values(results)[0].backdrop_path }}
-        //     withBackdropImage
-        //   />
-        // }
-        isLoading={results === 'isLoading'}
+        ListHeaderComponent={
+          <LargeThumb
+            isLoading={isLoading}
+            imageWidth={780}
+            title={firstItem?.name}
+            imageUrl={firstItem?.backdrop_path}
+          />
+        }
+        isLoading={isLoading}
         item={TvShowThumb}
         getScrollYPosition={getScrollYPosition}
-        results={results}
-        onEndReached={() => setPage(page + 1)}
+        results={data?.pages?.map((page) => page).flat()}
+        onEndReached={loadMore}
         contentContainerStyle={containerStyle}
       />
     </BasicLayout>

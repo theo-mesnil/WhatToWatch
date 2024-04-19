@@ -2,7 +2,8 @@ module.exports = {
   root: true,
   extends: [
     '@react-native-community',
-    'plugin:typescript-sort-keys/recommended'
+    'plugin:typescript-sort-keys/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended'
   ],
   plugins: ['import', 'sort-destructure-keys', 'eslint-plugin-prettier'],
   parser: '@typescript-eslint/parser',
@@ -69,5 +70,6 @@ module.exports = {
     'import/resolve': {
       moduleDirectory: ['node_modules', 'src']
     }
-  }
+  },
+  ignorePatterns: ['src/api/types.d.ts']
 };
