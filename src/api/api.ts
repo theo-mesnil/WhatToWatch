@@ -19,7 +19,7 @@ export type GetApiUrlProps = {
 };
 
 export type GetApiUrlReturn = {
-  queryParams: string[];
+  queryParams?: string[];
   queryUrl: (page?: number) => string;
 };
 

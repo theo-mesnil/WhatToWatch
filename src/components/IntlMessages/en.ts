@@ -102,7 +102,10 @@ export default {
     as: 'as {character}'
   },
   search: {
-    title: 'Popular',
+    title: 'Latest trends',
+    textInput: {
+      placeholder: 'What would you like to watch?'
+    },
     noResults: {
       title: 'Oh no...',
       subtitle: 'We didn’t find anything for «{query}» 🥺'

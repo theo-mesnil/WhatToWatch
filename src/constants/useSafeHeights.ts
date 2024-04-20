@@ -4,12 +4,13 @@ import { theme } from 'theme';
 const headerHeight = 60;
 const tabBarBottomHeight = 50;
 
-export function useSafeHeights() {
+export function useSafeHeights(withComponent?: boolean) {
   const insets = useSafeAreaInsets();
+  const heightWithComponent = withComponent ? headerHeight : 0;
 
   const statusBarHeight = insets.top;
   const bottomHeight = insets.bottom;
-  const headerSafeHeight = statusBarHeight + headerHeight;
+  const headerSafeHeight = statusBarHeight + headerHeight + heightWithComponent;
   const tabBarSafeHeight = bottomHeight + tabBarBottomHeight;
 
   return {

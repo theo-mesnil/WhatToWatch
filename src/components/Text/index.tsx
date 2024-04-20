@@ -10,7 +10,7 @@ export type TextProps = Pick<RNTextProps, 'children' | 'style'> & {
 export const Text: React.FC<TextProps> = ({
   children,
   style,
-  variant = 'text'
+  variant = 'md'
 }) => {
   return <RNText style={[theme.texts[variant], style]}>{children}</RNText>;
 };

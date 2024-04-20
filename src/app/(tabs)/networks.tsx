@@ -34,8 +34,7 @@ export default function Networks() {
       // eslint-disable-next-line react/no-unstable-nested-components
       header: ({ options: { title } }: HeaderOptions) => (
         <Header title={title} scrollY={scrollYPosition} />
-      ),
-      headerShown: true
+      )
     });
   }, [navigation, scrollYPosition]);
 

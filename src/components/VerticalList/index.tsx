@@ -72,7 +72,7 @@ export function VerticalList({
           }
         ],
         {
-          useNativeDriver: true
+          useNativeDriver: false
         }
       )}
       numColumns={numColumns}

@@ -80,7 +80,7 @@ function useStyles() {
       zIndex: 999
     },
     backButton: {
-      paddingHorizontal: theme.space.lg,
+      paddingHorizontal: theme.space.md,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',

@@ -9,12 +9,18 @@ import { isAndroid } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
 
 type HeaderProps = {
+  component?: React.ReactNode;
   scrollY?: Animated.Value;
   title: React.ReactNode;
 };
 
-export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
-  const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights();
+export const Header: React.FC<HeaderProps> = ({
+  component,
+  scrollY,
+  title
+}) => {
+  const { headerHeight, headerSafeHeight, statusBarHeight } =
+    useSafeHeights(!!component);
   const styles = useStyles();
 
   const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
@@ -55,6 +61,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
         <Text variant="h1">{title}</Text>
         <Icon icon={MoreFillIcon} />
       </View>
+      {component && <View style={styles.input}>{component}</View>}
     </View>
   );
 };
@@ -67,10 +74,13 @@ function useStyles() {
       zIndex: 999
     },
     content: {
-      paddingHorizontal: theme.space.lg,
+      paddingHorizontal: theme.space.md,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between'
+    },
+    input: {
+      paddingHorizontal: theme.space.md
     }
   });
 }

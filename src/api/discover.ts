@@ -12,10 +12,14 @@ export type UseGetDiscoverTvShowApiResponse =
 export type UseGetDiscoverTvShowApiParams =
   paths['/3/discover/tv']['get']['parameters']['query'];
 
-type UseGetDiscoverTvShowParams =
-  SpecificApiParam<UseGetDiscoverTvShowApiParams>[];
+export type UseGetDiscoverTvShowApiProps = {
+  maxPages?: number;
+  params?: SpecificApiParam<UseGetDiscoverTvShowApiParams>[];
+};
 
-export const useGetDiscoverTvShow = (params: UseGetDiscoverTvShowParams) => {
+export function useGetDiscoverTvShow(props?: UseGetDiscoverTvShowApiProps) {
+  const { maxPages = 30, params } = props || {};
+
   const { queryParams, queryUrl } = getApi({
     query: 'discover/tv',
     params
@@ -26,12 +30,11 @@ export const useGetDiscoverTvShow = (params: UseGetDiscoverTvShowParams) => {
     queryFn: async ({ pageParam }) => {
       const { data }: AxiosResponse<UseGetDiscoverTvShowApiResponse> =
         await axios.get(queryUrl(pageParam));
-      return data.results;
+      return data;
     },
     initialPageParam: 1,
-    getNextPageParam: (_, allPages) => {
-      return allPages.length + 1;
-    },
-    maxPages: 30
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined;
+    }
   });
-};
+}

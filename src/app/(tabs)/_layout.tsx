@@ -48,7 +48,6 @@ export default function Layout() {
 
   const screenOptions: BottomTabNavigationOptions = {
     headerTransparent: true,
-    headerShown: false,
     tabBarActiveTintColor: theme.colors['brand-500'],
     tabBarBackground: isIos ? BottomBarBackground : undefined,
     tabBarInactiveTintColor: theme.colors.text,

@@ -25,20 +25,27 @@ export default function Network() {
   );
   const styles = useStyles();
 
-  const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTvShow([
-    {
-      name: 'with_networks',
-      value: networkID
-    }
-  ]);
+  const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTvShow({
+    params: [
+      {
+        name: 'with_networks',
+        value: networkID
+      }
+    ]
+  });
 
-  const firstItem = !isLoading && data?.pages?.[0][0];
+  const firstItem = !isLoading && data?.pages[0].results[0];
+
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerShown: true
+    });
+  }, [navigation]);
 
   React.useEffect(() => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
-      header: () => <Header id={networkID} scrollY={scrollYPosition} />,
-      headerShown: true
+      header: () => <Header id={networkID} scrollY={scrollYPosition} />
     });
   }, [navigation, networkID, scrollYPosition]);
 
@@ -78,7 +85,7 @@ export default function Network() {
         isLoading={isLoading}
         item={TvShowThumb}
         getScrollYPosition={getScrollYPosition}
-        results={data?.pages?.map((page) => page).flat()}
+        results={data?.pages?.map((page) => page.results).flat()}
         onEndReached={loadMore}
         contentContainerStyle={containerStyle}
       />

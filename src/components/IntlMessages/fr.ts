@@ -102,7 +102,10 @@ export default {
     as: 'incarne {character}'
   },
   search: {
-    title: 'Populaire',
+    title: 'Tendances actuelles',
+    textInput: {
+      placeholder: 'Que souhaitez-vous voir ?'
+    },
     noResults: {
       title: 'Oh non...',
       subtitle: 'Nous n’avons rien trouvé pour «{query}» 🥺'
