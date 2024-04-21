@@ -1,14 +1,16 @@
 import { useNavigation } from 'expo-router';
 import React from 'react';
 import { useIntl } from 'react-intl';
+import type { ListRenderItemInfo } from 'react-native';
 import { Animated, StyleSheet } from 'react-native';
 import { theme } from 'theme';
 
+import type { UseGetTrendingApiResponse } from 'api/trending';
 import { useGetTrending } from 'api/trending';
 import { Header } from 'components/Header';
 import { Text } from 'components/Text';
 import { TextInput } from 'components/TextInput';
-import { TvShowThumb } from 'components/TvShowThumb';
+import { Thumb } from 'components/Thumb';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
@@ -30,6 +32,21 @@ export default function Search() {
     if (hasNextPage) {
       fetchNextPage();
     }
+  };
+
+  const renderItem = ({
+    item: { media_type, poster_path }
+  }: ListRenderItemInfo<
+    UseGetTrendingApiResponse['all']['results'][number]
+  >) => {
+    return (
+      <Thumb
+        isLoading={isLoading}
+        type={media_type}
+        imageUrl={poster_path}
+        imageWidth="w300"
+      />
+    );
   };
 
   React.useEffect(() => {
@@ -55,8 +72,9 @@ export default function Search() {
   return (
     <BasicLayout isView>
       <VerticalList
+        id="search-trending"
         isLoading={isLoading}
-        item={TvShowThumb}
+        renderItem={renderItem}
         getScrollYPosition={getScrollYPosition}
         results={data?.pages?.map((page) => page.results).flat()}
         onEndReached={loadMore}

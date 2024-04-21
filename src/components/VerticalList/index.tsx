@@ -1,43 +1,46 @@
 import * as React from 'react';
+import type { FlatListProps, ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, View } from 'react-native';
 import { space } from 'theme/space';
 
 import { fakeData30 } from 'constants/mocks';
 
-type VerticalListProps = {
-  ListHeaderComponent?: React.ReactNode;
-  aspectRatio?: number;
-  contentContainerStyle?: any;
+type VerticalListProps = Pick<
+  FlatListProps<any>,
+  | 'contentContainerStyle'
+  | 'initialNumToRender'
+  | 'ListHeaderComponent'
+  | 'numColumns'
+  | 'onEndReached'
+  | 'renderItem'
+> & {
   gap?: number;
   getScrollYPosition?: (value: Animated.Value) => void;
-  initialNumToRender?: number;
+  /** uniq id for performance */
+  id: string;
   isLoading?: boolean;
-  item: React.ElementType;
-  listMargin?: number;
-  maxPage?: number;
-  numColumns?: number;
-  onEndReached?: (info: { distanceFromEnd: number }) => void;
+  marginList?: number;
   results?: any;
 };
 
 export function VerticalList({
-  aspectRatio,
   contentContainerStyle = {},
   gap = space.sm,
   getScrollYPosition,
+  id,
   initialNumToRender = 20,
   isLoading,
-  item: Item,
   ListHeaderComponent,
-  listMargin = space.md,
+  marginList = space.md,
   numColumns = 3,
   onEndReached,
+  renderItem,
   results
 }: VerticalListProps) {
   const dataFormatted = isLoading ? fakeData30 : results;
 
   const screenWidth = Dimensions.get('window').width;
-  const availableSpace = screenWidth - listMargin * 2 - (numColumns - 1) * gap;
+  const availableSpace = screenWidth - marginList * 2 - (numColumns - 1) * gap;
   const itemSize = availableSpace / numColumns;
   const [scrollY] = React.useState(new Animated.Value(0));
 
@@ -46,12 +49,24 @@ export function VerticalList({
     [getScrollYPosition, scrollY]
   );
 
-  function renderItem(props: any) {
-    return (
-      <View style={{ width: itemSize }}>
-        <Item {...props} isLoading={isLoading} aspectRatio={aspectRatio} />
-      </View>
-    );
+  function internalRenderItem(props: ListRenderItemInfo<any>) {
+    if (renderItem) {
+      return <View style={{ width: itemSize }}>{renderItem(props)}</View>;
+    }
+
+    return null;
+  }
+
+  function renderListHeaderComponent() {
+    if (ListHeaderComponent) {
+      return (
+        <View style={{ width: screenWidth - marginList * 2 }}>
+          {ListHeaderComponent as React.ReactElement}
+        </View>
+      );
+    }
+
+    return null;
   }
 
   return (
@@ -61,7 +76,7 @@ export function VerticalList({
       data={dataFormatted}
       initialNumToRender={initialNumToRender}
       keyExtractor={(item, index) =>
-        isLoading ? `loading_${index}` : `${index}_${item.id}`
+        isLoading ? `loading_${index}_${id}` : `${index}_${item.id}_${id}`
       }
       onScroll={Animated.event(
         [
@@ -77,21 +92,17 @@ export function VerticalList({
       )}
       numColumns={numColumns}
       onEndReachedThreshold={1}
-      ListHeaderComponent={
-        ListHeaderComponent ? (
-          <View style={{ width: screenWidth - listMargin * 2 }}>
-            {ListHeaderComponent}
-          </View>
-        ) : undefined
-      }
-      renderItem={renderItem}
+      ListHeaderComponent={renderListHeaderComponent}
+      renderItem={internalRenderItem}
       showsVerticalScrollIndicator={false}
       columnWrapperStyle={{ gap }}
-      contentContainerStyle={{
-        gap,
-        marginLeft: listMargin,
-        ...contentContainerStyle
-      }}
+      contentContainerStyle={[
+        {
+          gap,
+          marginLeft: marginList
+        },
+        contentContainerStyle
+      ]}
     />
   );
 }

@@ -8,17 +8,24 @@ import { Loader } from 'components/Loader';
 import { Text } from 'components/Text';
 import type { TouchableProps } from 'components/Touchable';
 import { Touchable } from 'components/Touchable';
+import type { ImageSizeBackdrop } from 'types/content';
 import { getImageUrl } from 'utils/images';
 
 export type LargeThumbProps = Pick<TouchableProps, 'onPress'> & {
   imageUrl?: string;
-  imageWidth?: number;
+  imageWidth?: ImageSizeBackdrop;
   isLoading?: boolean;
   title?: string;
 };
 
 export const LargeThumb = React.memo(
-  ({ imageUrl, imageWidth, isLoading, onPress, title }: LargeThumbProps) => {
+  ({
+    imageUrl,
+    imageWidth = 'w780',
+    isLoading,
+    onPress,
+    title
+  }: LargeThumbProps) => {
     const styles = useStyles();
 
     return (

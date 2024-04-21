@@ -6,7 +6,11 @@ import { Loader } from 'components/Loader';
 import { NoCover } from 'components/NoCover';
 import type { TouchableProps } from 'components/Touchable';
 import { Touchable } from 'components/Touchable';
-import type { ContentType } from 'types/content';
+import type {
+  ContentType,
+  ImageSizeBackdrop,
+  ImageSizePoster
+} from 'types/content';
 import { getIconType } from 'utils/icons';
 import { getImageUrl } from 'utils/images';
 
@@ -14,7 +18,7 @@ export type ThumbProps = Pick<TouchableProps, 'onPress'> & {
   aspectRatio?: number;
   height?: number;
   imageUrl?: string;
-  imageWidth?: number;
+  imageWidth?: ImageSizeBackdrop | ImageSizePoster;
   isLoading?: boolean;
   type?: ContentType;
 };

@@ -1,13 +1,15 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React from 'react';
+import type { ListRenderItemInfo } from 'react-native';
 import { Animated, StyleSheet } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
+import type { UseGetDiscoverTvShowApiResponse } from 'api/discover';
 import { useGetDiscoverTvShow } from 'api/discover';
 import { Gradient } from 'components/Gradient';
 import { LargeThumb } from 'components/LargeThumb';
-import { TvShowThumb } from 'components/TvShowThumb';
+import { Thumb } from 'components/Thumb';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
@@ -35,6 +37,14 @@ export default function Network() {
   });
 
   const firstItem = !isLoading && data?.pages[0].results[0];
+
+  const renderItem = ({
+    item: { poster_path }
+  }: ListRenderItemInfo<
+    UseGetDiscoverTvShowApiResponse['results'][number]
+  >) => {
+    return <Thumb isLoading={isLoading} type="tv" imageUrl={poster_path} />;
+  };
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -74,16 +84,16 @@ export default function Network() {
         />
       </Animated.View>
       <VerticalList
+        renderItem={renderItem}
+        id="network"
         ListHeaderComponent={
           <LargeThumb
             isLoading={isLoading}
-            imageWidth={780}
             title={firstItem?.name}
             imageUrl={firstItem?.backdrop_path}
           />
         }
         isLoading={isLoading}
-        item={TvShowThumb}
         getScrollYPosition={getScrollYPosition}
         results={data?.pages?.map((page) => page.results).flat()}
         onEndReached={loadMore}

@@ -1,26 +1,16 @@
-import type { Href } from 'expo-router';
-import { useNavigation } from 'expo-router';
+import { Link, useNavigation } from 'expo-router';
 import React from 'react';
+import type { ListRenderItemInfo } from 'react-native';
 import { Animated } from 'react-native';
 
 import { Header } from 'components/Header';
-import type { NetworkThumbProps } from 'components/NetworkThumb';
 import { NetworkThumb } from 'components/NetworkThumb';
+import { Touchable } from 'components/Touchable';
 import { VerticalList } from 'components/VerticalList';
 import { networksList } from 'constants/networks';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 import type { HeaderOptions } from 'types/navigation';
-
-function Item(props: NetworkThumbProps) {
-  return (
-    <NetworkThumb
-      {...props}
-      aspectRatio={16 / 9}
-      href={`/network/${props.item.id}` as Href<string>}
-    />
-  );
-}
 
 export default function Networks() {
   const [scrollYPosition, getScrollYPosition] = React.useState(
@@ -28,6 +18,18 @@ export default function Networks() {
   );
   const { containerStyle } = useSafeHeights();
   const navigation = useNavigation();
+
+  const renderItem = ({
+    item: { id }
+  }: ListRenderItemInfo<(typeof networksList)[number]>) => {
+    return (
+      <Link href={`/network/${id}`} asChild>
+        <Touchable>
+          <NetworkThumb id={id} aspectRatio={16 / 9} />
+        </Touchable>
+      </Link>
+    );
+  };
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -41,10 +43,11 @@ export default function Networks() {
   return (
     <BasicLayout isView>
       <VerticalList
+        id="networks"
+        renderItem={renderItem}
         getScrollYPosition={getScrollYPosition}
         contentContainerStyle={containerStyle}
         results={networksList}
-        item={Item}
         numColumns={2}
       />
     </BasicLayout>

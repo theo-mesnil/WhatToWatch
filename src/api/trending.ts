@@ -8,6 +8,9 @@ import type { paths } from './types';
 export type Type = 'all' | 'tv' | 'movie' | 'person';
 
 export type UseGetTrendingApiResponse = {
+  all: paths['/3/trending/all/{time_window}']['get']['responses']['200']['content']['application/json'];
+  movie: paths['/3/trending/movie/{time_window}']['get']['responses']['200']['content']['application/json'];
+  person: paths['/3/trending/person/{time_window}']['get']['responses']['200']['content']['application/json'];
   tv: paths['/3/trending/tv/{time_window}']['get']['responses']['200']['content']['application/json'];
 };
 
@@ -25,7 +28,7 @@ export function useGetTrending(props?: UseGetTrendingApiProps) {
   return useInfiniteQuery({
     queryKey: ['trending', type],
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetTrendingApiResponse['tv']> =
+      const { data }: AxiosResponse<UseGetTrendingApiResponse[Type]> =
         await axios.get(queryUrl(pageParam));
       return data;
     },
