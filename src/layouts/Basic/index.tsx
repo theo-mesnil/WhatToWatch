@@ -5,6 +5,7 @@ import { theme } from 'theme';
 type BasicLayoutProps = {
   children: React.ReactNode;
   contentContainerStyle?: any;
+  getScrollYPosition?: (value: Animated.Value) => void;
   isView?: boolean;
   titleOffset?: number;
   titleOffsetSubtraction?: number;
@@ -13,15 +14,37 @@ type BasicLayoutProps = {
 export function BasicLayout({
   children,
   contentContainerStyle = {},
+  getScrollYPosition,
   isView = false
 }: BasicLayoutProps) {
   const styles = useStyles();
+  const [scrollY] = React.useState(new Animated.Value(0));
 
   const AnimateComponent = isView ? Animated.View : Animated.ScrollView;
 
+  React.useEffect(
+    () => getScrollYPosition?.(scrollY),
+    [getScrollYPosition, scrollY]
+  );
+
   return (
     <AnimateComponent
-      style={styles.wrapper}
+      style={[styles.wrapper]}
+      onScroll={
+        !isView &&
+        Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: { y: scrollY }
+              }
+            }
+          ],
+          {
+            useNativeDriver: false
+          }
+        )
+      }
       bounces={false}
       scrollEventThrottle={1}
       contentContainerStyle={contentContainerStyle}

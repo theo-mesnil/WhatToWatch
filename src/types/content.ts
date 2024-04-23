@@ -6,8 +6,7 @@ export type NetworkId =
   | /* AppleTvPlus */ 2552
   | /* Hulu */ 453
   | /* Fox */ 67
-  | /* Showtime */ 19
-  | number;
+  | /* Showtime */ 19;
 
 export type ContentType = 'tv' | 'movie' | 'person' | string;
 

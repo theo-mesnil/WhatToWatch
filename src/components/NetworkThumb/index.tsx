@@ -4,16 +4,17 @@ import { theme } from 'theme';
 
 import { Gradient } from 'components/Gradient';
 import { Icon } from 'components/Icon';
+import type { NetworkId } from 'types/content';
 import { getNetworkColor, getNetworkLogo } from 'utils/networks';
 
 export type NetworkThumbProps = {
   aspectRatio?: number;
-  id: number;
+  id: NetworkId;
   isRounded?: boolean;
 };
 
 export const NetworkThumb = ({
-  aspectRatio = 1 / 1,
+  aspectRatio = 2 / 3,
   id,
   isRounded
 }: NetworkThumbProps) => {
@@ -21,10 +22,7 @@ export const NetworkThumb = ({
 
   return (
     <View style={[styles.wrapper, isRounded ? styles.rounded : undefined]}>
-      <Gradient
-        colors={getNetworkColor(isRounded ? undefined : id)}
-        angle={-0.4}
-      />
+      <Gradient colors={getNetworkColor(isRounded ? undefined : id)} />
       <View
         style={{
           ...styles.icon,
@@ -40,14 +38,13 @@ export const NetworkThumb = ({
 function useStyles() {
   return StyleSheet.create({
     wrapper: {
-      borderRadius: theme.radii.sm,
+      borderRadius: theme.radii.md,
       overflow: 'hidden'
     },
     rounded: {
       borderRadius: 200
     },
     icon: {
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center'
     }

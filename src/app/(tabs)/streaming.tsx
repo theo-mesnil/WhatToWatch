@@ -1,13 +1,11 @@
-import { Link, useNavigation } from 'expo-router';
+import { useNavigation } from 'expo-router';
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
-import { Animated } from 'react-native';
+import { Animated, View } from 'react-native';
+import { theme } from 'theme';
 
 import { Header } from 'components/Header';
-import { NetworkThumb } from 'components/NetworkThumb';
-import { Touchable } from 'components/Touchable';
-import { VerticalList } from 'components/VerticalList';
+import { NetworkList } from 'components/NetworkList';
 import { networksList } from 'constants/networks';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
@@ -18,18 +16,6 @@ export default function Networks() {
   );
   const { containerStyle } = useSafeHeights();
   const navigation = useNavigation();
-
-  const renderItem = ({
-    item: { id }
-  }: ListRenderItemInfo<(typeof networksList)[number]>) => {
-    return (
-      <Link href={`/network/${id}`} asChild>
-        <Touchable>
-          <NetworkThumb id={id} aspectRatio={16 / 9} />
-        </Touchable>
-      </Link>
-    );
-  };
 
   const HeaderComponent = useCallback(
     () => (
@@ -53,15 +39,15 @@ export default function Networks() {
   }, [HeaderComponent, navigation]);
 
   return (
-    <BasicLayout isView>
-      <VerticalList
-        id="streaming"
-        renderItem={renderItem}
-        getScrollYPosition={getScrollYPosition}
-        contentContainerStyle={containerStyle}
-        results={networksList}
-        numColumns={2}
-      />
+    <BasicLayout
+      contentContainerStyle={containerStyle}
+      getScrollYPosition={getScrollYPosition}
+    >
+      <View style={{ gap: theme.space.xxl }}>
+        {networksList.map((network) => (
+          <NetworkList key={network.slug} id={network.id} />
+        ))}
+      </View>
     </BasicLayout>
   );
 }

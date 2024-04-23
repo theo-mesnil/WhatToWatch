@@ -63,8 +63,7 @@ export const Thumb = React.memo(
 function useStyles() {
   return StyleSheet.create({
     wrapper: {
-      borderRadius: theme.radii.sm,
-      width: '100%',
+      borderRadius: theme.radii.md,
       overflow: 'hidden'
     },
     image: {

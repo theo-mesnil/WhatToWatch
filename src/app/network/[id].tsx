@@ -13,13 +13,14 @@ import { Thumb } from 'components/Thumb';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
+import type { NetworkId } from 'types/content';
 import { getNetworkColor } from 'utils/networks';
 
 import { Header } from './components/Header';
 
 export default function Network() {
   const params = useLocalSearchParams();
-  const networkID = Number(params?.id);
+  const networkID = Number(params?.id) as NetworkId;
   const navigation = useNavigation();
   const { containerStyle } = useSafeHeights();
   const [scrollYPosition, getScrollYPosition] = React.useState(
