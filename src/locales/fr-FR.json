@@ -3,7 +3,7 @@
   "app.(tabs).search.no-results": "Oh non ! Nous n'avons rien trouvé 🥺",
   "app.(tabs).search.placeholder": "Que voulez-vous regarder ?",
   "app.(tabs).search.search-list-title": "Nous vous proposons",
-  "app.(tabs).streaming.header-title": "Streaming des séries",
+  "app.(tabs).streaming.header-title": "Séries en streaming",
   "discover": "Découvrir",
   "search": "Rechercher",
   "streaming": "Streaming"

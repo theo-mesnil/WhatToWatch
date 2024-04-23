@@ -11,6 +11,8 @@ import ClockFillIcon from './icons/ClockFill';
 import CrossIcon from './icons/Cross';
 import EmailIcon from './icons/Email';
 import ExternalLinkIcon from './icons/ExternalLink';
+import EyeIcon from './icons/Eye';
+import EyeFillIcon from './icons/EyeFill';
 import FlashIcon from './icons/Flash';
 import FlashFillIcon from './icons/FlashFill';
 import GlobeIcon from './icons/Globe';
@@ -105,6 +107,8 @@ export {
   CrossIcon,
   EmailIcon,
   ExternalLinkIcon,
+  EyeFillIcon,
+  EyeIcon,
   FlashFillIcon,
   FlashIcon,
   GlobeFillIcon,

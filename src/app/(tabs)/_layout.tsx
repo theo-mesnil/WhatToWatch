@@ -8,10 +8,10 @@ import { theme } from 'theme';
 
 import type { IconElement } from 'components/Icon';
 import {
+  EyeFillIcon,
+  EyeIcon,
   FlashFillIcon,
   FlashIcon,
-  GlobeFillIcon,
-  GlobeIcon,
   Icon,
   SearchFillIcon,
   SearchIcon
@@ -111,8 +111,8 @@ export default function Layout() {
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
-              icon: GlobeIcon,
-              iconFocused: GlobeFillIcon
+              icon: EyeIcon,
+              iconFocused: EyeFillIcon
             })
         }}
       />
