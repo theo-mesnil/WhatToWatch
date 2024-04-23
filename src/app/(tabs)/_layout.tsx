@@ -43,7 +43,7 @@ function BottomBarBackground() {
 }
 
 export default function Layout() {
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
   const { tabBarBottomHeight } = useSafeHeights();
 
   const screenOptions: BottomTabNavigationOptions = {
@@ -74,7 +74,10 @@ export default function Layout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: formatMessage({ id: 'tabs.discover' }),
+          title: intl.formatMessage({
+            id: 'discover',
+            defaultMessage: 'Discover'
+          }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -86,7 +89,10 @@ export default function Layout() {
       <Tabs.Screen
         name="search"
         options={{
-          title: formatMessage({ id: 'tabs.search' }),
+          title: intl.formatMessage({
+            id: 'search',
+            defaultMessage: 'Search'
+          }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -96,9 +102,12 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="networks"
+        name="streaming"
         options={{
-          title: formatMessage({ id: 'tabs.networks' }),
+          title: intl.formatMessage({
+            id: 'streaming',
+            defaultMessage: 'Streaming'
+          }),
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,

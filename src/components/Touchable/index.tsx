@@ -1,7 +1,6 @@
 import * as React from 'react';
 import type { PressableProps } from 'react-native';
 import { Animated, Pressable } from 'react-native';
-import { theme } from 'theme';
 
 export type TouchableProps = PressableProps & {
   children?: React.ReactNode;
@@ -55,7 +54,6 @@ export const Touchable = React.forwardRef<any, TouchableProps>(
           onPress={onPress}
           onPressIn={onPressIn}
           onPressOut={onPressOut}
-          android_ripple={{ color: theme.colors.behind, foreground: true }}
           {...rest}
         />
       </Animated.View>

@@ -1,4 +1,9 @@
-import { MovieFillIcon, PeopleFillIcon, TvFillIcon } from 'components/Icon';
+import {
+  MoreIcon,
+  MovieFillIcon,
+  PeopleFillIcon,
+  TvFillIcon
+} from 'components/Icon';
 import type { ContentType } from 'types/content';
 
 export function getIconType(type: ContentType) {
@@ -10,6 +15,6 @@ export function getIconType(type: ContentType) {
     case 'person':
       return PeopleFillIcon;
     default:
-      return null;
+      return MoreIcon;
   }
 }

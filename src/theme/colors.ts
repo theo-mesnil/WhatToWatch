@@ -11,8 +11,6 @@ const globalColors = {
   'brand-700': '#e0b6ad',
   'brand-800': '#d29e92',
   'brand-900': '#b2786c',
-  white: '#ffffff',
-  black: '#000000',
   'default-100': '#cccccc',
   'default-200': '#b3b3b3',
   'default-300': '#999999',
@@ -21,13 +19,15 @@ const globalColors = {
   'default-600': '#4d4d4d',
   'default-700': '#333333',
   'default-800': '#1a1a1a',
-  'default-900': '#0d0d0d'
+  'default-900': '#0d0d0d',
+  black: '#000000',
+  white: '#ffffff'
 };
 
 export const colors = {
   ...globalColors,
-  behind: globalColors['default-900'],
   ahead: globalColors['default-800'],
+  behind: globalColors['default-900'],
   text: globalColors['default-300'],
   title: globalColors.white
 };

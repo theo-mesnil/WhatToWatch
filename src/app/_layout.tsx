@@ -8,10 +8,10 @@ import {
 } from '@expo-google-fonts/poppins';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SplashScreen, Stack } from 'expo-router';
+import { IntlMessages } from 'locales';
 import * as React from 'react';
-import { StatusBar } from 'react-native';
-
-import { IntlMessages } from 'components/IntlMessages';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -45,9 +45,18 @@ export default function Layout() {
       />
       <IntlMessages>
         <QueryClientProvider client={queryClient}>
-          <Stack screenOptions={{ headerShown: false }} />
+          <View style={styles.wrapper}>
+            <Stack screenOptions={{ headerShown: false }} />
+          </View>
         </QueryClientProvider>
       </IntlMessages>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    backgroundColor: theme.colors.behind
+  }
+});

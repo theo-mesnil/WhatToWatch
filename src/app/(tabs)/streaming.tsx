@@ -43,7 +43,7 @@ export default function Networks() {
   return (
     <BasicLayout isView>
       <VerticalList
-        id="networks"
+        id="streaming"
         renderItem={renderItem}
         getScrollYPosition={getScrollYPosition}
         contentContainerStyle={containerStyle}
