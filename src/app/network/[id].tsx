@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated, StyleSheet } from 'react-native';
 import { globalStyles } from 'styles';
@@ -46,6 +46,17 @@ export default function Network() {
     return <Thumb isLoading={isLoading} type="tv" imageUrl={poster_path} />;
   };
 
+  const HeaderComponent = useCallback(
+    () => <Header id={networkID} scrollY={scrollYPosition} />,
+    [networkID, scrollYPosition]
+  );
+
+  const loadMore = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
+
   React.useEffect(() => {
     navigation.setOptions({
       headerShown: true
@@ -54,16 +65,9 @@ export default function Network() {
 
   React.useEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
-      header: () => <Header id={networkID} scrollY={scrollYPosition} />
+      header: HeaderComponent
     });
-  }, [navigation, networkID, scrollYPosition]);
-
-  const loadMore = () => {
-    if (hasNextPage) {
-      fetchNextPage();
-    }
-  };
+  }, [HeaderComponent, navigation]);
 
   return (
     <BasicLayout isView>

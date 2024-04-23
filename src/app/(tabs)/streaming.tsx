@@ -1,5 +1,6 @@
 import { Link, useNavigation } from 'expo-router';
-import React from 'react';
+import React, { useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated } from 'react-native';
 
@@ -10,7 +11,6 @@ import { VerticalList } from 'components/VerticalList';
 import { networksList } from 'constants/networks';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
-import type { HeaderOptions } from 'types/navigation';
 
 export default function Networks() {
   const [scrollYPosition, getScrollYPosition] = React.useState(
@@ -31,14 +31,26 @@ export default function Networks() {
     );
   };
 
+  const HeaderComponent = useCallback(
+    () => (
+      <Header
+        title={
+          <FormattedMessage
+            key="header-title"
+            defaultMessage="Series streaming"
+          />
+        }
+        scrollY={scrollYPosition}
+      />
+    ),
+    [scrollYPosition]
+  );
+
   React.useEffect(() => {
     navigation.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
-      header: ({ options: { title } }: HeaderOptions) => (
-        <Header title={title} scrollY={scrollYPosition} />
-      )
+      header: HeaderComponent
     });
-  }, [navigation, scrollYPosition]);
+  }, [HeaderComponent, navigation]);
 
   return (
     <BasicLayout isView>
