@@ -1,14 +1,15 @@
 import { useNavigation } from 'expo-router';
 import React, { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { Animated, View } from 'react-native';
 import { theme } from 'theme';
 
+import { GradientHeader } from 'components/GradientHeader';
 import { Header } from 'components/Header';
 import { NetworkList } from 'components/NetworkList';
 import { networksList } from 'constants/networks';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
+import type { HeaderOptions } from 'types/navigation';
 
 export default function Networks() {
   const [scrollYPosition, getScrollYPosition] = React.useState(
@@ -18,16 +19,8 @@ export default function Networks() {
   const navigation = useNavigation();
 
   const HeaderComponent = useCallback(
-    () => (
-      <Header
-        title={
-          <FormattedMessage
-            key="header-title"
-            defaultMessage="Series streaming"
-          />
-        }
-        scrollY={scrollYPosition}
-      />
+    ({ options: { title } }: HeaderOptions) => (
+      <Header title={title} scrollY={scrollYPosition} />
     ),
     [scrollYPosition]
   );
@@ -43,7 +36,8 @@ export default function Networks() {
       contentContainerStyle={containerStyle}
       getScrollYPosition={getScrollYPosition}
     >
-      <View style={{ gap: theme.space.xxl }}>
+      <GradientHeader scrollY={scrollYPosition} />
+      <View style={{ gap: theme.space.lg }}>
         {networksList.map((network) => (
           <NetworkList key={network.slug} id={network.id} />
         ))}

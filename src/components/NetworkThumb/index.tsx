@@ -14,20 +14,20 @@ export type NetworkThumbProps = {
 };
 
 export const NetworkThumb = ({
-  aspectRatio = 2 / 3,
+  aspectRatio = 6 / 9,
   id,
   isRounded
 }: NetworkThumbProps) => {
-  const styles = useStyles();
-
   return (
     <View style={[styles.wrapper, isRounded ? styles.rounded : undefined]}>
       <Gradient colors={getNetworkColor(isRounded ? undefined : id)} />
       <View
-        style={{
-          ...styles.icon,
-          aspectRatio
-        }}
+        style={[
+          styles.icon,
+          {
+            aspectRatio
+          }
+        ]}
       >
         <Icon size="80%" icon={getNetworkLogo(id)} />
       </View>
@@ -35,18 +35,16 @@ export const NetworkThumb = ({
   );
 };
 
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      borderRadius: theme.radii.md,
-      overflow: 'hidden'
-    },
-    rounded: {
-      borderRadius: 200
-    },
-    icon: {
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  });
-}
+const styles = StyleSheet.create({
+  wrapper: {
+    borderRadius: theme.radii.sm,
+    overflow: 'hidden'
+  },
+  rounded: {
+    borderRadius: 200
+  },
+  icon: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});

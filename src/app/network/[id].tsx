@@ -1,13 +1,12 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useCallback } from 'react';
 import type { ListRenderItemInfo } from 'react-native';
-import { Animated, StyleSheet } from 'react-native';
-import { globalStyles } from 'styles';
+import { Animated } from 'react-native';
 import { theme } from 'theme';
 
 import type { UseGetDiscoverTvShowApiResponse } from 'api/discover';
 import { useGetDiscoverTvShow } from 'api/discover';
-import { Gradient } from 'components/Gradient';
+import { GradientHeader } from 'components/GradientHeader';
 import { LargeThumb } from 'components/LargeThumb';
 import { Thumb } from 'components/Thumb';
 import { VerticalList } from 'components/VerticalList';
@@ -26,7 +25,6 @@ export default function Network() {
   const [scrollYPosition, getScrollYPosition] = React.useState(
     new Animated.Value(0)
   );
-  const styles = useStyles();
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTvShow({
     params: [
@@ -72,22 +70,10 @@ export default function Network() {
 
   return (
     <BasicLayout isView>
-      <Animated.View
-        style={{
-          opacity: scrollYPosition.interpolate({
-            inputRange: [0, 200],
-            outputRange: [0.3, 0]
-          }),
-          ...styles.background,
-          ...globalStyles.absoluteFill
-        }}
-      >
-        <Gradient
-          colors={[...getNetworkColor(networkID), theme.colors.behind]}
-          angle={0}
-          style={StyleSheet.absoluteFill}
-        />
-      </Animated.View>
+      <GradientHeader
+        colors={[...getNetworkColor(networkID), theme.colors.behind]}
+        scrollY={scrollYPosition}
+      />
       <VerticalList
         renderItem={renderItem}
         id="network"
@@ -106,12 +92,4 @@ export default function Network() {
       />
     </BasicLayout>
   );
-}
-
-function useStyles() {
-  return StyleSheet.create({
-    background: {
-      height: 300
-    }
-  });
 }

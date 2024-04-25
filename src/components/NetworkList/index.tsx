@@ -1,4 +1,6 @@
+import type { Href } from 'expo-router';
 import { Link } from 'expo-router';
+import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 
 import type { UseGetDiscoverTvShowApiResponse } from 'api/discover';
@@ -27,6 +29,7 @@ export function NetworkList({ id }: NetworkListProps) {
   });
 
   const results = data?.pages?.map((page) => page.results).flat();
+  const networkHref = `/network/${id}` as Href<any>;
 
   const renderItem = ({
     item: { poster_path }
@@ -38,10 +41,16 @@ export function NetworkList({ id }: NetworkListProps) {
 
   return (
     <List
-      title={network.title}
+      titleHref={networkHref}
+      title={
+        <>
+          <FormattedMessage key="title" defaultMessage="Series on" />{' '}
+          {network.title}
+        </>
+      }
       isLoading={isLoading}
       ListHeaderComponent={
-        <Link href={`/network/${id}`} asChild>
+        <Link href={networkHref} asChild>
           <Touchable>
             <NetworkThumb id={id} />
           </Touchable>

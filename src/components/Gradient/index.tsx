@@ -4,7 +4,7 @@ import * as React from 'react';
 import type { ViewProps } from 'react-native';
 import { View } from 'react-native';
 import { globalStyles } from 'styles';
-import { colors as themeColors } from 'theme/colors';
+import { theme } from 'theme';
 
 export interface GradientProps extends ViewProps {
   angle?: number;
@@ -13,7 +13,7 @@ export interface GradientProps extends ViewProps {
 
 export function Gradient({
   angle,
-  colors = ['transparent', themeColors.behind],
+  colors = ['transparent', theme.colors.behind],
   ...rest
 }: GradientProps) {
   const end = angle ? [1, angle] : [0, 1];

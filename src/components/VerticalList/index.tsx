@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { FlatListProps, ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, View } from 'react-native';
-import { space } from 'theme/space';
+import { theme } from 'theme';
 
 import { fakeData30 } from 'constants/mocks';
 
@@ -19,19 +19,17 @@ type VerticalListProps = Pick<
   /** uniq id for performance */
   id: string;
   isLoading?: boolean;
-  marginList?: number;
   results?: any;
 };
 
 export function VerticalList({
   contentContainerStyle = {},
-  gap = space.sm,
+  gap = theme.space.xs,
   getScrollYPosition,
   id,
   initialNumToRender = 20,
   isLoading,
   ListHeaderComponent,
-  marginList = space.md,
   numColumns = 3,
   onEndReached,
   renderItem,
@@ -40,7 +38,8 @@ export function VerticalList({
   const dataFormatted = isLoading ? fakeData30 : results;
 
   const screenWidth = Dimensions.get('window').width;
-  const availableSpace = screenWidth - marginList * 2 - (numColumns - 1) * gap;
+  const availableSpace =
+    screenWidth - theme.space.marginList * 2 - (numColumns - 1) * gap;
   const itemSize = availableSpace / numColumns;
   const [scrollY] = React.useState(new Animated.Value(0));
 
@@ -60,7 +59,7 @@ export function VerticalList({
   function renderListHeaderComponent() {
     if (ListHeaderComponent) {
       return (
-        <View style={{ width: screenWidth - marginList * 2 }}>
+        <View style={{ width: screenWidth - theme.space.marginList * 2 }}>
           {ListHeaderComponent as React.ReactElement}
         </View>
       );
@@ -99,7 +98,7 @@ export function VerticalList({
       contentContainerStyle={[
         {
           gap,
-          marginLeft: marginList
+          marginLeft: theme.space.marginList
         },
         contentContainerStyle
       ]}

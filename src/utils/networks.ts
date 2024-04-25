@@ -67,7 +67,7 @@ export function getNetworkColor(id?: NetworkId): [string, string] {
     case 2739:
       return ['#049FAA', '#013945'];
     case 2552:
-      return ['#464646', '#323232'];
+      return ['#323232', '#181818'];
     case 453:
       return ['#1EE783', '#0d7641'];
     case 67:
@@ -75,7 +75,7 @@ export function getNetworkColor(id?: NetworkId): [string, string] {
     case 19:
       return ['#FF1928', '#8c0009'];
     default:
-      return ['#464646', '#323232'];
+      return ['#323232', '#181818'];
   }
 }
 

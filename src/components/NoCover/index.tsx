@@ -20,8 +20,6 @@ export function NoCover({
   size = '60%',
   withGradient
 }: NoCoverProps) {
-  const styles = useStyles();
-
   return (
     <>
       <View style={[styles.wrapper, globalStyles.absoluteFill, { opacity }]}>
@@ -32,12 +30,10 @@ export function NoCover({
   );
 }
 
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      backgroundColor: 'ahead',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }
-  });
-}
+const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: 'ahead',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});

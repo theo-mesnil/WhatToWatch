@@ -25,7 +25,7 @@ export type ThumbProps = Pick<TouchableProps, 'onPress'> & {
 
 export const Thumb = React.memo(
   ({
-    aspectRatio = 2 / 3,
+    aspectRatio = 6 / 9,
     height,
     imageUrl,
     imageWidth,
@@ -33,8 +33,6 @@ export const Thumb = React.memo(
     onPress,
     type
   }: ThumbProps) => {
-    const styles = useStyles();
-
     return (
       <Touchable onPress={!isLoading ? onPress : undefined}>
         <View style={styles.wrapper}>
@@ -42,11 +40,13 @@ export const Thumb = React.memo(
             source={{
               uri: getImageUrl(imageUrl, imageWidth)
             }}
-            style={{
-              aspectRatio,
-              height,
-              ...styles.image
-            }}
+            style={[
+              {
+                aspectRatio,
+                height
+              },
+              styles.image
+            ]}
           >
             {isLoading ? (
               <Loader style={styles.loading} />
@@ -60,17 +60,15 @@ export const Thumb = React.memo(
   }
 );
 
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      borderRadius: theme.radii.md,
-      overflow: 'hidden'
-    },
-    image: {
-      backgroundColor: theme.colors.ahead
-    },
-    loading: {
-      width: '100%'
-    }
-  });
-}
+const styles = StyleSheet.create({
+  wrapper: {
+    borderRadius: theme.radii.sm,
+    overflow: 'hidden'
+  },
+  image: {
+    backgroundColor: theme.colors.ahead
+  },
+  loading: {
+    width: '100%'
+  }
+});

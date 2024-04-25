@@ -17,7 +17,6 @@ export function Loader({
 }: LoaderProps) {
   const startValue = 0.1;
   const [fadeAnim] = React.useState(new Animated.Value(startValue));
-  const styles = useStyles();
 
   React.useEffect(() => {
     Animated.loop(
@@ -39,24 +38,25 @@ export function Loader({
   return (
     <View style={[style, styles.wrapper]} {...rest}>
       <Animated.View
-        style={{
-          opacity: fadeAnim,
-          ...styles.content
-        }}
+        style={[
+          {
+            opacity: fadeAnim
+          },
+          styles.content
+        ]}
       >
         <Gradient angle={-0.4} colors={colors} />
       </Animated.View>
     </View>
   );
 }
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      backgroundColor: theme.colors.ahead
-    },
-    content: {
-      width: '100%',
-      height: '100%'
-    }
-  });
-}
+
+const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: theme.colors.ahead
+  },
+  content: {
+    width: '100%',
+    height: '100%'
+  }
+});

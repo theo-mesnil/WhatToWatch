@@ -1,7 +1,7 @@
 export type Color = keyof typeof colors;
 export type Colors = typeof colors;
 
-const globalColors = {
+const core = {
   'brand-100': '#fefdfc',
   'brand-200': '#fdf9f8',
   'brand-300': '#f8edeb',
@@ -25,9 +25,9 @@ const globalColors = {
 };
 
 export const colors = {
-  ...globalColors,
-  ahead: globalColors['default-800'],
-  behind: globalColors['default-900'],
-  text: globalColors['default-300'],
-  title: globalColors.white
+  ...core,
+  ahead: core['default-800'],
+  behind: core['default-900'],
+  text: core['default-300'],
+  title: core.white
 };

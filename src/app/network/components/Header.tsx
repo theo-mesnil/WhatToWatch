@@ -19,42 +19,47 @@ type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({ id, scrollY }) => {
   const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights();
   const navigation = useNavigation();
-  const styles = useStyles();
 
   const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
   return (
-    <View style={{ ...styles.wrapper, height: headerSafeHeight }}>
+    <View style={[styles.wrapper, { height: headerSafeHeight }]}>
       {isAndroid ? (
         <Animated.View
-          style={{
-            opacity: scrollY.interpolate({
-              inputRange: [0, 50],
-              outputRange: [0, 1]
-            }),
-            backgroundColor: theme.colors.ahead,
-            ...globalStyles.absoluteFill
-          }}
+          style={[
+            globalStyles.absoluteFill,
+            {
+              opacity: scrollY.interpolate({
+                inputRange: [0, 50],
+                outputRange: [0, 1]
+              }),
+              backgroundColor: theme.colors.ahead
+            }
+          ]}
         />
       ) : (
         <AnimatedBlurView
-          style={{
-            opacity: scrollY.interpolate({
-              inputRange: [0, 50],
-              outputRange: [0, 1]
-            }),
-            ...globalStyles.absoluteFill
-          }}
+          style={[
+            {
+              opacity: scrollY.interpolate({
+                inputRange: [0, 50],
+                outputRange: [0, 1]
+              })
+            },
+            globalStyles.absoluteFill
+          ]}
           tint="dark"
           intensity={150}
         />
       )}
       <View
-        style={{
-          ...styles.backButton,
-          height: headerHeight,
-          marginTop: statusBarHeight
-        }}
+        style={[
+          {
+            height: headerHeight,
+            marginTop: statusBarHeight
+          },
+          styles.backButton
+        ]}
       >
         <Button
           isTransparent
@@ -72,26 +77,24 @@ export const Header: React.FC<HeaderProps> = ({ id, scrollY }) => {
   );
 };
 
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      width: '100%',
-      position: 'absolute',
-      zIndex: 999
-    },
-    backButton: {
-      paddingHorizontal: theme.space.md,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1
-    },
-    logo: {
-      flex: 6,
-      alignItems: 'center'
-    },
-    end: {
-      flex: 1
-    }
-  });
-}
+const styles = StyleSheet.create({
+  wrapper: {
+    width: '100%',
+    position: 'absolute',
+    zIndex: 999
+  },
+  backButton: {
+    paddingHorizontal: theme.space.md,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
+  logo: {
+    flex: 6,
+    alignItems: 'center'
+  },
+  end: {
+    flex: 1
+  }
+});

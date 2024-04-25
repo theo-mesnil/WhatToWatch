@@ -3,7 +3,8 @@
   "app.(tabs).search.no-results": "Oh no! We have found nothing 🥺",
   "app.(tabs).search.placeholder": "What would you like to watch?",
   "app.(tabs).search.search-list-title": "We offer you:",
-  "app.(tabs).streaming.header-title": "Series streaming",
+  "components.List.index.all-link": "More",
+  "components.NetworkList.index.title": "Series on",
   "discover": "Discover",
   "search": "Search",
   "streaming": "Streaming"

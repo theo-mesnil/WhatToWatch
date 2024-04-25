@@ -1,7 +1,7 @@
 import type { TextProps as RNTextProps } from 'react-native';
 import { Text as RNText } from 'react-native';
 import { theme } from 'theme';
-import type { Text as ThemeText } from 'theme/texts';
+import type { Text as ThemeText } from 'theme';
 
 export type TextProps = Pick<RNTextProps, 'children' | 'style'> & {
   variant?: ThemeText;

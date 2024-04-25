@@ -26,8 +26,6 @@ export const LargeThumb = React.memo(
     onPress,
     title
   }: LargeThumbProps) => {
-    const styles = useStyles();
-
     return (
       <Touchable onPress={!isLoading ? onPress : undefined}>
         <View style={styles.wrapper}>
@@ -35,10 +33,12 @@ export const LargeThumb = React.memo(
             source={{
               uri: getImageUrl(imageUrl, imageWidth)
             }}
-            style={{
-              aspectRatio: 16 / 10,
-              ...styles.image
-            }}
+            style={[
+              {
+                aspectRatio: 16 / 10
+              },
+              styles.image
+            ]}
           >
             {isLoading && <Loader style={styles.loading} />}
           </ImageBackground>
@@ -56,29 +56,27 @@ export const LargeThumb = React.memo(
   }
 );
 
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      borderTopLeftRadius: theme.radii.xxl,
-      borderTopRightRadius: theme.radii.xxl,
-      width: '100%',
-      overflow: 'hidden',
-      marginBottom: theme.space.lg
-    },
-    content: {
-      justifyContent: 'flex-end',
-      alignItems: 'center'
-    },
-    title: {
-      paddingHorizontal: theme.space.lg,
-      paddingBottom: theme.space.sm,
-      textAlign: 'center'
-    },
-    image: {
-      backgroundColor: theme.colors.ahead
-    },
-    loading: {
-      width: '100%'
-    }
-  });
-}
+const styles = StyleSheet.create({
+  wrapper: {
+    borderTopLeftRadius: theme.radii.xxl,
+    borderTopRightRadius: theme.radii.xxl,
+    width: '100%',
+    overflow: 'hidden',
+    marginBottom: theme.space.lg
+  },
+  content: {
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  title: {
+    paddingHorizontal: theme.space.lg,
+    paddingBottom: theme.space.sm,
+    textAlign: 'center'
+  },
+  image: {
+    backgroundColor: theme.colors.ahead
+  },
+  loading: {
+    width: '100%'
+  }
+});

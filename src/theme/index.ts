@@ -1,22 +1,35 @@
-import type { Colors } from './colors';
+import type { Color, Colors } from './colors';
 import { colors } from './colors';
-import type { Radii } from './radii';
+import type { Radii, Radius } from './radii';
 import { radii } from './radii';
-import type { Spaces } from './space';
+import type { Space, Spaces } from './space';
 import { space } from './space';
-import type { Texts } from './texts';
+import type { Text, Texts } from './texts';
 import { texts } from './texts';
 
-export type Theme = {
+type Theme = {
   colors: Colors;
   radii: Radii;
   space: Spaces;
   texts: Texts;
 };
 
-export const theme: Theme = {
+const theme: Theme = {
   colors,
   space,
   radii,
   texts
+};
+
+export {
+  Color,
+  Colors,
+  Radii,
+  Radius,
+  Space,
+  Spaces,
+  Text,
+  Texts,
+  Theme,
+  theme
 };

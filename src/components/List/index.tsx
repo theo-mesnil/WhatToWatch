@@ -1,10 +1,13 @@
+import { type Href, Link } from 'expo-router';
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 import type { FlatListProps, ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
-import { space } from 'theme/space';
 
+import { ArrowNextIcon, Icon } from 'components/Icon';
 import { Text } from 'components/Text';
+import { Touchable } from 'components/Touchable';
 import { fakeData30 } from 'constants/mocks';
 
 type VerticalListProps = Pick<
@@ -15,23 +18,23 @@ type VerticalListProps = Pick<
   /** uniq id for performance */
   id: string;
   isLoading?: boolean;
-  marginList?: number;
   numberOfItems?: number;
   results?: any;
   title?: JSX.Element | string;
+  titleHref?: Href<any>;
 };
 
 export function List({
-  gap = space.md,
+  gap = theme.space.xs,
   id,
   initialNumToRender = 20,
   isLoading,
   ListHeaderComponent,
-  marginList = space.md,
   numberOfItems = 3,
   renderItem,
   results,
-  title
+  title,
+  titleHref
 }: VerticalListProps) {
   const dataFormatted = isLoading ? fakeData30 : results;
 
@@ -41,9 +44,9 @@ export function List({
     () =>
       screenWidth / numberOfItems -
       gap -
-      marginList / numberOfItems -
-      theme.space.xl / numberOfItems,
-    [screenWidth, numberOfItems, gap, marginList]
+      theme.space.marginList / numberOfItems -
+      theme.space.lg / numberOfItems,
+    [screenWidth, numberOfItems, gap]
   );
 
   function internalRenderItem(props: ListRenderItemInfo<any>) {
@@ -66,13 +69,48 @@ export function List({
     return null;
   }
 
-  return (
-    <View style={styles.wrapper}>
-      {title && (
-        <Text variant="h2" style={{ marginLeft: marginList }}>
+  const renderTitle = React.useMemo(() => {
+    if (title) {
+      const element = (
+        <Text
+          variant="h2"
+          style={{
+            marginHorizontal: theme.space.marginList
+          }}
+        >
           {title}
         </Text>
-      )}
+      );
+
+      if (titleHref) {
+        return (
+          <View
+            style={[styles.title, { paddingRight: theme.space.marginList }]}
+          >
+            {element}
+            <Link href={titleHref} asChild>
+              <Touchable>
+                <View style={styles.moreWrapper}>
+                  <Text variant="lg" style={styles.moreText}>
+                    <FormattedMessage key="all-link" defaultMessage="More" />
+                  </Text>
+                  <Icon color="brand-700" size={20} icon={ArrowNextIcon} />
+                </View>
+              </Touchable>
+            </Link>
+          </View>
+        );
+      }
+
+      return element;
+    }
+
+    return null;
+  }, [title, titleHref]);
+
+  return (
+    <View style={styles.wrapper}>
+      {renderTitle}
       <Animated.FlatList
         data={dataFormatted}
         initialNumToRender={initialNumToRender}
@@ -86,7 +124,7 @@ export function List({
         contentContainerStyle={[
           {
             gap,
-            paddingHorizontal: marginList
+            paddingHorizontal: theme.space.marginList
           }
         ]}
       />
@@ -95,7 +133,21 @@ export function List({
 }
 
 const styles = StyleSheet.create({
-  wrapper: { gap: theme.space.lg },
+  wrapper: { gap: theme.space.xs },
+  title: {
+    flexDirection: 'row',
+    gap: theme.space.xs,
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  moreWrapper: {
+    gap: theme.space.xxs,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  moreText: {
+    color: theme.colors['brand-700']
+  },
   itemHeader: {
     flex: 1
   }

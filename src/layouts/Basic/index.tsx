@@ -17,7 +17,6 @@ export function BasicLayout({
   getScrollYPosition,
   isView = false
 }: BasicLayoutProps) {
-  const styles = useStyles();
   const [scrollY] = React.useState(new Animated.Value(0));
 
   const AnimateComponent = isView ? Animated.View : Animated.ScrollView;
@@ -31,19 +30,20 @@ export function BasicLayout({
     <AnimateComponent
       style={[styles.wrapper]}
       onScroll={
-        !isView &&
-        Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: { y: scrollY }
+        !isView
+          ? Animated.event(
+              [
+                {
+                  nativeEvent: {
+                    contentOffset: { y: scrollY }
+                  }
+                }
+              ],
+              {
+                useNativeDriver: false
               }
-            }
-          ],
-          {
-            useNativeDriver: false
-          }
-        )
+            )
+          : undefined
       }
       bounces={false}
       scrollEventThrottle={1}
@@ -55,11 +55,9 @@ export function BasicLayout({
   );
 }
 
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      backgroundColor: theme.colors.behind,
-      flex: 1
-    }
-  });
-}
+const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: theme.colors.behind,
+    flex: 1
+  }
+});

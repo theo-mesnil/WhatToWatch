@@ -3,7 +3,7 @@ import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { StyleSheet } from 'react-native';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import type { IconElement } from 'components/Icon';
@@ -38,7 +38,7 @@ function tabBarIcon({
 
 function BottomBarBackground() {
   return (
-    <BlurView tint="dark" intensity={150} style={StyleSheet.absoluteFill} />
+    <BlurView tint="dark" intensity={150} style={globalStyles.absoluteFill} />
   );
 }
 

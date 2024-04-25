@@ -21,42 +21,47 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const { headerHeight, headerSafeHeight, statusBarHeight } =
     useSafeHeights(!!component);
-  const styles = useStyles();
 
   const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
   return (
-    <View style={{ ...styles.wrapper, height: headerSafeHeight }}>
+    <View style={[styles.wrapper, { height: headerSafeHeight }]}>
       {isAndroid ? (
         <Animated.View
-          style={{
-            opacity: scrollY?.interpolate({
-              inputRange: [0, 50],
-              outputRange: [0, 1]
-            }),
-            backgroundColor: theme.colors.ahead,
-            ...globalStyles.absoluteFill
-          }}
+          style={[
+            {
+              opacity: scrollY?.interpolate({
+                inputRange: [0, 50],
+                outputRange: [0, 1]
+              }),
+              backgroundColor: theme.colors.ahead
+            },
+            globalStyles.absoluteFill
+          ]}
         />
       ) : (
         <AnimatedBlurView
-          style={{
-            opacity: scrollY?.interpolate({
-              inputRange: [0, 50],
-              outputRange: [0, 1]
-            }),
-            ...globalStyles.absoluteFill
-          }}
+          style={[
+            {
+              opacity: scrollY?.interpolate({
+                inputRange: [0, 50],
+                outputRange: [0, 1]
+              })
+            },
+            globalStyles.absoluteFill
+          ]}
           tint="dark"
           intensity={150}
         />
       )}
       <View
-        style={{
-          ...styles.content,
-          height: headerHeight,
-          marginTop: statusBarHeight
-        }}
+        style={[
+          styles.content,
+          {
+            height: headerHeight,
+            marginTop: statusBarHeight
+          }
+        ]}
       >
         <Text variant="h1">{title}</Text>
         <Icon icon={MoreFillIcon} />
@@ -66,21 +71,19 @@ export const Header: React.FC<HeaderProps> = ({
   );
 };
 
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      width: '100%',
-      position: 'absolute',
-      zIndex: 999
-    },
-    content: {
-      paddingHorizontal: theme.space.md,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-    },
-    input: {
-      paddingHorizontal: theme.space.md
-    }
-  });
-}
+const styles = StyleSheet.create({
+  wrapper: {
+    width: '100%',
+    position: 'absolute',
+    zIndex: 999
+  },
+  content: {
+    paddingHorizontal: theme.space.lg,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  input: {
+    paddingHorizontal: theme.space.lg
+  }
+});

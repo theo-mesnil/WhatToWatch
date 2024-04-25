@@ -1,9 +1,11 @@
 import * as React from 'react';
 import type { DimensionValue } from 'react-native';
+import type { SvgProps } from 'react-native-svg';
 import { theme } from 'theme';
-import type { Color } from 'theme/colors';
+import type { Color } from 'theme';
 
 import ArrowBackIcon from './icons/ArrowBack';
+import ArrowNextIcon from './icons/ArrowNext';
 import BulbIcon from './icons/Bulb';
 import BulbFillIcon from './icons/BulbFill';
 import CheckFillIcon from './icons/CheckFill';
@@ -39,42 +41,7 @@ import SmileIcon from './icons/Smile';
 import StarFillIcon from './icons/StarFill';
 import TvFillIcon from './icons/TvFill';
 
-export type IconElement =
-  | typeof StarFillIcon
-  | typeof TvFillIcon
-  | typeof ArrowBackIcon
-  | typeof BulbFillIcon
-  | typeof BulbIcon
-  | typeof CheckFillIcon
-  | typeof ClockFillIcon
-  | typeof CrossIcon
-  | typeof EmailIcon
-  | typeof ExternalLinkIcon
-  | typeof FlashFillIcon
-  | typeof FlashIcon
-  | typeof GlobeFillIcon
-  | typeof GlobeIcon
-  | typeof GridFillIcon
-  | typeof LogoAmazonPrime
-  | typeof LogoAppleTvPlus
-  | typeof LogoDisneyPlus
-  | typeof LogoFox
-  | typeof LogoHbo
-  | typeof LogoHulu
-  | typeof LogoNetflix
-  | typeof LogoShowtime
-  | typeof MoreFillIcon
-  | typeof MoreIcon
-  | typeof MovieFillIcon
-  | typeof PauseCircleIcon
-  | typeof PeopleFillIcon
-  | typeof PlayCircleIcon
-  | typeof PlayIcon
-  | typeof SearchFillIcon
-  | typeof SearchIcon
-  | typeof SmileIcon
-  | typeof StarFillIcon
-  | typeof TvFillIcon;
+export type IconElement = typeof ArrowBackIcon;
 
 export type IconProps = {
   color?: Color;
@@ -90,16 +57,15 @@ const Icon: React.FC<IconProps> = ({
   return (
     <IconComponent
       color={theme.colors[color]}
-      style={{
-        width: size,
-        height: size
-      }}
+      width={size as SvgProps['width']}
+      height={size as SvgProps['width']}
     />
   );
 };
 
 export {
   ArrowBackIcon,
+  ArrowNextIcon,
   BulbFillIcon,
   BulbIcon,
   CheckFillIcon,

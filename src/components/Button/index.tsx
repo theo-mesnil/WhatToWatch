@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { ViewProps } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
-import type { Color } from 'theme/colors';
+import type { Color } from 'theme';
 
 import { Text } from 'components/Text';
 import type { TouchableProps } from 'components/Touchable';
@@ -25,8 +25,6 @@ export function Button({
   style = {},
   ...rest
 }: ButtonProps) {
-  const styles = useStyles();
-
   return (
     <Touchable onPress={onPress}>
       <View
@@ -43,16 +41,14 @@ export function Button({
   );
 }
 
-function useStyles() {
-  return StyleSheet.create({
-    wrapper: {
-      justifyContent: 'center',
-      height: 40,
-      borderRadius: 25,
-      paddingHorizontal: theme.space.md
-    },
-    transparent: {
-      backgroundColor: 'transparent'
-    }
-  });
-}
+const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: 'center',
+    height: 40,
+    borderRadius: 25,
+    paddingHorizontal: theme.space.md
+  },
+  transparent: {
+    backgroundColor: 'transparent'
+  }
+});
