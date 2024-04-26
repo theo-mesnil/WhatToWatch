@@ -49,13 +49,16 @@ export function List({
     [screenWidth, numberOfItems, gap]
   );
 
-  function internalRenderItem(props: ListRenderItemInfo<any>) {
-    if (renderItem) {
-      return <View style={{ width: itemSize }}>{renderItem(props)}</View>;
-    }
+  const internalRenderItem = React.useCallback(
+    (props: ListRenderItemInfo<any>) => {
+      if (renderItem) {
+        return <View style={{ width: itemSize }}>{renderItem(props)}</View>;
+      }
 
-    return null;
-  }
+      return null;
+    },
+    [itemSize, renderItem]
+  );
 
   function renderListHeaderComponent() {
     if (ListHeaderComponent) {
@@ -67,6 +70,14 @@ export function List({
     }
 
     return null;
+  }
+
+  function getItemLayout(_: any, index: number) {
+    return {
+      length: itemSize,
+      offset: itemSize * index + theme.space.marginList + gap * index,
+      index
+    };
   }
 
   const renderTitle = React.useMemo(() => {
@@ -112,6 +123,7 @@ export function List({
     <View style={styles.wrapper}>
       {renderTitle}
       <Animated.FlatList
+        getItemLayout={getItemLayout}
         data={dataFormatted}
         initialNumToRender={initialNumToRender}
         keyExtractor={(item, index) =>
