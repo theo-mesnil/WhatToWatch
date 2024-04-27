@@ -18,7 +18,7 @@ export function useSafeHeights(withComponent?: boolean) {
     tabBarBottomSafeHeight: tabBarSafeHeight,
     containerStyle: {
       paddingTop: headerSafeHeight,
-      paddingBottom: tabBarSafeHeight + theme.space.md
+      paddingBottom: tabBarSafeHeight + theme.space.xl
     },
     headerSafeHeight,
     headerHeight,
