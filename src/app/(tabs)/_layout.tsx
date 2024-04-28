@@ -1,7 +1,7 @@
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
-import React from 'react';
+import * as React from 'react';
 import { useIntl } from 'react-intl';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';

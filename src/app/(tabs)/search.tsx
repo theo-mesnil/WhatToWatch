@@ -1,6 +1,6 @@
 import { useNavigation } from 'expo-router';
 import debounce from 'lodash.debounce';
-import React, { useCallback } from 'react';
+import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated, StyleSheet, View } from 'react-native';
@@ -15,6 +15,7 @@ import { Icon, SearchFillIcon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { TextInput } from 'components/TextInput';
 import { Thumb } from 'components/Thumb';
+import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
@@ -60,13 +61,23 @@ export default function Search() {
   };
 
   const renderItem = ({
-    item: { media_type, poster_path }
+    item: { id, media_type, poster_path }
   }: ListRenderItemInfo<
     UseGetTrendingApiResponse['all']['results'][number]
   >) => {
+    const isLoadingItem = isLoading || isSearchLoading;
+
+    if (media_type === 'tv') {
+      return (
+        <ThumbLink href={`/tv/${id}`} isLoading={isLoadingItem}>
+          <Thumb type={media_type} imageUrl={poster_path} imageWidth="w300" />
+        </ThumbLink>
+      );
+    }
+
     return (
       <Thumb
-        isLoading={isLoading || isSearchLoading}
+        isLoading={isLoadingItem}
         type={media_type}
         imageUrl={poster_path}
         imageWidth="w300"
@@ -101,7 +112,7 @@ export default function Search() {
     </Text>
   );
 
-  const HeaderComponent = useCallback(
+  const HeaderComponent = React.useCallback(
     ({ options: { title } }: HeaderOptions) => {
       return (
         <Header

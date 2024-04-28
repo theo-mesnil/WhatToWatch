@@ -12,6 +12,7 @@ type ButtonProps = ViewProps & {
   backgroundColor?: Color;
   children: string | JSX.Element;
   isCustomChildren?: boolean;
+  isRounded?: boolean;
   isTransparent?: boolean;
   onPress?: TouchableProps['onPress'];
 };
@@ -20,6 +21,7 @@ export function Button({
   backgroundColor = 'brand-500',
   children,
   isCustomChildren,
+  isRounded,
   isTransparent,
   onPress,
   style = {},
@@ -30,7 +32,10 @@ export function Button({
       <View
         style={[
           styles.wrapper,
-          isTransparent ? styles.transparent : { backgroundColor },
+          isTransparent
+            ? styles.transparent
+            : { backgroundColor: theme.colors[backgroundColor] },
+          isRounded ? styles.rounded : undefined,
           style
         ]}
         {...rest}
@@ -47,6 +52,10 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 25,
     paddingHorizontal: theme.space.md
+  },
+  rounded: {
+    width: 40,
+    alignItems: 'center'
   },
   transparent: {
     backgroundColor: 'transparent'

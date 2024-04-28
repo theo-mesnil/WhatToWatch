@@ -9,15 +9,22 @@ import { Text } from 'components/Text';
 import type { ImageSizeBackdrop } from 'types/content';
 import { getImageUrl } from 'utils/images';
 
-export type LargeThumbProps = {
+export type CoverProps = {
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop;
   isLoading?: boolean;
+  subtitle?: string;
   title?: string;
 };
 
-export const LargeThumb = React.memo(
-  ({ imageUrl, imageWidth = 'w780', isLoading, title }: LargeThumbProps) => {
+export const Cover = React.memo(
+  ({
+    imageUrl,
+    imageWidth = 'w1280',
+    isLoading,
+    subtitle,
+    title
+  }: CoverProps) => {
     return (
       <View style={styles.wrapper}>
         <ImageBackground
@@ -26,7 +33,7 @@ export const LargeThumb = React.memo(
           }}
           style={[
             {
-              aspectRatio: 16 / 10
+              aspectRatio: 1 / 1
             },
             styles.image
           ]}
@@ -35,11 +42,14 @@ export const LargeThumb = React.memo(
         </ImageBackground>
         <View style={[globalStyles.absoluteFill, styles.content]}>
           <Gradient colors={['transparent', theme.colors.behind]} />
-          {title && (
-            <Text variant="h0" style={styles.title}>
-              {title}
-            </Text>
-          )}
+          <View style={styles.texts}>
+            {title && (
+              <Text style={styles.text} variant="h0">
+                {title}
+              </Text>
+            )}
+            {subtitle && <Text style={styles.text}>{subtitle}</Text>}
+          </View>
         </View>
       </View>
     );
@@ -48,8 +58,6 @@ export const LargeThumb = React.memo(
 
 const styles = StyleSheet.create({
   wrapper: {
-    borderTopLeftRadius: theme.radii.xxl,
-    borderTopRightRadius: theme.radii.xxl,
     width: '100%',
     overflow: 'hidden',
     marginBottom: theme.space.lg
@@ -58,9 +66,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
-  title: {
-    paddingHorizontal: theme.space.lg,
-    paddingBottom: theme.space.sm,
+  texts: {
+    paddingHorizontal: theme.space.xxl,
+    paddingBottom: theme.space.lg,
+    alignItems: 'center',
+    gap: theme.space.sm
+  },
+  text: {
     textAlign: 'center'
   },
   image: {

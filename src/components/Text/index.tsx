@@ -12,5 +12,15 @@ export const Text: React.FC<TextProps> = ({
   style,
   variant = 'md'
 }) => {
-  return <RNText style={[theme.texts[variant], style]}>{children}</RNText>;
+  return (
+    <RNText
+      style={[
+        theme.texts[variant],
+        style,
+        { lineHeight: theme.texts[variant].fontSize }
+      ]}
+    >
+      {children}
+    </RNText>
+  );
 };

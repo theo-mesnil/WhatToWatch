@@ -1,5 +1,5 @@
 import { useNavigation } from 'expo-router';
-import React, { useCallback } from 'react';
+import * as React from 'react';
 import { Animated, View } from 'react-native';
 import { theme } from 'theme';
 
@@ -18,7 +18,7 @@ export default function Networks() {
   const { containerStyle } = useSafeHeights();
   const navigation = useNavigation();
 
-  const HeaderComponent = useCallback(
+  const HeaderComponent = React.useCallback(
     ({ options: { title } }: HeaderOptions) => (
       <Header title={title} scrollY={scrollYPosition} />
     ),

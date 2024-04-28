@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useCallback } from 'react';
+import * as React from 'react';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated } from 'react-native';
 import { theme } from 'theme';
@@ -9,6 +9,7 @@ import { useGetDiscoverTvShow } from 'api/discover';
 import { GradientHeader } from 'components/GradientHeader';
 import { LargeThumb } from 'components/LargeThumb';
 import { Thumb } from 'components/Thumb';
+import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
@@ -38,14 +39,16 @@ export default function Network() {
   const firstItem = !isLoading && data?.pages[0].results[0];
 
   const renderItem = ({
-    item: { poster_path }
+    item: { id, poster_path }
   }: ListRenderItemInfo<
     UseGetDiscoverTvShowApiResponse['results'][number]
-  >) => {
-    return <Thumb isLoading={isLoading} type="tv" imageUrl={poster_path} />;
-  };
+  >) => (
+    <ThumbLink isLoading={isLoading} href={`/tv/${id}`}>
+      <Thumb type="tv" imageUrl={poster_path} />
+    </ThumbLink>
+  );
 
-  const HeaderComponent = useCallback(
+  const HeaderComponent = React.useCallback(
     () => <Header id={networkID} scrollY={scrollYPosition} />,
     [networkID, scrollYPosition]
   );
@@ -78,11 +81,12 @@ export default function Network() {
         renderItem={renderItem}
         id="network"
         ListHeaderComponent={
-          <LargeThumb
-            isLoading={isLoading}
-            title={firstItem?.name}
-            imageUrl={firstItem?.backdrop_path}
-          />
+          <ThumbLink isLoading={isLoading} href={`/tv/${firstItem?.id}`}>
+            <LargeThumb
+              title={firstItem?.name}
+              imageUrl={firstItem?.backdrop_path}
+            />
+          </ThumbLink>
         }
         isLoading={isLoading}
         getScrollYPosition={getScrollYPosition}
