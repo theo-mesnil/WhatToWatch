@@ -11,6 +11,10 @@ export type ContentLayoutProps = {
   children: React.ReactNode;
   imageUrl?: string;
   isLoading?: boolean;
+  logo?: {
+    aspectRatio: number;
+    url: string;
+  };
   subtitle?: string;
   title?: string;
 };
@@ -19,6 +23,7 @@ export function ContentLayout({
   children,
   imageUrl,
   isLoading,
+  logo,
   subtitle,
   title
 }: ContentLayoutProps) {
@@ -34,12 +39,6 @@ export function ContentLayout({
 
   React.useEffect(() => {
     navigation.setOptions({
-      headerShown: true
-    });
-  }, [navigation]);
-
-  React.useEffect(() => {
-    navigation.setOptions({
       header: HeaderComponent
     });
   }, [HeaderComponent, navigation]);
@@ -51,6 +50,7 @@ export function ContentLayout({
         title={title}
         isLoading={isLoading}
         imageUrl={imageUrl}
+        logo={logo}
       />
       {children}
     </BasicLayout>

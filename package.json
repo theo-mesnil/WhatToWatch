@@ -35,7 +35,7 @@
     "expo-linking": "^6.2.2",
     "expo-localization": "~14.8.3",
     "expo-modules-autolinking": "^1.10.3",
-    "expo-router": "~3.4.8",
+    "expo-router": "~3.4.10",
     "expo-status-bar": "^1.11.1",
     "expo-updates": "~0.24.12",
     "intl": "^1.2.5",

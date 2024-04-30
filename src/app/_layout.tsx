@@ -46,7 +46,7 @@ export default function Layout() {
       <IntlMessages>
         <QueryClientProvider client={queryClient}>
           <View style={styles.wrapper}>
-            <Stack screenOptions={{ headerShown: false }} />
+            <Stack screenOptions={{ header: () => null }} />
           </View>
         </QueryClientProvider>
       </IntlMessages>

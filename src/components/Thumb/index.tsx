@@ -23,7 +23,7 @@ export type ThumbProps = {
 
 export const Thumb = React.memo(
   ({
-    aspectRatio = 7 / 10,
+    aspectRatio = 2 / 3,
     height,
     imageUrl,
     imageWidth,

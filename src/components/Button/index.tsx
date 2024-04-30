@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.space.md
   },
   rounded: {
-    width: 40,
+    height: 30,
+    width: 30,
     alignItems: 'center'
   },
   transparent: {

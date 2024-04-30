@@ -61,12 +61,6 @@ export default function Network() {
 
   React.useEffect(() => {
     navigation.setOptions({
-      headerShown: true
-    });
-  }, [navigation]);
-
-  React.useEffect(() => {
-    navigation.setOptions({
       header: HeaderComponent
     });
   }, [HeaderComponent, navigation]);

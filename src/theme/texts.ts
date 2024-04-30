@@ -1,6 +1,6 @@
 import { colors } from './colors';
 
-export type Text = 'h0' | 'h1' | 'h2' | 'md' | 'lg';
+export type Text = 'h0' | 'h1' | 'h2' | 'h3' | 'md' | 'lg';
 
 export type Texts = {
   [K in Text]: {
@@ -12,7 +12,7 @@ export type Texts = {
 
 export const texts: Texts = {
   h0: {
-    fontSize: 33,
+    fontSize: 38,
     fontWeight: 'bold',
     color: colors.white
   },
@@ -23,6 +23,11 @@ export const texts: Texts = {
   },
   h2: {
     fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.white
+  },
+  h3: {
+    fontSize: 16,
     fontWeight: 'bold',
     color: colors.white
   },

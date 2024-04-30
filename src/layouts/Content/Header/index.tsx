@@ -68,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
             })
           }}
         >
-          <Text variant="h2">{title}</Text>
+          <Text variant="h3">{title}</Text>
         </Animated.View>
         <Button
           backgroundColor="default-900"
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   button: {
     opacity: 0.8,
     position: 'absolute',
-    right: -10,
-    bottom: -20
+    right: -5,
+    bottom: -15
   }
 });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ImageBackground, StyleSheet, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -13,6 +13,10 @@ export type CoverProps = {
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop;
   isLoading?: boolean;
+  logo?: {
+    aspectRatio: number;
+    url: string;
+  };
   subtitle?: string;
   title?: string;
 };
@@ -22,6 +26,7 @@ export const Cover = React.memo(
     imageUrl,
     imageWidth = 'w1280',
     isLoading,
+    logo,
     subtitle,
     title
   }: CoverProps) => {
@@ -43,7 +48,13 @@ export const Cover = React.memo(
         <View style={[globalStyles.absoluteFill, styles.content]}>
           <Gradient colors={['transparent', theme.colors.behind]} />
           <View style={styles.texts}>
-            {title && (
+            {logo && (
+              <Image
+                style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
+                src={getImageUrl(logo.url, 'w500')}
+              />
+            )}
+            {!logo && title && (
               <Text style={styles.text} variant="h0">
                 {title}
               </Text>
@@ -77,6 +88,10 @@ const styles = StyleSheet.create({
   },
   image: {
     backgroundColor: theme.colors.ahead
+  },
+  logo: {
+    width: 250,
+    maxHeight: 150
   },
   loading: {
     width: '100%'

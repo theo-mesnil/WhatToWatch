@@ -17,7 +17,7 @@ export const Text: React.FC<TextProps> = ({
       style={[
         theme.texts[variant],
         style,
-        { lineHeight: theme.texts[variant].fontSize }
+        { lineHeight: theme.texts[variant].fontSize + 3 }
       ]}
     >
       {children}

@@ -10,7 +10,18 @@ export default function Tv() {
   const params = useLocalSearchParams();
   const tvID = Number(params?.id);
 
-  const { data, isLoading } = useGetTv({ id: tvID });
+  const [{ data, isLoading }, { data: images, isLoading: isLoadingImages }] =
+    useGetTv({ id: tvID });
+
+  const logoUrl = images?.logos?.[0]?.file_path;
+  const logoAspectRatio = images?.logos?.[0]?.aspect_ratio;
+  const backdropPath = data?.backdrop_path;
+  const title = data?.name;
+  const genres = data?.genres
+    ?.slice(0, 2)
+    .map((genre) => genre.name)
+    .flat()
+    .join(' - ');
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -20,14 +31,18 @@ export default function Tv() {
 
   return (
     <ContentLayout
-      isLoading={isLoading}
-      imageUrl={data?.backdrop_path}
-      title={data?.name}
-      subtitle={data?.genres
-        ?.slice(0, 2)
-        .map((genre) => genre.name)
-        .flat()
-        .join(' - ')}
+      isLoading={isLoading || isLoadingImages}
+      imageUrl={backdropPath}
+      title={title}
+      subtitle={genres}
+      logo={
+        logoUrl
+          ? {
+              url: logoUrl,
+              aspectRatio: logoAspectRatio
+            }
+          : undefined
+      }
     >
       <Text>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mauris

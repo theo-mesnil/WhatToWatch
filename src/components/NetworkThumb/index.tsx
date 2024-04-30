@@ -14,7 +14,7 @@ export type NetworkThumbProps = {
 };
 
 export const NetworkThumb = ({
-  aspectRatio = 7 / 10,
+  aspectRatio = 2 / 3,
   id,
   isRounded
 }: NetworkThumbProps) => {
