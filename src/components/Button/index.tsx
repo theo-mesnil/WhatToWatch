@@ -67,10 +67,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.space.md
   },
   primary: {
-    backgroundColor: theme.colors['default-800']
+    backgroundColor: theme.colors['default-700']
   },
   secondary: {
-    backgroundColor: theme.colors['brand-500']
+    backgroundColor: theme.colors['brand-700']
   },
   'text-primary': {
     color: theme.colors['default-100']

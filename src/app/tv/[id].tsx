@@ -93,9 +93,15 @@ export default function Tv() {
         </Text>
       )}
       {!!seasonsLength && (
-        <>
+        <View style={styles.episodes}>
           {seasonsLength > 1 && (
             <List
+              title={
+                <FormattedMessage
+                  key="episodes-title"
+                  defaultMessage="Episodes"
+                />
+              }
               withoutSizing
               id="seasons-buttons"
               renderItem={renderItemSeason}
@@ -103,7 +109,7 @@ export default function Tv() {
             />
           )}
           {!isLoadingSeason && (
-            <View style={styles.content}>
+            <View style={styles.episodesContent}>
               <Text>
                 <FormattedMessage
                   defaultMessage="{count} episodes on season {seasonNumber}"
@@ -114,9 +120,11 @@ export default function Tv() {
                   key="episodes_number"
                 />{' '}
               </Text>
-              <View style={styles.episodes}>
-                {season.episodes.map((episode) => (
+              <View style={styles.episodesList}>
+                {season.episodes.map((episode, index) => (
                   <EpisodeThumb
+                    number={index + 1}
+                    runtime={episode.runtime}
                     key={episode.id}
                     id={episode.id}
                     name={episode.name}
@@ -127,7 +135,7 @@ export default function Tv() {
               </View>
             </View>
           )}
-        </>
+        </View>
       )}
     </ContentLayout>
   );
@@ -136,15 +144,18 @@ export default function Tv() {
 const styles = StyleSheet.create({
   tagline: {
     color: theme.colors.white,
-    marginBottom: theme.space.xl,
-    paddingHorizontal: theme.space.marginList
-  },
-  content: {
     marginTop: theme.space.md,
     paddingHorizontal: theme.space.marginList
   },
   episodes: {
+    marginTop: theme.space.xxl
+  },
+  episodesContent: {
     marginTop: theme.space.md,
+    paddingHorizontal: theme.space.marginList
+  },
+  episodesList: {
+    marginTop: theme.space.xl,
     gap: theme.space.xl
   }
 });
