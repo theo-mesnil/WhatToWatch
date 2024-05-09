@@ -1,4 +1,3 @@
-import type { Href } from 'expo-router';
 import { Link } from 'expo-router';
 import * as React from 'react';
 
@@ -16,7 +15,7 @@ export function ThumbLink({ children, href, isLoading }: ThumbLinkProps) {
   }
 
   return (
-    <Link href={href as Href<unknown>} asChild>
+    <Link href={href} asChild>
       <Touchable>{children}</Touchable>
     </Link>
   );
