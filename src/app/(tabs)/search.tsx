@@ -19,6 +19,7 @@ import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
+import type { ContentType } from 'types/content';
 import type { HeaderOptions } from 'types/navigation';
 
 export default function Search() {
@@ -78,7 +79,7 @@ export default function Search() {
     return (
       <Thumb
         isLoading={isLoadingItem}
-        type={media_type}
+        type={media_type as ContentType}
         imageUrl={poster_path}
         imageWidth="w300"
       />

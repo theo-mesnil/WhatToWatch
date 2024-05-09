@@ -18,7 +18,7 @@ export type ThumbProps = {
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop | ImageSizePoster;
   isLoading?: boolean;
-  type?: ContentType;
+  type: ContentType;
 };
 
 export const Thumb = React.memo(

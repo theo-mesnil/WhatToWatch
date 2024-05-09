@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
           style={[
             {
               opacity: scrollY?.interpolate({
-                inputRange: [0, 50],
+                inputRange: [250, 300],
                 outputRange: [0, 1]
               }),
               backgroundColor: theme.colors.ahead
@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
           style={[
             {
               opacity: scrollY?.interpolate({
-                inputRange: [0, 50],
+                inputRange: [250, 300],
                 outputRange: [0, 1]
               })
             },
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
         <Animated.View
           style={{
             opacity: scrollY?.interpolate({
-              inputRange: [0, 50],
+              inputRange: [250, 300],
               outputRange: [0, 1]
             })
           }}
@@ -71,7 +71,6 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
           <Text variant="h3">{title}</Text>
         </Animated.View>
         <Button
-          backgroundColor="default-900"
           isRounded
           isCustomChildren
           onPress={() => navigation.goBack()}
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   button: {
-    opacity: 0.8,
+    backgroundColor: theme.colors['default-900'],
     position: 'absolute',
     right: -5,
     bottom: -15

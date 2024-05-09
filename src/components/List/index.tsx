@@ -22,6 +22,8 @@ type VerticalListProps = Pick<
   results?: any;
   title?: JSX.Element | string;
   titleHref?: Href<any>;
+  /** remove resize from List render item */
+  withoutSizing?: boolean;
 };
 
 export function List({
@@ -34,7 +36,8 @@ export function List({
   renderItem,
   results,
   title,
-  titleHref
+  titleHref,
+  withoutSizing
 }: VerticalListProps) {
   const dataFormatted = isLoading ? fakeData30 : results;
 
@@ -52,24 +55,24 @@ export function List({
   const internalRenderItem = React.useCallback(
     (props: ListRenderItemInfo<any>) => {
       if (renderItem) {
-        return <View style={{ width: itemSize }}>{renderItem(props)}</View>;
+        return (
+          <View style={{ width: withoutSizing ? undefined : itemSize }}>
+            {renderItem(props)}
+          </View>
+        );
       }
 
       return null;
     },
-    [itemSize, renderItem]
+    [itemSize, renderItem, withoutSizing]
   );
 
   function renderListHeaderComponent() {
-    if (ListHeaderComponent) {
-      return (
-        <View style={{ width: itemSize }}>
-          {ListHeaderComponent as React.ReactElement}
-        </View>
-      );
-    }
-
-    return null;
+    return (
+      <View style={{ width: withoutSizing ? undefined : itemSize }}>
+        {ListHeaderComponent as React.ReactElement}
+      </View>
+    );
   }
 
   function getItemLayout(_: any, index: number) {
@@ -123,13 +126,15 @@ export function List({
     <View style={styles.wrapper}>
       {renderTitle}
       <Animated.FlatList
-        getItemLayout={getItemLayout}
+        getItemLayout={withoutSizing ? undefined : getItemLayout}
         data={dataFormatted}
         initialNumToRender={initialNumToRender}
         keyExtractor={(item, index) =>
           isLoading ? `loading_${index}_${id}` : `${index}_${item.id}_${id}`
         }
-        ListHeaderComponent={renderListHeaderComponent}
+        ListHeaderComponent={
+          ListHeaderComponent ? renderListHeaderComponent : undefined
+        }
         renderItem={internalRenderItem}
         horizontal
         showsHorizontalScrollIndicator={false}

@@ -1,27 +1,51 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
 
-import { useGetTv } from 'api/tv';
+import type { UseGetTvApiResponse } from 'api/tv';
+import { useGetTv, useGetTvImages, useGetTvSeason } from 'api/tv';
+import { Badge } from 'components/Badge';
+import { Button } from 'components/Button';
+import { ClockFillIcon } from 'components/Icon';
+import { List } from 'components/List';
 import { Text } from 'components/Text';
 import { ContentLayout } from 'layouts/Content';
+import { formatTime } from 'utils/time';
+
+import { EpisodeThumb } from './components/EpisodeThumb';
 
 export default function Tv() {
+  const [selectedSeason, setSelectedSeason] = React.useState<number>(1);
   const navigation = useNavigation();
   const params = useLocalSearchParams();
   const tvID = Number(params?.id);
 
-  const [{ data, isLoading }, { data: images, isLoading: isLoadingImages }] =
-    useGetTv({ id: tvID });
+  const { data, isLoading } = useGetTv({ id: tvID });
+  const seasons = data?.seasons?.filter((season) => season.season_number > 0);
+  const seasonsLength = seasons?.length;
 
-  const logoUrl = images?.logos?.[0]?.file_path;
-  const logoAspectRatio = images?.logos?.[0]?.aspect_ratio;
-  const backdropPath = data?.backdrop_path;
-  const title = data?.name;
-  const genres = data?.genres
-    ?.slice(0, 2)
-    .map((genre) => genre.name)
-    .flat()
-    .join(' - ');
+  const { data: images, isLoading: isLoadingImages } = useGetTvImages({
+    id: tvID
+  });
+
+  const { data: season, isLoading: isLoadingSeason } = useGetTvSeason({
+    id: tvID,
+    seasonNumber: selectedSeason
+  });
+
+  const renderItemSeason = ({
+    item: { season_number }
+  }: ListRenderItemInfo<UseGetTvApiResponse['seasons'][number]>) => (
+    <Button
+      size="lg"
+      variant={selectedSeason === season_number ? 'secondary' : 'primary'}
+      onPress={() => setSelectedSeason(season_number)}
+    >
+      S{season_number}
+    </Button>
+  );
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -32,50 +56,95 @@ export default function Tv() {
   return (
     <ContentLayout
       isLoading={isLoading || isLoadingImages}
-      imageUrl={backdropPath}
-      title={title}
-      subtitle={genres}
-      logo={
-        logoUrl
-          ? {
-              url: logoUrl,
-              aspectRatio: logoAspectRatio
-            }
-          : undefined
+      imageUrl={data?.coverUrl}
+      title={data?.name}
+      subtitle={data?.genres}
+      logo={images?.logo}
+      badges={
+        !isLoading && (
+          <>
+            {!!seasonsLength && (
+              <Badge>
+                {seasonsLength}{' '}
+                {seasonsLength === 1 && (
+                  <FormattedMessage id="season" defaultMessage="season" />
+                )}
+                {seasonsLength > 1 && (
+                  <FormattedMessage id="seasons" defaultMessage="seasons" />
+                )}
+              </Badge>
+            )}
+            {!!data?.startYear && (
+              <Badge>
+                {data.startYear}
+                {data?.endYear && ` - ${data.endYear}`}
+              </Badge>
+            )}
+            {!!data?.runtime && (
+              <Badge icon={ClockFillIcon}>{formatTime(data.runtime)}</Badge>
+            )}
+          </>
+        )
       }
     >
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mauris
-        nulla, condimentum sed tellus vel, molestie facilisis purus. Mauris
-        vitae lectus risus. Pellentesque cursus ante nulla, varius accumsan
-        massa tincidunt ac. Praesent ac elit tristique, maximus velit ut,
-        vestibulum nulla. Morbi molestie maximus nulla, at consequat neque
-        tristique eget. Suspendisse eget erat ut dolor porta lobortis. Interdum
-        et malesuada fames ac ante ipsum primis in faucibus. Donec rutrum ligula
-        eu elit volutpat, feugiat tincidunt felis tristique. Cras a aliquam
-        magna. Aliquam ultricies dui eu pharetra scelerisque. Mauris tempor
-        ullamcorper nulla ac accumsan. Curabitur ligula ante, rutrum vitae velit
-        eget, tincidunt semper libero. In vulputate pulvinar lorem, eleifend
-        pretium nisl iaculis sed. Donec eleifend nibh ac felis dignissim
-        ullamcorper. Fusce in vestibulum quam. Suspendisse non magna quis ipsum
-        vulputate euismod eget hendrerit elit. Sed nec enim vulputate urna
-        vestibulum pretium eget eget felis. Sed ornare accumsan porta. Vivamus
-        ut congue augue. Proin at ligula egestas leo condimentum fringilla.
-        Suspendisse scelerisque posuere purus ac fringilla. Nulla facilisi.
-        Praesent varius ipsum at odio lobortis, vitae ultrices purus interdum.
-        Suspendisse eros nunc, elementum ut bibendum id, tempus eget purus.
-        Integer pulvinar ipsum eu tellus posuere venenatis. Nulla eleifend quam
-        velit, euismod feugiat tortor sollicitudin eget. Vivamus blandit, justo
-        eget tincidunt convallis, orci mi viverra risus, id laoreet mauris eros
-        sit amet enim. Proin feugiat, nulla ut ultrices vestibulum, turpis lorem
-        fermentum nunc, vel pulvinar elit ipsum vehicula ex. Phasellus semper
-        libero erat, ac eleifend mauris ornare ut. Morbi auctor in tortor in
-        finibus. Vivamus convallis, massa eget consectetur consequat, ipsum est
-        ultricies tortor, eget posuere quam sapien in eros. Nam accumsan ex a ex
-        ultrices lobortis. Duis placerat feugiat est, quis pretium dolor
-        ullamcorper quis. Cras eget placerat turpis, ut cursus mi. Suspendisse
-        tempor sollicitudin enim eu interdum. Donec porttitor vehicula orci.
-      </Text>
+      {!!data?.tagline && (
+        <Text variant="lg" style={styles.tagline}>
+          {data.tagline}
+        </Text>
+      )}
+      {!!seasonsLength && (
+        <>
+          {seasonsLength > 1 && (
+            <List
+              withoutSizing
+              id="seasons-buttons"
+              renderItem={renderItemSeason}
+              results={seasons}
+            />
+          )}
+          {!isLoadingSeason && (
+            <View style={styles.content}>
+              <Text>
+                <FormattedMessage
+                  defaultMessage="{count} episodes on season {seasonNumber}"
+                  values={{
+                    count: season.episodes.length,
+                    seasonNumber: season.season_number
+                  }}
+                  key="episodes_number"
+                />{' '}
+              </Text>
+              <View style={styles.episodes}>
+                {season.episodes.map((episode) => (
+                  <EpisodeThumb
+                    key={episode.id}
+                    id={episode.id}
+                    name={episode.name}
+                    imageUrl={episode.still_path}
+                    overview={episode.overview}
+                  />
+                ))}
+              </View>
+            </View>
+          )}
+        </>
+      )}
     </ContentLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  tagline: {
+    color: theme.colors.white,
+    marginBottom: theme.space.xl,
+    paddingHorizontal: theme.space.marginList
+  },
+  content: {
+    marginTop: theme.space.md,
+    paddingHorizontal: theme.space.marginList
+  },
+  episodes: {
+    marginTop: theme.space.md,
+    gap: theme.space.xl
+  }
+});

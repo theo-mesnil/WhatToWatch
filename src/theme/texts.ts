@@ -31,13 +31,13 @@ export const texts: Texts = {
     fontWeight: 'bold',
     color: colors.white
   },
-  md: {
-    fontSize: 13,
+  lg: {
+    fontSize: 16,
     fontWeight: 'normal',
     color: colors.text
   },
-  lg: {
-    fontSize: 16,
+  md: {
+    fontSize: 13,
     fontWeight: 'normal',
     color: colors.text
   }

@@ -10,21 +10,24 @@ import { Touchable } from 'components/Touchable';
 
 type ButtonProps = ViewProps & {
   backgroundColor?: Color;
-  children: string | JSX.Element;
+  children: React.ReactNode;
   isCustomChildren?: boolean;
   isRounded?: boolean;
   isTransparent?: boolean;
   onPress?: TouchableProps['onPress'];
+  size?: 'md' | 'lg';
+  variant?: 'primary' | 'secondary';
 };
 
 export function Button({
-  backgroundColor = 'brand-500',
   children,
   isCustomChildren,
   isRounded,
   isTransparent,
   onPress,
+  size = 'md',
   style = {},
+  variant = 'primary',
   ...rest
 }: ButtonProps) {
   return (
@@ -32,15 +35,26 @@ export function Button({
       <View
         style={[
           styles.wrapper,
-          isTransparent
-            ? styles.transparent
-            : { backgroundColor: theme.colors[backgroundColor] },
-          isRounded ? styles.rounded : undefined,
+          isTransparent && styles.transparent,
+          styles[size],
+          styles[variant],
+          isRounded && styles.rounded,
           style
         ]}
         {...rest}
       >
-        {isCustomChildren ? children : <Text>{children}</Text>}
+        {isCustomChildren ? (
+          children
+        ) : (
+          <Text
+            style={[
+              styles[`text-${variant}`],
+              size === 'lg' && styles['text-lg']
+            ]}
+          >
+            {children}
+          </Text>
+        )}
       </View>
     </Touchable>
   );
@@ -49,13 +63,34 @@ export function Button({
 const styles = StyleSheet.create({
   wrapper: {
     justifyContent: 'center',
-    height: 40,
-    borderRadius: 25,
+    borderRadius: theme.radii.sm,
     paddingHorizontal: theme.space.md
+  },
+  primary: {
+    backgroundColor: theme.colors['default-800']
+  },
+  secondary: {
+    backgroundColor: theme.colors['brand-500']
+  },
+  'text-primary': {
+    color: theme.colors['default-100']
+  },
+  'text-secondary': {
+    color: theme.colors['default-900']
+  },
+  md: {
+    height: 25
+  },
+  lg: {
+    height: 40
+  },
+  'text-lg': {
+    fontWeight: 'bold'
   },
   rounded: {
     height: 30,
     width: 30,
+    borderRadius: 30,
     alignItems: 'center'
   },
   transparent: {

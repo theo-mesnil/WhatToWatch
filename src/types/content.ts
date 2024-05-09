@@ -8,7 +8,7 @@ export type NetworkId =
   | /* Fox */ 67
   | /* Showtime */ 19;
 
-export type ContentType = 'tv' | 'movie' | 'person' | string;
+export type ContentType = 'tv' | 'movie' | 'person';
 
 export type ImageSize = ImageSizePoster | ImageSizeBackdrop;
 export type ImageSizeBackdrop = 'original' | 'w300' | 'w780' | 'w1280';
