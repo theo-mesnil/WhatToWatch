@@ -1,3 +1,4 @@
+import { FormattedDate } from 'react-intl';
 import { StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
@@ -6,6 +7,7 @@ import { Thumb } from 'components/Thumb';
 import { formatTime } from 'utils/time';
 
 export type EpisodeThumbProps = {
+  airDate?: string;
   id: number;
   imageUrl: string;
   name: string;
@@ -15,6 +17,7 @@ export type EpisodeThumbProps = {
 };
 
 export function EpisodeThumb({
+  airDate,
   id,
   imageUrl,
   name,
@@ -32,10 +35,22 @@ export function EpisodeThumb({
           <Text style={styles.name} variant="lg">
             {number}. {name}
           </Text>
-          {runtime && <Text>{formatTime(runtime)}</Text>}
+          <View style={styles.runtime}>
+            {runtime && <Text>{formatTime(runtime)}</Text>}
+            {airDate && (
+              <Text>
+                {runtime && ' • '}
+                <FormattedDate
+                  month="2-digit"
+                  day="2-digit"
+                  value={new Date(airDate)}
+                />
+              </Text>
+            )}
+          </View>
         </View>
       </View>
-      {overview && <Text>{overview}</Text>}
+      {overview && <Text numberOfLines={4}>{overview}</Text>}
     </View>
   );
 }
@@ -58,5 +73,8 @@ const styles = StyleSheet.create({
   },
   name: {
     color: theme.colors.white
+  },
+  runtime: {
+    flexDirection: 'row'
   }
 });

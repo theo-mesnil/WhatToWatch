@@ -35,9 +35,9 @@ export function Button({
       <View
         style={[
           styles.wrapper,
-          isTransparent && styles.transparent,
           styles[size],
           styles[variant],
+          isTransparent && styles.transparent,
           isRounded && styles.rounded,
           style
         ]}
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   wrapper: {
     justifyContent: 'center',
     borderRadius: theme.radii.sm,
-    paddingHorizontal: theme.space.md
+    paddingHorizontal: theme.space.lg
   },
   primary: {
     backgroundColor: theme.colors['default-700']

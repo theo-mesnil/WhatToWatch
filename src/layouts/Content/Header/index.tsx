@@ -1,6 +1,6 @@
 import { BlurView } from 'expo-blur';
 import { useNavigation } from 'expo-router';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -68,7 +68,15 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
             })
           }}
         >
-          <Text variant="h3">{title}</Text>
+          <Text
+            style={{
+              maxWidth: Dimensions.get('window').width - 60
+            }}
+            variant="h3"
+            numberOfLines={1}
+          >
+            {title}
+          </Text>
         </Animated.View>
         <Button
           isRounded

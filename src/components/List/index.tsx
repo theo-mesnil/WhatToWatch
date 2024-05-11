@@ -84,47 +84,43 @@ export function List({
   }
 
   const renderTitle = React.useMemo(() => {
-    if (title) {
-      const element = (
-        <Text
-          variant="h2"
-          style={{
+    const element = (
+      <Text
+        variant="h2"
+        style={[
+          {
             marginHorizontal: theme.space.marginList
-          }}
-        >
-          {title}
-        </Text>
+          }
+        ]}
+      >
+        {title}
+      </Text>
+    );
+
+    if (titleHref) {
+      return (
+        <View style={[styles.title, { paddingRight: theme.space.marginList }]}>
+          {element}
+          <Link href={titleHref} asChild>
+            <Touchable>
+              <View style={styles.moreWrapper}>
+                <Text variant="lg" style={styles.moreText}>
+                  <FormattedMessage key="all-link" defaultMessage="More" />
+                </Text>
+                <Icon color="brand-700" size={20} icon={ArrowNextIcon} />
+              </View>
+            </Touchable>
+          </Link>
+        </View>
       );
-
-      if (titleHref) {
-        return (
-          <View
-            style={[styles.title, { paddingRight: theme.space.marginList }]}
-          >
-            {element}
-            <Link href={titleHref} asChild>
-              <Touchable>
-                <View style={styles.moreWrapper}>
-                  <Text variant="lg" style={styles.moreText}>
-                    <FormattedMessage key="all-link" defaultMessage="More" />
-                  </Text>
-                  <Icon color="brand-700" size={20} icon={ArrowNextIcon} />
-                </View>
-              </Touchable>
-            </Link>
-          </View>
-        );
-      }
-
-      return element;
     }
 
-    return null;
+    return element;
   }, [title, titleHref]);
 
   return (
-    <View style={styles.wrapper}>
-      {renderTitle}
+    <View>
+      {!!title && renderTitle}
       <Animated.FlatList
         getItemLayout={withoutSizing ? undefined : getItemLayout}
         data={dataFormatted}
@@ -141,7 +137,8 @@ export function List({
         contentContainerStyle={[
           {
             gap,
-            paddingHorizontal: theme.space.marginList
+            paddingHorizontal: theme.space.marginList,
+            marginTop: title && dataFormatted ? theme.space.xs : undefined
           }
         ]}
       />
@@ -150,7 +147,6 @@ export function List({
 }
 
 const styles = StyleSheet.create({
-  wrapper: { gap: theme.space.xs },
   title: {
     flexDirection: 'row',
     gap: theme.space.xs,

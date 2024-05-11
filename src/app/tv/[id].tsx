@@ -29,21 +29,31 @@ export default function Tv() {
   const tvID = Number(params?.id);
 
   const { data, isLoading } = useGetTv({ id: tvID });
-  const seasons = data?.seasons?.filter((season) => season.season_number > 0);
-  const seasonsLength = seasons?.length;
-
   const { data: images, isLoading: isLoadingImages } = useGetTvImages({
     id: tvID
   });
-
   const { data: season, isLoading: isLoadingSeason } = useGetTvSeason({
     id: tvID,
     seasonNumber: selectedSeason
   });
-
   const { data: credits, isLoading: isLoadingCredits } = useGetTvCredits({
     id: tvID
   });
+
+  const tagline = data?.tagline;
+  const coverUrl = data?.coverUrl;
+  const name = data?.name;
+  const genres = data?.genres;
+  const logoUrl = images?.logo;
+  const startYear = data?.startYear;
+  const endYear = data?.endYear;
+  const runtime = data?.runtime;
+  const seasons = data?.seasons?.filter(
+    (item) => item.season_number > 0 && item.episode_count > 0
+  );
+  const seasonsLength = seasons?.length;
+  const seasonAirDate = season?.air_date;
+  const casting = credits?.cast;
 
   const renderItemSeason = ({
     item: { season_number }
@@ -76,10 +86,10 @@ export default function Tv() {
   return (
     <ContentLayout
       isLoading={isLoading || isLoadingImages}
-      imageUrl={data?.coverUrl}
-      title={data?.name}
-      subtitle={data?.genres}
-      logo={images?.logo}
+      imageUrl={coverUrl}
+      title={name}
+      subtitle={genres}
+      logo={logoUrl}
       badges={
         !isLoading && (
           <>
@@ -94,41 +104,41 @@ export default function Tv() {
                 )}
               </Badge>
             )}
-            {!!data?.startYear && (
+            {!!startYear && (
               <Badge>
-                {data.startYear}
-                {data?.endYear && ` - ${data.endYear}`}
+                {startYear}
+                {endYear && ` - ${endYear}`}
               </Badge>
             )}
-            {!!data?.runtime && (
-              <Badge icon={ClockFillIcon}>{formatTime(data.runtime)}</Badge>
+            {!!runtime && (
+              <Badge icon={ClockFillIcon}>{formatTime(runtime)}</Badge>
             )}
           </>
         )
       }
     >
-      {!!data?.tagline && (
+      {!!tagline && (
         <Text variant="lg" style={styles.tagline}>
-          {data.tagline}
+          {tagline}
         </Text>
       )}
       <View style={styles.content}>
         {!!seasonsLength && (
           <View>
-            {seasonsLength > 1 && (
-              <List
-                title={
-                  <FormattedMessage
-                    key="episodes-title"
-                    defaultMessage="Episodes"
-                  />
-                }
-                withoutSizing
-                id="seasons-buttons"
-                renderItem={renderItemSeason}
-                results={seasons}
-              />
-            )}
+            <List
+              title={
+                <FormattedMessage
+                  key="episodes-title"
+                  defaultMessage="Episodes"
+                />
+              }
+              gap={theme.space.sm}
+              withoutSizing
+              id="seasons-buttons"
+              renderItem={renderItemSeason}
+              results={seasonsLength > 1 ? seasons : null}
+            />
+            {isLoadingSeason && <View style={styles.seasonLoading} />}
             {!isLoadingSeason && (
               <View style={styles.episodesContent}>
                 <Text>
@@ -139,11 +149,14 @@ export default function Tv() {
                       seasonNumber: season.season_number
                     }}
                     key="episodes_number"
-                  />{' '}
+                  />
+                  {seasonAirDate &&
+                    ` • ${new Date(seasonAirDate).getFullYear()}`}
                 </Text>
                 <View style={styles.episodesList}>
                   {season.episodes.map((episode, index) => (
                     <EpisodeThumb
+                      airDate={episode.air_date}
                       number={index + 1}
                       runtime={episode.runtime}
                       key={episode.id}
@@ -158,7 +171,7 @@ export default function Tv() {
             )}
           </View>
         )}
-        {!!credits?.cast && (
+        {!!casting && (
           <List
             title={
               <FormattedMessage key="casting-title" defaultMessage="Casting" />
@@ -166,7 +179,7 @@ export default function Tv() {
             isLoading={isLoadingCredits}
             id="cast"
             renderItem={renderItemCast}
-            results={credits?.cast}
+            results={casting}
           />
         )}
       </View>
@@ -190,6 +203,9 @@ const styles = StyleSheet.create({
   },
   episodesList: {
     marginTop: theme.space.lg,
-    gap: theme.space.lg
+    gap: theme.space.xl
+  },
+  seasonLoading: {
+    height: 500
   }
 });

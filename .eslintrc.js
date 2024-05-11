@@ -57,10 +57,7 @@ module.exports = {
         memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single']
       }
     ],
-    'sort-destructure-keys/sort-destructure-keys': [
-      'warn',
-      { caseSensitive: false }
-    ],
+    '@typescript-eslint/no-shadow': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'import/no-duplicates': 2,
