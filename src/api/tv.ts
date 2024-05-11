@@ -11,12 +11,14 @@ export type UseGetTvImagesApiResponse =
   paths['/3/tv/{series_id}/images']['get']['responses']['200']['content']['application/json'];
 export type UseGetTvSeasonApiResponse =
   paths['/3/tv/{series_id}/season/{season_number}']['get']['responses']['200']['content']['application/json'];
+export type UseGetTvCreditsApiResponse =
+  paths['/3/tv/{series_id}/season/{season_number}/aggregate_credits']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetTvApiProps = {
   id: number;
 };
 
-export type UseGetTvSeasonApiProps = {
+export type UseGetTvWithSeasonApiProps = {
   id: number;
   seasonNumber: number;
 };
@@ -90,7 +92,7 @@ export function useGetTvImages(props?: UseGetTvApiProps) {
   });
 }
 
-export function useGetTvSeason(props?: UseGetTvSeasonApiProps) {
+export function useGetTvSeason(props?: UseGetTvWithSeasonApiProps) {
   const { id, seasonNumber } = props || {};
 
   const { queryUrl } = getApi({
@@ -98,7 +100,7 @@ export function useGetTvSeason(props?: UseGetTvSeasonApiProps) {
   });
 
   return useQuery({
-    queryKey: ['tv', id, 'images', 'season', seasonNumber],
+    queryKey: ['tv', id, 'season', seasonNumber],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetTvSeasonApiResponse> =
         await axios.get(queryUrl());
@@ -106,5 +108,26 @@ export function useGetTvSeason(props?: UseGetTvSeasonApiProps) {
       return data;
     },
     enabled: !!id && !!seasonNumber
+  });
+}
+
+export function useGetTvCredits(props?: UseGetTvApiProps) {
+  const { id } = props || {};
+
+  const { queryUrl } = getApi({
+    query: `tv/${id}/aggregate_credits`
+  });
+
+  return useQuery({
+    queryKey: ['tv', id, 'credits'],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetTvCreditsApiResponse> =
+        await axios.get(queryUrl());
+
+      return {
+        cast: data.cast.slice(0, 30)
+      };
+    },
+    enabled: !!id
   });
 }

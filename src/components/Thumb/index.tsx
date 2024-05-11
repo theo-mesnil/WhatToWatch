@@ -18,6 +18,7 @@ export type ThumbProps = {
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop | ImageSizePoster;
   isLoading?: boolean;
+  isRounded?: boolean;
   type: ContentType;
 };
 
@@ -28,10 +29,11 @@ export const Thumb = React.memo(
     imageUrl,
     imageWidth,
     isLoading,
+    isRounded,
     type
   }: ThumbProps) => {
     return (
-      <View style={styles.wrapper}>
+      <View style={[styles.wrapper, isRounded && styles.rounded]}>
         <ImageBackground
           source={{
             uri: getImageUrl(imageUrl, imageWidth)
@@ -59,6 +61,9 @@ const styles = StyleSheet.create({
   wrapper: {
     borderRadius: theme.radii.sm,
     overflow: 'hidden'
+  },
+  rounded: {
+    borderRadius: 500
   },
   image: {
     backgroundColor: theme.colors.ahead

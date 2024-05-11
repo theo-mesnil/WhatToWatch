@@ -49,7 +49,10 @@ export function ContentLayout({
   }, [HeaderComponent, navigation]);
 
   return (
-    <BasicLayout getScrollYPosition={getScrollYPosition}>
+    <BasicLayout
+      getScrollYPosition={getScrollYPosition}
+      contentContainerStyle={{ paddingBottom: theme.space.xl }}
+    >
       <Cover
         isLoading={isLoading}
         imageUrl={imageUrl}

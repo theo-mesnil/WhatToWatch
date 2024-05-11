@@ -3,6 +3,7 @@
   "app.(tabs).search.no-results": "Oh non ! Nous n'avons rien trouvé 🥺",
   "app.(tabs).search.placeholder": "Que voulez-vous regarder ?",
   "app.(tabs).search.search-list-title": "Nous vous proposons",
+  "app.tv.[id].casting-title": "Casting",
   "app.tv.[id].episodes-title": "Épisodes",
   "app.tv.[id].episodes_number": "{count} épisodes dans la saison {seasonNumber}",
   "components.List.index.all-link": "Voir tout",

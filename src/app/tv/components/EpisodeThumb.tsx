@@ -3,7 +3,6 @@ import { theme } from 'theme';
 
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
-import { getImageUrl } from 'utils/images';
 import { formatTime } from 'utils/time';
 
 export type EpisodeThumbProps = {
@@ -27,11 +26,7 @@ export function EpisodeThumb({
     <View style={styles.wrapper} key={id}>
       <View style={styles.main}>
         <View style={styles.thumb}>
-          <Thumb
-            type="tv"
-            aspectRatio={16 / 9}
-            imageUrl={getImageUrl(imageUrl)}
-          />
+          <Thumb type="tv" aspectRatio={16 / 9} imageUrl={imageUrl} />
         </View>
         <View style={styles.infos}>
           <Text style={styles.name} variant="lg">
@@ -47,7 +42,7 @@ export function EpisodeThumb({
 
 const styles = StyleSheet.create({
   wrapper: {
-    gap: theme.space.md
+    gap: theme.space.xs
   },
   main: {
     flexDirection: 'row'

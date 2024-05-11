@@ -4,12 +4,18 @@ import { FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
-import type { UseGetTvApiResponse } from 'api/tv';
-import { useGetTv, useGetTvImages, useGetTvSeason } from 'api/tv';
+import type { UseGetTvApiResponse, UseGetTvCreditsApiResponse } from 'api/tv';
+import {
+  useGetTv,
+  useGetTvCredits,
+  useGetTvImages,
+  useGetTvSeason
+} from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
 import { ClockFillIcon } from 'components/Icon';
 import { List } from 'components/List';
+import { PeopleThumb } from 'components/PeopleThumb';
 import { Text } from 'components/Text';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
@@ -35,6 +41,10 @@ export default function Tv() {
     seasonNumber: selectedSeason
   });
 
+  const { data: credits, isLoading: isLoadingCredits } = useGetTvCredits({
+    id: tvID
+  });
+
   const renderItemSeason = ({
     item: { season_number }
   }: ListRenderItemInfo<UseGetTvApiResponse['seasons'][number]>) => (
@@ -45,6 +55,16 @@ export default function Tv() {
     >
       S{season_number}
     </Button>
+  );
+
+  const renderItemCast = ({
+    item: { name, profile_path, roles }
+  }: ListRenderItemInfo<UseGetTvCreditsApiResponse['cast'][number]>) => (
+    <PeopleThumb
+      imageUrl={profile_path}
+      name={name}
+      character={roles?.[0]?.character}
+    />
   );
 
   React.useEffect(() => {
@@ -92,51 +112,64 @@ export default function Tv() {
           {data.tagline}
         </Text>
       )}
-      {!!seasonsLength && (
-        <View style={styles.episodes}>
-          {seasonsLength > 1 && (
-            <List
-              title={
-                <FormattedMessage
-                  key="episodes-title"
-                  defaultMessage="Episodes"
-                />
-              }
-              withoutSizing
-              id="seasons-buttons"
-              renderItem={renderItemSeason}
-              results={seasons}
-            />
-          )}
-          {!isLoadingSeason && (
-            <View style={styles.episodesContent}>
-              <Text>
-                <FormattedMessage
-                  defaultMessage="{count} episodes on season {seasonNumber}"
-                  values={{
-                    count: season.episodes.length,
-                    seasonNumber: season.season_number
-                  }}
-                  key="episodes_number"
-                />{' '}
-              </Text>
-              <View style={styles.episodesList}>
-                {season.episodes.map((episode, index) => (
-                  <EpisodeThumb
-                    number={index + 1}
-                    runtime={episode.runtime}
-                    key={episode.id}
-                    id={episode.id}
-                    name={episode.name}
-                    imageUrl={episode.still_path}
-                    overview={episode.overview}
+      <View style={styles.content}>
+        {!!seasonsLength && (
+          <View>
+            {seasonsLength > 1 && (
+              <List
+                title={
+                  <FormattedMessage
+                    key="episodes-title"
+                    defaultMessage="Episodes"
                   />
-                ))}
+                }
+                withoutSizing
+                id="seasons-buttons"
+                renderItem={renderItemSeason}
+                results={seasons}
+              />
+            )}
+            {!isLoadingSeason && (
+              <View style={styles.episodesContent}>
+                <Text>
+                  <FormattedMessage
+                    defaultMessage="{count} episodes on season {seasonNumber}"
+                    values={{
+                      count: season.episodes.length,
+                      seasonNumber: season.season_number
+                    }}
+                    key="episodes_number"
+                  />{' '}
+                </Text>
+                <View style={styles.episodesList}>
+                  {season.episodes.map((episode, index) => (
+                    <EpisodeThumb
+                      number={index + 1}
+                      runtime={episode.runtime}
+                      key={episode.id}
+                      id={episode.id}
+                      name={episode.name}
+                      imageUrl={episode.still_path}
+                      overview={episode.overview}
+                    />
+                  ))}
+                </View>
               </View>
-            </View>
-          )}
-        </View>
-      )}
+            )}
+          </View>
+        )}
+        {!!credits?.cast && (
+          <List
+            title={
+              <FormattedMessage key="casting-title" defaultMessage="Casting" />
+            }
+            isLoading={isLoadingCredits}
+            id="cast"
+            renderItem={renderItemCast}
+            results={credits?.cast}
+          />
+        )}
+      </View>
     </ContentLayout>
   );
 }
@@ -147,15 +180,16 @@ const styles = StyleSheet.create({
     marginTop: theme.space.md,
     paddingHorizontal: theme.space.marginList
   },
-  episodes: {
-    marginTop: theme.space.xxl
+  content: {
+    marginTop: theme.space.xxl,
+    gap: theme.space.xl
   },
   episodesContent: {
     marginTop: theme.space.md,
     paddingHorizontal: theme.space.marginList
   },
   episodesList: {
-    marginTop: theme.space.xl,
-    gap: theme.space.xl
+    marginTop: theme.space.lg,
+    gap: theme.space.lg
   }
 });
