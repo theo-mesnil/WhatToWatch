@@ -4,6 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 import type { Color } from 'theme';
 
+import type { GradientProps } from 'components/Gradient';
+import { Gradient } from 'components/Gradient';
 import { Text } from 'components/Text';
 import type { TouchableProps } from 'components/Touchable';
 import { Touchable } from 'components/Touchable';
@@ -11,6 +13,7 @@ import { Touchable } from 'components/Touchable';
 type ButtonProps = ViewProps & {
   backgroundColor?: Color;
   children: React.ReactNode;
+  gradientColors?: GradientProps['colors'];
   isCustomChildren?: boolean;
   isRounded?: boolean;
   isTransparent?: boolean;
@@ -21,6 +24,7 @@ type ButtonProps = ViewProps & {
 
 export function Button({
   children,
+  gradientColors,
   isCustomChildren,
   isRounded,
   isTransparent,
@@ -43,13 +47,16 @@ export function Button({
         ]}
         {...rest}
       >
+        {gradientColors && <Gradient angle={10} colors={gradientColors} />}
         {isCustomChildren ? (
           children
         ) : (
           <Text
+            variant={size}
             style={[
               styles[`text-${variant}`],
-              size === 'lg' && styles['text-lg']
+              size === 'lg' && styles['text-lg'],
+              gradientColors && styles.gradientColors
             ]}
           >
             {children}
@@ -62,9 +69,12 @@ export function Button({
 
 const styles = StyleSheet.create({
   wrapper: {
+    flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: theme.radii.sm,
-    paddingHorizontal: theme.space.lg
+    paddingHorizontal: theme.space.lg,
+    overflow: 'hidden'
   },
   primary: {
     backgroundColor: theme.colors['default-700']
@@ -91,9 +101,13 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     borderRadius: 30,
+    paddingHorizontal: 0,
     alignItems: 'center'
   },
   transparent: {
     backgroundColor: 'transparent'
+  },
+  gradientColors: {
+    color: theme.colors.white
   }
 });

@@ -2,6 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 
+import type { NetworkId } from 'types/content';
+import { getNetworkFromUrl } from 'utils/networks';
+
 import { getApi } from './api';
 import type { paths } from './types';
 
@@ -43,6 +46,8 @@ export function useGetTv(props?: UseGetTvApiProps) {
         ? new Date(data.last_air_date).getFullYear()
         : undefined;
 
+      const networkId = getNetworkFromUrl(data.homepage);
+
       return {
         coverUrl: data.backdrop_path,
         endYear: startYear === endYear ? undefined : endYear,
@@ -52,6 +57,12 @@ export function useGetTv(props?: UseGetTvApiProps) {
           .flat()
           .join(' - '),
         name: data.name,
+        networkLink: networkId
+          ? {
+              id: networkId as NetworkId,
+              link: data.homepage
+            }
+          : undefined,
         runtime:
           data.episode_run_time.reduce((partialSum, a) => partialSum + a, 0) /
           data.episode_run_time.length,

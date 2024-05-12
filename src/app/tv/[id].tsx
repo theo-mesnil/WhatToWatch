@@ -1,7 +1,12 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import {
+  Linking,
+  type ListRenderItemInfo,
+  StyleSheet,
+  View
+} from 'react-native';
 import { theme } from 'theme';
 
 import type { UseGetTvApiResponse, UseGetTvCreditsApiResponse } from 'api/tv';
@@ -13,11 +18,12 @@ import {
 } from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
-import { ClockFillIcon } from 'components/Icon';
+import { ClockFillIcon, Icon } from 'components/Icon';
 import { List } from 'components/List';
 import { PeopleThumb } from 'components/PeopleThumb';
 import { Text } from 'components/Text';
 import { ContentLayout } from 'layouts/Content';
+import { getNetworkColor, getNetworkLogo } from 'utils/networks';
 import { formatTime } from 'utils/time';
 
 import { EpisodeThumb } from './components/EpisodeThumb';
@@ -48,6 +54,7 @@ export default function Tv() {
   const startYear = data?.startYear;
   const endYear = data?.endYear;
   const runtime = data?.runtime;
+  const networkLink = data?.networkLink;
   const seasons = data?.seasons?.filter(
     (item) => item.season_number > 0 && item.episode_count > 0
   );
@@ -117,6 +124,20 @@ export default function Tv() {
         )
       }
     >
+      {!!networkLink && (
+        <Button
+          size="lg"
+          style={styles.watchButton}
+          gradientColors={getNetworkColor(networkLink.id)}
+          onPress={() => Linking.openURL(networkLink.link)}
+        >
+          <FormattedMessage defaultMessage="Watch on" id="watch-on" />
+          {'  '}
+          <View style={styles.watchButtonLogo}>
+            <Icon size={60} icon={getNetworkLogo(networkLink.id)} />
+          </View>{' '}
+        </Button>
+      )}
       {!!tagline && (
         <Text variant="lg" style={styles.tagline}>
           {tagline}
@@ -188,6 +209,13 @@ export default function Tv() {
 }
 
 const styles = StyleSheet.create({
+  watchButton: {
+    marginHorizontal: theme.space.marginList
+  },
+  watchButtonLogo: {
+    justifyContent: 'center',
+    paddingTop: 7
+  },
   tagline: {
     color: theme.colors.white,
     marginTop: theme.space.md,
