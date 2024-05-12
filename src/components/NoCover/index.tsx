@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { DimensionValue } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
+import { theme } from 'theme';
 
 import { Gradient } from 'components/Gradient';
 import type { IconElement } from 'components/Icon';
@@ -32,7 +33,7 @@ export function NoCover({
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: 'ahead',
+    backgroundColor: theme.colors.ahead,
     alignItems: 'center',
     justifyContent: 'center'
   }

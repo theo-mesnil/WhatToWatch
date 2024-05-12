@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   thumb: {
-    width: 120
+    width: 150
   },
   infos: {
     marginLeft: theme.space.md,

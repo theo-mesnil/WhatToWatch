@@ -13,7 +13,7 @@ export type PeopleThumbProps = {
 export function PeopleThumb({ character, imageUrl, name }: PeopleThumbProps) {
   return (
     <View>
-      <Thumb aspectRatio={3 / 4} type="person" imageUrl={imageUrl} />
+      <Thumb isRounded aspectRatio={1 / 1} type="person" imageUrl={imageUrl} />
       <Text style={styles.name}>{name}</Text>
       {character && <Text>{character}</Text>}
     </View>
