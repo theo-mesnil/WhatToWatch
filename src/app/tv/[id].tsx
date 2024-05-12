@@ -1,12 +1,7 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import {
-  Linking,
-  type ListRenderItemInfo,
-  StyleSheet,
-  View
-} from 'react-native';
+import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
 import type { UseGetTvApiResponse, UseGetTvCreditsApiResponse } from 'api/tv';
@@ -18,12 +13,12 @@ import {
 } from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
-import { ClockFillIcon, Icon, StarFillIcon } from 'components/Icon';
+import { ButtonNetwork } from 'components/ButtonNetwork';
+import { ClockFillIcon, StarFillIcon } from 'components/Icon';
 import { List } from 'components/List';
 import { PeopleThumb } from 'components/PeopleThumb';
 import { Text } from 'components/Text';
 import { ContentLayout } from 'layouts/Content';
-import { getNetworkColor, getNetworkLogo } from 'utils/networks';
 import { formatTime } from 'utils/time';
 
 import { EpisodeThumb } from './components/EpisodeThumb';
@@ -131,18 +126,7 @@ export default function Tv() {
       }
     >
       {!!networkLink && (
-        <Button
-          size="lg"
-          style={styles.watchButton}
-          gradientColors={getNetworkColor(networkLink.id)}
-          onPress={() => Linking.openURL(networkLink.link)}
-        >
-          <FormattedMessage defaultMessage="Watch on" id="watch-on" />
-          {'  '}
-          <View style={styles.watchButtonLogo}>
-            <Icon size={60} icon={getNetworkLogo(networkLink.id)} />
-          </View>{' '}
-        </Button>
+        <ButtonNetwork id={networkLink.id} link={networkLink.link} />
       )}
       {!!tagline && (
         <Text variant="lg" style={styles.tagline}>
@@ -200,9 +184,7 @@ export default function Tv() {
         )}
         {!!casting && (
           <List
-            title={
-              <FormattedMessage key="casting-title" defaultMessage="Casting" />
-            }
+            title={<FormattedMessage id="casting" defaultMessage="Casting" />}
             isLoading={isLoadingCredits}
             id="cast"
             renderItem={renderItemCast}
@@ -215,13 +197,6 @@ export default function Tv() {
 }
 
 const styles = StyleSheet.create({
-  watchButton: {
-    marginHorizontal: theme.space.marginList
-  },
-  watchButtonLogo: {
-    justifyContent: 'center',
-    paddingTop: 7
-  },
   tagline: {
     color: theme.colors.white,
     marginTop: theme.space.md,

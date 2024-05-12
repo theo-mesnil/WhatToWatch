@@ -68,21 +68,18 @@ export default function Search() {
   >) => {
     const isLoadingItem = isLoading || isSearchLoading;
 
-    if (media_type === 'tv') {
-      return (
-        <ThumbLink href={`/tv/${id}`} isLoading={isLoadingItem}>
-          <Thumb type={media_type} imageUrl={poster_path} imageWidth="w300" />
-        </ThumbLink>
-      );
+    if (media_type === 'person') {
+      return <Text>todo</Text>;
     }
 
     return (
-      <Thumb
-        isLoading={isLoadingItem}
-        type={media_type as ContentType}
-        imageUrl={poster_path}
-        imageWidth="w300"
-      />
+      <ThumbLink href={`/${media_type}/${id}`} isLoading={isLoadingItem}>
+        <Thumb
+          type={media_type as ContentType}
+          imageUrl={poster_path}
+          imageWidth="w300"
+        />
+      </ThumbLink>
     );
   };
 
