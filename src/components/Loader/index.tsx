@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { Animated } from 'react-native';
+import type { ViewProps } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
 
-import { AnimatedBox } from 'components/AnimatedBox';
-import { Box, BoxProps } from 'components/Box';
+import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
 
-export interface LoaderProps extends BoxProps {
-  colors?: [Color, Color];
-}
+export type LoaderProps = ViewProps & {
+  colors?: GradientProps['colors'];
+};
 
 export function Loader({
-  colors = ['dark600', 'dark800'],
+  colors = [theme.colors['default-700'], theme.colors['default-900']],
+  style,
   ...rest
 }: LoaderProps) {
   const startValue = 0.1;
@@ -34,16 +36,27 @@ export function Loader({
   });
 
   return (
-    <Box backgroundColor="ahead" {...rest}>
-      <AnimatedBox
-        style={{
-          opacity: fadeAnim
-        }}
-        width="100%"
-        height="100%"
+    <View style={[style, styles.wrapper]} {...rest}>
+      <Animated.View
+        style={[
+          {
+            opacity: fadeAnim
+          },
+          styles.content
+        ]}
       >
-        <Gradient angle={-0.4} colors={colors} width="100%" height="100%" />
-      </AnimatedBox>
-    </Box>
+        <Gradient angle={-0.4} colors={colors} />
+      </Animated.View>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: theme.colors.ahead
+  },
+  content: {
+    width: '100%',
+    height: '100%'
+  }
+});

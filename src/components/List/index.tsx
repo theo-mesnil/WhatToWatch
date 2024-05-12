@@ -1,139 +1,167 @@
+import { Link } from 'expo-router';
 import * as React from 'react';
-import { Animated, ListRenderItem } from 'react-native';
-import { useTheme } from 'styled-components/native';
+import { FormattedMessage } from 'react-intl';
+import type { FlatListProps, ListRenderItemInfo } from 'react-native';
+import { Animated, Dimensions, StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
 
-import { Box, BoxProps } from 'components/Box';
+import { ArrowNextIcon, Icon } from 'components/Icon';
 import { Text } from 'components/Text';
-import { fakeData10 } from 'constants/mocks';
-import { screenWidth } from 'constants/screen';
+import { Touchable } from 'components/Touchable';
+import { fakeData30 } from 'constants/mocks';
 
-import * as S from './styles';
-
-type Item = {
-  id?: number;
-  index: number;
-  media_type?: string;
-  name?: string;
-  type?: string;
-};
-
-type ListItem = React.ElementType;
-
-export type ListProps = BoxProps & {
-  actions?: React.ReactNode;
-  aspectRatio?: number;
-  autoWidthOnItem?: boolean;
-  data?: any;
-  imageWidth?: number;
-  itemPerPage?: number;
-  itemProps?: {
-    [key: string]: any;
-  };
-  keyName: string;
-  listItem: ListItem;
-  onPress?: (params: any) => any;
+type VerticalListProps = Pick<
+  FlatListProps<any>,
+  'initialNumToRender' | 'ListHeaderComponent' | 'renderItem'
+> & {
+  gap?: number;
+  /** uniq id for performance */
+  id: string;
+  isLoading?: boolean;
+  numberOfItems?: number;
+  results?: any;
   title?: JSX.Element | string;
-  withBackdropImage?: boolean;
-  withTitleOnCover?: boolean;
+  titleHref?: string;
+  /** remove resize from List render item */
+  withoutSizing?: boolean;
 };
 
-export const List = React.memo(
-  ({
-    actions,
-    aspectRatio,
-    autoWidthOnItem,
-    data,
-    imageWidth,
-    itemPerPage = 3,
-    itemProps = {},
-    keyName,
-    listItem: ListItem,
-    onPress,
-    title,
-    withBackdropImage,
-    withTitleOnCover,
-    ...rest
-  }: ListProps) => {
-    const theme = useTheme();
-    const isLoading = !data;
-    const dataFormatted = data || fakeData10;
-    const marginList = theme.space.lg;
-    const marginItem = theme.space.sm;
-    const width = React.useMemo(
-      () =>
-        screenWidth / itemPerPage -
-        (marginItem - marginItem / itemPerPage) -
-        (marginItem * 2) / itemPerPage -
-        (marginItem + marginList) / itemPerPage,
-      [itemPerPage, marginItem, marginList]
-    );
+export function List({
+  gap = theme.space.xs,
+  id,
+  initialNumToRender = 20,
+  isLoading,
+  ListHeaderComponent,
+  numberOfItems = 3,
+  renderItem,
+  results,
+  title,
+  titleHref,
+  withoutSizing
+}: VerticalListProps) {
+  const dataFormatted = isLoading ? fakeData30 : results;
 
-    function handlePress({ index, item }) {
-      onPress &&
-        onPress({
-          id: item?.id,
-          type: item?.type || item?.media_type,
-          name: item?.name || item?.title,
-          index
-        });
-    }
+  const screenWidth = Dimensions.get('window').width;
 
-    const renderItem: ListRenderItem<Item> = ({ index, item }) => {
-      return (
-        <ListItem
-          aspectRatio={aspectRatio}
-          item={item}
-          imageWidth={imageWidth}
-          onPress={() => handlePress({ index, item })}
-          isTag={autoWidthOnItem}
-          width={!autoWidthOnItem ? `${width}px` : undefined}
-          isLoading={isLoading}
-          withTitleOnCover={withTitleOnCover}
-          withBackdropImage={withBackdropImage}
-          {...itemProps}
-        />
-      );
-    };
+  const itemSize = React.useMemo(
+    () =>
+      screenWidth / numberOfItems -
+      gap -
+      theme.space.marginList / numberOfItems -
+      theme.space.lg / numberOfItems,
+    [screenWidth, numberOfItems, gap]
+  );
 
+  const internalRenderItem = React.useCallback(
+    (props: ListRenderItemInfo<any>) => {
+      if (renderItem) {
+        return (
+          <View style={{ width: withoutSizing ? undefined : itemSize }}>
+            {renderItem(props)}
+          </View>
+        );
+      }
+
+      return null;
+    },
+    [itemSize, renderItem, withoutSizing]
+  );
+
+  function renderListHeaderComponent() {
     return (
-      <Box {...rest}>
-        {(!!title || !!actions) && (
-          <Box
-            flex={1}
-            justifyContent="space-between"
-            flexDirection="row"
-            px="lg"
-            mb="sm"
-          >
-            {!!title && (
-              <Text numberOfLines={1} variant="h2">
-                {title}
-              </Text>
-            )}
-            {!!actions && (
-              <Box flexGrow={0} flexDirection="row" alignItems="center">
-                {actions}
-              </Box>
-            )}
-          </Box>
-        )}
-        <Box flex={1}>
-          <Animated.FlatList
-            initialNumToRender={itemPerPage + 1}
-            horizontal
-            data={dataFormatted}
-            keyExtractor={(item, index) =>
-              `${isLoading ? item : item.id}_${keyName}_${index}`
-            }
-            showsHorizontalScrollIndicator={false}
-            // @ts-ignore
-            ItemSeparatorComponent={<S.Separator />}
-            ListHeaderComponent={<S.BeforeAndAfter />}
-            ListFooterComponent={<S.BeforeAndAfter />}
-            renderItem={renderItem}
-          />
-        </Box>
-      </Box>
+      <View style={{ width: withoutSizing ? undefined : itemSize }}>
+        {ListHeaderComponent as React.ReactElement}
+      </View>
     );
   }
-);
+
+  function getItemLayout(_: any, index: number) {
+    return {
+      length: itemSize,
+      offset: itemSize * index + theme.space.marginList + gap * index,
+      index
+    };
+  }
+
+  const renderTitle = React.useMemo(() => {
+    const element = (
+      <Text
+        variant="h2"
+        style={[
+          {
+            marginHorizontal: theme.space.marginList
+          }
+        ]}
+      >
+        {title}
+      </Text>
+    );
+
+    if (titleHref) {
+      return (
+        <View style={[styles.title, { paddingRight: theme.space.marginList }]}>
+          {element}
+          <Link href={titleHref} asChild>
+            <Touchable>
+              <View style={styles.moreWrapper}>
+                <Text variant="lg" style={styles.moreText}>
+                  <FormattedMessage key="all-link" defaultMessage="More" />
+                </Text>
+                <Icon color="brand-700" size={20} icon={ArrowNextIcon} />
+              </View>
+            </Touchable>
+          </Link>
+        </View>
+      );
+    }
+
+    return element;
+  }, [title, titleHref]);
+
+  return (
+    <View>
+      {!!title && renderTitle}
+      <Animated.FlatList
+        getItemLayout={withoutSizing ? undefined : getItemLayout}
+        data={dataFormatted}
+        initialNumToRender={initialNumToRender}
+        keyExtractor={(item, index) =>
+          isLoading ? `loading_${index}_${id}` : `${index}_${item.id}_${id}`
+        }
+        ListHeaderComponent={
+          ListHeaderComponent ? renderListHeaderComponent : undefined
+        }
+        renderItem={internalRenderItem}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={[
+          {
+            gap,
+            paddingHorizontal: theme.space.marginList,
+            marginTop: title && dataFormatted ? theme.space.xs : undefined
+          }
+        ]}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  title: {
+    flexDirection: 'row',
+    gap: theme.space.xs,
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  moreWrapper: {
+    gap: theme.space.xxs,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  moreText: {
+    color: theme.colors['brand-700']
+  },
+  itemHeader: {
+    flex: 1
+  }
+});

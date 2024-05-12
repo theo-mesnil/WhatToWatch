@@ -1,45 +1,39 @@
 import * as React from 'react';
+import type { DimensionValue } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { globalStyles } from 'styles';
 
-import { Box } from 'components/Box';
 import { Gradient } from 'components/Gradient';
-import { Icon, IconElement } from 'components/Icon';
+import type { IconElement } from 'components/Icon';
+import { Icon } from 'components/Icon';
 
 type NoCoverProps = {
   icon: IconElement;
   opacity?: number;
-  size?: number;
+  size?: DimensionValue;
   withGradient?: boolean;
 };
 
 export function NoCover({
   icon,
   opacity = 0.3,
-  size = 0.6,
+  size = '60%',
   withGradient
 }: NoCoverProps) {
   return (
     <>
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Icon icon={icon} size={size} opacity={opacity} />
-      </Box>
-      {withGradient && (
-        <Gradient
-          position="absolute"
-          top={0}
-          bottom={0}
-          left={0}
-          right={0}
-          opacity={0.3}
-        />
-      )}
+      <View style={[styles.wrapper, globalStyles.absoluteFill, { opacity }]}>
+        <Icon icon={icon} size={size} />
+      </View>
+      {withGradient && <Gradient style={{ opacity }} />}
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: 'ahead',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});

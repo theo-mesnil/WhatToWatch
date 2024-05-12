@@ -10,7 +10,14 @@ module.exports = function (api) {
           extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json']
         }
       ],
-      'babel-plugin-styled-components'
+      [
+        'react-intl-auto',
+        {
+          removePrefix: 'src/',
+          filebase: true,
+          useKey: true
+        }
+      ]
     ]
   };
 };

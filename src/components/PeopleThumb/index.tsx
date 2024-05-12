@@ -1,89 +1,28 @@
-import * as React from 'react';
-import { ImageBackground } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
 
-import { Box } from 'components/Box';
-import { Gradient } from 'components/Gradient';
-import { PeopleFillIcon } from 'components/Icon';
-import { Loader } from 'components/Loader';
-import { NoCover } from 'components/NoCover';
 import { Text } from 'components/Text';
-import { Touchable, TouchableProps } from 'components/Touchable';
-import { getImageUrl } from 'utils/images';
+import { Thumb } from 'components/Thumb';
 
-import * as S from './styles';
-
-type PeopleThumbProps = Pick<TouchableProps, 'onPress'> & {
-  aspectRatio?: number;
-  isLoading?: boolean;
-  item: {
-    character: string;
-    name: string;
-    profile_path: string;
-  };
+export type PeopleThumbProps = {
+  character?: string;
+  imageUrl: string;
+  name: string;
 };
 
-export function PeopleThumb({
-  aspectRatio = 3 / 5,
-  isLoading,
-  item,
-  onPress,
-  ...rest
-}: PeopleThumbProps) {
-  const title = item?.name;
-  const subtitle = item?.character;
-  const cover = item?.profile_path;
-
+export function PeopleThumb({ character, imageUrl, name }: PeopleThumbProps) {
   return (
-    <Box {...rest}>
-      <Touchable onPress={!isLoading ? onPress : undefined}>
-        <S.People>
-          <ImageBackground
-            source={{ uri: getImageUrl(cover) }}
-            style={{
-              aspectRatio
-            }}
-          >
-            {isLoading ? (
-              <Loader height="100%" />
-            ) : (
-              <>
-                {!cover && <NoCover icon={PeopleFillIcon} />}
-                <Gradient
-                  position="absolute"
-                  top="30%"
-                  bottom={-1}
-                  left={0}
-                  right={0}
-                  opacity={0.9}
-                />
-                <Box
-                  pb="xs"
-                  pl="xs"
-                  pr="xs"
-                  justifyContent="flex-end"
-                  flexGrow={1}
-                >
-                  {!!title && (
-                    <Text
-                      variant="h3"
-                      mt="xxs"
-                      numberOfLines={!subtitle ? 2 : 1}
-                      textAlign={!subtitle ? 'center' : undefined}
-                    >
-                      {title}
-                    </Text>
-                  )}
-                  {!!subtitle && (
-                    <Text variant="subtitle2" numberOfLines={1}>
-                      {subtitle}
-                    </Text>
-                  )}
-                </Box>
-              </>
-            )}
-          </ImageBackground>
-        </S.People>
-      </Touchable>
-    </Box>
+    <View>
+      <Thumb aspectRatio={3 / 4} type="person" imageUrl={imageUrl} />
+      <Text style={styles.name}>{name}</Text>
+      {character && <Text>{character}</Text>}
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  name: {
+    color: theme.colors.white,
+    marginTop: theme.space.xs
+  }
+});

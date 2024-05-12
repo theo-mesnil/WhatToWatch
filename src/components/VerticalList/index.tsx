@@ -1,136 +1,82 @@
 import * as React from 'react';
-import { Animated } from 'react-native';
-import { useTheme } from 'styled-components/native';
-import { SpaceProps } from 'styled-system';
+import type { FlatListProps, ListRenderItemInfo } from 'react-native';
+import { Animated, Dimensions, View } from 'react-native';
+import { theme } from 'theme';
 
-import { GetApi } from 'api/api';
-import { Box } from 'components/Box';
 import { fakeData30 } from 'constants/mocks';
 
-type Param = {
-  name: string;
-  value: number | string;
-};
-
-type VerticalListProps = {
-  ListHeaderComponent?: React.ReactElement;
-  aspectRatio?: number;
-  children?: React.ReactNode;
-  contentContainerStyle?: any;
-  getApi?: ({ callback, params, type }: GetApi) => void;
-  handleScroll?: (scrollY: Animated.Value) => void;
-  initialNumToRender?: number;
-  itemProps?: {
-    [key: string]: any;
-  };
-  maxPage?: number;
-  numberOfColumns?: number;
-  onPress?: (props: any) => void;
-  paddingTop?: SpaceProps['pt'];
-  params?: Param[];
-  renderItem: React.ElementType;
-  resultsData?: any;
-  type?: Type;
+type VerticalListProps = Pick<
+  FlatListProps<any>,
+  | 'contentContainerStyle'
+  | 'initialNumToRender'
+  | 'ListHeaderComponent'
+  | 'numColumns'
+  | 'onEndReached'
+  | 'renderItem'
+> & {
+  gap?: number;
+  getScrollYPosition?: (value: Animated.Value) => void;
+  /** uniq id for performance */
+  id: string;
+  isLoading?: boolean;
+  results?: any;
 };
 
 export function VerticalList({
-  aspectRatio,
-  children,
   contentContainerStyle = {},
-  getApi,
-  handleScroll,
+  gap = theme.space.xs,
+  getScrollYPosition,
+  id,
   initialNumToRender = 20,
-  itemProps = {},
+  isLoading,
   ListHeaderComponent,
-  maxPage = 20,
-  numberOfColumns = 3,
-  onPress,
-  paddingTop,
-  params = [],
-  renderItem: Item,
-  resultsData,
-  type
+  numColumns = 3,
+  onEndReached,
+  renderItem,
+  results
 }: VerticalListProps) {
-  const [scrollY] = React.useState(new Animated.Value(0));
-  const [results, setResults] = React.useState(resultsData || 'loading');
-  const [page, setPage] = React.useState(1);
-  const theme = useTheme();
-  const resultFromParent = !!resultsData;
-  const isLoading = results === 'loading' || resultsData === 'loading';
   const dataFormatted = isLoading ? fakeData30 : results;
 
-  React.useEffect(() => {
-    handleScroll && handleScroll(scrollY);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scrollY]);
+  const screenWidth = Dimensions.get('window').width;
+  const availableSpace =
+    screenWidth - theme.space.marginList * 2 - (numColumns - 1) * gap;
+  const itemSize = availableSpace / numColumns;
+  const [scrollY] = React.useState(new Animated.Value(0));
 
-  function renderItem({ item }) {
-    return (
-      <Box flex={1} maxWidth={`${100 / numberOfColumns}%`} p="xs">
-        <Item
-          item={item}
-          aspectRatio={aspectRatio}
-          onPress={() =>
-            onPress &&
-            onPress({
-              id: item?.id,
-              name: item?.name,
-              mediaType: item?.media_type
-            })
-          }
-          isLoading={isLoading}
-          {...itemProps}
-        />
-      </Box>
-    );
+  React.useEffect(
+    () => getScrollYPosition?.(scrollY),
+    [getScrollYPosition, scrollY]
+  );
+
+  function internalRenderItem(props: ListRenderItemInfo<any>) {
+    if (renderItem) {
+      return <View style={{ width: itemSize }}>{renderItem(props)}</View>;
+    }
+
+    return null;
   }
 
-  function setNewPage() {
-    if (page < maxPage) {
-      setPage(page + 1);
+  function renderListHeaderComponent() {
+    if (ListHeaderComponent) {
+      return (
+        <View style={{ width: screenWidth - theme.space.marginList * 2 }}>
+          {ListHeaderComponent as React.ReactElement}
+        </View>
+      );
     }
+
+    return null;
   }
-
-  function getNewPageData(newData) {
-    if (results) {
-      setResults(results.concat(newData));
-    }
-  }
-
-  React.useEffect(() => {
-    if (!resultFromParent) {
-      getApi({
-        callback: page === 1 ? setResults : getNewPageData,
-        params: [{ name: 'page', value: page }, ...params],
-        type
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
-
-  React.useEffect(() => {
-    setResults(resultsData);
-  }, [resultsData]);
 
   return (
     <Animated.FlatList
+      onEndReached={onEndReached}
       bounces={false}
       data={dataFormatted}
       initialNumToRender={initialNumToRender}
       keyExtractor={(item, index) =>
-        isLoading ? `loading_${index}` : `${index}_${item.id}`
+        isLoading ? `loading_${index}_${id}` : `${index}_${item.id}_${id}`
       }
-      ListHeaderComponent={
-        ListHeaderComponent ||
-        (!!children && (
-          <Box mb="lg" pt={paddingTop}>
-            {children}
-          </Box>
-        ))
-      }
-      numColumns={numberOfColumns}
-      onEndReached={!resultFromParent && setNewPage}
-      onEndReachedThreshold={1}
       onScroll={Animated.event(
         [
           {
@@ -140,15 +86,22 @@ export function VerticalList({
           }
         ],
         {
-          useNativeDriver: true
+          useNativeDriver: false
         }
       )}
-      renderItem={renderItem}
+      numColumns={numColumns}
+      onEndReachedThreshold={1}
+      ListHeaderComponent={renderListHeaderComponent}
+      renderItem={internalRenderItem}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingBottom: theme.space.lg,
-        ...contentContainerStyle
-      }}
+      columnWrapperStyle={{ gap }}
+      contentContainerStyle={[
+        {
+          gap,
+          marginLeft: theme.space.marginList
+        },
+        contentContainerStyle
+      ]}
     />
   );
 }

@@ -1,13 +1,15 @@
 module.exports = {
   root: true,
-  extends: ['@react-native-community', 'plugin:typescript-sort-keys/recommended'],
+  extends: [
+    '@react-native-community',
+    'plugin:typescript-sort-keys/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended'
+  ],
   plugins: ['import', 'sort-destructure-keys', 'eslint-plugin-prettier'],
   parser: '@typescript-eslint/parser',
   rules: {
-    'no-console': 'warn',
-    'import/no-default-export': ['off'],
     'comma-dangle': ['error', 'never'],
-    'react/jsx-indent-props': [2, 2],
+    'import/no-default-export': ['off'],
     'import/order': [
       2,
       {
@@ -40,6 +42,13 @@ module.exports = {
         pathGroupsExcludedImportTypes: ['react']
       }
     ],
+    'no-console': 'warn',
+    'react/jsx-indent-props': [2, 2],
+    'react/react-in-jsx-scope': 'off',
+    'sort-destructure-keys/sort-destructure-keys': [
+      'warn',
+      { caseSensitive: false }
+    ],
     'sort-imports': [
       'warn',
       {
@@ -48,16 +57,16 @@ module.exports = {
         memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single']
       }
     ],
-    'sort-destructure-keys/sort-destructure-keys': [
-      'warn',
-      { caseSensitive: false }
-    ],
+    '@typescript-eslint/no-shadow': 'off',
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['error']
+    '@typescript-eslint/no-unused-vars': 'error',
+    'import/no-duplicates': 2,
+    '@typescript-eslint/consistent-type-imports': ['error']
   },
   settings: {
     'import/resolve': {
       moduleDirectory: ['node_modules', 'src']
     }
-  }
+  },
+  ignorePatterns: ['src/api/types.d.ts']
 };

@@ -1,24 +1,44 @@
-import * as React from 'react';
+import type { UseInfiniteQueryOptions } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-import { errorLog } from 'utils/logger';
+import type { SpecificApiParam } from './api';
+import { getApi } from './api';
+import type { paths } from './types';
 
-import { GetApi, useApiUrl } from './api';
+export type UseGetSearchApiResponse =
+  paths['/3/search/multi']['get']['responses']['200']['content']['application/json'];
 
-export const useGetSearch = () => {
-  const apiUrl = useApiUrl();
+export type UseGetSearchApiParams =
+  paths['/3/search/multi']['get']['parameters']['query'];
 
-  const handleData = React.useCallback(
-    async ({ callback, params }: Omit<GetApi, 'type'>) => {
-      try {
-        const response = await fetch(apiUrl({ query: 'search/multi', params }));
-        const json = await response.json();
-        callback(json?.results);
-      } catch (error) {
-        errorLog(error);
-      }
-    },
-    [apiUrl]
-  );
-
-  return handleData;
+export type UseGetSearchApiProps = {
+  enabled?: UseInfiniteQueryOptions['enabled'];
+  maxPages?: number;
+  params?: SpecificApiParam<UseGetSearchApiParams>[];
 };
+
+export function useGetSearch(props?: UseGetSearchApiProps) {
+  const { enabled = true, maxPages = 30, params } = props || {};
+
+  const { queryParams, queryUrl } = getApi({
+    query: 'search/multi',
+    params
+  });
+
+  return useInfiniteQuery({
+    queryKey: ['search', 'multi', ...queryParams],
+    queryFn: async ({ pageParam }) => {
+      const { data }: AxiosResponse<UseGetSearchApiResponse> = await axios.get(
+        queryUrl(pageParam)
+      );
+      return data;
+    },
+    enabled,
+    initialPageParam: 1,
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined;
+    }
+  });
+}

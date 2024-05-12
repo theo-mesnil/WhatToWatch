@@ -1,63 +1,92 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from 'expo-router';
 import * as React from 'react';
-import { Animated } from 'react-native';
-import { useTheme } from 'styled-components/native';
+import { Animated, StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
 
-import { getTextFont } from 'components/Text';
+import { Text } from 'components/Text';
+import { COVER_HEIGHT } from 'constants/cover';
+import { BasicLayout } from 'layouts/Basic';
 
-type ContentLayoutProps = {
+import { Cover } from './Cover';
+import { Header } from './Header';
+
+export type ContentLayoutProps = {
+  badges: React.ReactNode;
   children: React.ReactNode;
-  titleOffset?: number;
-  titleOffsetSubtraction?: number;
+  imageUrl?: string;
+  isLoading?: boolean;
+  logo?: {
+    aspectRatio: number;
+    url: string;
+  };
+  subtitle?: string;
+  title?: string;
 };
 
 export function ContentLayout({
+  badges,
   children,
-  titleOffset = 400,
-  titleOffsetSubtraction = 50,
-  ...rest
+  imageUrl,
+  isLoading,
+  logo,
+  subtitle,
+  title
 }: ContentLayoutProps) {
-  const [scrollY] = React.useState(new Animated.Value(0));
+  const [scrollYPosition, getScrollYPosition] = React.useState(
+    new Animated.Value(0)
+  );
   const navigation = useNavigation();
-  const theme = useTheme();
 
-  const headerOpacity = scrollY.interpolate({
-    inputRange: [titleOffset - titleOffsetSubtraction, titleOffset],
-    outputRange: [0, 1]
-  });
+  const HeaderComponent = React.useCallback(
+    () => <Header title={title} scrollY={scrollYPosition} />,
+    [scrollYPosition, title]
+  );
 
   React.useEffect(() => {
     navigation.setOptions({
-      headerBackgroundContainerStyle: {
-        opacity: headerOpacity || 0
-      },
-      headerTitleStyle: {
-        ...getTextFont('h2', theme),
-        opacity: headerOpacity || 0
-      }
+      header: HeaderComponent
     });
-  }, [headerOpacity, navigation, theme]);
+  }, [HeaderComponent, navigation]);
 
   return (
-    <Animated.ScrollView
-      bounces={false}
-      scrollEventThrottle={1}
-      showsVerticalScrollIndicator={false}
-      onScroll={Animated.event(
-        [
-          {
-            nativeEvent: {
-              contentOffset: { y: scrollY }
-            }
-          }
-        ],
-        {
-          useNativeDriver: true
-        }
-      )}
-      {...rest}
+    <BasicLayout
+      getScrollYPosition={getScrollYPosition}
+      contentContainerStyle={{ paddingBottom: theme.space.xl }}
     >
+      <Cover
+        isLoading={isLoading}
+        imageUrl={imageUrl}
+        title={title}
+        logo={logo}
+      />
+      <View style={styles.infos}>
+        <View style={styles.badges}>{badges}</View>
+        {subtitle && <Text>{subtitle}</Text>}
+      </View>
       {children}
-    </Animated.ScrollView>
+    </BasicLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    width: '100%',
+    overflow: 'hidden',
+    marginBottom: theme.space.lg
+  },
+  content: {
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  infos: {
+    marginTop: COVER_HEIGHT + theme.space.lg,
+    paddingHorizontal: theme.space.xxl,
+    paddingBottom: theme.space.lg,
+    alignItems: 'center',
+    gap: theme.space.sm
+  },
+  badges: {
+    flexDirection: 'row',
+    gap: theme.space.xs
+  }
+});

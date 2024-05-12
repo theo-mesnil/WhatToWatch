@@ -1,1 +1,1 @@
-yarn lint && yarn lint:ts
+yarn translate && git diff --exit-code src/locales && yarn lint

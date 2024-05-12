@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { useTheme } from 'styled-components/native';
-import { ColorProps, SpaceProps } from 'styled-system';
+import type { DimensionValue } from 'react-native';
+import type { SvgProps } from 'react-native-svg';
+import { theme } from 'theme';
+import type { Color } from 'theme';
 
 import ArrowBackIcon from './icons/ArrowBack';
+import ArrowNextIcon from './icons/ArrowNext';
 import BulbIcon from './icons/Bulb';
 import BulbFillIcon from './icons/BulbFill';
 import CheckFillIcon from './icons/CheckFill';
@@ -10,6 +13,8 @@ import ClockFillIcon from './icons/ClockFill';
 import CrossIcon from './icons/Cross';
 import EmailIcon from './icons/Email';
 import ExternalLinkIcon from './icons/ExternalLink';
+import EyeIcon from './icons/Eye';
+import EyeFillIcon from './icons/EyeFill';
 import FlashIcon from './icons/Flash';
 import FlashFillIcon from './icons/FlashFill';
 import GlobeIcon from './icons/Globe';
@@ -35,68 +40,32 @@ import SearchFillIcon from './icons/SearchFill';
 import SmileIcon from './icons/Smile';
 import StarFillIcon from './icons/StarFill';
 import TvFillIcon from './icons/TvFill';
-import * as S from './styles';
 
-export type IconElement =
-  | typeof StarFillIcon
-  | typeof TvFillIcon
-  | typeof ArrowBackIcon
-  | typeof BulbFillIcon
-  | typeof BulbIcon
-  | typeof CheckFillIcon
-  | typeof ClockFillIcon
-  | typeof CrossIcon
-  | typeof EmailIcon
-  | typeof ExternalLinkIcon
-  | typeof FlashFillIcon
-  | typeof FlashIcon
-  | typeof GlobeFillIcon
-  | typeof GlobeIcon
-  | typeof GridFillIcon
-  | typeof LogoAmazonPrime
-  | typeof LogoAppleTvPlus
-  | typeof LogoDisneyPlus
-  | typeof LogoFox
-  | typeof LogoHbo
-  | typeof LogoHulu
-  | typeof LogoNetflix
-  | typeof LogoShowtime
-  | typeof MoreFillIcon
-  | typeof MoreIcon
-  | typeof MovieFillIcon
-  | typeof PauseCircleIcon
-  | typeof PeopleFillIcon
-  | typeof PlayCircleIcon
-  | typeof PlayIcon
-  | typeof SearchFillIcon
-  | typeof SearchIcon
-  | typeof SmileIcon
-  | typeof StarFillIcon
-  | typeof TvFillIcon;
+export type IconElement = typeof ArrowBackIcon;
 
-export interface IconProps extends SpaceProps, ColorProps {
+export type IconProps = {
+  color?: Color;
   icon: IconElement;
-  size?: number;
-}
+  size?: DimensionValue;
+};
 
-function Icon({ color = 'light800', icon: IconComponent, size = 24, ...rest }) {
-  const theme = useTheme();
-
-  const iconSize = size < 1 ? `${size * 100}%` : size;
-
+const Icon: React.FC<IconProps> = ({
+  color = 'white',
+  icon: IconComponent,
+  size = 24
+}) => {
   return (
-    <S.Icon
-      as={IconComponent}
-      width={iconSize}
-      height={iconSize}
-      color={theme.colors[color] || color}
-      {...rest}
+    <IconComponent
+      color={theme.colors[color]}
+      width={size as SvgProps['width']}
+      height={size as SvgProps['width']}
     />
   );
-}
+};
 
 export {
   ArrowBackIcon,
+  ArrowNextIcon,
   BulbFillIcon,
   BulbIcon,
   CheckFillIcon,
@@ -104,6 +73,8 @@ export {
   CrossIcon,
   EmailIcon,
   ExternalLinkIcon,
+  EyeFillIcon,
+  EyeIcon,
   FlashFillIcon,
   FlashIcon,
   GlobeFillIcon,

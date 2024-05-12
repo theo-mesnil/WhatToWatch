@@ -1,45 +1,40 @@
-import * as React from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-import { errorLog } from 'utils/logger';
+import type { SpecificApiParam } from './api';
+import { getApi } from './api';
+import type { paths } from './types';
 
-import { GetApi, useApiUrl } from './api';
+export type UseGetDiscoverTvShowApiResponse =
+  paths['/3/discover/tv']['get']['responses']['200']['content']['application/json'];
 
-export const useGetDiscoverMovie = () => {
-  const apiUrl = useApiUrl();
+export type UseGetDiscoverTvShowApiParams =
+  paths['/3/discover/tv']['get']['parameters']['query'];
 
-  const handleData = React.useCallback(
-    async ({ callback, params }: Omit<GetApi, 'type'>) => {
-      try {
-        const response = await fetch(
-          apiUrl({ query: 'discover/movie', params })
-        );
-        const json = await response.json();
-        callback(json?.results);
-      } catch (error) {
-        errorLog(error);
-      }
-    },
-    [apiUrl]
-  );
-
-  return handleData;
+export type UseGetDiscoverTvShowApiProps = {
+  maxPages?: number;
+  params?: SpecificApiParam<UseGetDiscoverTvShowApiParams>[];
 };
 
-export const useGetDiscoverTvShow = () => {
-  const apiUrl = useApiUrl();
+export function useGetDiscoverTvShow(props?: UseGetDiscoverTvShowApiProps) {
+  const { maxPages = 30, params } = props || {};
 
-  const handleData = React.useCallback(
-    async ({ callback, params }: Omit<GetApi, 'type'>) => {
-      try {
-        const response = await fetch(apiUrl({ query: 'discover/tv', params }));
-        const json = await response.json();
-        callback(json?.results);
-      } catch (error) {
-        errorLog(error);
-      }
+  const { queryParams, queryUrl } = getApi({
+    query: 'discover/tv',
+    params
+  });
+
+  return useInfiniteQuery({
+    queryKey: ['discover', 'tv', ...queryParams],
+    queryFn: async ({ pageParam }) => {
+      const { data }: AxiosResponse<UseGetDiscoverTvShowApiResponse> =
+        await axios.get(queryUrl(pageParam));
+      return data;
     },
-    [apiUrl]
-  );
-
-  return handleData;
-};
+    initialPageParam: 1,
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined;
+    }
+  });
+}

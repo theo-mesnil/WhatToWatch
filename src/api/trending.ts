@@ -1,26 +1,40 @@
-import * as React from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-import { errorLog } from 'utils/logger';
+import { getApi } from './api';
+import type { paths } from './types';
 
-import { GetApi, useApiUrl } from './api';
+export type Type = 'all' | 'tv' | 'movie' | 'person';
 
-export const useGetTrending = () => {
-  const apiUrl = useApiUrl();
-
-  const handleData = React.useCallback(
-    async ({ callback, params, type = 'tv' }: GetApi) => {
-      try {
-        const response = await fetch(
-          apiUrl({ query: `trending/${type}/day`, params })
-        );
-        const json = await response.json();
-        callback(json?.results);
-      } catch (error) {
-        errorLog(error);
-      }
-    },
-    [apiUrl]
-  );
-
-  return handleData;
+export type UseGetTrendingApiResponse = {
+  all: paths['/3/trending/all/{time_window}']['get']['responses']['200']['content']['application/json'];
+  movie: paths['/3/trending/movie/{time_window}']['get']['responses']['200']['content']['application/json'];
+  person: paths['/3/trending/person/{time_window}']['get']['responses']['200']['content']['application/json'];
+  tv: paths['/3/trending/tv/{time_window}']['get']['responses']['200']['content']['application/json'];
 };
+
+export type UseGetTrendingApiProps = {
+  maxPages?: number;
+  type?: Type;
+};
+
+export function useGetTrending(props?: UseGetTrendingApiProps) {
+  const { maxPages = 30, type = 'all' } = props || {};
+  const { queryUrl } = getApi({
+    query: `trending/${type}/day`
+  });
+
+  return useInfiniteQuery({
+    queryKey: ['trending', type],
+    queryFn: async ({ pageParam }) => {
+      const { data }: AxiosResponse<UseGetTrendingApiResponse[Type]> =
+        await axios.get(queryUrl(pageParam));
+      return data;
+    },
+    initialPageParam: 1,
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined;
+    }
+  });
+}

@@ -1,25 +1,29 @@
 import * as React from 'react';
-import {
-  TextInput as RNTextInput,
-  TextInputProps as RNTextInputProps
-} from 'react-native';
-import { useTheme } from 'styled-components/native';
+import type { TextInputProps as RNTextInputProps } from 'react-native';
+import { TextInput as RNTextInput, StyleSheet } from 'react-native';
+import { theme } from 'theme';
 
-import { Box, BoxProps } from 'components/Box';
-
-type TextInputProps = BoxProps & RNTextInputProps;
+type TextInputProps = RNTextInputProps;
 
 export function TextInput(props: TextInputProps) {
-  const theme = useTheme();
-
   return (
-    <Box
-      as={RNTextInput}
-      color="light900"
-      selectionColor={theme.colors.light900}
+    <RNTextInput
+      selectionColor={theme.colors['brand-700']}
+      placeholderTextColor={theme.colors['default-900']}
+      style={styles.input}
       autoCorrect={false}
-      flex={1}
       {...props}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    height: 50,
+    backgroundColor: theme.colors.white,
+    borderRadius: theme.radii.sm,
+    color: theme.colors['default-900'],
+    padding: theme.space.lg,
+    ...theme.texts.lg
+  }
+});

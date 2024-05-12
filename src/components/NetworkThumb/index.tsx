@@ -1,57 +1,50 @@
 import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { theme } from 'theme';
 
-import { Box, BoxProps } from 'components/Box';
 import { Gradient } from 'components/Gradient';
 import { Icon } from 'components/Icon';
-import { Touchable, TouchableProps } from 'components/Touchable';
-import { getNetworkLogo } from 'utils/networks';
+import type { NetworkId } from 'types/content';
+import { getNetworkColor, getNetworkLogo } from 'utils/networks';
 
-type NetworkThumbProps = BoxProps &
-  Pick<TouchableProps, 'onPress'> & {
-    aspectRatio?: number;
-    isSquare?: boolean;
-    item: {
-      id: number;
-    };
-  };
+export type NetworkThumbProps = {
+  aspectRatio?: number;
+  id: NetworkId;
+  isRounded?: boolean;
+};
 
 export const NetworkThumb = ({
-  aspectRatio = 1 / 1,
-  isSquare,
-  item,
-  onPress,
-  ...rest
+  aspectRatio = 2 / 3,
+  id,
+  isRounded
 }: NetworkThumbProps) => {
   return (
-    <Touchable onPress={onPress}>
-      <Box
-        {...rest}
-        borderColor="dark400"
-        borderWidth="1px"
-        borderRadius={isSquare ? undefined : 200}
-        overflow="hidden"
-      >
-        <Gradient
-          position="absolute"
-          top={0}
-          bottom={0}
-          left={0}
-          right={0}
-          opacity={0.6}
-          colors={['dark400', 'dark900']}
-          angle={-1}
-        />
-        <Box
-          flex={1}
-          justifyContent="center"
-          alignItems="center"
-          style={{
+    <View style={[styles.wrapper, isRounded ? styles.rounded : undefined]}>
+      <Gradient colors={getNetworkColor(isRounded ? undefined : id)} />
+      <View
+        style={[
+          styles.icon,
+          {
             aspectRatio
-          }}
-        >
-          <Icon size={0.7} icon={getNetworkLogo(item?.id)} />
-        </Box>
-      </Box>
-    </Touchable>
+          }
+        ]}
+      >
+        <Icon size="80%" icon={getNetworkLogo(id)} />
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    borderRadius: theme.radii.sm,
+    overflow: 'hidden'
+  },
+  rounded: {
+    borderRadius: 200
+  },
+  icon: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
