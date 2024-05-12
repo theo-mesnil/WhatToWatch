@@ -18,7 +18,7 @@ import {
 } from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
-import { ClockFillIcon, Icon } from 'components/Icon';
+import { ClockFillIcon, Icon, StarFillIcon } from 'components/Icon';
 import { List } from 'components/List';
 import { PeopleThumb } from 'components/PeopleThumb';
 import { Text } from 'components/Text';
@@ -55,6 +55,7 @@ export default function Tv() {
   const endYear = data?.endYear;
   const runtime = data?.runtime;
   const networkLink = data?.networkLink;
+  const rating = data?.rating;
   const seasons = data?.seasons?.filter(
     (item) => item.season_number > 0 && item.episode_count > 0
   );
@@ -119,6 +120,11 @@ export default function Tv() {
             )}
             {!!runtime && (
               <Badge icon={ClockFillIcon}>{formatTime(runtime)}</Badge>
+            )}
+            {!!rating && (
+              <Badge icon={StarFillIcon}>
+                {rating.votes} ({rating.count})
+              </Badge>
             )}
           </>
         )

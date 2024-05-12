@@ -63,6 +63,12 @@ export function useGetTv(props?: UseGetTvApiProps) {
               link: data.homepage
             }
           : undefined,
+        rating: data.vote_average
+          ? {
+              votes: Math.round(data.vote_average * 10) / 10,
+              count: data.vote_count
+            }
+          : undefined,
         runtime:
           data.episode_run_time.reduce((partialSum, a) => partialSum + a, 0) /
           data.episode_run_time.length,
