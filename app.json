@@ -8,7 +8,9 @@
     "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch",
     "versionCode": 4
   },
-  "assetBundlePatterns": ["**/*"],
+  "assetBundlePatterns": [
+    "**/*"
+  ],
   "description": "Find movies & tv shows guide recommendations - Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series and actors. It\"s an application based on themoviedb (TMDb)database.",
   "extra": {
     "eas": {
@@ -18,11 +20,27 @@
   "githubUrl": "https://github.com/theo-mesnil/WhatToWatch",
   "icon": "src/assets/icon.png",
   "ios": {
-    "supportsTablet": false
+    "supportsTablet": false,
+    "bundleIdentifier": "com.theomesnil.WhatToWatch"
   },
   "name": "WhatToWatch",
   "orientation": "portrait",
-  "plugins": ["expo-font", "expo-localization", "expo-router"],
+  "plugins": [
+    "expo-font",
+    "expo-localization",
+    "expo-router",
+    [
+      "expo-build-properties",
+      {
+        "ios": {
+          "newArchEnabled": true
+        },
+        "android": {
+          "newArchEnabled": true
+        }
+      }
+    ]
+  ],
   "scheme": "whattowatch",
   "slug": "WhatToWatch",
   "version": "1.0.0",
