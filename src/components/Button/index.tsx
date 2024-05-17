@@ -47,7 +47,7 @@ export function Button({
         ]}
         {...rest}
       >
-        {gradientColors && <Gradient angle={10} colors={gradientColors} />}
+        {gradientColors && <Gradient angle={1} colors={gradientColors} />}
         {isCustomChildren ? (
           children
         ) : (

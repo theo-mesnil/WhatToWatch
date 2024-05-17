@@ -9,6 +9,7 @@ import {
   NETWORK_HBO_ID,
   NETWORK_HULU_ID,
   NETWORK_NETFLIX_ID,
+  NETWORK_PARAMOUNT_PLUS,
   NETWORK_PRIME_VIDEO,
   NETWORK_SHOWTIME_ID
 } from 'constants/networks';
@@ -20,6 +21,7 @@ import Fox from './logos/Fox';
 import HBO from './logos/Hbo';
 import Hulu from './logos/Hulu';
 import Netflix from './logos/Netflix';
+import ParamountPlus from './logos/ParamountPlus';
 import PrimeVideo from './logos/PrimeVideo';
 import Showtime from './logos/Showtime';
 
@@ -51,6 +53,7 @@ export function NetworkLogo({
       {id === NETWORK_NETFLIX_ID && <Netflix color={color} />}
       {id === NETWORK_PRIME_VIDEO && <PrimeVideo color={color} />}
       {id === NETWORK_SHOWTIME_ID && <Showtime color={color} />}
+      {id === NETWORK_PARAMOUNT_PLUS && <ParamountPlus color={color} />}
     </View>
   );
 }

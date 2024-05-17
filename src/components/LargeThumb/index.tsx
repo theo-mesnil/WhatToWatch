@@ -26,7 +26,7 @@ export const LargeThumb = React.memo(
           }}
           style={[
             {
-              aspectRatio: 16 / 10
+              aspectRatio: 16 / 12
             },
             styles.image
           ]}
@@ -36,7 +36,7 @@ export const LargeThumb = React.memo(
         <View style={[globalStyles.absoluteFill, styles.content]}>
           <Gradient colors={['transparent', theme.colors.behind]} />
           {title && (
-            <Text variant="h0" style={styles.title}>
+            <Text numberOfLines={2} variant="h0" style={styles.title}>
               {title}
             </Text>
           )}

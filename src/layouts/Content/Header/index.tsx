@@ -18,7 +18,7 @@ type HeaderProps = {
 
 export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
   const { headerHeight, statusBarHeight } = useSafeHeights();
-  const androidStatusBarHeight = isAndroid ? statusBarHeight : 0;
+  const androidStatusBarHeight = isAndroid ? statusBarHeight - 20 : 0;
   const navigation = useNavigation();
 
   const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);

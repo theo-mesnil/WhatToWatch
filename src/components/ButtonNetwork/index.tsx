@@ -24,10 +24,10 @@ export function ButtonNetwork({ id, link, style }: ButtonNetworkProps) {
       isCustomChildren
     >
       <Text variant="h3">
-        <FormattedMessage defaultMessage="Watch on" id="watch-on" />{' '}
+        <FormattedMessage defaultMessage="Watch on" id="watch-on" />
       </Text>
       <View style={styles.logo}>
-        <NetworkLogo id={id} width={60} />
+        <NetworkLogo id={id} height={23} />
       </View>
     </Button>
   );
@@ -35,6 +35,6 @@ export function ButtonNetwork({ id, link, style }: ButtonNetworkProps) {
 
 const styles = StyleSheet.create({
   logo: {
-    marginLeft: theme.space.xxs
+    marginLeft: theme.space.sm
   }
 });
