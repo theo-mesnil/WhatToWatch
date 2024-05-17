@@ -10,7 +10,7 @@ import { Text } from 'components/Text';
 import type { TouchableProps } from 'components/Touchable';
 import { Touchable } from 'components/Touchable';
 
-type ButtonProps = ViewProps & {
+export type ButtonProps = ViewProps & {
   backgroundColor?: Color;
   children: React.ReactNode;
   gradientColors?: GradientProps['colors'];

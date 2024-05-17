@@ -3,9 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
 import { Gradient } from 'components/Gradient';
-import { Icon } from 'components/Icon';
+import { NetworkLogo } from 'components/NetworkLogo';
 import type { NetworkId } from 'types/content';
-import { getNetworkColor, getNetworkLogo } from 'utils/networks';
+import { getNetworkColor } from 'utils/networks';
 
 export type NetworkThumbProps = {
   aspectRatio?: number;
@@ -29,7 +29,7 @@ export const NetworkThumb = ({
           }
         ]}
       >
-        <Icon size="80%" icon={getNetworkLogo(id)} />
+        <NetworkLogo id={id} width="80%" />
       </View>
     </View>
   );

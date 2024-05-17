@@ -20,14 +20,6 @@ import FlashFillIcon from './icons/FlashFill';
 import GlobeIcon from './icons/Globe';
 import GlobeFillIcon from './icons/GlobeFill';
 import GridFillIcon from './icons/GridFill';
-import LogoAmazonPrime from './icons/LogoAmazonPrime';
-import LogoAppleTvPlus from './icons/LogoAppleTvPlus';
-import LogoDisneyPlus from './icons/LogoDisneyPlus';
-import LogoFox from './icons/LogoFox';
-import LogoHbo from './icons/LogoHbo';
-import LogoHulu from './icons/LogoHulu';
-import LogoNetflix from './icons/LogoNetflix';
-import LogoShowtime from './icons/LogoShowtime';
 import MoreIcon from './icons/More';
 import MoreFillIcon from './icons/MoreFill';
 import MovieFillIcon from './icons/MovieFill';
@@ -81,14 +73,6 @@ export {
   GlobeIcon,
   GridFillIcon,
   Icon,
-  LogoAmazonPrime,
-  LogoAppleTvPlus,
-  LogoDisneyPlus,
-  LogoFox,
-  LogoHbo,
-  LogoHulu,
-  LogoNetflix,
-  LogoShowtime,
   MoreFillIcon,
   MoreIcon,
   MovieFillIcon,

@@ -96,13 +96,16 @@ export function useGetTvImages(props?: UseGetTvApiProps) {
 
       const logoUrl = data?.logos?.[0]?.file_path;
       const logoAspectRatio = data?.logos?.[0]?.aspect_ratio;
+      const isSvg = logoUrl?.endsWith('svg');
+
       return {
-        logo: logoUrl
-          ? {
-              url: logoUrl,
-              aspectRatio: logoAspectRatio
-            }
-          : undefined
+        logo:
+          logoUrl && !isSvg
+            ? {
+                url: logoUrl,
+                aspectRatio: logoAspectRatio
+              }
+            : undefined
       };
     },
     enabled: !!id

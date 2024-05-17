@@ -126,7 +126,11 @@ export default function Tv() {
       }
     >
       {!!networkLink && (
-        <ButtonNetwork id={networkLink.id} link={networkLink.link} />
+        <ButtonNetwork
+          id={networkLink.id}
+          link={networkLink.link}
+          style={styles.buttonNetwork}
+        />
       )}
       {!!tagline && (
         <Text variant="lg" style={styles.tagline}>
@@ -216,5 +220,8 @@ const styles = StyleSheet.create({
   },
   seasonLoading: {
     height: 500
+  },
+  buttonNetwork: {
+    marginHorizontal: theme.space.marginList
   }
 });

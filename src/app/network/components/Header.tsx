@@ -6,10 +6,10 @@ import { theme } from 'theme';
 
 import { Button } from 'components/Button';
 import { ArrowBackIcon, Icon } from 'components/Icon';
+import { NetworkLogo } from 'components/NetworkLogo';
 import { isAndroid } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import type { NetworkId } from 'types/content';
-import { getNetworkLogo } from 'utils/networks';
 
 type HeaderProps = {
   id: NetworkId;
@@ -69,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({ id, scrollY }) => {
           <Icon icon={ArrowBackIcon} />
         </Button>
         <View style={styles.logo}>
-          <Icon size={100} icon={getNetworkLogo(id)} />
+          <NetworkLogo id={id} width={100} />
         </View>
         <View style={styles.end} />
       </View>

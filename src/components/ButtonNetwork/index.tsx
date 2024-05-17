@@ -2,39 +2,39 @@ import { FormattedMessage } from 'react-intl';
 import { Linking, StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
+import type { ButtonProps } from 'components/Button';
 import { Button } from 'components/Button';
-import { Icon } from 'components/Icon';
+import { NetworkLogo } from 'components/NetworkLogo';
+import { Text } from 'components/Text';
 import type { NetworkId } from 'types/content';
-import { getNetworkColor, getNetworkLogo } from 'utils/networks';
+import { getNetworkColor } from 'utils/networks';
 
-export type ButtonNetworkProps = {
+export type ButtonNetworkProps = Pick<ButtonProps, 'style'> & {
   id: NetworkId;
   link: string;
 };
 
-export function ButtonNetwork({ id, link }: ButtonNetworkProps) {
+export function ButtonNetwork({ id, link, style }: ButtonNetworkProps) {
   return (
     <Button
       size="lg"
-      style={styles.wrapper}
       gradientColors={getNetworkColor(id)}
       onPress={() => Linking.openURL(link)}
+      style={style}
+      isCustomChildren
     >
-      <FormattedMessage defaultMessage="Watch on" id="watch-on" />
-      {'  '}
+      <Text variant="h3">
+        <FormattedMessage defaultMessage="Watch on" id="watch-on" />{' '}
+      </Text>
       <View style={styles.logo}>
-        <Icon size={60} icon={getNetworkLogo(id)} />
+        <NetworkLogo id={id} width={60} />
       </View>
     </Button>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    marginHorizontal: theme.space.marginList
-  },
   logo: {
-    justifyContent: 'center',
-    paddingTop: 7
+    marginLeft: theme.space.xxs
   }
 });

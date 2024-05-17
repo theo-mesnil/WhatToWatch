@@ -84,7 +84,11 @@ export default function Movie() {
       }
     >
       {!!networkLink && (
-        <ButtonNetwork id={networkLink.id} link={networkLink.link} />
+        <ButtonNetwork
+          id={networkLink.id}
+          link={networkLink.link}
+          style={styles.buttonNetwork}
+        />
       )}
       <View style={styles.content}>
         {!!overview && (
@@ -114,5 +118,8 @@ const styles = StyleSheet.create({
   },
   content: {
     gap: theme.space.xl
+  },
+  buttonNetwork: {
+    marginHorizontal: theme.space.marginList
   }
 });
