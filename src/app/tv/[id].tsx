@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     gap: theme.space.xl
   },
   seasonLoading: {
-    height: 500
+    height: 700
   },
   buttonNetwork: {
     marginHorizontal: theme.space.marginList
