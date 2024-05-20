@@ -2,6 +2,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import type { UseGetTvApiResponse, UseGetTvCreditsApiResponse } from 'api/tv';
@@ -16,8 +17,9 @@ import { Button } from 'components/Button';
 import { ButtonNetwork } from 'components/ButtonNetwork';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
 import { List } from 'components/List';
-import { PeopleThumb } from 'components/PeopleThumb';
+import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
+import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
 
@@ -71,13 +73,15 @@ export default function Tv() {
   );
 
   const renderItemCast = ({
-    item: { name, profile_path, roles }
+    item: { id, name, profile_path, roles }
   }: ListRenderItemInfo<UseGetTvCreditsApiResponse['cast'][number]>) => (
-    <PeopleThumb
-      imageUrl={profile_path}
-      name={name}
-      character={roles?.[0]?.character}
-    />
+    <ThumbLink href={`person/${id}`}>
+      <PersonThumb
+        imageUrl={profile_path}
+        name={name}
+        character={roles?.[0]?.character}
+      />
+    </ThumbLink>
   );
 
   React.useEffect(() => {
@@ -129,7 +133,7 @@ export default function Tv() {
         <ButtonNetwork
           id={networkLink.id}
           link={networkLink.link}
-          style={styles.buttonNetwork}
+          style={globalStyles.centered}
         />
       )}
       {!!tagline && (
@@ -174,8 +178,7 @@ export default function Tv() {
                       airDate={episode.air_date}
                       number={index + 1}
                       runtime={episode.runtime}
-                      key={episode.id}
-                      id={episode.id}
+                      key={`${index}-${episode.id}`}
                       name={episode.name}
                       imageUrl={episode.still_path}
                       overview={episode.overview}
@@ -220,8 +223,5 @@ const styles = StyleSheet.create({
   },
   seasonLoading: {
     height: 700
-  },
-  buttonNetwork: {
-    marginHorizontal: theme.space.marginList
   }
 });

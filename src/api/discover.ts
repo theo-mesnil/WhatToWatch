@@ -6,18 +6,18 @@ import type { SpecificApiParam } from './api';
 import { getApi } from './api';
 import type { paths } from './types';
 
-export type UseGetDiscoverTvShowApiResponse =
+export type UseGetDiscoverTvApiResponse =
   paths['/3/discover/tv']['get']['responses']['200']['content']['application/json'];
 
-export type UseGetDiscoverTvShowApiParams =
+export type UseGetDiscoverTvApiParams =
   paths['/3/discover/tv']['get']['parameters']['query'];
 
-export type UseGetDiscoverTvShowApiProps = {
+export type UseGetDiscoverTvApiProps = {
   maxPages?: number;
-  params?: SpecificApiParam<UseGetDiscoverTvShowApiParams>[];
+  params?: SpecificApiParam<UseGetDiscoverTvApiParams>[];
 };
 
-export function useGetDiscoverTvShow(props?: UseGetDiscoverTvShowApiProps) {
+export function useGetDiscoverTv(props?: UseGetDiscoverTvApiProps) {
   const { maxPages = 30, params } = props || {};
 
   const { queryParams, queryUrl } = getApi({
@@ -28,7 +28,7 @@ export function useGetDiscoverTvShow(props?: UseGetDiscoverTvShowApiProps) {
   return useInfiniteQuery({
     queryKey: ['discover', 'tv', ...queryParams],
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetDiscoverTvShowApiResponse> =
+      const { data }: AxiosResponse<UseGetDiscoverTvApiResponse> =
         await axios.get(queryUrl(pageParam));
       return data;
     },

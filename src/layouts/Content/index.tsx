@@ -11,7 +11,7 @@ import { Cover } from './Cover';
 import { Header } from './Header';
 
 export type ContentLayoutProps = {
-  badges: React.ReactNode;
+  badges?: React.ReactNode;
   children: React.ReactNode;
   imageUrl?: string;
   isLoading?: boolean;
@@ -60,7 +60,7 @@ export function ContentLayout({
         logo={logo}
       />
       <View style={styles.infos}>
-        <View style={styles.badges}>{badges}</View>
+        {badges && <View style={styles.badges}>{badges}</View>}
         {subtitle && <Text>{subtitle}</Text>}
       </View>
       {children}
@@ -87,6 +87,8 @@ const styles = StyleSheet.create({
   },
   badges: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     gap: theme.space.xs
   }
 });

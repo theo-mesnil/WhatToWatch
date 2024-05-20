@@ -24,7 +24,7 @@ import MoreIcon from './icons/More';
 import MoreFillIcon from './icons/MoreFill';
 import MovieFillIcon from './icons/MovieFill';
 import PauseCircleIcon from './icons/PauseCircle';
-import PeopleFillIcon from './icons/PeopleFill';
+import PersonFillIcon from './icons/PersonFill';
 import PlayIcon from './icons/Play';
 import PlayCircleIcon from './icons/PlayCircle';
 import SearchIcon from './icons/Search';
@@ -77,7 +77,7 @@ export {
   MoreIcon,
   MovieFillIcon,
   PauseCircleIcon,
-  PeopleFillIcon,
+  PersonFillIcon,
   PlayCircleIcon,
   PlayIcon,
   SearchFillIcon,

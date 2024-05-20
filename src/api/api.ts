@@ -1,4 +1,4 @@
-import { LOCALE } from 'constants/locales';
+import { LOCALE_I18N } from 'constants/locales';
 
 export const BASE_API_URL = 'https://api.themoviedb.org/3/';
 
@@ -37,7 +37,7 @@ export function getApi({ params, query }: GetApiUrlProps): GetApiUrlReturn {
   const queryUrl = (page?: number) => {
     const pageParam = page ? `&page=${page}` : '';
 
-    return `${BASE_API_URL}${query}?api_key=${process.env.EXPO_PUBLIC_THEMOVIEDB_API_KEY}&language=${LOCALE}${pageParam}${queryParamsUrl}`;
+    return `${BASE_API_URL}${query}?api_key=${process.env.EXPO_PUBLIC_THEMOVIEDB_API_KEY}&language=${LOCALE_I18N}&adult=false${pageParam}${queryParamsUrl}`;
   };
 
   return {

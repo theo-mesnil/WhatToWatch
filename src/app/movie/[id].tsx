@@ -2,6 +2,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import type { UseGetMovieCreditsApiResponse } from 'api/movie';
@@ -10,8 +11,9 @@ import { Badge } from 'components/Badge';
 import { ButtonNetwork } from 'components/ButtonNetwork';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
 import { List } from 'components/List';
-import { PeopleThumb } from 'components/PeopleThumb';
+import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
+import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
 
@@ -40,9 +42,11 @@ export default function Movie() {
   const title = data?.title;
 
   const renderItemCast = ({
-    item: { character, name, profile_path }
+    item: { character, id, name, profile_path }
   }: ListRenderItemInfo<UseGetMovieCreditsApiResponse['cast'][number]>) => (
-    <PeopleThumb imageUrl={profile_path} name={name} character={character} />
+    <ThumbLink href={`person/${id}`}>
+      <PersonThumb imageUrl={profile_path} name={name} character={character} />
+    </ThumbLink>
   );
 
   React.useEffect(() => {
@@ -87,7 +91,7 @@ export default function Movie() {
         <ButtonNetwork
           id={networkLink.id}
           link={networkLink.link}
-          style={styles.buttonNetwork}
+          style={globalStyles.centered}
         />
       )}
       <View style={styles.content}>
@@ -118,8 +122,5 @@ const styles = StyleSheet.create({
   },
   content: {
     gap: theme.space.xl
-  },
-  buttonNetwork: {
-    marginHorizontal: theme.space.marginList
   }
 });

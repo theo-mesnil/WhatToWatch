@@ -3,6 +3,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import type { FlatListProps, ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { ArrowNextIcon, Icon } from 'components/Icon';
@@ -85,14 +86,7 @@ export function List({
 
   const renderTitle = React.useMemo(() => {
     const element = (
-      <Text
-        variant="h2"
-        style={[
-          {
-            marginHorizontal: theme.space.marginList
-          }
-        ]}
-      >
+      <Text variant="h2" style={globalStyles.centered}>
         {title}
       </Text>
     );

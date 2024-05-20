@@ -8,7 +8,6 @@ import { formatTime } from 'utils/time';
 
 export type EpisodeThumbProps = {
   airDate?: string;
-  id: number;
   imageUrl: string;
   name: string;
   number: number;
@@ -18,7 +17,6 @@ export type EpisodeThumbProps = {
 
 export function EpisodeThumb({
   airDate,
-  id,
   imageUrl,
   name,
   number,
@@ -26,7 +24,7 @@ export function EpisodeThumb({
   runtime
 }: EpisodeThumbProps) {
   return (
-    <View style={styles.wrapper} key={id}>
+    <View style={styles.wrapper}>
       <View style={styles.main}>
         <View style={styles.thumb}>
           <Thumb type="tv" aspectRatio={16 / 9} imageUrl={imageUrl} />

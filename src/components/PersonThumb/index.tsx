@@ -4,13 +4,13 @@ import { theme } from 'theme';
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 
-export type PeopleThumbProps = {
+export type PersonThumbProps = {
   character?: string;
   imageUrl: string;
   name: string;
 };
 
-export function PeopleThumb({ character, imageUrl, name }: PeopleThumbProps) {
+export function PersonThumb({ character, imageUrl, name }: PersonThumbProps) {
   return (
     <View>
       <Thumb isRounded aspectRatio={1 / 1} type="person" imageUrl={imageUrl} />

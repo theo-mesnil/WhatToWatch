@@ -4,8 +4,8 @@ import type { ListRenderItemInfo } from 'react-native';
 import { Animated } from 'react-native';
 import { theme } from 'theme';
 
-import type { UseGetDiscoverTvShowApiResponse } from 'api/discover';
-import { useGetDiscoverTvShow } from 'api/discover';
+import type { UseGetDiscoverTvApiResponse } from 'api/discover';
+import { useGetDiscoverTv } from 'api/discover';
 import { GradientHeader } from 'components/GradientHeader';
 import { LargeThumb } from 'components/LargeThumb';
 import { Thumb } from 'components/Thumb';
@@ -27,7 +27,7 @@ export default function Network() {
     new Animated.Value(0)
   );
 
-  const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTvShow({
+  const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTv({
     params: [
       {
         name: 'with_networks',
@@ -40,9 +40,7 @@ export default function Network() {
 
   const renderItem = ({
     item: { id, poster_path }
-  }: ListRenderItemInfo<
-    UseGetDiscoverTvShowApiResponse['results'][number]
-  >) => (
+  }: ListRenderItemInfo<UseGetDiscoverTvApiResponse['results'][number]>) => (
     <ThumbLink isLoading={isLoading} href={`/tv/${id}`}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>

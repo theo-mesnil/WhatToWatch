@@ -62,23 +62,23 @@ export default function Search() {
   };
 
   const renderItem = ({
-    item: { id, media_type, poster_path }
+    // @ts-expect-error wrong ts api from tmdb
+    item: { id, media_type, name, poster_path, profile_path, title }
   }: ListRenderItemInfo<
     UseGetTrendingApiResponse['all']['results'][number]
   >) => {
     const isLoadingItem = isLoading || isSearchLoading;
 
-    if (media_type === 'person') {
-      return <Text>todo</Text>;
-    }
-
     return (
       <ThumbLink href={`/${media_type}/${id}`} isLoading={isLoadingItem}>
-        <Thumb
-          type={media_type as ContentType}
-          imageUrl={poster_path}
-          imageWidth="w300"
-        />
+        <>
+          <Thumb
+            type={media_type as ContentType}
+            imageUrl={poster_path || profile_path}
+            imageWidth="w300"
+          />
+          {querySearch && <Text numberOfLines={3}>{name || title}</Text>}
+        </>
       </ThumbLink>
     );
   };
@@ -150,7 +150,6 @@ export default function Search() {
         getScrollYPosition={getScrollYPosition}
         results={results}
         onEndReached={loadMore}
-        numColumns={2}
         contentContainerStyle={containerStyle}
         ListHeaderComponent={renderListHeaderComponent}
       />

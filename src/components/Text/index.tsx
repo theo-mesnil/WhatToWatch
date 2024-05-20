@@ -5,14 +5,22 @@ import type { Text as ThemeText } from 'theme';
 
 export type TextProps = Pick<
   RNTextProps,
-  'children' | 'style' | 'numberOfLines'
+  | 'children'
+  | 'style'
+  | 'numberOfLines'
+  | 'onPress'
+  | 'onTextLayout'
+  | 'ellipsizeMode'
 > & {
   variant?: ThemeText;
 };
 
 export const Text: React.FC<TextProps> = ({
   children,
+  ellipsizeMode,
   numberOfLines,
+  onPress,
+  onTextLayout,
   style,
   variant = 'md'
 }) => {
@@ -24,6 +32,9 @@ export const Text: React.FC<TextProps> = ({
         { lineHeight: theme.texts[variant].fontSize + 3 }
       ]}
       numberOfLines={numberOfLines}
+      onPress={onPress}
+      onTextLayout={onTextLayout}
+      ellipsizeMode={ellipsizeMode}
     >
       {children}
     </RNText>
