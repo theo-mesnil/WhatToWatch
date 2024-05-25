@@ -1,9 +1,10 @@
 import { Link } from 'expo-router';
 import { FormattedMessage } from 'react-intl';
-import { ImageBackground, StyleSheet, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
+import { useGetContentLogo } from 'api/logo';
 import { Button } from 'components/Button';
 import { Gradient } from 'components/Gradient';
 import { ArrowNextIcon } from 'components/Icon';
@@ -20,6 +21,11 @@ export type ItemProps = {
 };
 
 export function Item({ description, id, imageUrl, title, type }: ItemProps) {
+  const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
+    id,
+    type
+  });
+
   return (
     <View style={styles.wrapper}>
       <ImageBackground
@@ -30,9 +36,17 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
       />
       <View style={styles.content}>
         <Gradient colors={['transparent', theme.colors.behind]} />
-        <Text style={styles.title} variant="h0">
-          {title}
-        </Text>
+        {!isLoadingLogo && logo && (
+          <Image
+            style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
+            src={getImageUrl(logo.url, 'w500')}
+          />
+        )}
+        {!isLoadingLogo && !logo && (
+          <Text style={styles.title} variant="h0">
+            {title}
+          </Text>
+        )}
         <Text style={styles.subtitle} numberOfLines={3}>
           {description}
         </Text>
@@ -73,5 +87,9 @@ const styles = StyleSheet.create({
   },
   cta: {
     marginTop: theme.space.lg
+  },
+  logo: {
+    width: 250,
+    maxHeight: 150
   }
 });

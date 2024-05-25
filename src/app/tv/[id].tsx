@@ -5,13 +5,9 @@ import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
+import { useGetContentLogo } from 'api/logo';
 import type { UseGetTvApiResponse, UseGetTvCreditsApiResponse } from 'api/tv';
-import {
-  useGetTv,
-  useGetTvCredits,
-  useGetTvImages,
-  useGetTvSeason
-} from 'api/tv';
+import { useGetTv, useGetTvCredits, useGetTvSeason } from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
 import { ButtonNetwork } from 'components/ButtonNetwork';
@@ -32,8 +28,9 @@ export default function Tv() {
   const tvID = Number(params?.id);
 
   const { data, isLoading } = useGetTv({ id: tvID });
-  const { data: images, isLoading: isLoadingImages } = useGetTvImages({
-    id: tvID
+  const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
+    id: tvID,
+    type: 'tv'
   });
   const { data: season, isLoading: isLoadingSeason } = useGetTvSeason({
     id: tvID,
@@ -47,7 +44,6 @@ export default function Tv() {
   const coverUrl = data?.coverUrl;
   const name = data?.name;
   const genres = data?.genres;
-  const logoUrl = images?.logo;
   const startYear = data?.startYear;
   const endYear = data?.endYear;
   const runtime = data?.runtime;
@@ -92,11 +88,11 @@ export default function Tv() {
 
   return (
     <ContentLayout
-      isLoading={isLoading || isLoadingImages}
+      isLoading={isLoading || isLoadingLogo}
       imageUrl={coverUrl}
-      title={name}
+      title={!isLoadingLogo && name}
       subtitle={genres}
-      logo={logoUrl}
+      logo={logo}
       badges={
         !isLoading && (
           <>

@@ -75,6 +75,8 @@ export default function Network() {
         ListHeaderComponent={
           <ThumbLink isLoading={isLoading} href={`/tv/${firstItem?.id}`}>
             <LargeThumb
+              type="tv"
+              id={firstItem?.id}
               title={firstItem?.name}
               imageUrl={firstItem?.backdrop_path}
             />

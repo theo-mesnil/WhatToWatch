@@ -38,7 +38,7 @@ export function Button({
   variant = 'primary',
   ...rest
 }: ButtonProps) {
-  const variantColor = variant === 'secondary' ? 'default-900' : 'default-100';
+  const variantColor = variant === 'secondary' ? 'default-900' : 'white';
 
   return (
     <Touchable onPress={onPress}>

@@ -10,8 +10,6 @@ import type { paths } from './types';
 
 export type UseGetMovieApiResponse =
   paths['/3/movie/{movie_id}']['get']['responses']['200']['content']['application/json'];
-export type UseGetMovieImagesApiResponse =
-  paths['/3/movie/{movie_id}/images']['get']['responses']['200']['content']['application/json'];
 export type UseGetMovieCreditsApiResponse =
   paths['/3/movie/{movie_id}/credits']['get']['responses']['200']['content']['application/json'];
 
@@ -57,34 +55,6 @@ export function useGetMovie(props?: UseGetMovieApiProps) {
           : undefined,
         releaseDate: data.release_date,
         runtime: data.runtime
-      };
-    },
-    enabled: !!id
-  });
-}
-
-export function useGetMovieImages(props?: UseGetMovieApiProps) {
-  const { id } = props || {};
-
-  const { queryUrl } = getApi({
-    query: `movie/${id}/images`
-  });
-
-  return useQuery({
-    queryKey: ['movie', id, 'images'],
-    queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieImagesApiResponse> =
-        await axios.get(queryUrl());
-
-      const logoUrl = data?.logos?.[0]?.file_path;
-      const logoAspectRatio = data?.logos?.[0]?.aspect_ratio;
-      return {
-        logo: logoUrl
-          ? {
-              url: logoUrl,
-              aspectRatio: logoAspectRatio
-            }
-          : undefined
       };
     },
     enabled: !!id

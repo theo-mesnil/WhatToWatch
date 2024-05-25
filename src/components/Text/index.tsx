@@ -28,8 +28,8 @@ export const Text: React.FC<TextProps> = ({
     <RNText
       style={[
         theme.texts[variant],
-        style,
-        { lineHeight: theme.texts[variant].fontSize + 3 }
+        { lineHeight: theme.texts[variant].fontSize + 3 },
+        style
       ]}
       numberOfLines={numberOfLines}
       onPress={onPress}

@@ -7,7 +7,8 @@ import { InTheaters } from './components/InTheaters';
 import { MovieCategories } from './components/MovieCategories';
 import { Networks } from './components/Networks';
 import { Overview } from './components/Overview';
-import { Top10 } from './components/Top10';
+import { Top10Movies } from './components/Top10Movies';
+import { Top10Series } from './components/Top10Series';
 import { TvCategories } from './components/TvCategories';
 
 export default function Discover() {
@@ -15,9 +16,10 @@ export default function Discover() {
     <BasicLayout contentContainerStyle={{ gap: theme.space.xl }}>
       <Overview />
       <Networks />
-      <Top10 />
+      <Top10Series />
       <MovieCategories />
       <Documentaries />
+      <Top10Movies />
       <InTheaters />
       <TvCategories />
     </BasicLayout>

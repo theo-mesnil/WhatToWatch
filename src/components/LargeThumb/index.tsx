@@ -1,23 +1,38 @@
 import * as React from 'react';
-import { ImageBackground, StyleSheet, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
+import { useGetContentLogo } from 'api/logo';
 import { Gradient } from 'components/Gradient';
 import { Loader } from 'components/Loader';
 import { Text } from 'components/Text';
-import type { ImageSizeBackdrop } from 'types/content';
+import type { ContentType, ImageSizeBackdrop } from 'types/content';
 import { getImageUrl } from 'utils/images';
 
 export type LargeThumbProps = {
+  id: number;
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop;
   isLoading?: boolean;
   title?: string;
+  type: ContentType;
 };
 
 export const LargeThumb = React.memo(
-  ({ imageUrl, imageWidth = 'w780', isLoading, title }: LargeThumbProps) => {
+  ({
+    id,
+    imageUrl,
+    imageWidth = 'w780',
+    isLoading,
+    title,
+    type
+  }: LargeThumbProps) => {
+    const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
+      id,
+      type
+    });
+
     return (
       <View style={styles.wrapper}>
         <ImageBackground
@@ -35,7 +50,13 @@ export const LargeThumb = React.memo(
         </ImageBackground>
         <View style={[globalStyles.absoluteFill, styles.content]}>
           <Gradient colors={['transparent', theme.colors.behind]} />
-          {title && (
+          {!isLoadingLogo && logo && (
+            <Image
+              style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
+              src={getImageUrl(logo.url, 'w500')}
+            />
+          )}
+          {!isLoadingLogo && !logo && title && (
             <Text numberOfLines={2} variant="h0" style={styles.title}>
               {title}
             </Text>
@@ -68,5 +89,10 @@ const styles = StyleSheet.create({
   },
   loading: {
     width: '100%'
+  },
+  logo: {
+    width: 250,
+    maxHeight: 100,
+    marginBottom: theme.space.lg
   }
 });

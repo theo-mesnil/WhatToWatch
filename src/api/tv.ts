@@ -10,8 +10,6 @@ import type { paths } from './types';
 
 export type UseGetTvApiResponse =
   paths['/3/tv/{series_id}']['get']['responses']['200']['content']['application/json'];
-export type UseGetTvImagesApiResponse =
-  paths['/3/tv/{series_id}/images']['get']['responses']['200']['content']['application/json'];
 export type UseGetTvSeasonApiResponse =
   paths['/3/tv/{series_id}/season/{season_number}']['get']['responses']['200']['content']['application/json'];
 export type UseGetTvCreditsApiResponse =
@@ -75,37 +73,6 @@ export function useGetTv(props?: UseGetTvApiProps) {
         seasons: data.seasons,
         startYear,
         tagline: data.tagline
-      };
-    },
-    enabled: !!id
-  });
-}
-
-export function useGetTvImages(props?: UseGetTvApiProps) {
-  const { id } = props || {};
-
-  const { queryUrl } = getApi({
-    query: `tv/${id}/images`
-  });
-
-  return useQuery({
-    queryKey: ['tv', id, 'images'],
-    queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvImagesApiResponse> =
-        await axios.get(queryUrl());
-
-      const logoUrl = data?.logos?.[0]?.file_path;
-      const logoAspectRatio = data?.logos?.[0]?.aspect_ratio;
-      const isSvg = logoUrl?.endsWith('svg');
-
-      return {
-        logo:
-          logoUrl && !isSvg
-            ? {
-                url: logoUrl,
-                aspectRatio: logoAspectRatio
-              }
-            : undefined
       };
     },
     enabled: !!id
