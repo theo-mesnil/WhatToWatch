@@ -72,7 +72,7 @@ export default function Layout() {
   return (
     <Tabs screenOptions={screenOptions}>
       <Tabs.Screen
-        name="index"
+        name="index/index"
         options={{
           title: intl.formatMessage({
             id: 'discover',

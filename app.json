@@ -8,9 +8,7 @@
     "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch",
     "versionCode": 4
   },
-  "assetBundlePatterns": [
-    "**/*"
-  ],
+  "assetBundlePatterns": ["**/*"],
   "description": "Find movies & tv shows guide recommendations - Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series and actors. It\"s an application based on themoviedb (TMDb)database.",
   "extra": {
     "eas": {

@@ -6,6 +6,8 @@ import type { Color } from 'theme';
 
 import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
+import type { IconElement } from 'components/Icon';
+import { Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import type { TouchableProps } from 'components/Touchable';
 import { Touchable } from 'components/Touchable';
@@ -14,6 +16,7 @@ export type ButtonProps = ViewProps & {
   backgroundColor?: Color;
   children: React.ReactNode;
   gradientColors?: GradientProps['colors'];
+  icon?: IconElement;
   isCustomChildren?: boolean;
   isRounded?: boolean;
   isTransparent?: boolean;
@@ -25,6 +28,7 @@ export type ButtonProps = ViewProps & {
 export function Button({
   children,
   gradientColors,
+  icon,
   isCustomChildren,
   isRounded,
   isTransparent,
@@ -34,6 +38,8 @@ export function Button({
   variant = 'primary',
   ...rest
 }: ButtonProps) {
+  const variantColor = variant === 'secondary' ? 'default-900' : 'default-100';
+
   return (
     <Touchable onPress={onPress}>
       <View
@@ -51,16 +57,19 @@ export function Button({
         {isCustomChildren ? (
           children
         ) : (
-          <Text
-            variant={size}
-            style={[
-              styles[`text-${variant}`],
-              size === 'lg' && styles['text-lg'],
-              gradientColors && styles.gradientColors
-            ]}
-          >
-            {children}
-          </Text>
+          <>
+            <Text
+              variant={size}
+              style={[
+                { color: variantColor },
+                size === 'lg' && styles['text-lg'],
+                gradientColors && styles.gradientColors
+              ]}
+            >
+              {children}
+            </Text>
+            {icon && <Icon color={variantColor} icon={icon} size={20} />}
+          </>
         )}
       </View>
     </Touchable>
@@ -74,19 +83,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: theme.radii.sm,
     paddingHorizontal: theme.space.lg,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    gap: theme.space.xs
   },
   primary: {
     backgroundColor: theme.colors['default-700']
   },
   secondary: {
     backgroundColor: theme.colors['brand-700']
-  },
-  'text-primary': {
-    color: theme.colors['default-100']
-  },
-  'text-secondary': {
-    color: theme.colors['default-900']
   },
   md: {
     height: 25

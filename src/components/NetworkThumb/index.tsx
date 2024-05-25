@@ -10,26 +10,30 @@ import { getNetworkColor } from 'utils/networks';
 export type NetworkThumbProps = {
   aspectRatio?: number;
   id: NetworkId;
-  isRounded?: boolean;
+  variant?: 'colored' | 'minimalist';
 };
 
 export const NetworkThumb = ({
   aspectRatio = 2 / 3,
   id,
-  isRounded
+  variant = 'colored'
 }: NetworkThumbProps) => {
+  const isMinimalist = variant === 'minimalist';
+
   return (
-    <View style={[styles.wrapper, isRounded ? styles.rounded : undefined]}>
-      <Gradient colors={getNetworkColor(isRounded ? undefined : id)} />
+    <View
+      style={[styles.wrapper, isMinimalist ? styles.minimalist : undefined]}
+    >
+      <Gradient colors={getNetworkColor(!isMinimalist ? id : undefined)} />
       <View
         style={[
           styles.icon,
           {
-            aspectRatio
+            aspectRatio: isMinimalist ? 1 / 1 : aspectRatio
           }
         ]}
       >
-        <NetworkLogo id={id} width="80%" />
+        <NetworkLogo id={id} width="70%" />
       </View>
     </View>
   );
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radii.sm,
     overflow: 'hidden'
   },
-  rounded: {
+  minimalist: {
     borderRadius: 200
   },
   icon: {
