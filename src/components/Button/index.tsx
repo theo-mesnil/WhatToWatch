@@ -25,56 +25,61 @@ export type ButtonProps = ViewProps & {
   variant?: 'primary' | 'secondary';
 };
 
-export function Button({
-  children,
-  gradientColors,
-  icon,
-  isCustomChildren,
-  isRounded,
-  isTransparent,
-  onPress,
-  size = 'md',
-  style = {},
-  variant = 'primary',
-  ...rest
-}: ButtonProps) {
-  const variantColor = variant === 'secondary' ? 'default-900' : 'white';
+export const Button = React.forwardRef<never, ButtonProps>(
+  (
+    {
+      children,
+      gradientColors,
+      icon,
+      isCustomChildren,
+      isRounded,
+      isTransparent,
+      onPress,
+      size = 'md',
+      style = {},
+      variant = 'primary',
+      ...rest
+    },
+    ref
+  ) => {
+    const variantColor = variant === 'secondary' ? 'default-900' : 'white';
 
-  return (
-    <Touchable onPress={onPress}>
-      <View
-        style={[
-          styles.wrapper,
-          styles[size],
-          styles[variant],
-          isTransparent && styles.transparent,
-          isRounded && styles.rounded,
-          style
-        ]}
-        {...rest}
-      >
-        {gradientColors && <Gradient angle={1} colors={gradientColors} />}
-        {isCustomChildren ? (
-          children
-        ) : (
-          <>
-            <Text
-              variant={size}
-              style={[
-                { color: variantColor },
-                size === 'lg' && styles['text-lg'],
-                gradientColors && styles.gradientColors
-              ]}
-            >
-              {children}
-            </Text>
-            {icon && <Icon color={variantColor} icon={icon} size={20} />}
-          </>
-        )}
-      </View>
-    </Touchable>
-  );
-}
+    return (
+      <Touchable ref={ref} onPress={onPress}>
+        <View
+          style={[
+            styles.wrapper,
+            styles[size],
+            styles[variant],
+            isTransparent && styles.transparent,
+            isRounded && styles.rounded,
+            style
+          ]}
+          {...rest}
+        >
+          {gradientColors && <Gradient angle={1} colors={gradientColors} />}
+          {isCustomChildren ? (
+            children
+          ) : (
+            <>
+              <Text
+                variant={size}
+                style={[
+                  { color: variantColor },
+                  size === 'lg' && styles['text-lg'],
+                  gradientColors && styles.gradientColors
+                ]}
+              >
+                {children}
+              </Text>
+              {icon && <Icon color={variantColor} icon={icon} size={20} />}
+            </>
+          )}
+        </View>
+      </Touchable>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   wrapper: {
