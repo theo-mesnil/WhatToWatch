@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Image, ImageBackground, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
 import { Gradient } from 'components/Gradient';
-import { Loader } from 'components/Loader';
 import { Text } from 'components/Text';
+import { Thumb } from 'components/Thumb';
 import type { ContentType, ImageSizeBackdrop } from 'types/content';
 import { getImageUrl } from 'utils/images';
 
@@ -35,19 +35,13 @@ export const LargeThumb = React.memo(
 
     return (
       <View style={styles.wrapper}>
-        <ImageBackground
-          source={{
-            uri: getImageUrl(imageUrl, imageWidth)
-          }}
-          style={[
-            {
-              aspectRatio: 16 / 12
-            },
-            styles.image
-          ]}
-        >
-          {isLoading && <Loader style={styles.loading} />}
-        </ImageBackground>
+        <Thumb
+          imageUrl={imageUrl}
+          imageWidth={imageWidth}
+          type={type}
+          isLoading={isLoading}
+          aspectRatio={16 / 12}
+        />
         <View style={[globalStyles.absoluteFill, styles.content]}>
           <Gradient colors={['transparent', theme.colors.behind]} />
           {!isLoadingLogo && logo && (
@@ -69,8 +63,7 @@ export const LargeThumb = React.memo(
 
 const styles = StyleSheet.create({
   wrapper: {
-    borderTopLeftRadius: theme.radii.xxl,
-    borderTopRightRadius: theme.radii.xxl,
+    borderRadius: theme.radii.xxl,
     width: '100%',
     overflow: 'hidden',
     marginBottom: theme.space.lg
@@ -83,9 +76,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.space.lg,
     paddingBottom: theme.space.sm,
     textAlign: 'center'
-  },
-  image: {
-    backgroundColor: theme.colors.ahead
   },
   loading: {
     width: '100%'
