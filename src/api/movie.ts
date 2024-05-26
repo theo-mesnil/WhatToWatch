@@ -15,6 +15,8 @@ export type UseGetMovieCreditsApiResponse =
   paths['/3/movie/{movie_id}/credits']['get']['responses']['200']['content']['application/json'];
 export type UseGetMovieNowPlayingApiResponse =
   paths['/3/movie/now_playing']['get']['responses']['200']['content']['application/json'];
+export type UseGetMovieUpcomingApiResponse =
+  paths['/3/movie/upcoming']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetMovieApiProps = {
   id: number;
@@ -95,6 +97,23 @@ export function useGetMovieNowPlaying() {
     queryKey: ['movies', 'now_playing', REGION_CODE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieNowPlayingApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
+    }
+  });
+}
+
+export function useGetMovieUpcoming() {
+  const { queryUrl } = getApi({
+    query: 'movie/upcoming',
+    params: [{ name: 'region', value: REGION_CODE }]
+  });
+
+  return useQuery({
+    queryKey: ['movies', 'upcoming', REGION_CODE],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetMovieUpcomingApiResponse> =
         await axios.get(queryUrl());
 
       return data;

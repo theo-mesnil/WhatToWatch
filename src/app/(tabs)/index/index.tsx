@@ -9,9 +9,11 @@ import { InTheaters } from './components/InTheaters';
 import { MovieCategories } from './components/MovieCategories';
 import { Networks } from './components/Networks';
 import { Overview } from './components/Overview';
+import { PopularSeries } from './components/PopularSeries';
 import { Top10Movies } from './components/Top10Movies';
 import { Top10Series } from './components/Top10Series';
 import { TvCategories } from './components/TvCategories';
+import { Upcoming } from './components/Upcoming';
 
 export default function Discover() {
   const { containerStyle } = useSafeHeights();
@@ -26,6 +28,8 @@ export default function Discover() {
       <Family />
       <Top10Movies />
       <TvCategories />
+      <PopularSeries />
+      <Upcoming />
     </BasicLayout>
   );
 }
