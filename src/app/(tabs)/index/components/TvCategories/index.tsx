@@ -2,20 +2,21 @@ import type { ListRenderItemInfo } from 'react-native';
 
 import type { UseGetGenreTvListApiResponse } from 'api/genres';
 import { useGetGenreTvList } from 'api/genres';
+import { GenreThumb } from 'components/GenreThumb';
 import { List } from 'components/List';
-import { Text } from 'components/Text';
 
 export function TvCategories() {
   const { data, isLoading } = useGetGenreTvList();
 
   const renderItem = ({
-    item: { name }
+    item: { id, name }
   }: ListRenderItemInfo<UseGetGenreTvListApiResponse['genres'][number]>) => (
-    <Text>{name}</Text>
+    <GenreThumb id={id} title={name} />
   );
 
   return (
     <List
+      numberOfItems={2}
       results={data}
       title="Series by categories"
       id="tv-categories"

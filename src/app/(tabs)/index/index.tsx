@@ -1,5 +1,7 @@
+import { StyleSheet } from 'react-native';
 import { theme } from 'theme';
 
+import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 
 import { Documentaries } from './components/Documentaries';
@@ -12,8 +14,10 @@ import { Top10Series } from './components/Top10Series';
 import { TvCategories } from './components/TvCategories';
 
 export default function Discover() {
+  const { containerStyle } = useSafeHeights();
+
   return (
-    <BasicLayout contentContainerStyle={{ gap: theme.space.xl }}>
+    <BasicLayout contentContainerStyle={[containerStyle, styles.wrapper]}>
       <Overview />
       <Networks />
       <Top10Series />
@@ -25,3 +29,7 @@ export default function Discover() {
     </BasicLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: { gap: theme.space.xl, paddingTop: 0 }
+});
