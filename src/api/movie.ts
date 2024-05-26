@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 
+import { REGION_CODE } from 'constants/locales';
 import type { NetworkId } from 'types/content';
 import { getNetworkFromUrl } from 'utils/networks';
 
@@ -12,6 +13,8 @@ export type UseGetMovieApiResponse =
   paths['/3/movie/{movie_id}']['get']['responses']['200']['content']['application/json'];
 export type UseGetMovieCreditsApiResponse =
   paths['/3/movie/{movie_id}/credits']['get']['responses']['200']['content']['application/json'];
+export type UseGetMovieNowPlayingApiResponse =
+  paths['/3/movie/now_playing']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetMovieApiProps = {
   id: number;
@@ -79,5 +82,22 @@ export function useGetMovieCredits(props?: UseGetMovieApiProps) {
       };
     },
     enabled: !!id
+  });
+}
+
+export function useGetMovieNowPlaying() {
+  const { queryUrl } = getApi({
+    query: 'movie/now_playing',
+    params: [{ name: 'region', value: REGION_CODE }]
+  });
+
+  return useQuery({
+    queryKey: ['movies', 'now_playing', REGION_CODE],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetMovieNowPlayingApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
+    }
   });
 }

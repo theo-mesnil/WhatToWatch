@@ -185,7 +185,7 @@ export default function Tv() {
             )}
           </View>
         )}
-        {!!casting && (
+        {!!casting && casting.length > 0 && (
           <List
             title={<FormattedMessage id="casting" defaultMessage="Casting" />}
             isLoading={isLoadingCredits}

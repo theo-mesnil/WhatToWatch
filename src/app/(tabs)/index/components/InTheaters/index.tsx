@@ -1,23 +1,32 @@
-import { View } from 'react-native';
+import { FormattedMessage } from 'react-intl';
+import type { ListRenderItemInfo } from 'react-native';
 
+import type { UseGetMovieNowPlayingApiResponse } from 'api/movie';
+import { useGetMovieNowPlaying } from 'api/movie';
 import { List } from 'components/List';
-import { Text } from 'components/Text';
+import { Thumb } from 'components/Thumb';
+import { ThumbLink } from 'components/ThumbLink';
 
 export function InTheaters() {
-  function renderItem() {
-    return (
-      <View>
-        <Text>item</Text>
-      </View>
-    );
-  }
+  const { data, isLoading } = useGetMovieNowPlaying();
+
+  const renderItem = ({
+    item: { id, poster_path }
+  }: ListRenderItemInfo<
+    UseGetMovieNowPlayingApiResponse['results'][number]
+  >) => (
+    <ThumbLink href={`/movie/${id}`}>
+      <Thumb type="movie" imageUrl={poster_path} />
+    </ThumbLink>
+  );
 
   return (
     <List
-      title="In Theaters"
+      title={<FormattedMessage key="title" defaultMessage="In Theaters" />}
       id="in-theaters"
       renderItem={renderItem}
-      isLoading
+      isLoading={isLoading}
+      results={data?.results}
     />
   );
 }

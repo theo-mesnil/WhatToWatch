@@ -101,7 +101,7 @@ export default function Movie() {
             {overview}
           </Text>
         )}
-        {!!casting && (
+        {!!casting && casting.length > 0 && (
           <List
             title={<FormattedMessage id="casting" defaultMessage="Casting" />}
             isLoading={isLoadingCredits}

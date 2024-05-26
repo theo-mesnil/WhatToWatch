@@ -1,9 +1,11 @@
+import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 
 import type { UseGetGenreMovieListApiResponse } from 'api/genres';
 import { useGetGenreMovieList } from 'api/genres';
 import { GenreThumb } from 'components/GenreThumb';
 import { List } from 'components/List';
+import { ThumbLink } from 'components/ThumbLink';
 
 export function MovieCategories() {
   const { data, isLoading } = useGetGenreMovieList();
@@ -11,14 +13,18 @@ export function MovieCategories() {
   const renderItem = ({
     item: { id, name }
   }: ListRenderItemInfo<UseGetGenreMovieListApiResponse['genres'][number]>) => (
-    <GenreThumb id={id} title={name} />
+    <ThumbLink href={`/genre/${id}`}>
+      <GenreThumb id={id} title={name} />
+    </ThumbLink>
   );
 
   return (
     <List
       numberOfItems={2}
       results={data}
-      title="Movies by categories"
+      title={
+        <FormattedMessage key="title" defaultMessage="Movies by categories" />
+      }
       id="categories-movie"
       renderItem={renderItem}
       isLoading={isLoading}

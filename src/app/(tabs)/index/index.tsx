@@ -4,7 +4,7 @@ import { theme } from 'theme';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 
-import { Documentaries } from './components/Documentaries';
+import { Family } from './components/Family';
 import { InTheaters } from './components/InTheaters';
 import { MovieCategories } from './components/MovieCategories';
 import { Networks } from './components/Networks';
@@ -21,15 +21,15 @@ export default function Discover() {
       <Overview />
       <Networks />
       <Top10Series />
-      <MovieCategories />
-      <Documentaries />
-      <Top10Movies />
       <InTheaters />
+      <MovieCategories />
+      <Family />
+      <Top10Movies />
       <TvCategories />
     </BasicLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: { gap: theme.space.xl, paddingTop: 0 }
+  wrapper: { gap: theme.space.xxl, paddingTop: 0 }
 });

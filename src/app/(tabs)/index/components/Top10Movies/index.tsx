@@ -1,3 +1,4 @@
+import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 
 import type { UseGetTrendingApiResponse } from 'api/trending';
@@ -30,7 +31,7 @@ export function Top10Movies() {
         ?.map((page) => page.results)
         .flat()
         .slice(0, 10)}
-      title="Top 10 Movies"
+      title={<FormattedMessage key="title" defaultMessage="Top 10 Movies" />}
       id="top-10-movie"
       renderItem={renderItem}
       isLoading={isLoading}

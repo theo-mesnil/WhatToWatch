@@ -28,7 +28,7 @@ type VerticalListProps = Pick<
 };
 
 export function List({
-  gap = theme.space.xs,
+  gap = theme.space.md,
   id,
   initialNumToRender = 20,
   isLoading,
@@ -116,6 +116,7 @@ export function List({
     <View>
       {!!title && renderTitle}
       <Animated.FlatList
+        bounces={false}
         getItemLayout={withoutSizing ? undefined : getItemLayout}
         data={dataFormatted}
         initialNumToRender={initialNumToRender}
