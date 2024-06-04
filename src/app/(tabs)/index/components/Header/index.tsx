@@ -3,52 +3,43 @@ import { Animated, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
-import { Text } from 'components/Text';
+import { Logo } from 'components/Logo';
 import { isAndroid } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
 
 type HeaderProps = {
   component?: React.ReactNode;
   scrollY?: Animated.Value;
-  title: React.ReactNode;
 };
 
-export const Header: React.FC<HeaderProps> = ({
-  component,
-  scrollY,
-  title
-}) => {
-  const { headerHeight, headerSafeHeight, statusBarHeight } =
-    useSafeHeights(!!component);
+export const Header: React.FC<HeaderProps> = ({ scrollY }) => {
+  const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights();
 
   const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 
   return (
-    <View style={[styles.wrapper, { height: headerSafeHeight }]}>
+    <Animated.View
+      style={[
+        styles.wrapper,
+        { height: headerSafeHeight },
+        {
+          opacity: scrollY?.interpolate({
+            inputRange: [400, 450],
+            outputRange: [0, 1]
+          })
+        }
+      ]}
+    >
       {isAndroid ? (
-        <Animated.View
+        <View
           style={[
-            {
-              opacity: scrollY?.interpolate({
-                inputRange: [0, 50],
-                outputRange: [0, 1]
-              }),
-              backgroundColor: theme.colors.ahead
-            },
+            { backgroundColor: theme.colors.ahead },
             globalStyles.absoluteFill
           ]}
         />
       ) : (
         <AnimatedBlurView
-          style={[
-            {
-              opacity: scrollY?.interpolate({
-                inputRange: [0, 50],
-                outputRange: [0, 1]
-              })
-            },
-            globalStyles.absoluteFill
-          ]}
+          style={globalStyles.absoluteFill}
           tint="dark"
           intensity={150}
         />
@@ -62,10 +53,15 @@ export const Header: React.FC<HeaderProps> = ({
           }
         ]}
       >
-        <Text variant="h1">{title}</Text>
+        <View
+          style={{
+            height: headerHeight - 20
+          }}
+        >
+          <Logo />
+        </View>
       </View>
-      {component && <View style={styles.input}>{component}</View>}
-    </View>
+    </Animated.View>
   );
 };
 
@@ -79,7 +75,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.space.lg,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   },
   input: {
     paddingHorizontal: theme.space.lg

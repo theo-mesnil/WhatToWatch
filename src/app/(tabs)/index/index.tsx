@@ -1,10 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { useNavigation } from 'expo-router';
+import * as React from 'react';
+import { Animated, StyleSheet } from 'react-native';
 import { theme } from 'theme';
 
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 
 import { Family } from './components/Family';
+import { Header } from './components/Header';
 import { InTheaters } from './components/InTheaters';
 import { MovieCategories } from './components/MovieCategories';
 import { Networks } from './components/Networks';
@@ -17,9 +20,27 @@ import { Upcoming } from './components/Upcoming';
 
 export default function Discover() {
   const { containerStyle } = useSafeHeights();
+  const navigation = useNavigation();
+  const [scrollYPosition, getScrollYPosition] = React.useState(
+    new Animated.Value(0)
+  );
+
+  const HeaderComponent = React.useCallback(
+    () => <Header scrollY={scrollYPosition} />,
+    [scrollYPosition]
+  );
+
+  React.useEffect(() => {
+    navigation.setOptions({
+      header: HeaderComponent
+    });
+  }, [HeaderComponent, navigation]);
 
   return (
-    <BasicLayout contentContainerStyle={[containerStyle, styles.wrapper]}>
+    <BasicLayout
+      getScrollYPosition={getScrollYPosition}
+      contentContainerStyle={[containerStyle, styles.wrapper]}
+    >
       <Overview />
       <Networks />
       <Top10Series />
