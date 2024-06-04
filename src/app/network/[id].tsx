@@ -7,7 +7,9 @@ import { theme } from 'theme';
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
 import { GradientHeader } from 'components/GradientHeader';
+import { Header } from 'components/Header';
 import { LargeThumb } from 'components/LargeThumb';
+import { NetworkLogo } from 'components/NetworkLogo';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
@@ -15,8 +17,6 @@ import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 import type { NetworkId } from 'types/content';
 import { getNetworkColor } from 'utils/networks';
-
-import { Header } from './components/Header';
 
 export default function Network() {
   const params = useLocalSearchParams();
@@ -47,7 +47,13 @@ export default function Network() {
   );
 
   const HeaderComponent = React.useCallback(
-    () => <Header id={networkID} scrollY={scrollYPosition} />,
+    () => (
+      <Header
+        withBackButton
+        customTitle={<NetworkLogo id={networkID} width={100} />}
+        scrollY={scrollYPosition}
+      />
+    ),
     [networkID, scrollYPosition]
   );
 

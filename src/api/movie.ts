@@ -51,6 +51,7 @@ export function useGetMovie(props?: UseGetMovieApiProps) {
             }
           : undefined,
         overview: data.overview,
+        tagline: data.tagline,
         title: data.title,
         rating: data.vote_average
           ? {

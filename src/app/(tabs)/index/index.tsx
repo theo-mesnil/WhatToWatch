@@ -1,13 +1,14 @@
 import { useNavigation } from 'expo-router';
 import * as React from 'react';
-import { Animated, StyleSheet } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
+import { Header } from 'components/Header';
+import { Logo } from 'components/Logo';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 
 import { Family } from './components/Family';
-import { Header } from './components/Header';
 import { InTheaters } from './components/InTheaters';
 import { MovieCategories } from './components/MovieCategories';
 import { Networks } from './components/Networks';
@@ -19,15 +20,34 @@ import { TvCategories } from './components/TvCategories';
 import { Upcoming } from './components/Upcoming';
 
 export default function Discover() {
-  const { containerStyle } = useSafeHeights();
+  const { containerStyle, headerHeight } = useSafeHeights();
   const navigation = useNavigation();
   const [scrollYPosition, getScrollYPosition] = React.useState(
     new Animated.Value(0)
   );
 
   const HeaderComponent = React.useCallback(
-    () => <Header scrollY={scrollYPosition} />,
-    [scrollYPosition]
+    () => (
+      <Header
+        hideOnStart
+        customTitle={
+          <View style={styles.headerCustomTitle}>
+            <View
+              style={[
+                styles.logo,
+                {
+                  height: headerHeight - 10
+                }
+              ]}
+            >
+              <Logo />
+            </View>
+          </View>
+        }
+        scrollY={scrollYPosition}
+      />
+    ),
+    [headerHeight, scrollYPosition]
   );
 
   React.useEffect(() => {
@@ -56,5 +76,9 @@ export default function Discover() {
 }
 
 const styles = StyleSheet.create({
-  wrapper: { gap: theme.space.xxl, paddingTop: 0 }
+  wrapper: { gap: theme.space.xxl, paddingTop: 0 },
+  headerCustomTitle: {
+    flex: 1
+  },
+  logo: { flexDirection: 'row', alignSelf: 'center' }
 });

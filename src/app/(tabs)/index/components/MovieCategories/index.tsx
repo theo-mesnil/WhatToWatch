@@ -13,7 +13,7 @@ export function MovieCategories() {
   const renderItem = ({
     item: { id, name }
   }: ListRenderItemInfo<UseGetGenreMovieListApiResponse['genres'][number]>) => (
-    <ThumbLink href={`/genre/${id}`}>
+    <ThumbLink href={`/genre/movie/${id}`}>
       <GenreThumb id={id} title={name} />
     </ThumbLink>
   );

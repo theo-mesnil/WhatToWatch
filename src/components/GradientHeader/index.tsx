@@ -6,11 +6,13 @@ import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
 
 export type GradientHeaderProps = {
+  angle?: number;
   colors?: GradientProps['colors'];
   scrollY: Animated.Value;
 };
 
 export function GradientHeader({
+  angle = 0,
   colors = [theme.colors['default-700'], 'transparent'],
   scrollY
 }: GradientHeaderProps) {
@@ -27,7 +29,11 @@ export function GradientHeader({
         globalStyles.absoluteFill
       ]}
     >
-      <Gradient colors={colors} angle={0} style={globalStyles.absoluteFill} />
+      <Gradient
+        colors={colors}
+        angle={angle}
+        style={globalStyles.absoluteFill}
+      />
     </Animated.View>
   );
 }

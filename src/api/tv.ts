@@ -61,6 +61,7 @@ export function useGetTv(props?: UseGetTvApiProps) {
               link: data.homepage
             }
           : undefined,
+        overview: data.overview,
         rating: data.vote_average
           ? {
               votes: Math.round(data.vote_average * 10) / 10,

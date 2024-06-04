@@ -46,9 +46,10 @@ export default function Tv() {
   const genres = data?.genres;
   const startYear = data?.startYear;
   const endYear = data?.endYear;
-  const runtime = data?.runtime;
   const networkLink = data?.networkLink;
+  const overview = data?.overview;
   const rating = data?.rating;
+  const runtime = data?.runtime;
   const seasons = data?.seasons?.filter(
     (item) => item.season_number > 0 && item.episode_count > 0
   );
@@ -132,9 +133,9 @@ export default function Tv() {
           style={globalStyles.centered}
         />
       )}
-      {!!tagline && (
+      {(!!overview || !!tagline) && (
         <Text variant="lg" style={styles.tagline}>
-          {tagline}
+          {overview || tagline}
         </Text>
       )}
       <View style={styles.content}>

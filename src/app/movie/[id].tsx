@@ -41,6 +41,7 @@ export default function Movie() {
   const releaseDate = data?.releaseDate;
   const runtime = data?.runtime;
   const title = data?.title;
+  const tagline = data?.tagline;
 
   const renderItemCast = ({
     item: { character, id, name, profile_path }
@@ -96,9 +97,9 @@ export default function Movie() {
         />
       )}
       <View style={styles.content}>
-        {!!overview && (
+        {(!!overview || !!tagline) && (
           <Text variant="lg" style={styles.tagline}>
-            {overview}
+            {overview || tagline}
           </Text>
         )}
         {!!casting && casting.length > 0 && (
