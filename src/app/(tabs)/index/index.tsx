@@ -31,17 +31,12 @@ export default function Discover() {
       <Header
         hideOnStart
         customTitle={
-          <View style={styles.headerCustomTitle}>
-            <View
-              style={[
-                styles.logo,
-                {
-                  height: headerHeight - 10
-                }
-              ]}
-            >
-              <Logo />
-            </View>
+          <View
+            style={{
+              height: headerHeight - 10
+            }}
+          >
+            <Logo />
           </View>
         }
         scrollY={scrollYPosition}
@@ -76,9 +71,5 @@ export default function Discover() {
 }
 
 const styles = StyleSheet.create({
-  wrapper: { gap: theme.space.xxl, paddingTop: 0 },
-  headerCustomTitle: {
-    flex: 1
-  },
-  logo: { flexDirection: 'row', alignSelf: 'center' }
+  wrapper: { gap: theme.space.xxl, paddingTop: 0 }
 });

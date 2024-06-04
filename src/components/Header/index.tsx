@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
       {isAndroid ? (
         <Animated.View
           style={[
-            !hideOnStart && {
+            {
               opacity: scrollY?.interpolate({
                 inputRange: [0, 50],
                 outputRange: [0, 1]
@@ -62,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
       ) : (
         <AnimatedBlurView
           style={[
-            !hideOnStart && {
+            {
               opacity: scrollY?.interpolate({
                 inputRange: [0, 50],
                 outputRange: [0, 1]
@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
             </Button>
           </View>
         )}
-        <View style={styles.middle}>
+        <View style={[styles.middle, customTitle && styles.middleCustom]}>
           {title && <Text variant="h1">{title}</Text>}
           {customTitle}
         </View>
@@ -126,5 +126,8 @@ const styles = StyleSheet.create({
   middle: {
     flexDirection: 'row',
     flex: 1
+  },
+  middleCustom: {
+    justifyContent: 'center'
   }
 });
