@@ -1,8 +1,8 @@
 # WhatToWatch
 
-Play with react native (Expo) and [themoviedb API](https://developers.themoviedb.org/) 🥳
+Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series, and where to watch them. This app is powered by React Native (Expo) and the [themoviedb API](https://developers.themoviedb.org/) (TMDb) database.
 
-![alt image](https://user-images.githubusercontent.com/50322149/149024555-ebc3d433-a2db-423d-b162-cfe52ff9faf4.png)
+![cover](https://github.com/theo-mesnil/WhatToWatch/assets/50322149/42957707-8be1-4ba4-b2e6-399133618d36)
 
 WhatToWatch is the simplest and fastest way to discover movies, series and actors.
 
