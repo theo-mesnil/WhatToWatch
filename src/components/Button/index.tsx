@@ -42,8 +42,6 @@ export const Button = React.forwardRef<never, ButtonProps>(
     },
     ref
   ) => {
-    const variantColor = variant === 'secondary' ? 'default-900' : 'white';
-
     return (
       <Touchable ref={ref} onPress={onPress}>
         <View
@@ -65,14 +63,14 @@ export const Button = React.forwardRef<never, ButtonProps>(
               <Text
                 variant={size}
                 style={[
-                  { color: variantColor },
+                  { color: theme.colors.white },
                   size === 'lg' && styles['text-lg'],
                   gradientColors && styles.gradientColors
                 ]}
               >
                 {children}
               </Text>
-              {icon && <Icon color={variantColor} icon={icon} size={20} />}
+              {icon && <Icon color="white" icon={icon} size={20} />}
             </>
           )}
         </View>

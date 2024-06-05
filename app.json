@@ -2,14 +2,14 @@
   "android": {
     "adaptiveIcon": {
       "foregroundImage": "src/assets/adaptive-icon.png",
-      "backgroundColor": "#121418"
+      "backgroundColor": "#0d0d0d"
     },
     "package": "com.theomesnil.WhatToWatch",
     "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch",
     "versionCode": 4
   },
   "assetBundlePatterns": ["**/*"],
-  "description": "Find movies & tv shows guide recommendations - Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series and actors. It\"s an application based on themoviedb (TMDb)database.",
+  "description": "Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series, and where to watch them. This app is powered by the themoviedb (TMDb) database.",
   "extra": {
     "eas": {
       "projectId": "deb154a5-6b12-419a-a3c5-d704888f7df2"
@@ -41,11 +41,11 @@
   ],
   "scheme": "whattowatch",
   "slug": "WhatToWatch",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "splash": {
     "image": "src/assets/splash.png",
     "resizeMode": "contain",
-    "backgroundColor": "#121418"
+    "backgroundColor": "#0d0d0d"
   },
   "updates": {
     "fallbackToCacheTimeout": 0

@@ -101,7 +101,7 @@ export function List({
                 <Text variant="lg" style={styles.moreText}>
                   <FormattedMessage key="all-link" defaultMessage="More" />
                 </Text>
-                <Icon color="brand-700" size={20} icon={ArrowNextIcon} />
+                <Icon color="brand-100" size={20} icon={ArrowNextIcon} />
               </View>
             </Touchable>
           </Link>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   moreText: {
-    color: theme.colors['brand-700']
+    color: theme.colors['brand-100']
   },
   itemHeader: {
     flex: 1
