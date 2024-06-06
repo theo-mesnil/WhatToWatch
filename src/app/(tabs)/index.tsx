@@ -3,21 +3,20 @@ import * as React from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
+import { Family } from 'components/ContentList/Family';
+import { InTheaters } from 'components/ContentList/InTheaters';
+import { MovieCategories } from 'components/ContentList/MovieCategories';
+import { Networks } from 'components/ContentList/Networks';
+import { Overview } from 'components/ContentList/Overview';
+import { PopularSeries } from 'components/ContentList/PopularSeries';
+import { Top10Movies } from 'components/ContentList/Top10Movies';
+import { Top10Series } from 'components/ContentList/Top10Series';
+import { TvCategories } from 'components/ContentList/TvCategories';
+import { Upcoming } from 'components/ContentList/Upcoming';
 import { Header } from 'components/Header';
 import { Logo } from 'components/Logo';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
-
-import { Family } from './components/Family';
-import { InTheaters } from './components/InTheaters';
-import { MovieCategories } from './components/MovieCategories';
-import { Networks } from './components/Networks';
-import { Overview } from './components/Overview';
-import { PopularSeries } from './components/PopularSeries';
-import { Top10Movies } from './components/Top10Movies';
-import { Top10Series } from './components/Top10Series';
-import { TvCategories } from './components/TvCategories';
-import { Upcoming } from './components/Upcoming';
 
 export default function Discover() {
   const { containerStyle, headerHeight } = useSafeHeights();
