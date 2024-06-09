@@ -1,5 +1,5 @@
 import { intervalToDuration } from 'date-fns';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { StyleSheet, View } from 'react-native';
@@ -20,7 +20,6 @@ import { ItemThumb } from './components/ItemThumb';
 import { ReadMore } from './components/ReadMore';
 
 export default function Person() {
-  const navigation = useNavigation();
   const params = useLocalSearchParams();
   const personID = Number(params?.id);
 
@@ -42,12 +41,6 @@ export default function Person() {
   const placeOfBirth = data?.placeOfBirth;
   const numberOfMovies = movies?.length;
   const numberOfTvShows = tv?.length;
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      presentation: 'modal'
-    });
-  }, [navigation]);
 
   return (
     <ContentLayout

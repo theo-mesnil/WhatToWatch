@@ -48,12 +48,16 @@
     "backgroundColor": "#0d0d0d"
   },
   "updates": {
-    "fallbackToCacheTimeout": 0
+    "fallbackToCacheTimeout": 0,
+    "url": "https://u.expo.dev/deb154a5-6b12-419a-a3c5-d704888f7df2"
   },
   "web": {
     "favicon": "src/assets/favicon.png"
   },
   "experiments": {
     "typedRoutes": true
+  },
+  "runtimeVersion": {
+    "policy": "appVersion"
   }
 }

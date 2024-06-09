@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
@@ -23,7 +23,6 @@ import { EpisodeThumb } from './components/EpisodeThumb';
 
 export default function Tv() {
   const [selectedSeason, setSelectedSeason] = React.useState<number>(1);
-  const navigation = useNavigation();
   const params = useLocalSearchParams();
   const tvID = Number(params?.id);
 
@@ -80,12 +79,6 @@ export default function Tv() {
       />
     </ThumbLink>
   );
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      presentation: 'modal'
-    });
-  }, [navigation]);
 
   return (
     <ContentLayout

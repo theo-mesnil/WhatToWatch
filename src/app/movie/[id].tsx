@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
@@ -19,7 +19,6 @@ import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
 
 export default function Movie() {
-  const navigation = useNavigation();
   const params = useLocalSearchParams();
   const movieID = Number(params?.id);
 
@@ -50,12 +49,6 @@ export default function Movie() {
       <PersonThumb imageUrl={profile_path} name={name} character={character} />
     </ThumbLink>
   );
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      presentation: 'modal'
-    });
-  }, [navigation]);
 
   return (
     <ContentLayout

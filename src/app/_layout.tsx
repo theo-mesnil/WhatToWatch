@@ -46,7 +46,26 @@ export default function Layout() {
       <IntlMessages>
         <QueryClientProvider client={queryClient}>
           <View style={styles.wrapper}>
-            <Stack screenOptions={{ header: () => null }} />
+            <Stack screenOptions={{ header: () => null }}>
+              <Stack.Screen
+                name="movie/[id]"
+                options={{
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="tv/[id]"
+                options={{
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="person/[id]"
+                options={{
+                  presentation: 'modal'
+                }}
+              />
+            </Stack>
           </View>
         </QueryClientProvider>
       </IntlMessages>
