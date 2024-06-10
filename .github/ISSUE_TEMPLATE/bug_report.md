@@ -24,12 +24,13 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **On which screen(s)?**
-- [ ] Home
-- [ ] Search
-- [ ] Streaming
-- [ ] Movie
-- [ ] Serie
-- [ ] Person
-- [ ] Network
-- [ ] Genre
-- [ ] Other
+*Remove wrong answers*
+- Home
+- Search
+- Streaming
+- Movie
+- Serie
+- Person
+- Network
+- Genre
+- Other

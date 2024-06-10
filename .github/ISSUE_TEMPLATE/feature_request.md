@@ -17,12 +17,13 @@ A clear and concise description of what you want to happen.
 A clear and concise description of any alternative solutions or features you've considered.
 
 **On which screen(s)?**
-- [ ] Home
-- [ ] Search
-- [ ] Streaming
-- [ ] Movie
-- [ ] Serie
-- [ ] Person
-- [ ] Network
-- [ ] Genre
-- [ ] Other
+*Remove wrong answers*
+- Home
+- Search
+- Streaming
+- Movie
+- Serie
+- Person
+- Network
+- Genre
+- Other
