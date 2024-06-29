@@ -27,16 +27,12 @@ export default function Genre() {
   const { data: genreTv } = useGetGenreTvList();
   const { data: genreMovie } = useGetGenreMovieList();
   const title =
-    genreMovie?.filter((genre) => genre.id === genreID) ||
-    genreTv?.filter((genre) => genre.id === genreID);
+    genreMovie?.filter((genre) => genre.id === genreID)?.[0] ||
+    genreTv?.filter((genre) => genre.id === genreID)?.[0];
 
   const HeaderComponent = React.useCallback(
     () => (
-      <Header
-        withBackButton
-        title={title?.[0]?.name}
-        scrollY={scrollYPosition}
-      />
+      <Header withBackButton title={title?.name} scrollY={scrollYPosition} />
     ),
     [scrollYPosition, title]
   );

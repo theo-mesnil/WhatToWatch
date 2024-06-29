@@ -45,7 +45,7 @@ export default function Movie() {
       ListHeaderComponent={
         <ThumbLink isLoading={isLoading} href={`/movie/${firstItem?.id}`}>
           <LargeThumb
-            type="tv"
+            type="movie"
             id={firstItem?.id}
             title={firstItem?.title}
             imageUrl={firstItem?.backdrop_path}
