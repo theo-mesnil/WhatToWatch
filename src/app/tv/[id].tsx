@@ -61,6 +61,7 @@ export default function Tv() {
   }: ListRenderItemInfo<UseGetTvApiResponse['seasons'][number]>) => (
     <Button
       size="lg"
+      isRounded
       variant={selectedSeason === season_number ? 'secondary' : 'primary'}
       onPress={() => setSelectedSeason(season_number)}
     >
@@ -135,21 +136,30 @@ export default function Tv() {
         {!!seasonsLength && (
           <View>
             <List
-              title={
-                <FormattedMessage
-                  key="episodes-title"
-                  defaultMessage="Episodes"
-                />
-              }
               gap={theme.space.sm}
               withoutSizing
               id="seasons-buttons"
               renderItem={renderItemSeason}
               results={seasonsLength > 1 ? seasons : null}
             />
-            {isLoadingSeason && <View style={styles.seasonLoading} />}
+            {isLoadingSeason && (
+              <View style={styles.seasonLoading}>
+                <Text variant="h1">
+                  <FormattedMessage
+                    key="episodes-title"
+                    defaultMessage="Episodes"
+                  />
+                </Text>
+              </View>
+            )}
             {!isLoadingSeason && (
               <View style={styles.episodesContent}>
+                <Text variant="h1">
+                  <FormattedMessage
+                    key="episodes-title"
+                    defaultMessage="Episodes"
+                  />
+                </Text>
                 <Text>
                   <FormattedMessage
                     defaultMessage="{count} episodes on season {seasonNumber}"
@@ -204,7 +214,7 @@ const styles = StyleSheet.create({
     gap: theme.space.xl
   },
   episodesContent: {
-    marginTop: theme.space.md,
+    marginTop: theme.space.xl,
     paddingHorizontal: theme.space.marginList
   },
   episodesList: {
@@ -212,6 +222,7 @@ const styles = StyleSheet.create({
     gap: theme.space.xl
   },
   seasonLoading: {
+    marginTop: theme.space.xl,
     height: 700
   }
 });

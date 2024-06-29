@@ -88,10 +88,9 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
           </Text>
         </Animated.View>
         <Button
-          isRounded
           isCustomChildren
           onPress={() => navigation.goBack()}
-          style={styles.button}
+          style={styles.closeButton}
         >
           <Icon icon={CrossIcon} />
         </Button>
@@ -112,7 +111,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between'
   },
-  button: {
+  closeButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 30,
+    paddingHorizontal: 0,
     backgroundColor: theme.colors['default-900'],
     position: 'absolute',
     right: -5,
