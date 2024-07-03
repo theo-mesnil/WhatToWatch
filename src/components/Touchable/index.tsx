@@ -43,11 +43,9 @@ export const Touchable = React.forwardRef<any, TouchableProps>(
 
     return (
       <Animated.View
-        style={[
-          {
-            transform: [{ scale: scaleAnimation }]
-          }
-        ]}
+        style={{
+          transform: [{ scale: scaleAnimation }]
+        }}
       >
         <Pressable
           ref={ref}

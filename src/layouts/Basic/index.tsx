@@ -28,7 +28,7 @@ export function BasicLayout({
 
   return (
     <AnimateComponent
-      style={[styles.wrapper]}
+      style={styles.wrapper}
       onScroll={
         !isView
           ? Animated.event(

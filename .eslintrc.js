@@ -61,7 +61,11 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'import/no-duplicates': 2,
-    '@typescript-eslint/consistent-type-imports': ['error']
+    '@typescript-eslint/consistent-type-imports': ['error'],
+    'react-native/no-unused-styles': 2,
+    'react-native/split-platform-components': 2,
+    'react-native/no-inline-styles': 2,
+    'react-native/no-single-element-style-arrays': 2
   },
   settings: {
     'import/resolve': {
