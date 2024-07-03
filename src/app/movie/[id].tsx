@@ -7,10 +7,11 @@ import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
 import type { UseGetMovieCreditsApiResponse } from 'api/movie';
-import { useGetMovie, useGetMovieCredits } from 'api/movie';
+import { useGetMovie, useGetMovieCredits, useGetMovieImages } from 'api/movie';
 import { Badge } from 'components/Badge';
 import { ButtonNetwork } from 'components/ButtonNetwork';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
+import { Images } from 'components/Images';
 import { List } from 'components/List';
 import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
@@ -19,7 +20,7 @@ import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
 
 export default function Movie() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const movieID = Number(params?.id);
 
   const { data, isLoading } = useGetMovie({ id: movieID });
@@ -28,6 +29,9 @@ export default function Movie() {
     type: 'movie'
   });
   const { data: credits, isLoading: isLoadingCredits } = useGetMovieCredits({
+    id: movieID
+  });
+  const { data: images, isLoading: isLoadingImages } = useGetMovieImages({
     id: movieID
   });
 
@@ -104,6 +108,15 @@ export default function Movie() {
             results={casting}
           />
         )}
+        <View style={globalStyles.centered}>
+          <Images
+            id={movieID}
+            type="movie"
+            posters={images?.posters}
+            backdrops={images?.backdrops}
+            isLoading={isLoadingImages}
+          />
+        </View>
       </View>
     </ContentLayout>
   );

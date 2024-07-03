@@ -17,7 +17,7 @@ export const ScrollYPositionContext =
   React.createContext<ScrollYPositionContextType>(null);
 
 export default function Genre() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const genreID = Number(params?.id) as keyof typeof genresColor;
   const navigation = useNavigation();
   const [scrollYPosition, getScrollYPosition] = React.useState(

@@ -14,7 +14,7 @@ import { getImageUrl } from 'utils/images';
 
 export type ThumbProps = {
   aspectRatio?: number;
-  height?: number;
+  height?: number | string;
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop | ImageSizePoster;
   isLoading?: boolean;
@@ -41,7 +41,7 @@ export const Thumb = React.memo(
           style={[
             {
               aspectRatio,
-              height
+              height: height as number
             },
             styles.image
           ]}

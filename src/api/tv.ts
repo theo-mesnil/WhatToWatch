@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 
+import { LOCALE } from 'constants/locales';
 import type { NetworkId } from 'types/content';
 import { getNetworkFromUrl } from 'utils/networks';
 
@@ -13,7 +14,9 @@ export type UseGetTvApiResponse =
 export type UseGetTvSeasonApiResponse =
   paths['/3/tv/{series_id}/season/{season_number}']['get']['responses']['200']['content']['application/json'];
 export type UseGetTvCreditsApiResponse =
-  paths['/3/tv/{series_id}/season/{season_number}/aggregate_credits']['get']['responses']['200']['content']['application/json'];
+  paths['/3/tv/{series_id}/aggregate_credits']['get']['responses']['200']['content']['application/json'];
+export type UseGetTvImagesApiResponse =
+  paths['/3/tv/{series_id}/images']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetTvApiProps = {
   id: number;
@@ -115,6 +118,33 @@ export function useGetTvCredits(props?: UseGetTvApiProps) {
       return {
         cast: data.cast.slice(0, 30)
       };
+    },
+    enabled: !!id
+  });
+}
+
+export function useGetTvImages(props?: UseGetTvApiProps) {
+  const { id } = props || {};
+
+  const locales = `${LOCALE},en`;
+
+  const { queryUrl } = getApi({
+    query: `tv/${id}/images`,
+    params: [
+      {
+        name: 'include_image_language',
+        value: locales
+      }
+    ]
+  });
+
+  return useQuery({
+    queryKey: ['tv', id, 'images'],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetTvImagesApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
     },
     enabled: !!id
   });

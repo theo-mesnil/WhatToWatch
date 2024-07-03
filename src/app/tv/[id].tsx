@@ -7,11 +7,17 @@ import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
 import type { UseGetTvApiResponse, UseGetTvCreditsApiResponse } from 'api/tv';
-import { useGetTv, useGetTvCredits, useGetTvSeason } from 'api/tv';
+import {
+  useGetTv,
+  useGetTvCredits,
+  useGetTvImages,
+  useGetTvSeason
+} from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
 import { ButtonNetwork } from 'components/ButtonNetwork';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
+import { Images } from 'components/Images';
 import { List } from 'components/List';
 import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
@@ -23,7 +29,7 @@ import { EpisodeThumb } from './components/EpisodeThumb';
 
 export default function Tv() {
   const [selectedSeason, setSelectedSeason] = React.useState<number>(1);
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const tvID = Number(params?.id);
 
   const { data, isLoading } = useGetTv({ id: tvID });
@@ -36,6 +42,9 @@ export default function Tv() {
     seasonNumber: selectedSeason
   });
   const { data: credits, isLoading: isLoadingCredits } = useGetTvCredits({
+    id: tvID
+  });
+  const { data: images, isLoading: isLoadingImages } = useGetTvImages({
     id: tvID
   });
 
@@ -198,6 +207,15 @@ export default function Tv() {
             results={casting}
           />
         )}
+        <View style={globalStyles.centered}>
+          <Images
+            id={tvID}
+            isLoading={isLoadingImages}
+            backdrops={images?.backdrops}
+            posters={images?.posters}
+            type="tv"
+          />
+        </View>
       </View>
     </ContentLayout>
   );

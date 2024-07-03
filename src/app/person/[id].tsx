@@ -8,10 +8,12 @@ import { theme } from 'theme';
 
 import {
   useGetPerson,
+  useGetPersonImages,
   useGetPersonMovieCredits,
   useGetPersonTvCredits
 } from 'api/person';
 import { Badge } from 'components/Badge';
+import { Images } from 'components/Images';
 import { Text } from 'components/Text';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
@@ -20,10 +22,13 @@ import { ItemThumb } from './components/ItemThumb';
 import { ReadMore } from './components/ReadMore';
 
 export default function Person() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const personID = Number(params?.id);
 
   const { data, isLoading } = useGetPerson({ id: personID });
+  const { data: images, isLoading: isLoadingImages } = useGetPersonImages({
+    id: personID
+  });
 
   const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits(
     { id: personID }
@@ -191,6 +196,12 @@ export default function Person() {
             </View>
           </View>
         )}
+        <Images
+          id={personID}
+          type="person"
+          isLoading={isLoadingImages}
+          profiles={images}
+        />
       </View>
     </ContentLayout>
   );

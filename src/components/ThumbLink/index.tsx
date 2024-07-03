@@ -1,11 +1,12 @@
 import { Link } from 'expo-router';
+import type { LinkProps } from 'expo-router/build/link/Link';
 import * as React from 'react';
 
 import { Touchable } from 'components/Touchable';
 
 export type ThumbLinkProps = {
   children: React.ReactElement;
-  href: string;
+  href: LinkProps['href'];
   isLoading?: boolean;
 };
 

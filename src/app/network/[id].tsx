@@ -19,7 +19,7 @@ import type { NetworkId } from 'types/content';
 import { getNetworkColor } from 'utils/networks';
 
 export default function Network() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const networkID = Number(params?.id) as NetworkId;
   const navigation = useNavigation();
   const { containerStyle } = useSafeHeights();

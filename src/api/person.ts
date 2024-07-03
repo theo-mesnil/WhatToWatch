@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 
+import { LOCALE } from 'constants/locales';
+
 import { getApi } from './api';
 import type { paths } from './types';
 
@@ -11,6 +13,8 @@ export type UseGetPersonMovieCreditsApiResponse =
   paths['/3/person/{person_id}/movie_credits']['get']['responses']['200']['content']['application/json'];
 export type UseGetPersonTvCreditsApiResponse =
   paths['/3/person/{person_id}/tv_credits']['get']['responses']['200']['content']['application/json'];
+export type UseGetPersonImagesApiResponse =
+  paths['/3/person/{person_id}/images']['get']['responses']['200']['content']['application/json'];
 export type UseGetPersonPopularApiResponse =
   paths['/3/person/popular']['get']['responses']['200']['content']['application/json'];
 
@@ -58,7 +62,7 @@ export function useGetPersonMovieCredits(props?: UseGetPersonApiProps) {
       const { data }: AxiosResponse<UseGetPersonMovieCreditsApiResponse> =
         await axios.get(queryUrl());
 
-      return data.cast.sort((a, b) => b.popularity - a.popularity);
+      return data.cast;
     },
     enabled: !!id
   });
@@ -77,7 +81,34 @@ export function useGetPersonTvCredits(props?: UseGetPersonApiProps) {
       const { data }: AxiosResponse<UseGetPersonTvCreditsApiResponse> =
         await axios.get(queryUrl());
 
-      return data.cast.sort((a, b) => b.popularity - a.popularity);
+      return data.cast;
+    },
+    enabled: !!id
+  });
+}
+
+export function useGetPersonImages(props?: UseGetPersonApiProps) {
+  const { id } = props || {};
+
+  const locales = `${LOCALE},en`;
+
+  const { queryUrl } = getApi({
+    query: `person/${id}/images`,
+    params: [
+      {
+        name: 'include_image_language',
+        value: locales
+      }
+    ]
+  });
+
+  return useQuery({
+    queryKey: ['person', id, 'tv', 'images', locales],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetPersonImagesApiResponse> =
+        await axios.get(queryUrl());
+
+      return data.profiles;
     },
     enabled: !!id
   });

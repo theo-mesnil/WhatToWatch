@@ -54,13 +54,31 @@ export default function Layout() {
                 }}
               />
               <Stack.Screen
+                name="movie/images/[id]/[type]"
+                options={{
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
                 name="tv/[id]"
                 options={{
                   presentation: 'modal'
                 }}
               />
               <Stack.Screen
+                name="tv/images/[id]/[type]"
+                options={{
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
                 name="person/[id]"
+                options={{
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="person/images/[id]"
                 options={{
                   presentation: 'modal'
                 }}

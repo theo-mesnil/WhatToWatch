@@ -14,7 +14,7 @@ import { ScrollYPositionContext } from '../_layout';
 
 export default function Movie() {
   const getScrollYPosition = React.useContext(ScrollYPositionContext);
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const genreID = Number(params?.id);
   const { containerStyle } = useSafeHeights();
 
