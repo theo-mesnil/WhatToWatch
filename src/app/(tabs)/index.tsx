@@ -8,6 +8,7 @@ import { InTheaters } from 'components/ContentList/InTheaters';
 import { MovieCategories } from 'components/ContentList/MovieCategories';
 import { Networks } from 'components/ContentList/Networks';
 import { Overview } from 'components/ContentList/Overview';
+import { PopularPerson } from 'components/ContentList/PopularPerson';
 import { PopularSeries } from 'components/ContentList/PopularSeries';
 import { Top10Movies } from 'components/ContentList/Top10Movies';
 import { Top10Series } from 'components/ContentList/Top10Series';
@@ -62,6 +63,7 @@ export default function Discover() {
       <MovieCategories />
       <Family />
       <Top10Movies />
+      <PopularPerson />
       <TvCategories />
       <PopularSeries />
       <Upcoming />

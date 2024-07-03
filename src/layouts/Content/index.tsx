@@ -69,15 +69,6 @@ export function ContentLayout({
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    width: '100%',
-    overflow: 'hidden',
-    marginBottom: theme.space.lg
-  },
-  content: {
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
   infos: {
     marginTop: COVER_HEIGHT + theme.space.lg,
     paddingHorizontal: theme.space.xxl,

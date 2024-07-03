@@ -11,6 +11,8 @@ export type UseGetPersonMovieCreditsApiResponse =
   paths['/3/person/{person_id}/movie_credits']['get']['responses']['200']['content']['application/json'];
 export type UseGetPersonTvCreditsApiResponse =
   paths['/3/person/{person_id}/tv_credits']['get']['responses']['200']['content']['application/json'];
+export type UseGetPersonPopularApiResponse =
+  paths['/3/person/popular']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetPersonApiProps = {
   id: number;
@@ -78,5 +80,21 @@ export function useGetPersonTvCredits(props?: UseGetPersonApiProps) {
       return data.cast.sort((a, b) => b.popularity - a.popularity);
     },
     enabled: !!id
+  });
+}
+
+export function useGetPersonPopular() {
+  const { queryUrl } = getApi({
+    query: 'person/popular'
+  });
+
+  return useQuery({
+    queryKey: ['person', 'popular'],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetPersonPopularApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
+    }
   });
 }

@@ -205,17 +205,6 @@ const styles = StyleSheet.create({
     marginTop: theme.space.md,
     gap: theme.space.md
   },
-  item: {
-    flexDirection: 'row',
-    gap: theme.space.md
-  },
-  name: {
-    color: theme.colors.white
-  },
-  infos: {
-    flex: 1,
-    gap: theme.space.md
-  },
   sectionTitle: {
     textTransform: 'capitalize'
   }

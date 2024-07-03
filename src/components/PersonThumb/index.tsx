@@ -13,16 +13,17 @@ export type PersonThumbProps = {
 export function PersonThumb({ character, imageUrl, name }: PersonThumbProps) {
   return (
     <View>
-      <Thumb isRounded aspectRatio={1 / 1} type="person" imageUrl={imageUrl} />
-      <Text style={styles.name}>{name}</Text>
-      {character && <Text>{character}</Text>}
+      <Thumb aspectRatio={6 / 7} type="person" imageUrl={imageUrl} />
+      <View style={styles.text}>
+        <Text variant="h3">{name}</Text>
+        {character && <Text>{character}</Text>}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  name: {
-    color: theme.colors.white,
+  text: {
     marginTop: theme.space.xs
   }
 });

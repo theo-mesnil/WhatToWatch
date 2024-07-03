@@ -155,8 +155,5 @@ const styles = StyleSheet.create({
   },
   moreText: {
     color: theme.colors['brand-100']
-  },
-  itemHeader: {
-    flex: 1
   }
 });
