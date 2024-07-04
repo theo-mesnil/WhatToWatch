@@ -18,8 +18,8 @@ import { Text } from 'components/Text';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 
-import { ItemThumb } from './components/ItemThumb';
-import { ReadMore } from './components/ReadMore';
+import { ItemThumb } from '../components/ItemThumb';
+import { ReadMore } from '../components/ReadMore';
 
 export default function Person() {
   const params = useLocalSearchParams<{ id: string }>();

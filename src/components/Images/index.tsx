@@ -41,7 +41,7 @@ export function Images({
         <View style={styles.images}>
           {profiles?.length > 0 && (
             <View style={styles.profiles}>
-              <ThumbLink href={`${type}/images/${id}`}>
+              <ThumbLink href={`${type}/${id}/images/`}>
                 <>
                   <Thumb
                     aspectRatio={16 / 9}
@@ -66,7 +66,7 @@ export function Images({
           )}
           {backdrops?.length > 0 && (
             <View style={styles.backdrops}>
-              <ThumbLink href={`${type}/images/${id}/backdrops`}>
+              <ThumbLink href={`${type}/${id}/images/backdrops`}>
                 <>
                   <Thumb
                     aspectRatio={backdrops?.[0]?.aspect_ratio}
@@ -91,7 +91,7 @@ export function Images({
           )}
           {posters?.length > 0 && (
             <View style={styles.posters}>
-              <ThumbLink href={`${type}/images/${id}/posters`}>
+              <ThumbLink href={`${type}/${id}/images/posters`}>
                 <>
                   <Thumb
                     aspectRatio={posters?.[0]?.aspect_ratio}

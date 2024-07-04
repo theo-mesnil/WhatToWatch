@@ -25,7 +25,7 @@ import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
 
-import { EpisodeThumb } from './components/EpisodeThumb';
+import { EpisodeThumb } from '../components/EpisodeThumb';
 
 export default function Tv() {
   const [selectedSeason, setSelectedSeason] = React.useState<number>(1);
