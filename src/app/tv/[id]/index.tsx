@@ -6,12 +6,17 @@ import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
-import type { UseGetTvApiResponse, UseGetTvCreditsApiResponse } from 'api/tv';
+import type {
+  UseGetTvApiResponse,
+  UseGetTvCreditsApiResponse,
+  UseGetTvSimilarApiResponse
+} from 'api/tv';
 import {
   useGetTv,
   useGetTvCredits,
   useGetTvImages,
-  useGetTvSeason
+  useGetTvSeason,
+  useGetTvSimilar
 } from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
@@ -21,6 +26,7 @@ import { Images } from 'components/Images';
 import { List } from 'components/List';
 import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
+import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
@@ -42,10 +48,16 @@ export default function Tv() {
     seasonNumber: selectedSeason
   });
   const { data: credits, isLoading: isLoadingCredits } = useGetTvCredits({
-    id: tvID
+    id: tvID,
+    enabled: !isLoading
   });
   const { data: images, isLoading: isLoadingImages } = useGetTvImages({
-    id: tvID
+    id: tvID,
+    enabled: !isLoading
+  });
+  const { data: similar, isLoading: isLoadingSimilar } = useGetTvSimilar({
+    id: tvID,
+    enabled: !isLoading
   });
 
   const tagline = data?.tagline;
@@ -87,6 +99,14 @@ export default function Tv() {
         name={name}
         character={roles?.[0]?.character}
       />
+    </ThumbLink>
+  );
+
+  const renderItemTv = ({
+    item: { id, poster_path }
+  }: ListRenderItemInfo<UseGetTvSimilarApiResponse['results'][number]>) => (
+    <ThumbLink href={`tv/${id}`}>
+      <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
   );
 
@@ -198,7 +218,7 @@ export default function Tv() {
             )}
           </View>
         )}
-        {!!casting && casting.length > 0 && (
+        {(isLoadingCredits || (!!casting && casting.length > 0)) && (
           <List
             title={<FormattedMessage id="casting" defaultMessage="Casting" />}
             isLoading={isLoadingCredits}
@@ -207,15 +227,31 @@ export default function Tv() {
             results={casting}
           />
         )}
-        <View style={globalStyles.centered}>
-          <Images
-            id={tvID}
-            isLoading={isLoadingImages}
-            backdrops={images?.backdrops}
-            posters={images?.posters}
-            type="tv"
+        {(isLoadingImages || !!images) && (
+          <View style={globalStyles.centered}>
+            <Images
+              id={tvID}
+              isLoading={isLoadingImages}
+              backdrops={images?.backdrops}
+              posters={images?.posters}
+              type="tv"
+            />
+          </View>
+        )}
+        {(isLoadingSimilar || similar?.results.length > 0) && (
+          <List
+            title={
+              <FormattedMessage
+                id="similar"
+                defaultMessage="In the same spirit"
+              />
+            }
+            id="similar"
+            isLoading={isLoadingSimilar}
+            renderItem={renderItemTv}
+            results={similar?.results}
           />
-        </View>
+        )}
       </View>
     </ContentLayout>
   );

@@ -11,7 +11,8 @@ export default function MovieImages() {
   const movieID = Number(params.id);
   const type = params.type;
   const { data, isLoading } = useGetMovieImages({
-    id: movieID
+    id: movieID,
+    enabled: true
   });
 
   const images = data?.[type];

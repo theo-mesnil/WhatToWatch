@@ -30,7 +30,7 @@ export function useGetPerson(props?: UseGetPersonApiProps) {
   });
 
   return useQuery({
-    queryKey: ['person', id],
+    queryKey: ['person', id, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonApiResponse> =
         await axios.get(queryUrl());
@@ -57,7 +57,7 @@ export function useGetPersonMovieCredits(props?: UseGetPersonApiProps) {
   });
 
   return useQuery({
-    queryKey: ['person', id, 'movies'],
+    queryKey: ['person', id, 'movies', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonMovieCreditsApiResponse> =
         await axios.get(queryUrl());
@@ -76,7 +76,7 @@ export function useGetPersonTvCredits(props?: UseGetPersonApiProps) {
   });
 
   return useQuery({
-    queryKey: ['person', id, 'tv'],
+    queryKey: ['person', id, 'tv', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonTvCreditsApiResponse> =
         await axios.get(queryUrl());
@@ -120,7 +120,7 @@ export function useGetPersonPopular() {
   });
 
   return useQuery({
-    queryKey: ['person', 'popular'],
+    queryKey: ['person', 'popular', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonPopularApiResponse> =
         await axios.get(queryUrl());

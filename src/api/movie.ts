@@ -19,9 +19,15 @@ export type UseGetMovieNowPlayingApiResponse =
   paths['/3/movie/now_playing']['get']['responses']['200']['content']['application/json'];
 export type UseGetMovieUpcomingApiResponse =
   paths['/3/movie/upcoming']['get']['responses']['200']['content']['application/json'];
+export type UseGetMovieSimilarApiResponse =
+  paths['/3/movie/{movie_id}/similar']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetMovieApiProps = {
   id: number;
+};
+
+export type UseGetMovieEnabledApiProps = UseGetMovieApiProps & {
+  enabled: boolean;
 };
 
 export function useGetMovie(props?: UseGetMovieApiProps) {
@@ -32,7 +38,7 @@ export function useGetMovie(props?: UseGetMovieApiProps) {
   });
 
   return useQuery({
-    queryKey: ['movie', id],
+    queryKey: ['movie', id, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieApiResponse> =
         await axios.get(queryUrl());
@@ -69,15 +75,15 @@ export function useGetMovie(props?: UseGetMovieApiProps) {
   });
 }
 
-export function useGetMovieCredits(props?: UseGetMovieApiProps) {
-  const { id } = props || {};
+export function useGetMovieCredits(props?: UseGetMovieEnabledApiProps) {
+  const { enabled, id } = props || {};
 
   const { queryUrl } = getApi({
     query: `movie/${id}/credits`
   });
 
   return useQuery({
-    queryKey: ['movie', id, 'credits'],
+    queryKey: ['movie', id, 'credits', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieCreditsApiResponse> =
         await axios.get(queryUrl());
@@ -86,12 +92,12 @@ export function useGetMovieCredits(props?: UseGetMovieApiProps) {
         cast: data.cast.slice(0, 30)
       };
     },
-    enabled: !!id
+    enabled: !!id && enabled
   });
 }
 
-export function useGetMovieImages(props?: UseGetMovieApiProps) {
-  const { id } = props || {};
+export function useGetMovieImages(props?: UseGetMovieEnabledApiProps) {
+  const { enabled, id } = props || {};
 
   const locales = `${LOCALE},en`;
 
@@ -106,14 +112,14 @@ export function useGetMovieImages(props?: UseGetMovieApiProps) {
   });
 
   return useQuery({
-    queryKey: ['movie', id, 'images'],
+    queryKey: ['movie', id, 'images', locales],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieImagesApiResponse> =
         await axios.get(queryUrl());
 
       return data;
     },
-    enabled: !!id
+    enabled: !!id && enabled
   });
 }
 
@@ -124,7 +130,7 @@ export function useGetMovieNowPlaying() {
   });
 
   return useQuery({
-    queryKey: ['movies', 'now_playing', REGION_CODE],
+    queryKey: ['movies', 'now_playing', REGION_CODE, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieNowPlayingApiResponse> =
         await axios.get(queryUrl());
@@ -141,12 +147,31 @@ export function useGetMovieUpcoming() {
   });
 
   return useQuery({
-    queryKey: ['movies', 'upcoming', REGION_CODE],
+    queryKey: ['movies', 'upcoming', REGION_CODE, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieUpcomingApiResponse> =
         await axios.get(queryUrl());
 
       return data;
     }
+  });
+}
+
+export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
+  const { enabled, id } = props || {};
+
+  const { queryUrl } = getApi({
+    query: `movie/${id}/similar`
+  });
+
+  return useQuery({
+    queryKey: ['movie', id, 'similar', LOCALE],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetMovieSimilarApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
+    },
+    enabled: !!id && enabled
   });
 }

@@ -11,7 +11,8 @@ export default function TvImages() {
   const tvID = Number(params.id);
   const type = params.type;
   const { data, isLoading } = useGetTvImages({
-    id: tvID
+    id: tvID,
+    enabled: true
   });
 
   const images = data?.[type];

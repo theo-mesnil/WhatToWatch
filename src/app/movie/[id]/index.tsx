@@ -6,8 +6,16 @@ import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
-import type { UseGetMovieCreditsApiResponse } from 'api/movie';
-import { useGetMovie, useGetMovieCredits, useGetMovieImages } from 'api/movie';
+import type {
+  UseGetMovieCreditsApiResponse,
+  UseGetMovieSimilarApiResponse
+} from 'api/movie';
+import {
+  useGetMovie,
+  useGetMovieCredits,
+  useGetMovieImages,
+  useGetMovieSimilar
+} from 'api/movie';
 import { Badge } from 'components/Badge';
 import { ButtonNetwork } from 'components/ButtonNetwork';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
@@ -15,6 +23,7 @@ import { Images } from 'components/Images';
 import { List } from 'components/List';
 import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
+import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
@@ -29,10 +38,16 @@ export default function Movie() {
     type: 'movie'
   });
   const { data: credits, isLoading: isLoadingCredits } = useGetMovieCredits({
-    id: movieID
+    id: movieID,
+    enabled: !isLoading
   });
   const { data: images, isLoading: isLoadingImages } = useGetMovieImages({
-    id: movieID
+    id: movieID,
+    enabled: !isLoading
+  });
+  const { data: similar, isLoading: isLoadingSimilar } = useGetMovieSimilar({
+    id: movieID,
+    enabled: !isLoading
   });
 
   const casting = credits?.cast;
@@ -51,6 +66,14 @@ export default function Movie() {
   }: ListRenderItemInfo<UseGetMovieCreditsApiResponse['cast'][number]>) => (
     <ThumbLink href={`person/${id}`}>
       <PersonThumb imageUrl={profile_path} name={name} character={character} />
+    </ThumbLink>
+  );
+
+  const renderItemMovie = ({
+    item: { id, poster_path }
+  }: ListRenderItemInfo<UseGetMovieSimilarApiResponse['results'][number]>) => (
+    <ThumbLink href={`tv/${id}`}>
+      <Thumb type="movie" imageUrl={poster_path} />
     </ThumbLink>
   );
 
@@ -108,15 +131,31 @@ export default function Movie() {
             results={casting}
           />
         )}
-        <View style={globalStyles.centered}>
-          <Images
-            id={movieID}
-            type="movie"
-            posters={images?.posters}
-            backdrops={images?.backdrops}
-            isLoading={isLoadingImages}
+        {(isLoadingImages || !!images) && (
+          <View style={globalStyles.centered}>
+            <Images
+              id={movieID}
+              type="movie"
+              posters={images?.posters}
+              backdrops={images?.backdrops}
+              isLoading={isLoadingImages}
+            />
+          </View>
+        )}
+        {(isLoadingSimilar || similar?.results.length > 0) && (
+          <List
+            title={
+              <FormattedMessage
+                id="similar"
+                defaultMessage="In the same spirit"
+              />
+            }
+            id="similar"
+            isLoading={isLoadingSimilar}
+            renderItem={renderItemMovie}
+            results={similar?.results}
           />
-        </View>
+        )}
       </View>
     </ContentLayout>
   );

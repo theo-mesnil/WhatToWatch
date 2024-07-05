@@ -18,7 +18,7 @@ export function PersonThumb({ character, imageUrl, name }: PersonThumbProps) {
         <Text variant="h3" numberOfLines={2}>
           {name}
         </Text>
-        {character && <Text>{character}</Text>}
+        {character && <Text numberOfLines={2}>{character}</Text>}
       </View>
     </View>
   );

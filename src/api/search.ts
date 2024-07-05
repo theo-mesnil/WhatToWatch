@@ -3,6 +3,8 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 
+import { LOCALE } from 'constants/locales';
+
 import type { SpecificApiParam } from './api';
 import { getApi } from './api';
 import type { paths } from './types';
@@ -28,7 +30,7 @@ export function useGetSearch(props?: UseGetSearchApiProps) {
   });
 
   return useInfiniteQuery({
-    queryKey: ['search', 'multi', ...queryParams],
+    queryKey: ['search', 'multi', ...queryParams, LOCALE],
     queryFn: async ({ pageParam }) => {
       const { data }: AxiosResponse<UseGetSearchApiResponse> = await axios.get(
         queryUrl(pageParam)
