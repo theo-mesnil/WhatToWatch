@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 
 import { useGetPersonImages } from 'api/person';
-import FullScreenImages from 'components/FullScreenList';
+import FullScreenImagesList from 'layouts/FullScreenImagesList';
 
 export default function MovieImages() {
   const params = useLocalSearchParams<{
@@ -12,5 +12,7 @@ export default function MovieImages() {
     id: tvID
   });
 
-  return <FullScreenImages images={data} isLoading={isLoading} type="person" />;
+  return (
+    <FullScreenImagesList images={data} isLoading={isLoading} type="person" />
+  );
 }

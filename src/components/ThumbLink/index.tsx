@@ -16,7 +16,7 @@ export function ThumbLink({ children, href, isLoading }: ThumbLinkProps) {
   }
 
   return (
-    <Link href={href} asChild>
+    <Link href={href} asChild push>
       <Touchable>{children}</Touchable>
     </Link>
   );

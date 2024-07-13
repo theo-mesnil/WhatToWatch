@@ -48,31 +48,13 @@ export default function Layout() {
           <View style={styles.wrapper}>
             <Stack screenOptions={{ header: () => null }}>
               <Stack.Screen
-                name="movie/[id]/index"
-                options={{
-                  presentation: 'modal'
-                }}
-              />
-              <Stack.Screen
                 name="movie/[id]/images/[type]"
                 options={{
                   presentation: 'modal'
                 }}
               />
               <Stack.Screen
-                name="tv/[id]/index"
-                options={{
-                  presentation: 'modal'
-                }}
-              />
-              <Stack.Screen
                 name="tv/[id]/images/[type]"
-                options={{
-                  presentation: 'modal'
-                }}
-              />
-              <Stack.Screen
-                name="person/[id]/index"
                 options={{
                   presentation: 'modal'
                 }}

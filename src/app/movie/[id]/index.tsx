@@ -72,7 +72,7 @@ export default function Movie() {
   const renderItemMovie = ({
     item: { id, poster_path }
   }: ListRenderItemInfo<UseGetMovieSimilarApiResponse['results'][number]>) => (
-    <ThumbLink href={`tv/${id}`}>
+    <ThumbLink href={`movie/${id}`}>
       <Thumb type="movie" imageUrl={poster_path} />
     </ThumbLink>
   );

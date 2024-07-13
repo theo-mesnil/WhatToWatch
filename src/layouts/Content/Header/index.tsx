@@ -5,7 +5,7 @@ import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { Button } from 'components/Button';
-import { CrossIcon, Icon } from 'components/Icon';
+import { ArrowBackIcon, Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { isAndroid } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
@@ -17,8 +17,7 @@ type HeaderProps = {
 };
 
 export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
-  const { headerHeight, statusBarHeight } = useSafeHeights();
-  const androidStatusBarHeight = isAndroid ? statusBarHeight - 20 : 0;
+  const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights();
   const navigation = useNavigation();
 
   const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
@@ -28,8 +27,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
       style={[
         styles.wrapper,
         {
-          height: headerHeight + androidStatusBarHeight,
-          paddingTop: androidStatusBarHeight
+          height: headerSafeHeight - 20
         }
       ]}
     >
@@ -65,10 +63,19 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
         style={[
           styles.content,
           {
-            height: headerHeight
+            top: statusBarHeight,
+            height: headerHeight - 20
           }
         ]}
       >
+        <Button
+          isCustomChildren
+          isTransparent
+          onPress={() => navigation.goBack()}
+          style={styles.closeButton}
+        >
+          <Icon icon={ArrowBackIcon} size={30} />
+        </Button>
         <Animated.View
           style={{
             opacity: scrollY?.interpolate({
@@ -81,19 +88,12 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
             style={{
               maxWidth: Dimensions.get('window').width - 60
             }}
-            variant="h3"
+            variant="h2"
             numberOfLines={1}
           >
             {title}
           </Text>
         </Animated.View>
-        <Button
-          isCustomChildren
-          onPress={() => navigation.goBack()}
-          style={styles.closeButton}
-        >
-          <Icon icon={CrossIcon} />
-        </Button>
       </View>
     </View>
   );
@@ -109,16 +109,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.space.lg,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    gap: theme.space.sm
   },
   closeButton: {
     width: 30,
     height: 30,
     borderRadius: 30,
     paddingHorizontal: 0,
-    backgroundColor: theme.colors['default-900'],
-    position: 'absolute',
-    right: -5,
-    bottom: -15
+    backgroundColor: 'transparent'
   }
 });
