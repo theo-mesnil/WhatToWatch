@@ -4,20 +4,17 @@ import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import type { UseGetMovieImagesApiResponse } from 'api/movie';
-import type { UseGetPersonImagesApiResponse } from 'api/person';
+import { Button } from 'components/Button';
 import { ListTitle } from 'components/ListTitle';
-import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
-import type { ContentType } from 'types/content';
 
 export type ImagesProps = {
   backdrops?: UseGetMovieImagesApiResponse['backdrops'];
   id: number;
   isLoading: boolean;
   posters?: UseGetMovieImagesApiResponse['posters'];
-  profiles?: UseGetPersonImagesApiResponse['profiles'];
-  type: ContentType;
+  type: 'tv' | 'movie';
 };
 
 export function Images({
@@ -25,45 +22,15 @@ export function Images({
   id,
   isLoading,
   posters,
-  profiles,
   type
 }: ImagesProps) {
-  if (
-    isLoading ||
-    (backdrops?.length > 0 && posters?.length > 0) ||
-    profiles.length > 0
-  ) {
+  if (isLoading || (backdrops?.length > 0 && posters?.length > 0)) {
     return (
       <View>
         <ListTitle>
           <FormattedMessage id="images" defaultMessage="Images" />
         </ListTitle>
         <View style={styles.images}>
-          {profiles?.length > 0 && (
-            <View style={styles.profiles}>
-              <ThumbLink href={`${type}/${id}/images/`}>
-                <>
-                  <Thumb
-                    aspectRatio={16 / 9}
-                    height="100%"
-                    isLoading={isLoading}
-                    type="person"
-                    imageUrl={profiles?.[0]?.file_path}
-                    imageWidth="w780"
-                  />
-                  <View style={[globalStyles.absoluteFill, styles.content]}>
-                    <View style={styles.overlay} />
-                    <Text style={styles.title} variant="h3">
-                      <FormattedMessage
-                        id="pictures"
-                        defaultMessage="Pictures"
-                      />
-                    </Text>
-                  </View>
-                </>
-              </ThumbLink>
-            </View>
-          )}
           {backdrops?.length > 0 && (
             <View style={styles.backdrops}>
               <ThumbLink href={`${type}/${id}/images/backdrops`}>
@@ -77,13 +44,12 @@ export function Images({
                     imageWidth="w780"
                   />
                   <View style={[globalStyles.absoluteFill, styles.content]}>
-                    <View style={styles.overlay} />
-                    <Text style={styles.title} variant="h3">
+                    <Button size="lg" style={styles.button} variant="secondary">
                       <FormattedMessage
                         id="backdrops"
                         defaultMessage="Backdrops"
                       />
-                    </Text>
+                    </Button>
                   </View>
                 </>
               </ThumbLink>
@@ -102,10 +68,9 @@ export function Images({
                     imageWidth="w780"
                   />
                   <View style={[globalStyles.absoluteFill, styles.content]}>
-                    <View style={styles.overlay} />
-                    <Text style={styles.title} variant="h3">
+                    <Button size="lg" style={styles.button} variant="secondary">
                       <FormattedMessage id="posters" defaultMessage="Posters" />
-                    </Text>
+                    </Button>
                   </View>
                 </>
               </ThumbLink>
@@ -126,37 +91,19 @@ const styles = StyleSheet.create({
     aspectRatio: 16 / 9
   },
   content: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: theme.radii.md
+    justifyContent: 'flex-end'
   },
-  overlay: {
-    backgroundColor: theme.colors.behind,
-    opacity: 0.5,
-    ...globalStyles.absoluteFill
-  },
-  title: {
-    backgroundColor: theme.colors['brand-800'],
-    paddingHorizontal: theme.space.lg,
-    paddingVertical: theme.space.sm,
-    borderRadius: 100,
-    textAlign: 'center'
-  },
-  profiles: {
-    height: '100%',
-    borderRadius: theme.space.md,
-    overflow: 'hidden'
+  button: {
+    width: '100%',
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0
   },
   backdrops: {
     height: '100%',
-    width: '60%',
-    borderRadius: theme.space.md,
-    overflow: 'hidden'
+    width: '60%'
   },
   posters: {
     height: '100%',
-    flex: 1,
-    borderRadius: theme.space.md,
-    overflow: 'hidden'
+    flex: 1
   }
 });

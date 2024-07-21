@@ -24,6 +24,7 @@ type Images =
 export type FullScreenImagesProps = {
   images: Images;
   isLoading?: boolean;
+  startAt?: number;
   type: ContentType;
 };
 
@@ -34,6 +35,7 @@ const CARD_LIST_INSET = theme.space.marginList;
 export default function FullScreenImagesList({
   images,
   isLoading,
+  startAt = 0,
   type
 }: FullScreenImagesProps) {
   const navigation = useNavigation();
@@ -82,7 +84,11 @@ export default function FullScreenImagesList({
   function getItemLayout(_: any, index: number) {
     return {
       length: CARD_WIDTH,
-      offset: getItemOffset(index),
+      offset:
+        CARD_WIDTH * index +
+        CARD_LIST_INSET +
+        GAP * index -
+        Dimensions.get('window').width * 0.1,
       index
     };
   }
@@ -92,12 +98,12 @@ export default function FullScreenImagesList({
       <View style={styles.list}>
         <Animated.FlatList
           numColumns={1}
+          initialScrollIndex={startAt}
           initialNumToRender={2}
           pagingEnabled
           id="images"
-          bounces={false}
           decelerationRate="fast"
-          snapToOffsets={[...Array(images.length)].map((x, i) =>
+          snapToOffsets={[...Array(images.length)].map((_, i) =>
             getItemOffset(i)
           )}
           contentContainerStyle={styles.listContainer}
@@ -135,12 +141,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   listContainer: {
-    paddingHorizontal: CARD_LIST_INSET - GAP / 2
+    paddingHorizontal: CARD_LIST_INSET,
+    gap: GAP
   },
   thumb: {
     alignSelf: 'center',
-    justifyContent: 'center',
-    margin: GAP / 2
+    justifyContent: 'center'
   },
   closeButton: {
     width: 30,

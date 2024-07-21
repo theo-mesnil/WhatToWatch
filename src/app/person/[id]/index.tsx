@@ -2,10 +2,12 @@ import { intervalToDuration } from 'date-fns';
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
+import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
+import type { UseGetPersonImagesApiResponse } from 'api/person';
 import {
   useGetPerson,
   useGetPersonImages,
@@ -13,8 +15,9 @@ import {
   useGetPersonTvCredits
 } from 'api/person';
 import { Badge } from 'components/Badge';
-import { Images } from 'components/Images';
+import { List } from 'components/List';
 import { Text } from 'components/Text';
+import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 
@@ -36,6 +39,15 @@ export default function Person() {
   const { data: tv, isLoading: isLoadingTv } = useGetPersonTvCredits({
     id: personID
   });
+
+  const renderItemImage = ({
+    index,
+    item: { file_path }
+  }: ListRenderItemInfo<UseGetPersonImagesApiResponse['profiles'][number]>) => (
+    <ThumbLink href={`person/${personID}/images/${index}`}>
+      <Thumb type="person" imageUrl={file_path} />
+    </ThumbLink>
+  );
 
   const biography = data?.biography;
   const birthday = data?.birthday;
@@ -196,13 +208,16 @@ export default function Person() {
             </View>
           </View>
         )}
-        <Images
-          id={personID}
-          type="person"
-          isLoading={isLoadingImages}
-          profiles={images}
-        />
       </View>
+      {(isLoadingImages || images?.length > 0) && (
+        <List
+          title={<FormattedMessage id="pictures" defaultMessage="Pictures" />}
+          id="similar"
+          isLoading={isLoadingImages}
+          renderItem={renderItemImage}
+          results={images}
+        />
+      )}
     </ContentLayout>
   );
 }
@@ -210,6 +225,7 @@ export default function Person() {
 const styles = StyleSheet.create({
   content: {
     gap: theme.space.xl,
+    marginBottom: theme.space.xl,
     ...globalStyles.centered
   },
   items: {

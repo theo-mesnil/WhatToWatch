@@ -60,7 +60,7 @@ export default function Layout() {
                 }}
               />
               <Stack.Screen
-                name="person/[id]/images"
+                name="person/[id]/images/[start]"
                 options={{
                   presentation: 'modal'
                 }}
