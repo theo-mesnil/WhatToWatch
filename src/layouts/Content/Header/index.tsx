@@ -13,14 +13,20 @@ import { useSafeHeights } from 'constants/useSafeHeights';
 type HeaderProps = {
   component?: React.ReactNode;
   scrollY?: Animated.Value;
+  showHeaderOnStart?: boolean;
   title: React.ReactNode;
 };
 
-export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
+export const Header: React.FC<HeaderProps> = ({
+  scrollY,
+  showHeaderOnStart,
+  title
+}) => {
   const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights();
   const navigation = useNavigation();
 
   const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
+  const opacity = showHeaderOnStart ? 1 : 0;
 
   return (
     <View
@@ -50,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
             {
               opacity: scrollY?.interpolate({
                 inputRange: [250, 300],
-                outputRange: [0, 1]
+                outputRange: [opacity, 1]
               })
             },
             globalStyles.absoluteFill
@@ -80,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
           style={{
             opacity: scrollY?.interpolate({
               inputRange: [250, 300],
-              outputRange: [0, 1]
+              outputRange: [opacity, 1]
             })
           }}
         >

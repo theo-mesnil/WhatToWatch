@@ -15,6 +15,7 @@ export type ContentLayoutProps = {
   children: React.ReactNode;
   imageUrl?: string;
   isLoading?: boolean;
+  isPersonContent?: boolean;
   logo?: {
     aspectRatio: number;
     url: string;
@@ -28,6 +29,7 @@ export function ContentLayout({
   children,
   imageUrl,
   isLoading,
+  isPersonContent,
   logo,
   subtitle,
   title
@@ -58,6 +60,7 @@ export function ContentLayout({
         imageUrl={imageUrl}
         title={title}
         logo={logo}
+        isPerson={isPersonContent}
       />
       <View style={styles.infos}>
         {badges && <View style={styles.badges}>{badges}</View>}

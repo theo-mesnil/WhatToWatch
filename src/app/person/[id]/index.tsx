@@ -7,21 +7,24 @@ import { StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
-import type { UseGetPersonImagesApiResponse } from 'api/person';
+import type {
+  UseGetPersonCreditsApiResponse,
+  UseGetPersonImagesApiResponse
+} from 'api/person';
 import {
   useGetPerson,
+  useGetPersonCredits,
   useGetPersonImages,
   useGetPersonMovieCredits,
   useGetPersonTvCredits
 } from 'api/person';
 import { Badge } from 'components/Badge';
 import { List } from 'components/List';
-import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 
-import { ItemThumb } from '../components/ItemThumb';
+import { CreditNumberThumb } from '../components/CreditNumberThumb';
 import { ReadMore } from '../components/ReadMore';
 
 export default function Person() {
@@ -33,12 +36,30 @@ export default function Person() {
     id: personID
   });
 
-  const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits(
-    { id: personID }
-  );
+  const biography = data?.biography;
+  const birthday = data?.birthday;
+  const coverUrl = data?.coverUrl;
+  const deathday = data?.deathday;
+  const department = data?.department;
+  const isActing = department === 'Acting';
+  const name = data?.name;
+  const placeOfBirth = data?.placeOfBirth;
+
   const { data: tv, isLoading: isLoadingTv } = useGetPersonTvCredits({
-    id: personID
+    id: personID,
+    isActing
   });
+
+  const { data: credits, isLoading: isLoadingCredits } = useGetPersonCredits({
+    id: personID,
+    isActing
+  });
+  const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits(
+    { id: personID, isActing }
+  );
+
+  const numberOfMovies = movies?.length;
+  const numberOfTvShows = tv?.length;
 
   const renderItemImage = ({
     index,
@@ -49,18 +70,21 @@ export default function Person() {
     </ThumbLink>
   );
 
-  const biography = data?.biography;
-  const birthday = data?.birthday;
-  const coverUrl = data?.coverUrl;
-  const deathday = data?.deathday;
-  const department = data?.department;
-  const name = data?.name;
-  const placeOfBirth = data?.placeOfBirth;
-  const numberOfMovies = movies?.length;
-  const numberOfTvShows = tv?.length;
+  const renderCreditImage = ({
+    item: { id, media_type, poster_path }
+  }: ListRenderItemInfo<UseGetPersonCreditsApiResponse['cast'][number]>) => {
+    const type = media_type === 'movie' ? 'movie' : 'tv';
+
+    return (
+      <ThumbLink href={`${type}/${id}`}>
+        <Thumb imageWidth="w500" type={type} imageUrl={poster_path} />
+      </ThumbLink>
+    );
+  };
 
   return (
     <ContentLayout
+      isPersonContent
       isLoading={isLoading || isLoadingMovies || isLoadingTv}
       imageUrl={coverUrl}
       title={name}
@@ -140,84 +164,61 @@ export default function Person() {
       }
     >
       <View style={styles.content}>
-        {!!biography && <ReadMore>{biography}</ReadMore>}
-        {!!movies && movies.length > 0 && (
-          <View>
-            <Text variant="h1" style={styles.sectionTitle}>
-              <FormattedMessage id="movies" defaultMessage="movies" />
-            </Text>
-            <View style={styles.items}>
-              {movies.map(
-                (
-                  { character, id, overview, poster_path, release_date, title },
-                  index
-                ) => (
-                  <ThumbLink
-                    key={`movie-${index}-${id}`}
-                    isLoading={isLoading}
-                    href={`/movie/${id}`}
-                  >
-                    <ItemThumb
-                      date={release_date}
-                      overview={overview}
-                      posterUrl={poster_path}
-                      subtitle={character}
-                      title={title}
-                      type="movie"
-                    />
-                  </ThumbLink>
-                )
-              )}
-            </View>
+        {!!biography && (
+          <View style={globalStyles.centered}>
+            <ReadMore>{biography}</ReadMore>
           </View>
         )}
-        {!!tv && tv.length > 0 && (
-          <View>
-            <Text variant="h1" style={styles.sectionTitle}>
-              <FormattedMessage id="series" defaultMessage="series" />
-            </Text>
-            <View style={styles.items}>
-              {tv.map(
-                (
-                  {
-                    character,
-                    first_air_date,
-                    id,
-                    name,
-                    overview,
-                    poster_path
-                  },
-                  index
-                ) => (
-                  <ThumbLink
-                    key={`tv-${index}-${id}`}
-                    isLoading={isLoading}
-                    href={`/tv/${id}`}
-                  >
-                    <ItemThumb
-                      type="tv"
-                      date={first_air_date}
-                      title={name}
-                      posterUrl={poster_path}
-                      subtitle={character}
-                      overview={overview}
-                    />
-                  </ThumbLink>
-                )
-              )}
-            </View>
+        {(isLoadingCredits || credits?.length > 0) && (
+          <List
+            title={<FormattedMessage id="know_for" defaultMessage="Know for" />}
+            id="similar"
+            numberOfItems={2}
+            isLoading={isLoadingCredits}
+            renderItem={renderCreditImage}
+            results={credits?.slice(0, 8)}
+          />
+        )}
+        {(!!numberOfMovies || !!numberOfTvShows) && (
+          <View style={[globalStyles.centered, styles.creditNumbers]}>
+            {!!numberOfMovies && (
+              <ThumbLink
+                style={styles.creditNumber}
+                href={`person/${personID}/movies`}
+              >
+                <CreditNumberThumb
+                  title={
+                    <FormattedMessage key="movies" defaultMessage="movies" />
+                  }
+                  number={numberOfMovies}
+                />
+              </ThumbLink>
+            )}
+            {!!numberOfTvShows && (
+              <ThumbLink
+                style={styles.creditNumber}
+                href={`person/${personID}/tv`}
+              >
+                <CreditNumberThumb
+                  title={
+                    <FormattedMessage key="series" defaultMessage="series" />
+                  }
+                  number={numberOfTvShows}
+                />
+              </ThumbLink>
+            )}
           </View>
+        )}
+        {(isLoadingImages || images?.length > 0) && (
+          <List
+            title={<FormattedMessage id="pictures" defaultMessage="Pictures" />}
+            id="similar"
+            isLoading={isLoadingImages}
+            renderItem={renderItemImage}
+            results={images}
+          />
         )}
       </View>
-      {(isLoadingImages || images?.length > 0) && (
-        <List
-          title={<FormattedMessage id="pictures" defaultMessage="Pictures" />}
-          id="similar"
-          isLoading={isLoadingImages}
-          renderItem={renderItemImage}
-          results={images}
-        />
-      )}
     </ContentLayout>
   );
 }
@@ -225,14 +226,10 @@ export default function Person() {
 const styles = StyleSheet.create({
   content: {
     gap: theme.space.xl,
-    marginBottom: theme.space.xl,
-    ...globalStyles.centered
+    marginBottom: theme.space.xl
   },
-  items: {
-    marginTop: theme.space.md,
-    gap: theme.space.md
-  },
-  sectionTitle: {
-    textTransform: 'capitalize'
+  creditNumbers: { flexDirection: 'row', gap: theme.space.lg },
+  creditNumber: {
+    flex: 1
   }
 });
