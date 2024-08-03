@@ -187,6 +187,7 @@ export default function Person() {
                 href={`person/${personID}/movies`}
               >
                 <CreditNumberThumb
+                  type="movie"
                   title={
                     <FormattedMessage key="movies" defaultMessage="movies" />
                   }
@@ -200,6 +201,7 @@ export default function Person() {
                 href={`person/${personID}/tv`}
               >
                 <CreditNumberThumb
+                  type="tv"
                   title={
                     <FormattedMessage key="series" defaultMessage="series" />
                   }
