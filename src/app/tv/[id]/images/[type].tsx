@@ -1,7 +1,8 @@
 import { useLocalSearchParams } from 'expo-router';
 
 import { useGetTvImages } from 'api/tv';
-import FullScreenImagesList from 'layouts/FullScreenImagesList';
+import FullScreenImagesList from 'components/FullScreenImagesList';
+import ModalLayout from 'layouts/Modal';
 
 export default function TvImages() {
   const params = useLocalSearchParams<{
@@ -18,6 +19,8 @@ export default function TvImages() {
   const images = data?.[type];
 
   return (
-    <FullScreenImagesList images={images} isLoading={isLoading} type="tv" />
+    <ModalLayout>
+      <FullScreenImagesList images={images} isLoading={isLoading} type="tv" />
+    </ModalLayout>
   );
 }

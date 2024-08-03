@@ -21,6 +21,8 @@ export type UseGetTvSimilarApiResponse =
   paths['/3/tv/{series_id}/similar']['get']['responses']['200']['content']['application/json'];
 export type UseGetTvRecommendationsApiResponse =
   paths['/3/tv/{series_id}/recommendations']['get']['responses']['200']['content']['application/json'];
+export type UseGetTvVideosApiResponse =
+  paths['/3/tv/{series_id}/videos']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetTvApiProps = {
   id: number;
@@ -170,6 +172,25 @@ export function useGetTvSimilar(props?: UseGetTvEnabledApiProps) {
     queryKey: ['tv', id, 'similar', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetTvSimilarApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
+    },
+    enabled: !!id && enabled
+  });
+}
+
+export function useGetTvVideos(props?: UseGetTvEnabledApiProps) {
+  const { enabled, id } = props || {};
+
+  const { queryUrl } = getApi({
+    query: `tv/${id}/videos`
+  });
+
+  return useQuery({
+    queryKey: ['tv', id, 'videos', LOCALE],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetTvVideosApiResponse> =
         await axios.get(queryUrl());
 
       return data;

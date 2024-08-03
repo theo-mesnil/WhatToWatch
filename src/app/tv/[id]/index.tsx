@@ -9,14 +9,16 @@ import { useGetContentLogo } from 'api/logo';
 import type {
   UseGetTvApiResponse,
   UseGetTvCreditsApiResponse,
-  UseGetTvSimilarApiResponse
+  UseGetTvSimilarApiResponse,
+  UseGetTvVideosApiResponse
 } from 'api/tv';
 import {
   useGetTv,
   useGetTvCredits,
   useGetTvImages,
   useGetTvSeason,
-  useGetTvSimilar
+  useGetTvSimilar,
+  useGetTvVideos
 } from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
@@ -28,6 +30,7 @@ import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
 
@@ -49,15 +52,19 @@ export default function Tv() {
   });
   const { data: credits, isLoading: isLoadingCredits } = useGetTvCredits({
     id: tvID,
-    enabled: !isLoading
+    enabled: !isLoadingSeason
+  });
+  const { data: videos, isLoading: isLoadingVideos } = useGetTvVideos({
+    id: tvID,
+    enabled: !isLoadingSeason
   });
   const { data: images, isLoading: isLoadingImages } = useGetTvImages({
     id: tvID,
-    enabled: !isLoading
+    enabled: !isLoadingCredits
   });
   const { data: similar, isLoading: isLoadingSimilar } = useGetTvSimilar({
     id: tvID,
-    enabled: !isLoading
+    enabled: !isLoadingCredits
   });
 
   const tagline = data?.tagline;
@@ -102,12 +109,18 @@ export default function Tv() {
     </ThumbLink>
   );
 
-  const renderItemTv = ({
+  const renderItemSimilar = ({
     item: { id, poster_path }
   }: ListRenderItemInfo<UseGetTvSimilarApiResponse['results'][number]>) => (
     <ThumbLink href={`tv/${id}`}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
+  );
+
+  const renderItemVideo = ({
+    item: { key, name, site }
+  }: ListRenderItemInfo<UseGetTvVideosApiResponse['results'][number]>) => (
+    <VideoThumb id={key} type="tv" platform={site} name={name} />
   );
 
   return (
@@ -227,6 +240,17 @@ export default function Tv() {
             results={casting}
           />
         )}
+        {(isLoadingVideos ||
+          (!!videos?.results && videos.results.length > 0)) && (
+          <List
+            numberOfItems={1}
+            title={<FormattedMessage id="videos" defaultMessage="Videos" />}
+            isLoading={isLoadingVideos}
+            id="videos"
+            renderItem={renderItemVideo}
+            results={videos?.results}
+          />
+        )}
         {(isLoadingImages || !!images) && (
           <View style={globalStyles.centered}>
             <Images
@@ -248,7 +272,7 @@ export default function Tv() {
             }
             id="similar"
             isLoading={isLoadingSimilar}
-            renderItem={renderItemTv}
+            renderItem={renderItemSimilar}
             results={similar?.results}
           />
         )}

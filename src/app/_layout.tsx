@@ -65,6 +65,12 @@ export default function Layout() {
                   presentation: 'modal'
                 }}
               />
+              <Stack.Screen
+                name="video/[id]"
+                options={{
+                  presentation: 'modal'
+                }}
+              />
             </Stack>
           </View>
         </QueryClientProvider>
