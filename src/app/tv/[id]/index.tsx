@@ -22,14 +22,15 @@ import {
 } from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
-import { ButtonNetwork } from 'components/ButtonNetwork';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
 import { Images } from 'components/Images';
 import { List } from 'components/List';
+import { NetworkButton } from 'components/NetworkButton';
 import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { TrailerButton } from 'components/TrailerButton';
 import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
@@ -50,11 +51,11 @@ export default function Tv() {
     id: tvID,
     seasonNumber: selectedSeason
   });
-  const { data: credits, isLoading: isLoadingCredits } = useGetTvCredits({
-    id: tvID,
-    enabled: !isLoadingSeason
-  });
+
   const { data: videos, isLoading: isLoadingVideos } = useGetTvVideos({
+    id: tvID
+  });
+  const { data: credits, isLoading: isLoadingCredits } = useGetTvCredits({
     id: tvID,
     enabled: !isLoadingSeason
   });
@@ -83,6 +84,9 @@ export default function Tv() {
   const seasonsLength = seasons?.length;
   const seasonAirDate = season?.air_date;
   const casting = credits?.cast;
+  const trailer = videos?.results?.filter(
+    (video) => video.type === 'Trailer'
+  )?.[0];
 
   const renderItemSeason = ({
     item: { season_number }
@@ -163,10 +167,17 @@ export default function Tv() {
       }
     >
       {!!networkLink && (
-        <ButtonNetwork
+        <NetworkButton
           id={networkLink.id}
           link={networkLink.link}
           style={globalStyles.centered}
+        />
+      )}
+      {!!trailer && (
+        <TrailerButton
+          id={trailer.key}
+          platform={trailer.site}
+          style={[globalStyles.centered, styles.playButton]}
         />
       )}
       {(!!overview || !!tagline) && (
@@ -195,7 +206,12 @@ export default function Tv() {
               </View>
             )}
             {!isLoadingSeason && (
-              <View style={styles.episodesContent}>
+              <View
+                style={[
+                  styles.episodesContent,
+                  seasonsLength > 1 && styles.episodesContentMultipleSeasons
+                ]}
+              >
                 <Text variant="h1">
                   <FormattedMessage
                     key="episodes-title"
@@ -292,8 +308,10 @@ const styles = StyleSheet.create({
     gap: theme.space.xl
   },
   episodesContent: {
-    marginTop: theme.space.xl,
     paddingHorizontal: theme.space.marginList
+  },
+  episodesContentMultipleSeasons: {
+    marginTop: theme.space.xl
   },
   episodesList: {
     marginTop: theme.space.lg,
@@ -302,5 +320,8 @@ const styles = StyleSheet.create({
   seasonLoading: {
     marginTop: theme.space.xl,
     height: 700
+  },
+  playButton: {
+    marginTop: theme.space.sm
   }
 });

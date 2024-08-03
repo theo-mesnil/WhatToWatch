@@ -180,8 +180,8 @@ export function useGetTvSimilar(props?: UseGetTvEnabledApiProps) {
   });
 }
 
-export function useGetTvVideos(props?: UseGetTvEnabledApiProps) {
-  const { enabled, id } = props || {};
+export function useGetTvVideos(props?: UseGetTvApiProps) {
+  const { id } = props || {};
 
   const { queryUrl } = getApi({
     query: `tv/${id}/videos`
@@ -195,6 +195,6 @@ export function useGetTvVideos(props?: UseGetTvEnabledApiProps) {
 
       return data;
     },
-    enabled: !!id && enabled
+    enabled: !!id
   });
 }

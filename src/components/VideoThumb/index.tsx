@@ -1,10 +1,10 @@
-import { router } from 'expo-router';
-import { Linking, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 import { Touchable } from 'components/Touchable';
+import { getVideo } from 'utils/videos';
 
 export type VideoThumbProps = {
   id: string;
@@ -14,18 +14,7 @@ export type VideoThumbProps = {
 };
 
 export function VideoThumb({ id, name, platform, type }: VideoThumbProps) {
-  const isYoutube = platform === 'YouTube';
-  const imageUrl = isYoutube
-    ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
-    : `https://i.vimeocdn.com/video/${id}_640.jpg`;
-
-  function handlePress() {
-    if (isYoutube) {
-      router.navigate(`video/${id}`);
-    } else {
-      Linking.openURL(`https://vimeo.com/${id}`);
-    }
-  }
+  const { handlePress, imageUrl } = getVideo({ id, platform });
 
   return (
     <Touchable onPress={handlePress}>

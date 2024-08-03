@@ -9,12 +9,12 @@ import { Text } from 'components/Text';
 import type { NetworkId } from 'types/content';
 import { getNetworkColor } from 'utils/networks';
 
-export type ButtonNetworkProps = Pick<ButtonProps, 'style'> & {
+export type NetworkButtonProps = Pick<ButtonProps, 'style'> & {
   id: NetworkId;
   link: string;
 };
 
-export function ButtonNetwork({ id, link, style }: ButtonNetworkProps) {
+export function NetworkButton({ id, link, style }: NetworkButtonProps) {
   return (
     <Button
       size="lg"

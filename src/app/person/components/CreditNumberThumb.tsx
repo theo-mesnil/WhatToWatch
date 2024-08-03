@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
 import { Gradient } from 'components/Gradient';
-import { MovieFillIcon, TvFillIcon } from 'components/Icon';
+import { Icon, MovieFillIcon, TvFillIcon } from 'components/Icon';
 import { Text } from 'components/Text';
 
 export type CreditNumberThumbProps = {
@@ -23,21 +23,13 @@ export function CreditNumberThumb({
         colors={[theme.colors['brand-100'], theme.colors.ahead]}
       />
       <View style={styles.content}>
-        {type === 'movie' ? (
-          <MovieFillIcon
-            width={80}
-            color={theme.colors['default-900']}
-            height={80}
-            style={styles.icon}
+        <View style={styles.icon}>
+          <Icon
+            icon={type === 'movie' ? MovieFillIcon : TvFillIcon}
+            size={80}
+            color="default-900"
           />
-        ) : (
-          <TvFillIcon
-            width={80}
-            color={theme.colors['default-900']}
-            height={80}
-            style={styles.icon}
-          />
-        )}
+        </View>
         <View>
           <Text variant="h0" style={styles.number}>
             {number}

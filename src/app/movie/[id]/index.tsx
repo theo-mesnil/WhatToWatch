@@ -17,10 +17,10 @@ import {
   useGetMovieSimilar
 } from 'api/movie';
 import { Badge } from 'components/Badge';
-import { ButtonNetwork } from 'components/ButtonNetwork';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
 import { Images } from 'components/Images';
 import { List } from 'components/List';
+import { NetworkButton } from 'components/NetworkButton';
 import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
@@ -110,7 +110,7 @@ export default function Movie() {
       }
     >
       {!!networkLink && (
-        <ButtonNetwork
+        <NetworkButton
           id={networkLink.id}
           link={networkLink.link}
           style={globalStyles.centered}
