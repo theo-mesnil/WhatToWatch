@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
+import { personPath } from 'routes';
 
 import type { UseGetPersonPopularApiResponse } from 'api/person';
 import { useGetPersonPopular } from 'api/person';
@@ -13,7 +14,7 @@ export function PopularPerson() {
   const renderItem = ({
     item: { id, name, profile_path }
   }: ListRenderItemInfo<UseGetPersonPopularApiResponse['results'][number]>) => (
-    <ThumbLink href={`/person/${id}`}>
+    <ThumbLink href={personPath({ id })}>
       <PersonThumb imageUrl={profile_path} name={name} />
     </ThumbLink>
   );

@@ -2,6 +2,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Animated, StyleSheet, View } from 'react-native';
+import { moviePath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -77,7 +78,7 @@ export default function PersonMovies() {
               <ThumbLink
                 key={`movie-${index}-${id}`}
                 isLoading={isLoading}
-                href={`/movie/${id}`}
+                href={moviePath({ id })}
               >
                 <ItemThumb
                   date={release_date}

@@ -1,3 +1,4 @@
+import type { Href } from 'expo-router';
 import { Link } from 'expo-router';
 import { FormattedMessage } from 'react-intl';
 import type { TextProps as RNTextProps } from 'react-native';
@@ -11,7 +12,7 @@ import { Touchable } from 'components/Touchable';
 export type ListTitleProps = {
   children: React.ReactElement | string;
   style?: RNTextProps['style'];
-  titleHref?: string;
+  titleHref?: Href<string>;
 };
 
 export function ListTitle({ children, style, titleHref }: ListTitleProps) {

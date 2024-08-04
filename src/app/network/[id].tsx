@@ -2,6 +2,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated } from 'react-native';
+import { tvPath } from 'routes';
 import { theme } from 'theme';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
@@ -41,7 +42,7 @@ export default function Network() {
   const renderItem = ({
     item: { id, poster_path }
   }: ListRenderItemInfo<UseGetDiscoverTvApiResponse['results'][number]>) => (
-    <ThumbLink isLoading={isLoading} href={`/tv/${id}`}>
+    <ThumbLink isLoading={isLoading} href={tvPath({ id })}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
   );
@@ -79,7 +80,7 @@ export default function Network() {
         renderItem={renderItem}
         id="network"
         ListHeaderComponent={
-          <ThumbLink isLoading={isLoading} href={`/tv/${firstItem?.id}`}>
+          <ThumbLink isLoading={isLoading} href={tvPath({ id: firstItem?.id })}>
             <LargeThumb
               type="tv"
               id={firstItem?.id}

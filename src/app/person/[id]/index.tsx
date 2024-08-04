@@ -4,6 +4,8 @@ import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
+import { personImagePath, personMoviesPath, personTvPath } from 'routes';
+import { routeByType } from 'routes/utils';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -65,7 +67,7 @@ export default function Person() {
     index,
     item: { file_path }
   }: ListRenderItemInfo<UseGetPersonImagesApiResponse['profiles'][number]>) => (
-    <ThumbLink href={`person/${personID}/images/${index}`}>
+    <ThumbLink href={personImagePath({ id: personID, start: index })}>
       <Thumb type="person" imageUrl={file_path} />
     </ThumbLink>
   );
@@ -76,7 +78,7 @@ export default function Person() {
     const type = media_type === 'movie' ? 'movie' : 'tv';
 
     return (
-      <ThumbLink href={`${type}/${id}`}>
+      <ThumbLink href={routeByType({ type, id })}>
         <Thumb imageWidth="w500" type={type} imageUrl={poster_path} />
       </ThumbLink>
     );
@@ -184,7 +186,7 @@ export default function Person() {
             {!!numberOfMovies && (
               <ThumbLink
                 style={styles.creditNumber}
-                href={`person/${personID}/movies`}
+                href={personMoviesPath({ id: personID })}
               >
                 <CreditNumberThumb
                   type="movie"
@@ -198,7 +200,7 @@ export default function Person() {
             {!!numberOfTvShows && (
               <ThumbLink
                 style={styles.creditNumber}
-                href={`person/${personID}/tv`}
+                href={personTvPath({ id: personID })}
               >
                 <CreditNumberThumb
                   type="tv"

@@ -1,5 +1,6 @@
 import { router } from 'expo-router';
 import { Linking } from 'react-native';
+import { videoPath } from 'routes';
 
 type getVideoProps = {
   id: string;
@@ -13,7 +14,7 @@ export const getVideo = ({ id, platform }: getVideoProps) => {
 
   function handlePress() {
     if (isYoutube) {
-      router.navigate(`video/${id}`);
+      router.navigate(videoPath({ id }));
     } else {
       Linking.openURL(`https://vimeo.com/${id}`);
     }

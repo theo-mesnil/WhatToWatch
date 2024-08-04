@@ -2,6 +2,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Animated, StyleSheet, View } from 'react-native';
+import { tvPath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -78,7 +79,7 @@ export default function PersonTv() {
               <ThumbLink
                 key={`tv-${index}-${id}`}
                 isLoading={isLoading}
-                href={`/tv/${id}`}
+                href={tvPath({ id })}
               >
                 <ItemThumb
                   date={first_air_date}

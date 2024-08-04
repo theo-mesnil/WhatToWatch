@@ -2,6 +2,7 @@ import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { moviePath, personPath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -74,7 +75,7 @@ export default function Movie() {
   const renderItemCast = ({
     item: { character, id, name, profile_path }
   }: ListRenderItemInfo<UseGetMovieCreditsApiResponse['cast'][number]>) => (
-    <ThumbLink href={`person/${id}`}>
+    <ThumbLink href={personPath({ id })}>
       <PersonThumb imageUrl={profile_path} name={name} character={character} />
     </ThumbLink>
   );
@@ -82,7 +83,7 @@ export default function Movie() {
   const renderItemMovie = ({
     item: { id, poster_path }
   }: ListRenderItemInfo<UseGetMovieSimilarApiResponse['results'][number]>) => (
-    <ThumbLink href={`movie/${id}`}>
+    <ThumbLink href={moviePath({ id })}>
       <Thumb type="movie" imageUrl={poster_path} />
     </ThumbLink>
   );

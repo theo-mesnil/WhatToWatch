@@ -1,4 +1,4 @@
-import { Slot, useLocalSearchParams, useNavigation } from 'expo-router';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { Animated } from 'react-native';
 import { theme } from 'theme';
@@ -13,10 +13,14 @@ type ScrollYPositionContextType = React.Dispatch<
   React.SetStateAction<Animated.Value>
 >;
 
+export type GenreLayoutProps = {
+  children: React.ReactNode;
+};
+
 export const ScrollYPositionContext =
   React.createContext<ScrollYPositionContextType>(null);
 
-export default function Genre() {
+export default function GenreLayout({ children }: GenreLayoutProps) {
   const params = useLocalSearchParams<{ id: string }>();
   const genreID = Number(params?.id) as keyof typeof genresColor;
   const navigation = useNavigation();
@@ -50,7 +54,7 @@ export default function Genre() {
         scrollY={scrollYPosition}
       />
       <ScrollYPositionContext.Provider value={getScrollYPosition}>
-        <Slot />
+        {children}
       </ScrollYPositionContext.Provider>
     </BasicLayout>
   );

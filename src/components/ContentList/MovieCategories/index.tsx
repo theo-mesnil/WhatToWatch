@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo } from 'react-native';
+import { genreMoviePath } from 'routes';
 
 import type { UseGetGenreMovieListApiResponse } from 'api/genres';
 import { useGetGenreMovieList } from 'api/genres';
@@ -13,7 +14,7 @@ export function MovieCategories() {
   const renderItem = ({
     item: { id, name }
   }: ListRenderItemInfo<UseGetGenreMovieListApiResponse['genres'][number]>) => (
-    <ThumbLink href={`/genre/movie/${id}`}>
+    <ThumbLink href={genreMoviePath({ id })}>
       <GenreThumb id={id} title={name} />
     </ThumbLink>
   );

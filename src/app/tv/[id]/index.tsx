@@ -2,6 +2,7 @@ import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { personPath, tvPath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -103,7 +104,7 @@ export default function Tv() {
   const renderItemCast = ({
     item: { id, name, profile_path, roles }
   }: ListRenderItemInfo<UseGetTvCreditsApiResponse['cast'][number]>) => (
-    <ThumbLink href={`person/${id}`}>
+    <ThumbLink href={personPath({ id })}>
       <PersonThumb
         imageUrl={profile_path}
         name={name}
@@ -115,7 +116,7 @@ export default function Tv() {
   const renderItemSimilar = ({
     item: { id, poster_path }
   }: ListRenderItemInfo<UseGetTvSimilarApiResponse['results'][number]>) => (
-    <ThumbLink href={`tv/${id}`}>
+    <ThumbLink href={tvPath({ id })}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
   );

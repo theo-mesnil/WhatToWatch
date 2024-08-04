@@ -1,3 +1,4 @@
+import type { Href } from 'expo-router';
 import * as React from 'react';
 import type { FlatListProps, ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, View } from 'react-native';
@@ -18,7 +19,7 @@ type VerticalListProps = Pick<
   numberOfItems?: number;
   results?: any;
   title?: JSX.Element | string;
-  titleHref?: string;
+  titleHref?: Href<string>;
   /** remove resize from List render item */
   withoutSizing?: boolean;
 };

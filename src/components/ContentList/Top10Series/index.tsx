@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
+import { tvPath } from 'routes';
 
 import type { UseGetTrendingApiResponse } from 'api/trending';
 import { useGetTrending } from 'api/trending';
@@ -19,7 +20,7 @@ export function Top10Series() {
   }: ListRenderItemInfo<
     UseGetTrendingApiResponse['tv']['results'][number]
   >) => (
-    <ThumbLink href={`/tv/${id}`}>
+    <ThumbLink href={tvPath({ id })}>
       <NumberThumb number={index + 1} imageUrl={poster_path} type="tv" />
     </ThumbLink>
   );

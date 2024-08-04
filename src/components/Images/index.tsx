@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import { StyleSheet, View } from 'react-native';
+import { movieImagesPath, tvImagesPath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -33,7 +34,13 @@ export function Images({
         <View style={styles.images}>
           {backdrops?.length > 0 && (
             <View style={styles.backdrops}>
-              <ThumbLink href={`${type}/${id}/images/backdrops`}>
+              <ThumbLink
+                href={
+                  type === 'movie'
+                    ? movieImagesPath({ id, type: 'backdrops' })
+                    : tvImagesPath({ id, type: 'backdrops' })
+                }
+              >
                 <>
                   <Thumb
                     aspectRatio={backdrops?.[0]?.aspect_ratio}
@@ -57,7 +64,13 @@ export function Images({
           )}
           {posters?.length > 0 && (
             <View style={styles.posters}>
-              <ThumbLink href={`${type}/${id}/images/posters`}>
+              <ThumbLink
+                href={
+                  type === 'movie'
+                    ? movieImagesPath({ id, type: 'posters' })
+                    : tvImagesPath({ id, type: 'posters' })
+                }
+              >
                 <>
                   <Thumb
                     aspectRatio={posters?.[0]?.aspect_ratio}

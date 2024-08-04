@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
+import { networkPath, tvPath } from 'routes';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
@@ -27,19 +28,18 @@ export function NetworkList({ id }: NetworkListProps) {
   });
 
   const results = data?.pages?.map((page) => page.results).flat();
-  const networkHref = `/network/${id}`;
 
   const renderItem = ({
     item: { id: tvId, poster_path }
   }: ListRenderItemInfo<UseGetDiscoverTvApiResponse['results'][number]>) => (
-    <ThumbLink isLoading={isLoading} href={`/tv/${tvId}`}>
+    <ThumbLink isLoading={isLoading} href={tvPath({ id: tvId })}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
   );
 
   return (
     <List
-      titleHref={networkHref}
+      titleHref={networkPath({ id })}
       title={
         <>
           <FormattedMessage key="title" defaultMessage="Series on" />{' '}
@@ -48,7 +48,7 @@ export function NetworkList({ id }: NetworkListProps) {
       }
       isLoading={isLoading}
       ListHeaderComponent={
-        <ThumbLink href={networkHref}>
+        <ThumbLink href={networkPath({ id })}>
           <NetworkThumb id={id} />
         </ThumbLink>
       }
