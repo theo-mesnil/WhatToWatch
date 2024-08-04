@@ -34,7 +34,7 @@ export default function Genre() {
     () => (
       <Header withBackButton title={title?.name} scrollY={scrollYPosition} />
     ),
-    [scrollYPosition, title]
+    [scrollYPosition, title?.name]
   );
 
   React.useEffect(() => {

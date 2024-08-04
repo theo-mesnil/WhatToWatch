@@ -1,12 +1,12 @@
 export const genresColor = {
   // action adventure
-  10759: ['#5a00a4', '#005e05'],
+  10759: ['#00b109', '#03a8e1'],
   // adventure
   12: ['#005e05', '#00b109'],
   // action
-  28: ['#5a00a4', '#8000e9'],
+  28: ['#8000e9', '#8b4cbf'],
   // animation
-  16: ['#7c5e02', '#c89703'],
+  16: ['#c89703', '#d3ab35'],
   // comedy
   35: ['#02749b', '#03a8e1'],
   // crime
@@ -16,7 +16,7 @@ export const genresColor = {
   // drama
   18: ['#a4617e', '#b68198'],
   // family
-  10751: ['#001b9e', '#0027e4'],
+  10751: ['#002BFE', '#3255fe'],
   // fantasy
   14: ['#988401', '#bea501'],
   // history
@@ -26,7 +26,7 @@ export const genresColor = {
   // kids
   10762: ['#428200', '#69ce00'],
   // mystery
-  9648: ['#664032', '#965e4a'],
+  9648: ['#A84927', '#b96d52'],
   // music
   10402: ['#428200', '#69ce00'],
   // news
@@ -34,9 +34,9 @@ export const genresColor = {
   // reality
   10764: ['#5a3f93', '#7657b7'],
   // romance
-  10749: ['#d0008c', '#ff0db0'],
+  10749: ['#e3147a', '#e84294'],
   // soap
-  10766: ['#d0008c', '#ff0db0'],
+  10766: ['#e3147a', '#e84294'],
   // sci
   878: ['#529173', '#6ead8f'],
   // sci & fantasy
@@ -44,7 +44,7 @@ export const genresColor = {
   // talk
   10767: ['#004e98', '#006cd3'],
   // thriller
-  53: ['#003e1f', '#006533'],
+  53: ['#006533', '#32835b'],
   // tv movie
   10770: ['#004e98', '#006cd3'],
   // war

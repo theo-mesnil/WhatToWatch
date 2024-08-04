@@ -1,5 +1,5 @@
 import { FormattedMessage } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
+import { type ListRenderItemInfo } from 'react-native';
 
 import type { UseGetGenreMovieListApiResponse } from 'api/genres';
 import { useGetGenreMovieList } from 'api/genres';
@@ -20,7 +20,7 @@ export function MovieCategories() {
 
   return (
     <List
-      numberOfItems={2}
+      withoutSizing
       results={data}
       title={
         <FormattedMessage key="title" defaultMessage="Movies by categories" />

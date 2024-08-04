@@ -20,7 +20,7 @@ export function TvCategories() {
 
   return (
     <List
-      numberOfItems={2}
+      withoutSizing
       results={data}
       title={
         <FormattedMessage key="title" defaultMessage="Series by categories" />

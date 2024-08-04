@@ -1,4 +1,4 @@
-import { Animated, StyleSheet } from 'react-native';
+import { Animated, ImageBackground, StyleSheet } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -6,14 +6,12 @@ import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
 
 export type GradientHeaderProps = {
-  angle?: number;
   colors?: GradientProps['colors'];
   scrollY: Animated.Value;
 };
 
 export function GradientHeader({
-  angle = 0,
-  colors = [theme.colors['default-700'], 'transparent'],
+  colors = [theme.colors['default-900'], 'transparent'],
   scrollY
 }: GradientHeaderProps) {
   return (
@@ -29,10 +27,15 @@ export function GradientHeader({
         globalStyles.absoluteFill
       ]}
     >
+      <ImageBackground
+        style={[globalStyles.absoluteFill, styles.imageBackground]}
+        source={require('../../assets/thumb-gradient.png')}
+      />
+      <Gradient angle={0} colors={colors} style={globalStyles.absoluteFill} />
       <Gradient
-        colors={colors}
-        angle={angle}
-        style={globalStyles.absoluteFill}
+        angle={0}
+        colors={['transparent', theme.colors.behind]}
+        style={[globalStyles.absoluteFill, styles.darkGradient]}
       />
     </Animated.View>
   );
@@ -41,5 +44,13 @@ export function GradientHeader({
 const styles = StyleSheet.create({
   background: {
     height: 300
+  },
+  darkGradient: {
+    height: 50,
+    zIndex: 2,
+    marginTop: 250
+  },
+  imageBackground: {
+    zIndex: 1
   }
 });

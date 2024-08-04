@@ -71,7 +71,7 @@ export default function FullScreenImagesList({
         pagingEnabled
         id="images"
         decelerationRate="fast"
-        snapToOffsets={[...Array(images.length)].map((_, i) =>
+        snapToOffsets={[...Array(images?.length)].map((_, i) =>
           getItemOffset(i)
         )}
         contentContainerStyle={styles.listContainer}
