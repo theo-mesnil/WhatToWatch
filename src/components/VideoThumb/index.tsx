@@ -17,7 +17,7 @@ export function VideoThumb({ id, name, platform, type }: VideoThumbProps) {
   const { handlePress, imageUrl } = getVideo({ id, platform });
 
   return (
-    <Touchable onPress={handlePress}>
+    <Touchable onPress={() => handlePress()}>
       <Thumb aspectRatio={16 / 9} type={type} imageUrl={imageUrl} />
       <View style={styles.text}>
         <Text variant="h3" numberOfLines={2}>

@@ -22,7 +22,7 @@ export function TrailerButton({ id, platform, style }: TrailerButtonProps) {
         theme.colors['default-500'],
         theme.colors['default-700']
       ]}
-      onPress={handlePress}
+      onPress={() => handlePress()}
       style={style}
       isCustomChildren
     >
