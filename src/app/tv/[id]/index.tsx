@@ -51,7 +51,6 @@ export default function Tv() {
     id: tvID,
     seasonNumber: selectedSeason
   });
-
   const { data: videos, isLoading: isLoadingVideos } = useGetTvVideos({
     id: tvID
   });

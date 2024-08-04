@@ -8,13 +8,15 @@ import { theme } from 'theme';
 import { useGetContentLogo } from 'api/logo';
 import type {
   UseGetMovieCreditsApiResponse,
-  UseGetMovieSimilarApiResponse
+  UseGetMovieSimilarApiResponse,
+  UseGetMovieVideosApiResponse
 } from 'api/movie';
 import {
   useGetMovie,
   useGetMovieCredits,
   useGetMovieImages,
-  useGetMovieSimilar
+  useGetMovieSimilar,
+  useGetMovieVideos
 } from 'api/movie';
 import { Badge } from 'components/Badge';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
@@ -25,6 +27,8 @@ import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { TrailerButton } from 'components/TrailerButton';
+import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
 
@@ -36,6 +40,9 @@ export default function Movie() {
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id: movieID,
     type: 'movie'
+  });
+  const { data: videos, isLoading: isLoadingVideos } = useGetMovieVideos({
+    id: movieID
   });
   const { data: credits, isLoading: isLoadingCredits } = useGetMovieCredits({
     id: movieID,
@@ -60,6 +67,9 @@ export default function Movie() {
   const runtime = data?.runtime;
   const title = data?.title;
   const tagline = data?.tagline;
+  const trailer = videos?.results?.filter(
+    (video) => video.type === 'Trailer'
+  )?.[0];
 
   const renderItemCast = ({
     item: { character, id, name, profile_path }
@@ -75,6 +85,12 @@ export default function Movie() {
     <ThumbLink href={`movie/${id}`}>
       <Thumb type="movie" imageUrl={poster_path} />
     </ThumbLink>
+  );
+
+  const renderItemVideo = ({
+    item: { key, name, site }
+  }: ListRenderItemInfo<UseGetMovieVideosApiResponse['results'][number]>) => (
+    <VideoThumb id={key} type="movie" platform={site} name={name} />
   );
 
   return (
@@ -116,6 +132,13 @@ export default function Movie() {
           style={globalStyles.centered}
         />
       )}
+      {!!trailer && (
+        <TrailerButton
+          id={trailer.key}
+          platform={trailer.site}
+          style={[globalStyles.centered, styles.playButton]}
+        />
+      )}
       <View style={styles.content}>
         {(!!overview || !!tagline) && (
           <Text variant="lg" style={styles.tagline}>
@@ -129,6 +152,17 @@ export default function Movie() {
             id="cast"
             renderItem={renderItemCast}
             results={casting}
+          />
+        )}
+        {(isLoadingVideos ||
+          (!!videos?.results && videos.results.length > 0)) && (
+          <List
+            numberOfItems={1}
+            title={<FormattedMessage id="videos" defaultMessage="Videos" />}
+            isLoading={isLoadingVideos}
+            id="videos"
+            renderItem={renderItemVideo}
+            results={videos?.results}
           />
         )}
         {(isLoadingImages || !!images) && (
@@ -169,5 +203,8 @@ const styles = StyleSheet.create({
   },
   content: {
     gap: theme.space.xl
+  },
+  playButton: {
+    marginTop: theme.space.sm
   }
 });

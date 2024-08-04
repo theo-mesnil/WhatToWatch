@@ -21,6 +21,8 @@ export type UseGetMovieUpcomingApiResponse =
   paths['/3/movie/upcoming']['get']['responses']['200']['content']['application/json'];
 export type UseGetMovieSimilarApiResponse =
   paths['/3/movie/{movie_id}/similar']['get']['responses']['200']['content']['application/json'];
+export type UseGetMovieVideosApiResponse =
+  paths['/3/movie/{movie_id}/videos']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetMovieApiProps = {
   id: number;
@@ -173,5 +175,24 @@ export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
       return data;
     },
     enabled: !!id && enabled
+  });
+}
+
+export function useGetMovieVideos(props?: UseGetMovieApiProps) {
+  const { id } = props || {};
+
+  const { queryUrl } = getApi({
+    query: `movie/${id}/videos`
+  });
+
+  return useQuery({
+    queryKey: ['movie', id, 'videos', LOCALE],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetMovieVideosApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
+    },
+    enabled: !!id
   });
 }
