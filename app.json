@@ -42,7 +42,7 @@
     ],
     "scheme": "whattowatch",
     "slug": "WhatToWatch",
-    "version": "3.1.0",
+    "version": "3.1.1",
     "splash": {
       "image": "src/assets/splash.png",
       "resizeMode": "contain",
