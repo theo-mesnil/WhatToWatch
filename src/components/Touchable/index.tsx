@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { PressableProps } from 'react-native';
+import type { PressableProps, ViewStyle } from 'react-native';
 import { Animated, Pressable } from 'react-native';
 
 export type TouchableProps = PressableProps & {
@@ -7,6 +7,7 @@ export type TouchableProps = PressableProps & {
   duration?: number;
   endScale?: number;
   startScale?: number;
+  style?: ViewStyle;
   withoutScale?: boolean;
 };
 
@@ -17,6 +18,7 @@ export const Touchable = React.forwardRef<any, TouchableProps>(
       endScale = 0.98,
       onPress,
       startScale = 1,
+      style,
       withoutScale,
       ...rest
     },
@@ -44,6 +46,7 @@ export const Touchable = React.forwardRef<any, TouchableProps>(
     return (
       <Animated.View
         style={[
+          style,
           {
             transform: [{ scale: scaleAnimation }]
           }

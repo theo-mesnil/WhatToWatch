@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({
               isCustomChildren
               onPress={() => navigation.goBack()}
             >
-              <Icon icon={ArrowBackIcon} />
+              <Icon icon={ArrowBackIcon} size={30} />
             </Button>
           </View>
         )}

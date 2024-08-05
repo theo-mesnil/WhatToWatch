@@ -2,33 +2,39 @@ import { intervalToDuration } from 'date-fns';
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
+import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
+import { personImagePath, personMoviesPath, personTvPath } from 'routes';
+import { routeByType } from 'routes/utils';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
+import type {
+  UseGetPersonCreditsApiResponse,
+  UseGetPersonImagesApiResponse
+} from 'api/person';
 import {
   useGetPerson,
+  useGetPersonCredits,
+  useGetPersonImages,
   useGetPersonMovieCredits,
   useGetPersonTvCredits
 } from 'api/person';
 import { Badge } from 'components/Badge';
-import { Text } from 'components/Text';
+import { List } from 'components/List';
+import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
 
-import { ItemThumb } from './components/ItemThumb';
-import { ReadMore } from './components/ReadMore';
+import { CreditNumberThumb } from '../components/CreditNumberThumb';
+import { ReadMore } from '../components/ReadMore';
 
 export default function Person() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const personID = Number(params?.id);
 
   const { data, isLoading } = useGetPerson({ id: personID });
-
-  const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits(
-    { id: personID }
-  );
-  const { data: tv, isLoading: isLoadingTv } = useGetPersonTvCredits({
+  const { data: images, isLoading: isLoadingImages } = useGetPersonImages({
     id: personID
   });
 
@@ -37,13 +43,50 @@ export default function Person() {
   const coverUrl = data?.coverUrl;
   const deathday = data?.deathday;
   const department = data?.department;
+  const isActing = department === 'Acting';
   const name = data?.name;
   const placeOfBirth = data?.placeOfBirth;
+
+  const { data: tv, isLoading: isLoadingTv } = useGetPersonTvCredits({
+    id: personID,
+    isActing
+  });
+
+  const { data: credits, isLoading: isLoadingCredits } = useGetPersonCredits({
+    id: personID,
+    isActing
+  });
+  const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits(
+    { id: personID, isActing }
+  );
+
   const numberOfMovies = movies?.length;
   const numberOfTvShows = tv?.length;
 
+  const renderItemImage = ({
+    index,
+    item: { file_path }
+  }: ListRenderItemInfo<UseGetPersonImagesApiResponse['profiles'][number]>) => (
+    <ThumbLink href={personImagePath({ id: personID, start: index })}>
+      <Thumb type="person" imageUrl={file_path} />
+    </ThumbLink>
+  );
+
+  const renderCreditImage = ({
+    item: { id, media_type, poster_path }
+  }: ListRenderItemInfo<UseGetPersonCreditsApiResponse['cast'][number]>) => {
+    const type = media_type === 'movie' ? 'movie' : 'tv';
+
+    return (
+      <ThumbLink href={routeByType({ type, id })}>
+        <Thumb imageWidth="w500" type={type} imageUrl={poster_path} />
+      </ThumbLink>
+    );
+  };
+
   return (
     <ContentLayout
+      isPersonContent
       isLoading={isLoading || isLoadingMovies || isLoadingTv}
       imageUrl={coverUrl}
       title={name}
@@ -123,73 +166,61 @@ export default function Person() {
       }
     >
       <View style={styles.content}>
-        {!!biography && <ReadMore>{biography}</ReadMore>}
-        {!!movies && movies.length > 0 && (
-          <View>
-            <Text variant="h1" style={styles.sectionTitle}>
-              <FormattedMessage id="movies" defaultMessage="movies" />
-            </Text>
-            <View style={styles.items}>
-              {movies.map(
-                (
-                  { character, id, overview, poster_path, release_date, title },
-                  index
-                ) => (
-                  <ThumbLink
-                    key={`movie-${index}-${id}`}
-                    isLoading={isLoading}
-                    href={`/movie/${id}`}
-                  >
-                    <ItemThumb
-                      date={release_date}
-                      overview={overview}
-                      posterUrl={poster_path}
-                      subtitle={character}
-                      title={title}
-                      type="movie"
-                    />
-                  </ThumbLink>
-                )
-              )}
-            </View>
+        {!!biography && (
+          <View style={globalStyles.centered}>
+            <ReadMore>{biography}</ReadMore>
           </View>
         )}
-        {!!tv && tv.length > 0 && (
-          <View>
-            <Text variant="h1" style={styles.sectionTitle}>
-              <FormattedMessage id="series" defaultMessage="series" />
-            </Text>
-            <View style={styles.items}>
-              {tv.map(
-                (
-                  {
-                    character,
-                    first_air_date,
-                    id,
-                    name,
-                    overview,
-                    poster_path
-                  },
-                  index
-                ) => (
-                  <ThumbLink
-                    key={`tv-${index}-${id}`}
-                    isLoading={isLoading}
-                    href={`/tv/${id}`}
-                  >
-                    <ItemThumb
-                      type="tv"
-                      date={first_air_date}
-                      title={name}
-                      posterUrl={poster_path}
-                      subtitle={character}
-                      overview={overview}
-                    />
-                  </ThumbLink>
-                )
-              )}
-            </View>
+        {(isLoadingCredits || credits?.length > 0) && (
+          <List
+            title={<FormattedMessage id="know_for" defaultMessage="Know for" />}
+            id="similar"
+            numberOfItems={2}
+            isLoading={isLoadingCredits}
+            renderItem={renderCreditImage}
+            results={credits?.slice(0, 8)}
+          />
+        )}
+        {(!!numberOfMovies || !!numberOfTvShows) && (
+          <View style={[globalStyles.centered, styles.creditNumbers]}>
+            {!!numberOfMovies && (
+              <ThumbLink
+                style={styles.creditNumber}
+                href={personMoviesPath({ id: personID })}
+              >
+                <CreditNumberThumb
+                  type="movie"
+                  title={
+                    <FormattedMessage key="movies" defaultMessage="movies" />
+                  }
+                  number={numberOfMovies}
+                />
+              </ThumbLink>
+            )}
+            {!!numberOfTvShows && (
+              <ThumbLink
+                style={styles.creditNumber}
+                href={personTvPath({ id: personID })}
+              >
+                <CreditNumberThumb
+                  type="tv"
+                  title={
+                    <FormattedMessage key="series" defaultMessage="series" />
+                  }
+                  number={numberOfTvShows}
+                />
+              </ThumbLink>
+            )}
           </View>
+        )}
+        {(isLoadingImages || images?.length > 0) && (
+          <List
+            title={<FormattedMessage id="pictures" defaultMessage="Pictures" />}
+            id="similar"
+            isLoading={isLoadingImages}
+            renderItem={renderItemImage}
+            results={images}
+          />
         )}
       </View>
     </ContentLayout>
@@ -199,24 +230,10 @@ export default function Person() {
 const styles = StyleSheet.create({
   content: {
     gap: theme.space.xl,
-    ...globalStyles.centered
+    marginBottom: theme.space.xl
   },
-  items: {
-    marginTop: theme.space.md,
-    gap: theme.space.md
-  },
-  item: {
-    flexDirection: 'row',
-    gap: theme.space.md
-  },
-  name: {
-    color: theme.colors.white
-  },
-  infos: {
-    flex: 1,
-    gap: theme.space.md
-  },
-  sectionTitle: {
-    textTransform: 'capitalize'
+  creditNumbers: { flexDirection: 'row', gap: theme.space.lg },
+  creditNumber: {
+    flex: 1
   }
 });

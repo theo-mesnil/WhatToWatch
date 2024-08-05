@@ -4,6 +4,7 @@ import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated, StyleSheet, View } from 'react-native';
+import { routeByType } from 'routes/utils';
 import { theme } from 'theme';
 
 import { useGetSearch } from 'api/search';
@@ -70,7 +71,10 @@ export default function Search() {
     const isLoadingItem = isLoading || isSearchLoading;
 
     return (
-      <ThumbLink href={`/${media_type}/${id}`} isLoading={isLoadingItem}>
+      <ThumbLink
+        href={routeByType({ type: media_type as ContentType, id })}
+        isLoading={isLoadingItem}
+      >
         <>
           <Thumb
             type={media_type as ContentType}

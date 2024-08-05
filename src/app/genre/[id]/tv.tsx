@@ -1,6 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import type { ListRenderItemInfo } from 'react-native';
+import { tvPath } from 'routes';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
@@ -9,12 +10,11 @@ import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
-
-import { ScrollYPositionContext } from '../_layout';
+import GenreLayout, { ScrollYPositionContext } from 'layouts/Genre';
 
 export default function Tv() {
   const getScrollYPosition = React.useContext(ScrollYPositionContext);
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const genreID = Number(params?.id);
   const { containerStyle } = useSafeHeights();
 
@@ -27,7 +27,7 @@ export default function Tv() {
   const renderItem = ({
     item: { id, poster_path }
   }: ListRenderItemInfo<UseGetDiscoverTvApiResponse['results'][number]>) => (
-    <ThumbLink isLoading={isLoading} href={`/tv/${id}`}>
+    <ThumbLink isLoading={isLoading} href={tvPath({ id })}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
   );
@@ -39,24 +39,26 @@ export default function Tv() {
   };
 
   return (
-    <VerticalList
-      renderItem={renderItem}
-      id="genre"
-      ListHeaderComponent={
-        <ThumbLink isLoading={isLoading} href={`/tv/${firstItem?.id}`}>
-          <LargeThumb
-            type="tv"
-            id={firstItem?.id}
-            title={firstItem?.name}
-            imageUrl={firstItem?.backdrop_path}
-          />
-        </ThumbLink>
-      }
-      isLoading={isLoading}
-      getScrollYPosition={getScrollYPosition}
-      results={data?.pages?.map((page) => page.results).flat()}
-      onEndReached={loadMore}
-      contentContainerStyle={containerStyle}
-    />
+    <GenreLayout>
+      <VerticalList
+        renderItem={renderItem}
+        id="genre"
+        ListHeaderComponent={
+          <ThumbLink isLoading={isLoading} href={tvPath({ id: firstItem?.id })}>
+            <LargeThumb
+              type="tv"
+              id={firstItem?.id}
+              title={firstItem?.name}
+              imageUrl={firstItem?.backdrop_path}
+            />
+          </ThumbLink>
+        }
+        isLoading={isLoading}
+        getScrollYPosition={getScrollYPosition}
+        results={data?.pages?.map((page) => page.results).flat()}
+        onEndReached={loadMore}
+        contentContainerStyle={containerStyle}
+      />
+    </GenreLayout>
   );
 }

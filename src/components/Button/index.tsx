@@ -50,7 +50,7 @@ export const Button = React.forwardRef<never, ButtonProps>(
             styles[size],
             styles[variant],
             isTransparent && styles.transparent,
-            isRounded && styles.rounded,
+            isRounded && { borderRadius: styles[size].height },
             style
           ]}
           {...rest}
@@ -103,13 +103,6 @@ const styles = StyleSheet.create({
   },
   'text-lg': {
     fontWeight: 'bold'
-  },
-  rounded: {
-    height: 30,
-    width: 30,
-    borderRadius: 30,
-    paddingHorizontal: 0,
-    alignItems: 'center'
   },
   transparent: {
     backgroundColor: 'transparent'

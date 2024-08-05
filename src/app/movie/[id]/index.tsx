@@ -2,24 +2,39 @@ import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { moviePath, personPath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
-import type { UseGetMovieCreditsApiResponse } from 'api/movie';
-import { useGetMovie, useGetMovieCredits } from 'api/movie';
+import type {
+  UseGetMovieCreditsApiResponse,
+  UseGetMovieSimilarApiResponse,
+  UseGetMovieVideosApiResponse
+} from 'api/movie';
+import {
+  useGetMovie,
+  useGetMovieCredits,
+  useGetMovieImages,
+  useGetMovieSimilar,
+  useGetMovieVideos
+} from 'api/movie';
 import { Badge } from 'components/Badge';
-import { ButtonNetwork } from 'components/ButtonNetwork';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
+import { Images } from 'components/Images';
 import { List } from 'components/List';
+import { NetworkButton } from 'components/NetworkButton';
 import { PersonThumb } from 'components/PersonThumb';
 import { Text } from 'components/Text';
+import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { TrailerButton } from 'components/TrailerButton';
+import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
 
 export default function Movie() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams<{ id: string }>();
   const movieID = Number(params?.id);
 
   const { data, isLoading } = useGetMovie({ id: movieID });
@@ -27,8 +42,20 @@ export default function Movie() {
     id: movieID,
     type: 'movie'
   });
-  const { data: credits, isLoading: isLoadingCredits } = useGetMovieCredits({
+  const { data: videos, isLoading: isLoadingVideos } = useGetMovieVideos({
     id: movieID
+  });
+  const { data: credits, isLoading: isLoadingCredits } = useGetMovieCredits({
+    id: movieID,
+    enabled: !isLoading
+  });
+  const { data: images, isLoading: isLoadingImages } = useGetMovieImages({
+    id: movieID,
+    enabled: !isLoading
+  });
+  const { data: similar, isLoading: isLoadingSimilar } = useGetMovieSimilar({
+    id: movieID,
+    enabled: !isLoading
   });
 
   const casting = credits?.cast;
@@ -41,13 +68,30 @@ export default function Movie() {
   const runtime = data?.runtime;
   const title = data?.title;
   const tagline = data?.tagline;
+  const trailer = videos?.results?.filter(
+    (video) => video.type === 'Trailer'
+  )?.[0];
 
   const renderItemCast = ({
     item: { character, id, name, profile_path }
   }: ListRenderItemInfo<UseGetMovieCreditsApiResponse['cast'][number]>) => (
-    <ThumbLink href={`person/${id}`}>
+    <ThumbLink href={personPath({ id })}>
       <PersonThumb imageUrl={profile_path} name={name} character={character} />
     </ThumbLink>
+  );
+
+  const renderItemMovie = ({
+    item: { id, poster_path }
+  }: ListRenderItemInfo<UseGetMovieSimilarApiResponse['results'][number]>) => (
+    <ThumbLink href={moviePath({ id })}>
+      <Thumb type="movie" imageUrl={poster_path} />
+    </ThumbLink>
+  );
+
+  const renderItemVideo = ({
+    item: { key, name, site }
+  }: ListRenderItemInfo<UseGetMovieVideosApiResponse['results'][number]>) => (
+    <VideoThumb id={key} type="movie" platform={site} name={name} />
   );
 
   return (
@@ -83,10 +127,17 @@ export default function Movie() {
       }
     >
       {!!networkLink && (
-        <ButtonNetwork
+        <NetworkButton
           id={networkLink.id}
           link={networkLink.link}
           style={globalStyles.centered}
+        />
+      )}
+      {!!trailer && (
+        <TrailerButton
+          id={trailer.key}
+          platform={trailer.site}
+          style={[globalStyles.centered, styles.playButton]}
         />
       )}
       <View style={styles.content}>
@@ -104,6 +155,42 @@ export default function Movie() {
             results={casting}
           />
         )}
+        {(isLoadingVideos ||
+          (!!videos?.results && videos.results.length > 0)) && (
+          <List
+            numberOfItems={1}
+            title={<FormattedMessage id="videos" defaultMessage="Videos" />}
+            isLoading={isLoadingVideos}
+            id="videos"
+            renderItem={renderItemVideo}
+            results={videos?.results}
+          />
+        )}
+        {(isLoadingImages || !!images) && (
+          <View style={globalStyles.centered}>
+            <Images
+              id={movieID}
+              type="movie"
+              posters={images?.posters}
+              backdrops={images?.backdrops}
+              isLoading={isLoadingImages}
+            />
+          </View>
+        )}
+        {(isLoadingSimilar || similar?.results.length > 0) && (
+          <List
+            title={
+              <FormattedMessage
+                id="similar"
+                defaultMessage="In the same spirit"
+              />
+            }
+            id="similar"
+            isLoading={isLoadingSimilar}
+            renderItem={renderItemMovie}
+            results={similar?.results}
+          />
+        )}
       </View>
     </ContentLayout>
   );
@@ -117,5 +204,8 @@ const styles = StyleSheet.create({
   },
   content: {
     gap: theme.space.xl
+  },
+  playButton: {
+    marginTop: theme.space.sm
   }
 });

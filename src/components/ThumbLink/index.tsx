@@ -1,22 +1,29 @@
+import type { Href } from 'expo-router';
 import { Link } from 'expo-router';
 import * as React from 'react';
 
+import type { TouchableProps } from 'components/Touchable';
 import { Touchable } from 'components/Touchable';
 
-export type ThumbLinkProps = {
+export type ThumbLinkProps = Pick<TouchableProps, 'style'> & {
   children: React.ReactElement;
-  href: string;
+  href: Href<string>;
   isLoading?: boolean;
 };
 
-export function ThumbLink({ children, href, isLoading }: ThumbLinkProps) {
+export function ThumbLink({
+  children,
+  href,
+  isLoading,
+  style
+}: ThumbLinkProps) {
   if (isLoading) {
-    return React.cloneElement(children, { isLoading });
+    return React.cloneElement(children, { isLoading, style });
   }
 
   return (
-    <Link href={href} asChild>
-      <Touchable>{children}</Touchable>
+    <Link href={href} asChild push>
+      <Touchable style={style}>{children}</Touchable>
     </Link>
   );
 }

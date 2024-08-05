@@ -1,4 +1,5 @@
 import * as React from 'react';
+import type { ViewProps } from 'react-native';
 import { Image, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
@@ -11,11 +12,12 @@ import type { ContentType, ImageSizeBackdrop } from 'types/content';
 import { getImageUrl } from 'utils/images';
 
 export type LargeThumbProps = {
-  id: number;
+  id?: number;
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop;
   isLoading?: boolean;
-  title?: string;
+  style?: ViewProps['style'];
+  title?: React.ReactElement | string;
   type: ContentType;
 };
 
@@ -25,6 +27,7 @@ export const LargeThumb = React.memo(
     imageUrl,
     imageWidth = 'w780',
     isLoading,
+    style,
     title,
     type
   }: LargeThumbProps) => {
@@ -34,7 +37,7 @@ export const LargeThumb = React.memo(
     });
 
     return (
-      <View style={styles.wrapper}>
+      <View style={[styles.wrapper, style]}>
         <Thumb
           imageUrl={imageUrl}
           imageWidth={imageWidth}

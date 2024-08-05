@@ -15,6 +15,7 @@ export type ContentLayoutProps = {
   children: React.ReactNode;
   imageUrl?: string;
   isLoading?: boolean;
+  isPersonContent?: boolean;
   logo?: {
     aspectRatio: number;
     url: string;
@@ -28,6 +29,7 @@ export function ContentLayout({
   children,
   imageUrl,
   isLoading,
+  isPersonContent,
   logo,
   subtitle,
   title
@@ -58,6 +60,7 @@ export function ContentLayout({
         imageUrl={imageUrl}
         title={title}
         logo={logo}
+        isPerson={isPersonContent}
       />
       <View style={styles.infos}>
         {badges && <View style={styles.badges}>{badges}</View>}
@@ -69,15 +72,6 @@ export function ContentLayout({
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    width: '100%',
-    overflow: 'hidden',
-    marginBottom: theme.space.lg
-  },
-  content: {
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
   infos: {
     marginTop: COVER_HEIGHT + theme.space.lg,
     paddingHorizontal: theme.space.xxl,

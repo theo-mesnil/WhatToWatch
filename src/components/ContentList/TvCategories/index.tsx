@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
+import { genreTvPath } from 'routes';
 
 import type { UseGetGenreTvListApiResponse } from 'api/genres';
 import { useGetGenreTvList } from 'api/genres';
@@ -13,14 +14,14 @@ export function TvCategories() {
   const renderItem = ({
     item: { id, name }
   }: ListRenderItemInfo<UseGetGenreTvListApiResponse['genres'][number]>) => (
-    <ThumbLink href={`/genre/tv/${id}`}>
+    <ThumbLink href={genreTvPath({ id })}>
       <GenreThumb id={id} title={name} />
     </ThumbLink>
   );
 
   return (
     <List
-      numberOfItems={2}
+      withoutSizing
       results={data}
       title={
         <FormattedMessage key="title" defaultMessage="Series by categories" />

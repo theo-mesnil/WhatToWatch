@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 
+import { LOCALE } from 'constants/locales';
 import type { NetworkId } from 'types/content';
 import { getNetworkFromUrl } from 'utils/networks';
 
@@ -13,9 +14,22 @@ export type UseGetTvApiResponse =
 export type UseGetTvSeasonApiResponse =
   paths['/3/tv/{series_id}/season/{season_number}']['get']['responses']['200']['content']['application/json'];
 export type UseGetTvCreditsApiResponse =
-  paths['/3/tv/{series_id}/season/{season_number}/aggregate_credits']['get']['responses']['200']['content']['application/json'];
+  paths['/3/tv/{series_id}/aggregate_credits']['get']['responses']['200']['content']['application/json'];
+export type UseGetTvImagesApiResponse =
+  paths['/3/tv/{series_id}/images']['get']['responses']['200']['content']['application/json'];
+export type UseGetTvSimilarApiResponse =
+  paths['/3/tv/{series_id}/similar']['get']['responses']['200']['content']['application/json'];
+export type UseGetTvRecommendationsApiResponse =
+  paths['/3/tv/{series_id}/recommendations']['get']['responses']['200']['content']['application/json'];
+export type UseGetTvVideosApiResponse =
+  paths['/3/tv/{series_id}/videos']['get']['responses']['200']['content']['application/json'];
 
 export type UseGetTvApiProps = {
+  id: number;
+};
+
+export type UseGetTvEnabledApiProps = {
+  enabled: boolean;
   id: number;
 };
 
@@ -32,7 +46,7 @@ export function useGetTv(props?: UseGetTvApiProps) {
   });
 
   return useQuery({
-    queryKey: ['tv', id],
+    queryKey: ['tv', id, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetTvApiResponse> =
         await axios.get(queryUrl());
@@ -88,7 +102,7 @@ export function useGetTvSeason(props?: UseGetTvWithSeasonApiProps) {
   });
 
   return useQuery({
-    queryKey: ['tv', id, 'season', seasonNumber],
+    queryKey: ['tv', id, 'season', seasonNumber, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetTvSeasonApiResponse> =
         await axios.get(queryUrl());
@@ -99,15 +113,15 @@ export function useGetTvSeason(props?: UseGetTvWithSeasonApiProps) {
   });
 }
 
-export function useGetTvCredits(props?: UseGetTvApiProps) {
-  const { id } = props || {};
+export function useGetTvCredits(props?: UseGetTvEnabledApiProps) {
+  const { enabled, id } = props || {};
 
   const { queryUrl } = getApi({
     query: `tv/${id}/aggregate_credits`
   });
 
   return useQuery({
-    queryKey: ['tv', id, 'credits'],
+    queryKey: ['tv', id, 'credits', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetTvCreditsApiResponse> =
         await axios.get(queryUrl());
@@ -115,6 +129,71 @@ export function useGetTvCredits(props?: UseGetTvApiProps) {
       return {
         cast: data.cast.slice(0, 30)
       };
+    },
+    enabled: !!id && enabled
+  });
+}
+
+export function useGetTvImages(props?: UseGetTvEnabledApiProps) {
+  const { enabled, id } = props || {};
+
+  const locales = `${LOCALE},en`;
+
+  const { queryUrl } = getApi({
+    query: `tv/${id}/images`,
+    params: [
+      {
+        name: 'include_image_language',
+        value: locales
+      }
+    ]
+  });
+
+  return useQuery({
+    queryKey: ['tv', id, 'images', locales],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetTvImagesApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
+    },
+    enabled: !!id && enabled
+  });
+}
+
+export function useGetTvSimilar(props?: UseGetTvEnabledApiProps) {
+  const { enabled, id } = props || {};
+
+  const { queryUrl } = getApi({
+    query: `tv/${id}/similar`
+  });
+
+  return useQuery({
+    queryKey: ['tv', id, 'similar', LOCALE],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetTvSimilarApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
+    },
+    enabled: !!id && enabled
+  });
+}
+
+export function useGetTvVideos(props?: UseGetTvApiProps) {
+  const { id } = props || {};
+
+  const { queryUrl } = getApi({
+    query: `tv/${id}/videos`
+  });
+
+  return useQuery({
+    queryKey: ['tv', id, 'videos', LOCALE],
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetTvVideosApiResponse> =
+        await axios.get(queryUrl());
+
+      return data;
     },
     enabled: !!id
   });
