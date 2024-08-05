@@ -60,7 +60,7 @@ export const genreMoviePath = (params: { id: number }): Href<string> => ({
 });
 
 export const genreTvPath = (params: { id: number }): Href<string> => ({
-  pathname: '/genre/[id]/movie',
+  pathname: '/genre/[id]/tv',
   params
 });
 
