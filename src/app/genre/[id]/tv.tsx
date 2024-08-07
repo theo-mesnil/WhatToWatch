@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
-import type { ListRenderItemInfo } from 'react-native';
+import { Animated, type ListRenderItemInfo } from 'react-native';
 import { tvPath } from 'routes';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
@@ -10,10 +10,12 @@ import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
-import GenreLayout, { ScrollYPositionContext } from 'layouts/Genre';
+import GenreLayout from 'layouts/Genre';
 
 export default function Tv() {
-  const getScrollYPosition = React.useContext(ScrollYPositionContext);
+  const [scrollYPosition, getScrollYPosition] = React.useState(
+    new Animated.Value(0)
+  );
   const params = useLocalSearchParams<{ id: string }>();
   const genreID = Number(params?.id);
   const { containerStyle } = useSafeHeights();
@@ -39,7 +41,7 @@ export default function Tv() {
   };
 
   return (
-    <GenreLayout>
+    <GenreLayout scrollYPosition={scrollYPosition}>
       <VerticalList
         renderItem={renderItem}
         id="genre"
@@ -53,8 +55,8 @@ export default function Tv() {
             />
           </ThumbLink>
         }
-        isLoading={isLoading}
         getScrollYPosition={getScrollYPosition}
+        isLoading={isLoading}
         results={data?.pages?.map((page) => page.results).flat()}
         onEndReached={loadMore}
         contentContainerStyle={containerStyle}

@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
-import { Animated } from 'react-native';
+import type { Animated } from 'react-native';
 import { theme } from 'theme';
 
 import { useGetGenreMovieList, useGetGenreTvList } from 'api/genres';
@@ -9,24 +9,18 @@ import { Header } from 'components/Header';
 import { BasicLayout } from 'layouts/Basic';
 import { genresColor } from 'utils/genres';
 
-type ScrollYPositionContextType = React.Dispatch<
-  React.SetStateAction<Animated.Value>
->;
-
 export type GenreLayoutProps = {
   children: React.ReactNode;
+  scrollYPosition: Animated.Value;
 };
 
-export const ScrollYPositionContext =
-  React.createContext<ScrollYPositionContextType>(null);
-
-export default function GenreLayout({ children }: GenreLayoutProps) {
+export default function GenreLayout({
+  children,
+  scrollYPosition
+}: GenreLayoutProps) {
   const params = useLocalSearchParams<{ id: string }>();
   const genreID = Number(params?.id) as keyof typeof genresColor;
   const navigation = useNavigation();
-  const [scrollYPosition, getScrollYPosition] = React.useState(
-    new Animated.Value(0)
-  );
 
   const { data: genreTv } = useGetGenreTvList();
   const { data: genreMovie } = useGetGenreMovieList();
@@ -53,9 +47,7 @@ export default function GenreLayout({ children }: GenreLayoutProps) {
         colors={[...genresColor[genreID], theme.colors.behind]}
         scrollY={scrollYPosition}
       />
-      <ScrollYPositionContext.Provider value={getScrollYPosition}>
-        {children}
-      </ScrollYPositionContext.Provider>
+      {children}
     </BasicLayout>
   );
 }

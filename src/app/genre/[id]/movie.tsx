@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
-import type { ListRenderItemInfo } from 'react-native';
+import { Animated, type ListRenderItemInfo } from 'react-native';
 import { moviePath } from 'routes';
 
 import type { UseGetDiscoverMovieApiResponse } from 'api/discover';
@@ -10,10 +10,12 @@ import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
-import GenreLayout, { ScrollYPositionContext } from 'layouts/Genre';
+import GenreLayout from 'layouts/Genre';
 
 export default function Movie() {
-  const getScrollYPosition = React.useContext(ScrollYPositionContext);
+  const [scrollYPosition, getScrollYPosition] = React.useState(
+    new Animated.Value(0)
+  );
   const params = useLocalSearchParams<{ id: string }>();
   const genreID = Number(params?.id);
   const { containerStyle } = useSafeHeights();
@@ -39,7 +41,7 @@ export default function Movie() {
   };
 
   return (
-    <GenreLayout>
+    <GenreLayout scrollYPosition={scrollYPosition}>
       <VerticalList
         renderItem={renderItem}
         id="genre"
