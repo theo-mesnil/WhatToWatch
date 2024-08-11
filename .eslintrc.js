@@ -67,6 +67,13 @@ module.exports = {
     'react-native/no-inline-styles': 2,
     'react-native/no-single-element-style-arrays': 2
   },
+  overrides: [
+    {
+      // Test files only
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react']
+    }
+  ],
   settings: {
     'import/resolve': {
       moduleDirectory: ['node_modules', 'src']

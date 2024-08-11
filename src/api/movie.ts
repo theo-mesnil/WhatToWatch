@@ -1,3 +1,4 @@
+import type { UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
@@ -32,7 +33,28 @@ export type UseGetMovieEnabledApiProps = UseGetMovieApiProps & {
   enabled: boolean;
 };
 
-export function useGetMovie(props?: UseGetMovieApiProps) {
+export type UseMovie = UseQueryResult<
+  {
+    coverUrl?: string;
+    genres: string;
+    networkLink?: {
+      id: NetworkId;
+      link: string;
+    };
+    overview: string;
+    rating?: {
+      count: number;
+      votes: number;
+    };
+    releaseDate: string;
+    runtime: number;
+    tagline: string;
+    title: string;
+  } | null,
+  Error
+>;
+
+export function useGetMovie(props?: UseGetMovieApiProps): UseMovie {
   const { id } = props || {};
 
   const { queryUrl } = getApi({
