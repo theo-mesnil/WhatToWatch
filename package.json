@@ -19,6 +19,7 @@
     "test": "jest --watchAll --coverage=false",
     "test:coverage": "jest",
     "test:e2e": "maestro test maestro/",
+    "test:ci": "jest --coverage=false --forceExit",
     "translate": "yarn extract-messages 'src/**/*.{tsx,ts}' -l en-US,fr-FR -o src/locales -d en-US --flat",
     "generate:api:types": "npx openapi-typescript https://developer.themoviedb.org/openapi/64542913e1f86100738e227f -o ./src/api/types.d.ts",
     "prepare": "husky",
