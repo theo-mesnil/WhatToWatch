@@ -1,1 +1,1 @@
-yarn translate && git diff --exit-code src/locales && yarn lint
+yarn translate && git diff --exit-code src/locales && yarn lint && yarn test:coverage --forceExit

@@ -1,4 +1,3 @@
-import type { UseInfiniteQueryOptions } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
@@ -16,13 +15,12 @@ export type UseGetSearchApiParams =
   paths['/3/search/multi']['get']['parameters']['query'];
 
 export type UseGetSearchApiProps = {
-  enabled?: UseInfiniteQueryOptions['enabled'];
   maxPages?: number;
   params?: SpecificApiParam<UseGetSearchApiParams>[];
 };
 
 export function useGetSearch(props?: UseGetSearchApiProps) {
-  const { enabled = true, maxPages = 30, params } = props || {};
+  const { maxPages = 30, params } = props || {};
 
   const { queryParams, queryUrl } = getApi({
     query: 'search/multi',
@@ -37,7 +35,6 @@ export function useGetSearch(props?: UseGetSearchApiProps) {
       );
       return data;
     },
-    enabled,
     initialPageParam: 1,
     getNextPageParam: ({ page }) => {
       return page + 1 <= maxPages ? page + 1 : undefined;

@@ -1,7 +1,8 @@
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import type { ListRenderItemInfo } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { moviePath, personPath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
@@ -38,6 +39,7 @@ export default function Movie() {
   const movieID = Number(params?.id);
 
   const { data, isLoading } = useGetMovie({ id: movieID });
+
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id: movieID,
     type: 'movie'
@@ -105,7 +107,7 @@ export default function Movie() {
         !isLoading && (
           <>
             {!!releaseDate && (
-              <Badge>
+              <Badge testID="release-date">
                 <FormattedDate
                   day="numeric"
                   year="numeric"
