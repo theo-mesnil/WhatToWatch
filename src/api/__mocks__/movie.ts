@@ -1,20 +1,22 @@
+import type { UseMovie } from 'api/movie';
 import { NETWORK_NETFLIX_ID } from 'constants/networks';
-import type { NetworkId } from 'types/content';
 
-export const MOCK_MOVIE = {
-  data: {
-    coverUrl: '/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg',
-    genres: 'Animation - Family',
-    networkLink: {
-      id: NETWORK_NETFLIX_ID as NetworkId,
-      link: 'link'
-    },
-    overview:
-      'Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.',
-    rating: { count: 840, votes: 7.4 },
-    releaseDate: '2024-06-20',
-    runtime: 94,
-    tagline: 'Things just got a little more despicable.',
-    title: 'Despicable Me 4'
+export const MOCK_MOVIE: UseMovie['data'] = {
+  coverUrl: '/hziiv14OpD73u9gAak4XDDfBKa2.jpg',
+  genres: 'Adventure - Fantasy',
+  overview:
+    "Harry Potter has lived under the stairs at his aunt and uncle's house his whole life. But on his 11th birthday, he learns he's a powerful wizard—with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school's kindly headmaster, Harry uncovers the truth about his parents' deaths—and about the villain who's to blame.",
+  rating: { count: 26908, votes: 7.9 },
+  releaseDate: '2001-11-16',
+  runtime: 152,
+  tagline: 'Let the magic begin.',
+  title: "Harry Potter and the Philosopher's Stone"
+};
+
+export const MOCK_MOVIE_WITH_NETWORK: UseMovie['data'] = {
+  ...MOCK_MOVIE,
+  networkLink: {
+    id: NETWORK_NETFLIX_ID,
+    link: 'link-to-network'
   }
 };

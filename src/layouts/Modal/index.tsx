@@ -22,6 +22,7 @@ export default function ModalLayout({ children }: ModalLayoutProps) {
         style={[styles.header, isAndroid && { paddingTop: statusBarHeight }]}
       >
         <Button
+          testID="header-close-button"
           isCustomChildren
           onPress={() => navigation.goBack()}
           style={styles.closeButton}

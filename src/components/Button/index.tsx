@@ -37,13 +37,14 @@ export const Button = React.forwardRef<never, ButtonProps>(
       onPress,
       size = 'md',
       style = {},
+      testID,
       variant = 'primary',
       ...rest
     },
     ref
   ) => {
     return (
-      <Touchable ref={ref} onPress={onPress}>
+      <Touchable ref={ref} onPress={onPress} testID={testID}>
         <View
           style={[
             styles.wrapper,

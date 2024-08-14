@@ -1,0 +1,36 @@
+appId: com.theomesnil.WhatToWatch
+---
+- launchApp
+- tapOn: 'Search, tab, 2 of 3'
+- waitForAnimationToEnd
+- takeScreenshot: 'maestro/screenshots/search/index'
+- tapOn: 'What would you like to watch?'
+- inputText: 'Harry potter philosopher'
+- assertVisible: "Harry Potter and the Philosopher's Stone"
+- takeScreenshot: 'maestro/screenshots/search/input'
+# todo: fix this double tap
+- doubleTapOn: "Harry Potter and the Philosopher's Stone"
+- waitForAnimationToEnd
+- assertVisible: "Harry Potter and the Philosopher's Stone"
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    point: '92%,17%'
+- tapOn: 'What would you like to watch?'
+- inputText: 'Daniel radcli'
+- doubleTapOn: 'Daniel radcliffe'
+- waitForAnimationToEnd
+- assertVisible: 'Daniel radcliffe'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    point: '92%,17%'
+- inputText: 'Game of'
+- doubleTapOn: 'Game of Thrones'
+- waitForAnimationToEnd
+- assertVisible: '8 seasons'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    point: '92%,17%'
+- takeScreenshot: 'maestro/screenshots/search/end'

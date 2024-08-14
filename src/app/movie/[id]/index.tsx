@@ -39,7 +39,6 @@ export default function Movie() {
   const movieID = Number(params?.id);
 
   const { data, isLoading } = useGetMovie({ id: movieID });
-
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id: movieID,
     type: 'movie'
@@ -117,10 +116,12 @@ export default function Movie() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge icon={ClockFillIcon}>{formatTime(runtime)}</Badge>
+              <Badge testID="runtime" icon={ClockFillIcon}>
+                {formatTime(runtime)}
+              </Badge>
             )}
             {!!rating && (
-              <Badge icon={StarFillIcon}>
+              <Badge testID="votes" icon={StarFillIcon}>
                 {rating.votes} ({rating.count})
               </Badge>
             )}
