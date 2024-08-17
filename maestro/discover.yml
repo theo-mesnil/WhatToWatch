@@ -11,7 +11,7 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-back-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/discover/index-2'
+- takeScreenshot: 'maestro/screenshots/discover/index2'
 - tapOn: '1'
 - tapOn:
     id: 'header-back-button'
@@ -23,7 +23,7 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-back-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/discover/index-3'
+- takeScreenshot: 'maestro/screenshots/discover/index3'
 - tapOn:
     point: '33%,28%'
 - tapOn:
@@ -36,12 +36,12 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-back-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/discover/index-4'
+- takeScreenshot: 'maestro/screenshots/discover/index4'
 - tapOn: 'Action & Adventure Action & Adventure'
 - tapOn:
     id: 'header-back-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/discover/index-5'
+- takeScreenshot: 'maestro/screenshots/discover/index5'
 - tapOn:
     point: '33%,48%'
 - tapOn:

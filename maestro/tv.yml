@@ -16,19 +16,19 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-close-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/tv/index-2'
+- takeScreenshot: 'maestro/screenshots/tv/index2'
 - tapOn: 'S2'
-- takeScreenshot: 'maestro/screenshots/tv/index-3'
+- takeScreenshot: 'maestro/screenshots/tv/index3'
 - scroll
 - scroll
 - waitForAnimationToEnd
-- takeScreenshot: 'maestro/screenshots/tv/index-4'
+- takeScreenshot: 'maestro/screenshots/tv/index4'
 - tapOn: 'Matt Smith Prince Daemon Targaryen'
 - takeScreenshot: 'maestro/screenshots/tv/casting'
 - tapOn:
     id: 'header-back-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/tv/index-5'
+- takeScreenshot: 'maestro/screenshots/tv/index5'
 - tapOn: 'House of the Dragon Opening Credits 4K | Season 1 (HBO) | Game Of Thrones Extras'
 - takeScreenshot: 'maestro/screenshots/tv/video'
 - tapOn:

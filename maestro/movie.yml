@@ -14,7 +14,7 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-close-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/movie/index-2'
+- takeScreenshot: 'maestro/screenshots/movie/index2'
 - tapOn: 'Daniel Radcliffe Harry Potter'
 - assertVisible: 'Daniel Radcliffe'
 - tapOn:
@@ -24,7 +24,7 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-close-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/movie/index-3'
+- takeScreenshot: 'maestro/screenshots/movie/index3'
 - tapOn: 'Backdrops'
 - swipe:
     direction: LEFT

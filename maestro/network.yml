@@ -5,7 +5,7 @@ appId: com.theomesnil.WhatToWatch
 - waitForAnimationToEnd
 - takeScreenshot: 'maestro/screenshots/network/streaming'
 - scroll
-- takeScreenshot: 'maestro/screenshots/network/streaming-2'
+- takeScreenshot: 'maestro/screenshots/network/streaming2'
 - tapOn:
     point: '18%,78%'
 - takeScreenshot: 'maestro/screenshots/network/index'
@@ -15,7 +15,7 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-back-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/network/index-2'
+- takeScreenshot: 'maestro/screenshots/network/index2'
 - tapOn:
     point: '50%,28%'
 - assertVisible: '7 seasons'

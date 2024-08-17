@@ -9,7 +9,7 @@ appId: com.theomesnil.WhatToWatch
 - waitForAnimationToEnd
 - takeScreenshot: 'maestro/screenshots/person/index'
 - scroll
-- takeScreenshot: 'maestro/screenshots/person/index-2'
+- takeScreenshot: 'maestro/screenshots/person/index2'
 - tapOn:
     point: '25%,42%'
 - takeScreenshot: 'maestro/screenshots/person/know-for'

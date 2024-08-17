@@ -10,7 +10,7 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-back-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/genre/movie-2'
+- takeScreenshot: 'maestro/screenshots/genre/movie2'
 - tapOn:
     point: '19%,26%'
 - tapOn:
@@ -26,7 +26,7 @@ appId: com.theomesnil.WhatToWatch
 - tapOn:
     id: 'header-back-button'
 - scroll
-- takeScreenshot: 'maestro/screenshots/genre/tv-2'
+- takeScreenshot: 'maestro/screenshots/genre/tv2'
 - tapOn:
     point: '19%,26%'
 - tapOn:
