@@ -1,7 +1,0 @@
-appId: com.theomesnil.WhatToWatch
----
-- launchApp
-- waitForAnimationToEnd:
-    timeout: 5000
-- assertVisible: 'Top 10 series'
-- takeScreenshot: 'maestro/screenshots/Home'

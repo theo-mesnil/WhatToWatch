@@ -17,6 +17,7 @@ export type NetworkButtonProps = Pick<ButtonProps, 'style'> & {
 export function NetworkButton({ id, link, style }: NetworkButtonProps) {
   return (
     <Button
+      testID={`network-${id}`}
       size="lg"
       gradientColors={getNetworkColor(id)}
       onPress={() => Linking.openURL(link)}

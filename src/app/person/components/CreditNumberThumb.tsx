@@ -17,7 +17,7 @@ export function CreditNumberThumb({
   type
 }: CreditNumberThumbProps) {
   return (
-    <View style={styles.wrapper}>
+    <View style={styles.wrapper} testID={`credits-${type}`}>
       <Gradient
         angle={0.6}
         colors={[theme.colors['brand-100'], theme.colors.ahead]}

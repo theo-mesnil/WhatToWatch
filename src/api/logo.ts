@@ -1,3 +1,4 @@
+import type { UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
@@ -37,7 +38,17 @@ function formatImageToLogo(
     : null;
 }
 
-export function useGetContentLogo(props?: useGetContentLogoProps) {
+export type UseGetContentLogo = UseQueryResult<
+  {
+    aspectRatio: number;
+    url: string;
+  } | null,
+  Error
+>;
+
+export function useGetContentLogo(
+  props?: useGetContentLogoProps
+): UseGetContentLogo {
   const { id, type } = props || {};
 
   const locales = `${LOCALE},en`;

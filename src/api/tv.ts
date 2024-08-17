@@ -1,3 +1,4 @@
+import type { UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
@@ -38,7 +39,39 @@ export type UseGetTvWithSeasonApiProps = {
   seasonNumber: number;
 };
 
-export function useGetTv(props?: UseGetTvApiProps) {
+export type UseGetTv = UseQueryResult<
+  {
+    coverUrl?: string;
+    endYear?: number;
+    genres?: string;
+    name: string;
+    networkLink?: {
+      id: NetworkId;
+      link: string;
+    };
+    overview?: string;
+    rating?: {
+      count: number;
+      votes: number;
+    };
+    runtime: number;
+    seasons: {
+      air_date: string;
+      episode_count: number;
+      id: number;
+      name: string;
+      overview: string;
+      poster_path?: string;
+      season_number: number;
+      vote_average: number;
+    }[];
+    startYear?: number;
+    tagline?: string;
+  } | null,
+  Error
+>;
+
+export function useGetTv(props?: UseGetTvApiProps): UseGetTv {
   const { id } = props || {};
 
   const { queryUrl } = getApi({

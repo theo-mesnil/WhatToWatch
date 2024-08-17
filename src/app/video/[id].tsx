@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import { Dimensions } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { theme } from 'theme';
 
@@ -18,12 +18,14 @@ export default function Video() {
 
   return (
     <ModalLayout>
-      <YoutubePlayer
-        webViewStyle={{ marginLeft: gap }}
-        height={height}
-        width={width}
-        videoId={videoID}
-      />
+      <View testID="video">
+        <YoutubePlayer
+          webViewStyle={{ marginLeft: gap }}
+          height={height}
+          width={width}
+          videoId={videoID}
+        />
+      </View>
     </ModalLayout>
   );
 }

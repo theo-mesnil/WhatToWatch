@@ -79,6 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
           isTransparent
           onPress={() => navigation.goBack()}
           style={styles.closeButton}
+          testID="header-back-button"
         >
           <Icon icon={ArrowBackIcon} size={30} />
         </Button>

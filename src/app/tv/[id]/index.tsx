@@ -44,6 +44,7 @@ export default function Tv() {
   const tvID = Number(params?.id);
 
   const { data, isLoading } = useGetTv({ id: tvID });
+
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id: tvID,
     type: 'tv'
@@ -138,7 +139,7 @@ export default function Tv() {
         !isLoading && (
           <>
             {!!seasonsLength && (
-              <Badge>
+              <Badge testID="seasons">
                 {seasonsLength}{' '}
                 {seasonsLength === 1 && (
                   <FormattedMessage id="season" defaultMessage="season" />
@@ -149,16 +150,18 @@ export default function Tv() {
               </Badge>
             )}
             {!!startYear && (
-              <Badge>
+              <Badge testID="release-date">
                 {startYear}
                 {endYear && ` - ${endYear}`}
               </Badge>
             )}
             {!!runtime && (
-              <Badge icon={ClockFillIcon}>{formatTime(runtime)}</Badge>
+              <Badge testID="runtime" icon={ClockFillIcon}>
+                {formatTime(runtime)}
+              </Badge>
             )}
             {!!rating && (
-              <Badge icon={StarFillIcon}>
+              <Badge testID="votes" icon={StarFillIcon}>
                 {rating.votes} ({rating.count})
               </Badge>
             )}

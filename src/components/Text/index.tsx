@@ -11,6 +11,7 @@ export type TextProps = Pick<
   | 'onPress'
   | 'onTextLayout'
   | 'ellipsizeMode'
+  | 'testID'
 > & {
   variant?: ThemeText;
 };
@@ -22,10 +23,12 @@ export const Text: React.FC<TextProps> = ({
   onPress,
   onTextLayout,
   style,
+  testID,
   variant = 'md'
 }) => {
   return (
     <RNText
+      testID={testID}
       style={[
         theme.texts[variant],
         { lineHeight: theme.texts[variant].fontSize + 3 },
