@@ -51,7 +51,6 @@ export default function Person() {
     id: personID,
     isActing
   });
-
   const { data: credits, isLoading: isLoadingCredits } = useGetPersonCredits({
     id: personID,
     isActing
@@ -92,9 +91,9 @@ export default function Person() {
       title={name}
       badges={
         <>
-          {!!department && <Badge>{department}</Badge>}
+          {!!department && <Badge testID="department">{department}</Badge>}
           {!!birthday && (
-            <Badge>
+            <Badge testID="birthday">
               <>
                 <FormattedMessage defaultMessage="Born on" key="born_on" />{' '}
                 <FormattedDate
@@ -119,7 +118,7 @@ export default function Person() {
             </Badge>
           )}
           {!!deathday && (
-            <Badge>
+            <Badge testID="deathday">
               <FormattedMessage defaultMessage="Died on" key="died_on" />{' '}
               <FormattedDate
                 day="numeric"
@@ -139,9 +138,11 @@ export default function Person() {
               </>
             </Badge>
           )}
-          {!!placeOfBirth && <Badge>{placeOfBirth}</Badge>}
+          {!!placeOfBirth && (
+            <Badge testID="place-of-birth">{placeOfBirth}</Badge>
+          )}
           {!!numberOfMovies && (
-            <Badge>
+            <Badge testID="movies">
               {numberOfMovies}{' '}
               {numberOfMovies === 1 && (
                 <FormattedMessage id="movie" defaultMessage="movie" />
@@ -152,7 +153,7 @@ export default function Person() {
             </Badge>
           )}
           {!!numberOfTvShows && (
-            <Badge>
+            <Badge testID="series">
               {numberOfTvShows}{' '}
               {numberOfTvShows === 1 && (
                 <FormattedMessage id="serie" defaultMessage="serie" />

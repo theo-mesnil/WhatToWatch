@@ -1,0 +1,35 @@
+appId: com.theomesnil.WhatToWatch
+---
+- launchApp
+- tapOn: 'Search, tab, 2 of 3'
+- tapOn: 'What would you like to watch?'
+- inputText: 'Daniel Radcliffe'
+- doubleTapOn:
+    point: '19%,38%'
+- waitForAnimationToEnd
+- takeScreenshot: 'maestro/screenshots/person/index'
+- scroll
+- takeScreenshot: 'maestro/screenshots/person/index-2'
+- tapOn:
+    point: '25%,42%'
+- takeScreenshot: 'maestro/screenshots/person/know-for'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    id: 'credits-movie'
+- takeScreenshot: 'maestro/screenshots/person/movies'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    id: 'credits-tv'
+- takeScreenshot: 'maestro/screenshots/person/series'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    point: '18%,85%'
+- swipe:
+    direction: LEFT
+- takeScreenshot: 'maestro/screenshots/person/pictures'
+- tapOn:
+    id: 'header-close-button'
+- assertVisible: 'Pictures'

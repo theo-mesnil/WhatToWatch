@@ -1,3 +1,4 @@
+import type { UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
@@ -28,7 +29,20 @@ export type UseGetPersonWithDepartmentApiProps = UseGetPersonApiProps & {
   isActing: boolean;
 };
 
-export function useGetPerson(props?: UseGetPersonApiProps) {
+export type UseGetPerson = UseQueryResult<
+  {
+    biography?: string;
+    birthday?: string;
+    coverUrl?: string;
+    deathday?: string;
+    department?: 'Acting' | 'Writing' | 'Director';
+    name: string;
+    placeOfBirth?: string;
+  } | null,
+  Error
+>;
+
+export function useGetPerson(props?: UseGetPersonApiProps): UseGetPerson {
   const { id } = props || {};
 
   const { queryUrl } = getApi({

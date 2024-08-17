@@ -33,7 +33,7 @@ export type UseGetMovieEnabledApiProps = UseGetMovieApiProps & {
   enabled: boolean;
 };
 
-export type UseMovie = UseQueryResult<
+export type UseGetMovie = UseQueryResult<
   {
     coverUrl?: string;
     genres: string;
@@ -54,7 +54,7 @@ export type UseMovie = UseQueryResult<
   Error
 >;
 
-export function useGetMovie(props?: UseGetMovieApiProps): UseMovie {
+export function useGetMovie(props?: UseGetMovieApiProps): UseGetMovie {
   const { id } = props || {};
 
   const { queryUrl } = getApi({

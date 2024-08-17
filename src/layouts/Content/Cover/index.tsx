@@ -26,6 +26,7 @@ export const Cover = React.memo(
     return (
       <View style={styles.wrapper}>
         <ImageBackground
+          testID="cover-image"
           source={{
             uri: getImageUrl(imageUrl, 'w780')
           }}
@@ -40,12 +41,13 @@ export const Cover = React.memo(
         <View style={styles.content}>
           {logo && (
             <Image
+              testID="cover-logo"
               style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
               src={getImageUrl(logo.url, 'w500')}
             />
           )}
           {!logo && title && (
-            <Text style={styles.text} variant="h0">
+            <Text testID="cover-title" style={styles.text} variant="h0">
               {title}
             </Text>
           )}

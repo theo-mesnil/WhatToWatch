@@ -1,7 +1,7 @@
-import type { UseMovie } from 'api/movie';
+import type { UseGetMovie } from 'api/movie';
 import { NETWORK_NETFLIX_ID } from 'constants/networks';
 
-export const MOCK_MOVIE: UseMovie['data'] = {
+export const MOCK_MOVIE: UseGetMovie['data'] = {
   coverUrl: '/hziiv14OpD73u9gAak4XDDfBKa2.jpg',
   genres: 'Adventure - Fantasy',
   overview:
@@ -13,7 +13,7 @@ export const MOCK_MOVIE: UseMovie['data'] = {
   title: "Harry Potter and the Philosopher's Stone"
 };
 
-export const MOCK_MOVIE_WITH_NETWORK: UseMovie['data'] = {
+export const MOCK_MOVIE_WITH_NETWORK: UseGetMovie['data'] = {
   ...MOCK_MOVIE,
   networkLink: {
     id: NETWORK_NETFLIX_ID,

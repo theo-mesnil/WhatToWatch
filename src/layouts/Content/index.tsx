@@ -64,7 +64,7 @@ export function ContentLayout({
       />
       <View style={styles.infos}>
         {badges && <View style={styles.badges}>{badges}</View>}
-        {subtitle && <Text>{subtitle}</Text>}
+        {subtitle && <Text testID="subtitle">{subtitle}</Text>}
       </View>
       {children}
     </BasicLayout>
