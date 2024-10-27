@@ -1,63 +1,67 @@
 {
-  "android": {
-    "adaptiveIcon": {
-      "foregroundImage": "src/assets/adaptive-icon.png",
+  "expo": {
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "src/assets/adaptive-icon.png",
+        "backgroundColor": "#7121d0"
+      },
+      "package": "com.theomesnil.WhatToWatch",
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch",
+      "versionCode": 9
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "description": "Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series, and where to watch them. This app is powered by the themoviedb (TMDb) database.",
+    "extra": {
+      "eas": {
+        "projectId": "deb154a5-6b12-419a-a3c5-d704888f7df2"
+      }
+    },
+    "githubUrl": "https://github.com/theo-mesnil/WhatToWatch",
+    "icon": "src/assets/icon.png",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.theomesnil.WhatToWatch"
+    },
+    "name": "WhatToWatch",
+    "orientation": "portrait",
+    "plugins": [
+      "expo-font",
+      "expo-localization",
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": true
+          },
+          "android": {
+            "newArchEnabled": true
+          }
+        }
+      ]
+    ],
+    "scheme": "whattowatch",
+    "slug": "WhatToWatch",
+    "version": "3.1.2",
+    "splash": {
+      "image": "src/assets/splash.png",
+      "resizeMode": "contain",
       "backgroundColor": "#0d0d0d"
     },
-    "package": "com.theomesnil.WhatToWatch",
-    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch",
-    "versionCode": 6
-  },
-  "assetBundlePatterns": ["**/*"],
-  "description": "Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series, and where to watch them. This app is powered by the themoviedb (TMDb) database.",
-  "extra": {
-    "eas": {
-      "projectId": "deb154a5-6b12-419a-a3c5-d704888f7df2"
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/deb154a5-6b12-419a-a3c5-d704888f7df2"
+    },
+    "web": {
+      "favicon": "src/assets/favicon.png"
+    },
+    "experiments": {
+      "typedRoutes": true
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
-  },
-  "githubUrl": "https://github.com/theo-mesnil/WhatToWatch",
-  "icon": "src/assets/icon.png",
-  "ios": {
-    "supportsTablet": false,
-    "bundleIdentifier": "com.theomesnil.WhatToWatch"
-  },
-  "name": "WhatToWatch",
-  "orientation": "portrait",
-  "plugins": [
-    "expo-font",
-    "expo-localization",
-    "expo-router",
-    [
-      "expo-build-properties",
-      {
-        "ios": {
-          "newArchEnabled": true
-        },
-        "android": {
-          "newArchEnabled": true
-        }
-      }
-    ]
-  ],
-  "scheme": "whattowatch",
-  "slug": "WhatToWatch",
-  "version": "3.0.1",
-  "splash": {
-    "image": "src/assets/splash.png",
-    "resizeMode": "contain",
-    "backgroundColor": "#0d0d0d"
-  },
-  "updates": {
-    "fallbackToCacheTimeout": 0,
-    "url": "https://u.expo.dev/deb154a5-6b12-419a-a3c5-d704888f7df2"
-  },
-  "web": {
-    "favicon": "src/assets/favicon.png"
-  },
-  "experiments": {
-    "typedRoutes": true
-  },
-  "runtimeVersion": {
-    "policy": "appVersion"
   }
 }

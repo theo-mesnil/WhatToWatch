@@ -8,11 +8,12 @@ import { Text } from 'components/Text';
 export type BadgeProps = {
   children: React.ReactNode;
   icon?: IconElement;
+  testID?: string;
 };
 
-export function Badge({ children, icon }: BadgeProps) {
+export function Badge({ children, icon, testID }: BadgeProps) {
   return (
-    <View style={styles.wrapper}>
+    <View style={styles.wrapper} testID={testID}>
       {icon && <Icon icon={icon} size={13} />}
       <Text style={styles.text}>{children}</Text>
     </View>

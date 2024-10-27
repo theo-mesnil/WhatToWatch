@@ -86,11 +86,12 @@ export const Header: React.FC<HeaderProps> = ({
         {withBackButton && (
           <View style={styles.firstLast}>
             <Button
+              testID="header-back-button"
               isTransparent
               isCustomChildren
               onPress={() => navigation.goBack()}
             >
-              <Icon icon={ArrowBackIcon} />
+              <Icon icon={ArrowBackIcon} size={30} />
             </Button>
           </View>
         )}

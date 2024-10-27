@@ -1,6 +1,7 @@
 import { Link } from 'expo-router';
 import { FormattedMessage } from 'react-intl';
 import { Image, ImageBackground, StyleSheet, View } from 'react-native';
+import { routeByType } from 'routes/utils';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
@@ -50,7 +51,7 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
         <Text style={styles.subtitle} numberOfLines={3}>
           {description}
         </Text>
-        <Link href={`${type}/${id}`} asChild>
+        <Link href={routeByType({ type, id })} asChild>
           <Button
             style={styles.cta}
             variant="secondary"

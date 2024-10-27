@@ -5,7 +5,7 @@ import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { Button } from 'components/Button';
-import { CrossIcon, Icon } from 'components/Icon';
+import { ArrowBackIcon, Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { isAndroid } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
@@ -13,23 +13,27 @@ import { useSafeHeights } from 'constants/useSafeHeights';
 type HeaderProps = {
   component?: React.ReactNode;
   scrollY?: Animated.Value;
+  showHeaderOnStart?: boolean;
   title: React.ReactNode;
 };
 
-export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
-  const { headerHeight, statusBarHeight } = useSafeHeights();
-  const androidStatusBarHeight = isAndroid ? statusBarHeight - 20 : 0;
+export const Header: React.FC<HeaderProps> = ({
+  scrollY,
+  showHeaderOnStart,
+  title
+}) => {
+  const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights();
   const navigation = useNavigation();
 
   const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
+  const opacity = showHeaderOnStart ? 1 : 0;
 
   return (
     <View
       style={[
         styles.wrapper,
         {
-          height: headerHeight + androidStatusBarHeight,
-          paddingTop: androidStatusBarHeight
+          height: headerSafeHeight - 20
         }
       ]}
     >
@@ -52,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
             {
               opacity: scrollY?.interpolate({
                 inputRange: [250, 300],
-                outputRange: [0, 1]
+                outputRange: [opacity, 1]
               })
             },
             globalStyles.absoluteFill
@@ -65,15 +69,25 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
         style={[
           styles.content,
           {
-            height: headerHeight
+            top: statusBarHeight,
+            height: headerHeight - 20
           }
         ]}
       >
+        <Button
+          isCustomChildren
+          isTransparent
+          onPress={() => navigation.goBack()}
+          style={styles.closeButton}
+          testID="header-back-button"
+        >
+          <Icon icon={ArrowBackIcon} size={30} />
+        </Button>
         <Animated.View
           style={{
             opacity: scrollY?.interpolate({
               inputRange: [250, 300],
-              outputRange: [0, 1]
+              outputRange: [opacity, 1]
             })
           }}
         >
@@ -81,20 +95,12 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, title }) => {
             style={{
               maxWidth: Dimensions.get('window').width - 60
             }}
-            variant="h3"
+            variant="h2"
             numberOfLines={1}
           >
             {title}
           </Text>
         </Animated.View>
-        <Button
-          isRounded
-          isCustomChildren
-          onPress={() => navigation.goBack()}
-          style={styles.button}
-        >
-          <Icon icon={CrossIcon} />
-        </Button>
       </View>
     </View>
   );
@@ -110,12 +116,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.space.lg,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    gap: theme.space.sm
   },
-  button: {
-    backgroundColor: theme.colors['default-900'],
-    position: 'absolute',
-    right: -5,
-    bottom: -15
+  closeButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 30,
+    paddingHorizontal: 0,
+    backgroundColor: 'transparent'
   }
 });

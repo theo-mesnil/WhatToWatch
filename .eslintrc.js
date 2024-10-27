@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: [
-    '@react-native-community',
+    '@react-native',
     'plugin:typescript-sort-keys/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended'
   ],
@@ -61,8 +61,19 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'import/no-duplicates': 2,
-    '@typescript-eslint/consistent-type-imports': ['error']
+    '@typescript-eslint/consistent-type-imports': ['error'],
+    'react-native/no-unused-styles': 2,
+    'react-native/split-platform-components': 2,
+    'react-native/no-inline-styles': 2,
+    'react-native/no-single-element-style-arrays': 2
   },
+  overrides: [
+    {
+      // Test files only
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react']
+    }
+  ],
   settings: {
     'import/resolve': {
       moduleDirectory: ['node_modules', 'src']

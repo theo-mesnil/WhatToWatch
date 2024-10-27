@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
+import { tvPath } from 'routes';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
@@ -18,7 +19,7 @@ export function PopularSeries() {
   const renderItem = ({
     item: { backdrop_path, id, name, overview, vote_average, vote_count }
   }: ListRenderItemInfo<UseGetDiscoverTvApiResponse['results'][number]>) => (
-    <ThumbLink href={`/tv/${id}`}>
+    <ThumbLink href={tvPath({ id })}>
       <TextThumb
         tag={
           <>

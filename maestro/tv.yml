@@ -1,0 +1,47 @@
+appId: com.theomesnil.WhatToWatch
+---
+- launchApp
+- tapOn: 'Search, tab, 2 of 3'
+- tapOn: 'What would you like to watch?'
+- inputText: 'House of the Dragon'
+- doubleTapOn:
+    point: '19%,38%'
+- waitForAnimationToEnd
+- takeScreenshot: 'maestro/screenshots/tv/index'
+- assertVisible: 'Watch on'
+- tapOn: 'Watch the trailer'
+- assertVisible:
+    id: 'video'
+- takeScreenshot: 'maestro/screenshots/tv/trailer'
+- tapOn:
+    id: 'header-close-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/tv/index2'
+- tapOn: 'S2'
+- takeScreenshot: 'maestro/screenshots/tv/index3'
+- scroll
+- scroll
+- waitForAnimationToEnd
+- takeScreenshot: 'maestro/screenshots/tv/index4'
+- tapOn: 'Matt Smith Prince Daemon Targaryen'
+- takeScreenshot: 'maestro/screenshots/tv/casting'
+- tapOn:
+    id: 'header-back-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/tv/index5'
+- tapOn: 'House of the Dragon Opening Credits 4K | Season 1 (HBO) | Game Of Thrones Extras'
+- takeScreenshot: 'maestro/screenshots/tv/video'
+- tapOn:
+    id: 'header-close-button'
+- tapOn: 'Backdrops'
+- swipe:
+    direction: LEFT
+- takeScreenshot: 'maestro/screenshots/tv/backdrops'
+- tapOn:
+    id: 'header-close-button'
+- tapOn: 'Posters'
+- swipe:
+    direction: LEFT
+- takeScreenshot: 'maestro/screenshots/tv/posters'
+- tapOn:
+    id: 'header-close-button'

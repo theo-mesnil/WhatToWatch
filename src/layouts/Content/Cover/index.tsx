@@ -13,6 +13,7 @@ export type CoverProps = {
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop;
   isLoading?: boolean;
+  isPerson?: boolean;
   logo?: {
     aspectRatio: number;
     url: string;
@@ -21,10 +22,11 @@ export type CoverProps = {
 };
 
 export const Cover = React.memo(
-  ({ imageUrl, isLoading, logo, title }: CoverProps) => {
+  ({ imageUrl, isLoading, isPerson, logo, title }: CoverProps) => {
     return (
       <View style={styles.wrapper}>
         <ImageBackground
+          testID="cover-image"
           source={{
             uri: getImageUrl(imageUrl, 'w780')
           }}
@@ -33,18 +35,19 @@ export const Cover = React.memo(
           {isLoading && <Loader style={styles.loading} />}
         </ImageBackground>
         <Gradient
-          style={styles.gradient}
+          style={[styles.gradient, isPerson && styles.personGradient]}
           colors={['transparent', theme.colors.behind]}
         />
         <View style={styles.content}>
           {logo && (
             <Image
+              testID="cover-logo"
               style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
               src={getImageUrl(logo.url, 'w500')}
             />
           )}
           {!logo && title && (
-            <Text style={styles.text} variant="h0">
+            <Text testID="cover-title" style={styles.text} variant="h0">
               {title}
             </Text>
           )}
@@ -66,6 +69,10 @@ const styles = StyleSheet.create({
     marginTop: 50,
     height: COVER_HEIGHT - 50,
     width: '100%'
+  },
+  personGradient: {
+    marginTop: 150,
+    height: COVER_HEIGHT - 150
   },
   content: {
     height: '100%',

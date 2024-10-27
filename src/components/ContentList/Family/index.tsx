@@ -1,5 +1,6 @@
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
+import { genreMoviePath, moviePath } from 'routes';
 
 import type { UseGetDiscoverMovieApiResponse } from 'api/discover';
 import { useGetDiscoverMovie } from 'api/discover';
@@ -15,7 +16,7 @@ export function Family() {
   const renderItem = ({
     item: { backdrop_path, id, overview, release_date, title }
   }: ListRenderItemInfo<UseGetDiscoverMovieApiResponse['results'][number]>) => (
-    <ThumbLink href={`/movie/${id}`}>
+    <ThumbLink href={moviePath({ id })}>
       <TextThumb
         tag={<FormattedDate value={new Date(release_date)} />}
         type="movie"
@@ -28,7 +29,7 @@ export function Family() {
 
   return (
     <List
-      titleHref={`/genre/${10751}`}
+      titleHref={genreMoviePath({ id: 10751 })}
       numberOfItems={1.5}
       results={data?.pages?.map((page) => page.results).flat()}
       title={<FormattedMessage key="title" defaultMessage="Family movies" />}

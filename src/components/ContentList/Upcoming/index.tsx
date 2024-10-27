@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
+import { moviePath } from 'routes';
 
 import type { UseGetMovieUpcomingApiResponse } from 'api/movie';
 import { useGetMovieUpcoming } from 'api/movie';
@@ -13,7 +14,7 @@ export function Upcoming() {
   const renderItem = ({
     item: { id, poster_path }
   }: ListRenderItemInfo<UseGetMovieUpcomingApiResponse['results'][number]>) => (
-    <ThumbLink href={`/movie/${id}`}>
+    <ThumbLink href={moviePath({ id })}>
       <Thumb type="movie" imageUrl={poster_path} />
     </ThumbLink>
   );

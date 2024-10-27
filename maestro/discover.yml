@@ -1,0 +1,52 @@
+appId: com.theomesnil.WhatToWatch
+---
+- launchApp
+- waitForAnimationToEnd
+- takeScreenshot: 'maestro/screenshots/discover/index'
+- tapOn: 'Discover'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    point: '14%,79%'
+- tapOn:
+    id: 'header-back-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/discover/index2'
+- tapOn: '1'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    point: '18%,52%'
+- tapOn:
+    id: 'header-back-button'
+- tapOn: 'Action Action'
+- tapOn:
+    id: 'header-back-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/discover/index3'
+- tapOn:
+    point: '33%,28%'
+- tapOn:
+    id: 'header-back-button'
+- tapOn: '1'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    point: '18%,84%'
+- tapOn:
+    id: 'header-back-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/discover/index4'
+- tapOn: 'Action & Adventure Action & Adventure'
+- tapOn:
+    id: 'header-back-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/discover/index5'
+- tapOn:
+    point: '33%,48%'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    point: '18%,78%'
+- tapOn:
+    id: 'header-back-button'

@@ -6,10 +6,10 @@ import { View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
-export interface GradientProps extends ViewProps {
+export type GradientProps = ViewProps & {
   angle?: number;
   colors?: string[];
-}
+};
 
 export function Gradient({
   angle,

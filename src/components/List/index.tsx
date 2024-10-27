@@ -1,14 +1,11 @@
-import { Link } from 'expo-router';
+import type { Href } from 'expo-router';
 import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
 import type { FlatListProps, ListRenderItemInfo } from 'react-native';
-import { Animated, Dimensions, StyleSheet, View } from 'react-native';
+import { Animated, Dimensions, View } from 'react-native';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
-import { ArrowNextIcon, Icon } from 'components/Icon';
-import { Text } from 'components/Text';
-import { Touchable } from 'components/Touchable';
+import { ListTitle } from 'components/ListTitle';
 import { fakeData30 } from 'constants/mocks';
 
 type VerticalListProps = Pick<
@@ -22,7 +19,7 @@ type VerticalListProps = Pick<
   numberOfItems?: number;
   results?: any;
   title?: JSX.Element | string;
-  titleHref?: string;
+  titleHref?: Href<string>;
   /** remove resize from List render item */
   withoutSizing?: boolean;
 };
@@ -84,33 +81,14 @@ export function List({
     };
   }
 
-  const renderTitle = React.useMemo(() => {
-    const element = (
-      <Text variant="h2" style={globalStyles.centered}>
+  const renderTitle = React.useMemo(
+    () => (
+      <ListTitle titleHref={titleHref} style={globalStyles.centered}>
         {title}
-      </Text>
-    );
-
-    if (titleHref) {
-      return (
-        <View style={[styles.title, { paddingRight: theme.space.marginList }]}>
-          {element}
-          <Link href={titleHref} asChild>
-            <Touchable>
-              <View style={styles.moreWrapper}>
-                <Text variant="lg" style={styles.moreText}>
-                  <FormattedMessage key="all-link" defaultMessage="More" />
-                </Text>
-                <Icon color="brand-100" size={20} icon={ArrowNextIcon} />
-              </View>
-            </Touchable>
-          </Link>
-        </View>
-      );
-    }
-
-    return element;
-  }, [title, titleHref]);
+      </ListTitle>
+    ),
+    [title, titleHref]
+  );
 
   return (
     <View>
@@ -132,31 +110,10 @@ export function List({
         contentContainerStyle={[
           {
             gap,
-            paddingHorizontal: theme.space.marginList,
-            marginTop: title && dataFormatted ? theme.space.xs : undefined
+            paddingHorizontal: theme.space.marginList
           }
         ]}
       />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    flexDirection: 'row',
-    gap: theme.space.xs,
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  moreWrapper: {
-    gap: theme.space.xxs,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  moreText: {
-    color: theme.colors['brand-100']
-  },
-  itemHeader: {
-    flex: 1
-  }
-});

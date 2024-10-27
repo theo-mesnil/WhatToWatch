@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
+import { moviePath } from 'routes';
 
 import type { UseGetMovieNowPlayingApiResponse } from 'api/movie';
 import { useGetMovieNowPlaying } from 'api/movie';
@@ -15,7 +16,7 @@ export function InTheaters() {
   }: ListRenderItemInfo<
     UseGetMovieNowPlayingApiResponse['results'][number]
   >) => (
-    <ThumbLink href={`/movie/${id}`}>
+    <ThumbLink href={moviePath({ id })}>
       <Thumb type="movie" imageUrl={poster_path} />
     </ThumbLink>
   );

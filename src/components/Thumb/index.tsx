@@ -14,7 +14,8 @@ import { getImageUrl } from 'utils/images';
 
 export type ThumbProps = {
   aspectRatio?: number;
-  height?: number;
+  externalImageUrl?: string;
+  height?: number | string;
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop | ImageSizePoster;
   isLoading?: boolean;
@@ -25,6 +26,7 @@ export type ThumbProps = {
 export const Thumb = React.memo(
   ({
     aspectRatio = 2 / 3,
+    externalImageUrl,
     height,
     imageUrl,
     imageWidth,
@@ -36,12 +38,12 @@ export const Thumb = React.memo(
       <View style={[styles.wrapper, isRounded && styles.rounded]}>
         <ImageBackground
           source={{
-            uri: getImageUrl(imageUrl, imageWidth)
+            uri: externalImageUrl || getImageUrl(imageUrl, imageWidth)
           }}
           style={[
             {
               aspectRatio,
-              height
+              height: height as number
             },
             styles.image
           ]}
@@ -49,7 +51,11 @@ export const Thumb = React.memo(
           {isLoading ? (
             <Loader style={styles.loading} />
           ) : (
-            <>{!imageUrl && <NoCover icon={getIconType(type)} />}</>
+            <>
+              {!imageUrl && !externalImageUrl && (
+                <NoCover icon={getIconType(type)} />
+              )}
+            </>
           )}
         </ImageBackground>
       </View>

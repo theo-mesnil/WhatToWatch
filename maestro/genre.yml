@@ -1,0 +1,35 @@
+appId: com.theomesnil.WhatToWatch
+---
+- launchApp
+- scroll
+- scroll
+- tapOn: 'Action Action'
+- takeScreenshot: 'maestro/screenshots/genre/movie'
+- tapOn:
+    point: '50%,31%'
+- tapOn:
+    id: 'header-back-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/genre/movie2'
+- tapOn:
+    point: '19%,26%'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    id: 'header-back-button'
+- scroll
+- scroll
+- tapOn: 'Action & Adventure Action & Adventure'
+- takeScreenshot: 'maestro/screenshots/genre/tv'
+- tapOn:
+    point: '50%,31%'
+- tapOn:
+    id: 'header-back-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/genre/tv2'
+- tapOn:
+    point: '19%,26%'
+- tapOn:
+    id: 'header-back-button'
+- tapOn:
+    id: 'header-back-button'

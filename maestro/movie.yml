@@ -1,0 +1,41 @@
+appId: com.theomesnil.WhatToWatch
+---
+- launchApp
+- tapOn: 'Search, tab, 2 of 3'
+- tapOn: 'What would you like to watch?'
+- inputText: 'Harry potter philosopher'
+- doubleTapOn: "Harry Potter and the Philosopher's Stone"
+- waitForAnimationToEnd
+- takeScreenshot: 'maestro/screenshots/movie/index'
+- tapOn: 'Watch the trailer'
+- assertVisible:
+    id: 'video'
+- takeScreenshot: 'maestro/screenshots/movie/trailer'
+- tapOn:
+    id: 'header-close-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/movie/index2'
+- tapOn: 'Daniel Radcliffe Harry Potter'
+- assertVisible: 'Daniel Radcliffe'
+- tapOn:
+    id: 'header-back-button'
+- tapOn: 'Official Trailer'
+- takeScreenshot: 'maestro/screenshots/movie/video'
+- tapOn:
+    id: 'header-close-button'
+- scroll
+- takeScreenshot: 'maestro/screenshots/movie/index3'
+- tapOn: 'Backdrops'
+- swipe:
+    direction: LEFT
+- takeScreenshot: 'maestro/screenshots/movie/backdrops'
+- tapOn:
+    id: 'header-close-button'
+- tapOn: 'Posters'
+- swipe:
+    direction: LEFT
+- takeScreenshot: 'maestro/screenshots/movie/posters'
+- tapOn:
+    id: 'header-close-button'
+- tapOn:
+    id: 'header-back-button'

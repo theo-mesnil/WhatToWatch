@@ -8,6 +8,7 @@ import type { ContentType } from 'types/content';
 
 export type ItemThumbProps = {
   date?: string;
+  isLoading?: boolean;
   overview?: string;
   posterUrl: string;
   subtitle?: string;
