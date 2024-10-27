@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: [
-    '@react-native-community',
+    '@react-native',
     'plugin:typescript-sort-keys/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended'
   ],
