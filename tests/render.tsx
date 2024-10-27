@@ -32,14 +32,14 @@ export * from '@testing-library/react-native';
 
 export function mockQuery<T>(data: T): UseQueryResult<T> {
   return {
+    // @ts-ignore
+    promise: jest.fn(() => Promise.resolve({ data })),
     data,
     dataUpdatedAt: 1000000,
-    // @ts-ignore
     error: null,
     errorUpdateCount: 0,
     errorUpdatedAt: 100000,
     failureCount: 0,
-    // @ts-ignore
     failureReason: null,
     isError: false,
     isFetched: true,
