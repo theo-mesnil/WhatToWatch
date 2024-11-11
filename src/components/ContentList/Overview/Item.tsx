@@ -8,7 +8,6 @@ import { theme } from 'theme';
 import { useGetContentLogo } from 'api/logo';
 import { Button } from 'components/Button';
 import { Gradient } from 'components/Gradient';
-import { ArrowNextIcon } from 'components/Icon';
 import { Text } from 'components/Text';
 import type { ContentType } from 'types/content';
 import { getImageUrl } from 'utils/images';
@@ -56,7 +55,7 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
             style={styles.cta}
             variant="secondary"
             size="lg"
-            icon={ArrowNextIcon}
+            icon="ArrowRight"
           >
             <FormattedMessage defaultMessage="Discover" id="discover" />
           </Button>

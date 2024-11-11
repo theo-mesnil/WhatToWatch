@@ -3,7 +3,7 @@ import { theme } from 'theme';
 
 import type { ButtonProps } from 'components/Button';
 import { Button } from 'components/Button';
-import { Icon, PlayCircleIcon } from 'components/Icon';
+import { Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { getVideo } from 'utils/videos';
 
@@ -29,7 +29,7 @@ export function TrailerButton({ id, platform, style }: TrailerButtonProps) {
       <Text variant="h3">
         <FormattedMessage defaultMessage="Watch the trailer" key="title" />
       </Text>
-      <Icon icon={PlayCircleIcon} size={28} color="default-100" />
+      <Icon name="PlayCircleFill" size={28} color="default-100" />
     </Button>
   );
 }

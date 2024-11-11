@@ -1,15 +1,14 @@
 import * as React from 'react';
-import type { SvgProps } from 'react-native-svg';
 import Svg, { Path } from 'react-native-svg';
-
-function SvgComponent({ color, ...props }: SvgProps) {
-  return (
-    <Svg fill={color} viewBox="0 0 24 24" {...props}>
-      <Path d="M11.5 14.6l2.81-2.6-2.81-2.6v5.2z" />
-      <Path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm4 11.18l-3.64 3.37a1.74 1.74 0 01-1.16.45 1.68 1.68 0 01-.69-.15 1.6 1.6 0 01-1-1.48V8.63a1.6 1.6 0 011-1.48 1.7 1.7 0 011.85.3L16 10.82a1.6 1.6 0 010 2.36z" />
-    </Svg>
-  );
-}
-
-const MemoSvgComponent = React.memo(SvgComponent);
-export default MemoSvgComponent;
+import type { SvgProps } from 'react-native-svg';
+const SvgPlayCircle = (props: SvgProps) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <Path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10m0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16M10.622 8.415l4.879 3.252a.4.4 0 0 1 0 .666l-4.88 3.252a.4.4 0 0 1-.621-.332V8.747a.4.4 0 0 1 .622-.332" />
+  </Svg>
+);
+export default SvgPlayCircle;

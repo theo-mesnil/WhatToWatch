@@ -40,7 +40,8 @@
             "newArchEnabled": true
           }
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "scheme": "whattowatch",
     "slug": "WhatToWatch",

@@ -12,7 +12,7 @@ import type { UseGetTrendingApiResponse } from 'api/trending';
 import { useGetTrending } from 'api/trending';
 import { GradientHeader } from 'components/GradientHeader';
 import { Header } from 'components/Header';
-import { Icon, SearchFillIcon } from 'components/Icon';
+import { Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { TextInput } from 'components/TextInput';
 import { Thumb } from 'components/Thumb';
@@ -90,7 +90,7 @@ export default function Search() {
     <>
       {!isSearchLoading && !results.length ? (
         <View style={styles.noResults}>
-          <Icon icon={SearchFillIcon} size={80} color="brand-500" />
+          <Icon name="SearchFill" size={80} color="brand-500" />
           <Text variant="h1" style={styles.noResultsTitle}>
             <FormattedMessage
               key="no-results"

@@ -13,6 +13,8 @@ import * as React from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
+import { SessionProvider } from 'contexts/Session';
+
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
@@ -45,34 +47,48 @@ export default function Layout() {
       />
       <IntlMessages>
         <QueryClientProvider client={queryClient}>
-          <View style={styles.wrapper}>
-            <Stack screenOptions={{ header: () => null }}>
-              <Stack.Screen
-                name="movie/[id]/images/[type]"
-                options={{
-                  presentation: 'modal'
-                }}
-              />
-              <Stack.Screen
-                name="tv/[id]/images/[type]"
-                options={{
-                  presentation: 'modal'
-                }}
-              />
-              <Stack.Screen
-                name="person/[id]/images/[start]"
-                options={{
-                  presentation: 'modal'
-                }}
-              />
-              <Stack.Screen
-                name="video/[id]"
-                options={{
-                  presentation: 'modal'
-                }}
-              />
-            </Stack>
-          </View>
+          <SessionProvider>
+            <View style={styles.wrapper}>
+              <Stack screenOptions={{ header: () => null }}>
+                <Stack.Screen
+                  name="movie/[id]/images/[type]"
+                  options={{
+                    presentation: 'modal'
+                  }}
+                />
+                <Stack.Screen
+                  name="tv/[id]/images/[type]"
+                  options={{
+                    presentation: 'modal'
+                  }}
+                />
+                <Stack.Screen
+                  name="person/[id]/images/[start]"
+                  options={{
+                    presentation: 'modal'
+                  }}
+                />
+                <Stack.Screen
+                  name="video/[id]"
+                  options={{
+                    presentation: 'modal'
+                  }}
+                />
+                <Stack.Screen
+                  name="login/index"
+                  options={{
+                    presentation: 'modal'
+                  }}
+                />
+                <Stack.Screen
+                  name="login/webview"
+                  options={{
+                    presentation: 'modal'
+                  }}
+                />
+              </Stack>
+            </View>
+          </SessionProvider>
         </QueryClientProvider>
       </IntlMessages>
     </>

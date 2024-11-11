@@ -1,0 +1,16 @@
+export { default as ArrowLeft } from './ArrowLeft';
+export { default as ArrowRight } from './ArrowRight';
+export { default as Close } from './Close';
+export { default as FilmFill } from './FilmFill';
+export { default as HomeFill } from './HomeFill';
+export { default as Home } from './Home';
+export { default as PersonFill } from './PersonFill';
+export { default as PlayCircleFill } from './PlayCircleFill';
+export { default as PlayCircle } from './PlayCircle';
+export { default as SearchFill } from './SearchFill';
+export { default as Search } from './Search';
+export { default as StarFill } from './StarFill';
+export { default as TimeFill } from './TimeFill';
+export { default as TvFill } from './TvFill';
+export { default as UserSmileFill } from './UserSmileFill';
+export { default as UserSmile } from './UserSmile';

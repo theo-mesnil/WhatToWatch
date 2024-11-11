@@ -1,20 +1,15 @@
-import {
-  MoreIcon,
-  MovieFillIcon,
-  PersonFillIcon,
-  TvFillIcon
-} from 'components/Icon';
+import type { IconProps } from 'components/Icon';
 import type { ContentType } from 'types/content';
 
-export function getIconType(type: ContentType) {
+export function getIconType(type: ContentType): IconProps['name'] {
   switch (type) {
     case 'movie':
-      return MovieFillIcon;
+      return 'FilmFill';
     case 'tv':
-      return TvFillIcon;
+      return 'TvFill';
     case 'person':
-      return PersonFillIcon;
+      return 'PersonFill';
     default:
-      return MoreIcon;
+      return 'StarFill';
   }
 }

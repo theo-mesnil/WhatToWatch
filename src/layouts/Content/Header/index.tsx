@@ -5,7 +5,7 @@ import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { Button } from 'components/Button';
-import { ArrowBackIcon, Icon } from 'components/Icon';
+import { Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { isAndroid } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
@@ -81,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({
           style={styles.closeButton}
           testID="header-back-button"
         >
-          <Icon icon={ArrowBackIcon} size={30} />
+          <Icon name="ArrowLeft" size={30} />
         </Button>
         <Animated.View
           style={{

@@ -6,7 +6,7 @@ import type { Color } from 'theme';
 
 import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
-import type { IconElement } from 'components/Icon';
+import type { IconProps } from 'components/Icon';
 import { Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import type { TouchableProps } from 'components/Touchable';
@@ -16,7 +16,7 @@ export type ButtonProps = ViewProps & {
   backgroundColor?: Color;
   children: React.ReactNode;
   gradientColors?: GradientProps['colors'];
-  icon?: IconElement;
+  icon?: IconProps['name'];
   isCustomChildren?: boolean;
   isRounded?: boolean;
   isTransparent?: boolean;
@@ -71,7 +71,7 @@ export const Button = React.forwardRef<never, ButtonProps>(
               >
                 {children}
               </Text>
-              {icon && <Icon color="white" icon={icon} size={20} />}
+              {icon && <Icon color="white" name={icon} size={20} />}
             </>
           )}
         </View>

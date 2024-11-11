@@ -5,7 +5,7 @@ import type { TextProps as RNTextProps } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
-import { ArrowNextIcon, Icon } from 'components/Icon';
+import { Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
 
@@ -38,7 +38,7 @@ export function ListTitle({ children, style, titleHref }: ListTitleProps) {
               <Text variant="lg" style={styles.moreText}>
                 <FormattedMessage key="all-link" defaultMessage="More" />
               </Text>
-              <Icon color="brand-100" size={20} icon={ArrowNextIcon} />
+              <Icon color="brand-100" size={20} name="ArrowRight" />
             </View>
           </Touchable>
         </Link>

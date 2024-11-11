@@ -1,88 +1,32 @@
 import * as React from 'react';
-import type { DimensionValue } from 'react-native';
 import type { SvgProps } from 'react-native-svg';
 import { theme } from 'theme';
 import type { Color } from 'theme';
 
-import ArrowBackIcon from './icons/ArrowBack';
-import ArrowNextIcon from './icons/ArrowNext';
-import BulbIcon from './icons/Bulb';
-import BulbFillIcon from './icons/BulbFill';
-import CheckFillIcon from './icons/CheckFill';
-import ClockFillIcon from './icons/ClockFill';
-import CrossIcon from './icons/Cross';
-import EmailIcon from './icons/Email';
-import ExternalLinkIcon from './icons/ExternalLink';
-import EyeIcon from './icons/Eye';
-import EyeFillIcon from './icons/EyeFill';
-import FlashIcon from './icons/Flash';
-import FlashFillIcon from './icons/FlashFill';
-import GlobeIcon from './icons/Globe';
-import GlobeFillIcon from './icons/GlobeFill';
-import GridFillIcon from './icons/GridFill';
-import MoreIcon from './icons/More';
-import MoreFillIcon from './icons/MoreFill';
-import MovieFillIcon from './icons/MovieFill';
-import PauseCircleIcon from './icons/PauseCircle';
-import PersonFillIcon from './icons/PersonFill';
-import PlayIcon from './icons/Play';
-import PlayCircleIcon from './icons/PlayCircle';
-import SearchIcon from './icons/Search';
-import SearchFillIcon from './icons/SearchFill';
-import SmileIcon from './icons/Smile';
-import StarFillIcon from './icons/StarFill';
-import TvFillIcon from './icons/TvFill';
+import { Text } from 'components/Text';
 
-export type IconElement = typeof ArrowBackIcon;
+import * as Icons from './icons';
+
+export type Name = keyof typeof Icons;
 
 export type IconProps = {
   color?: Color;
-  icon: IconElement;
-  size?: DimensionValue;
+  name: Name;
+  size?: SvgProps['width'];
 };
 
-const Icon: React.FC<IconProps> = ({
-  color = 'white',
-  icon: IconComponent,
-  size = 24
-}) => {
-  return (
-    <IconComponent
-      color={theme.colors[color]}
-      width={size as SvgProps['width']}
-      height={size as SvgProps['width']}
-    />
-  );
+const Icon: React.FC<IconProps> = ({ color = 'white', name, size = 24 }) => {
+  if (!name) {
+    return <Text>Missing name</Text>;
+  }
+
+  const Component = Icons[name];
+
+  if (Component) {
+    return <Component color={theme.colors[color]} width={size} height={size} />;
+  }
+
+  return <Text>Icon not exist</Text>;
 };
 
-export {
-  ArrowBackIcon,
-  ArrowNextIcon,
-  BulbFillIcon,
-  BulbIcon,
-  CheckFillIcon,
-  ClockFillIcon,
-  CrossIcon,
-  EmailIcon,
-  ExternalLinkIcon,
-  EyeFillIcon,
-  EyeIcon,
-  FlashFillIcon,
-  FlashIcon,
-  GlobeFillIcon,
-  GlobeIcon,
-  GridFillIcon,
-  Icon,
-  MoreFillIcon,
-  MoreIcon,
-  MovieFillIcon,
-  PauseCircleIcon,
-  PersonFillIcon,
-  PlayCircleIcon,
-  PlayIcon,
-  SearchFillIcon,
-  SearchIcon,
-  SmileIcon,
-  StarFillIcon,
-  TvFillIcon
-};
+export { Icon };

@@ -6,32 +6,25 @@ import { useIntl } from 'react-intl';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
-import type { IconElement } from 'components/Icon';
-import {
-  EyeFillIcon,
-  EyeIcon,
-  FlashFillIcon,
-  FlashIcon,
-  Icon,
-  SearchFillIcon,
-  SearchIcon
-} from 'components/Icon';
+import type { IconProps } from 'components/Icon';
+import { Icon } from 'components/Icon';
 import { isAndroid, isIos } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
 
 function tabBarIcon({
   focused,
-  icon: IconComponent,
-  iconFocused: IconComponentFocused
+  iconName,
+  iconNameFocused
 }: {
   focused: boolean;
-  icon: IconElement;
-  iconFocused: IconElement;
+  iconName: IconProps['name'];
+  iconNameFocused: IconProps['name'];
 }) {
   return (
     <Icon
+      size={30}
       color={focused ? 'brand-500' : 'text'}
-      icon={focused ? IconComponentFocused : IconComponent}
+      name={focused ? iconNameFocused : iconName}
     />
   );
 }
@@ -75,14 +68,15 @@ export default function Layout() {
         name="index"
         options={{
           title: intl.formatMessage({
-            id: 'discover',
-            defaultMessage: 'Discover'
+            id: 'home',
+            defaultMessage: 'Home'
           }),
+          tabBarLabel: () => null,
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
-              icon: FlashIcon,
-              iconFocused: FlashFillIcon
+              iconName: 'Home',
+              iconNameFocused: 'HomeFill'
             })
         }}
       />
@@ -93,11 +87,12 @@ export default function Layout() {
             id: 'search',
             defaultMessage: 'Search'
           }),
+          tabBarLabel: () => null,
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
-              icon: SearchIcon,
-              iconFocused: SearchFillIcon
+              iconName: 'Search',
+              iconNameFocused: 'SearchFill'
             })
         }}
       />
@@ -108,11 +103,28 @@ export default function Layout() {
             id: 'streaming',
             defaultMessage: 'Streaming'
           }),
+          tabBarLabel: () => null,
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
-              icon: EyeIcon,
-              iconFocused: EyeFillIcon
+              iconName: 'PlayCircle',
+              iconNameFocused: 'PlayCircleFill'
+            })
+        }}
+      />
+      <Tabs.Screen
+        name="user"
+        options={{
+          title: intl.formatMessage({
+            id: 'me',
+            defaultMessage: 'Me'
+          }),
+          tabBarLabel: () => null,
+          tabBarIcon: (props) =>
+            tabBarIcon({
+              ...props,
+              iconName: 'UserSmile',
+              iconNameFocused: 'UserSmileFill'
             })
         }}
       />

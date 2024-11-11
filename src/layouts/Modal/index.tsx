@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { theme } from 'theme';
 
 import { Button } from 'components/Button';
-import { CrossIcon, Icon } from 'components/Icon';
+import { Icon } from 'components/Icon';
 import { isAndroid } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
 
@@ -27,7 +27,7 @@ export default function ModalLayout({ children }: ModalLayoutProps) {
           onPress={() => navigation.goBack()}
           style={styles.closeButton}
         >
-          <Icon icon={CrossIcon} />
+          <Icon name="Close" />
         </Button>
       </View>
     ),

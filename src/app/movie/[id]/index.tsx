@@ -21,7 +21,6 @@ import {
   useGetMovieVideos
 } from 'api/movie';
 import { Badge } from 'components/Badge';
-import { ClockFillIcon, StarFillIcon } from 'components/Icon';
 import { Images } from 'components/Images';
 import { List } from 'components/List';
 import { NetworkButton } from 'components/NetworkButton';
@@ -116,12 +115,12 @@ export default function Movie() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge testID="runtime" icon={ClockFillIcon}>
+              <Badge testID="runtime" icon="TimeFill">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge testID="votes" icon={StarFillIcon}>
+              <Badge testID="votes" icon="StarFill">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
