@@ -71,7 +71,7 @@ export default function Layout() {
             id: 'home',
             defaultMessage: 'Home'
           }),
-          tabBarLabel: () => null,
+          tabBarShowLabel: false,
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -87,7 +87,7 @@ export default function Layout() {
             id: 'search',
             defaultMessage: 'Search'
           }),
-          tabBarLabel: () => null,
+          tabBarShowLabel: false,
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -103,7 +103,7 @@ export default function Layout() {
             id: 'streaming',
             defaultMessage: 'Streaming'
           }),
-          tabBarLabel: () => null,
+          tabBarShowLabel: false,
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,
@@ -119,7 +119,7 @@ export default function Layout() {
             id: 'me',
             defaultMessage: 'Me'
           }),
-          tabBarLabel: () => null,
+          tabBarShowLabel: false,
           tabBarIcon: (props) =>
             tabBarIcon({
               ...props,

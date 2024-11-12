@@ -19,7 +19,7 @@ type VerticalListProps = Pick<
   numberOfItems?: number;
   results?: any;
   title?: JSX.Element | string;
-  titleHref?: Href<string>;
+  titleHref?: Href;
   /** remove resize from List render item */
   withoutSizing?: boolean;
 };

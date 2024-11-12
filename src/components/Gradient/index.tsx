@@ -8,7 +8,7 @@ import { theme } from 'theme';
 
 export type GradientProps = ViewProps & {
   angle?: number;
-  colors?: string[];
+  colors?: LinearGradientProps['colors'];
 };
 
 export function Gradient({

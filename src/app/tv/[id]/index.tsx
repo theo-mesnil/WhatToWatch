@@ -23,6 +23,7 @@ import {
 } from 'api/tv';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
+import { EpisodeThumb } from 'components/EpisodeThumb';
 import { Images } from 'components/Images';
 import { List } from 'components/List';
 import { NetworkButton } from 'components/NetworkButton';
@@ -34,8 +35,6 @@ import { TrailerButton } from 'components/TrailerButton';
 import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
 import { formatTime } from 'utils/time';
-
-import { EpisodeThumb } from '../components/EpisodeThumb';
 
 export default function Tv() {
   const [selectedSeason, setSelectedSeason] = React.useState<number>(1);

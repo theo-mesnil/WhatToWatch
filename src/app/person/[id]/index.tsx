@@ -22,12 +22,11 @@ import {
 } from 'api/person';
 import { Badge } from 'components/Badge';
 import { List } from 'components/List';
+import { CreditNumberThumb } from 'components/Person/CreditNumberThumb';
+import { ReadMore } from 'components/Person/ReadMore';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
-
-import { CreditNumberThumb } from '../components/CreditNumberThumb';
-import { ReadMore } from '../components/ReadMore';
 
 export default function Person() {
   const params = useLocalSearchParams<{ id: string }>();

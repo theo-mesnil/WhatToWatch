@@ -7,12 +7,11 @@ import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 import { useGetPerson, useGetPersonTvCredits } from 'api/person';
+import { ItemThumb } from 'components/Person/ItemThumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 import { Header } from 'layouts/Content/Header';
-
-import { ItemThumb } from '../components/ItemThumb';
 
 export default function PersonTv() {
   const [scrollYPosition, getScrollYPosition] = React.useState(

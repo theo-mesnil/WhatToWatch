@@ -12,7 +12,7 @@ import { Touchable } from 'components/Touchable';
 export type ListTitleProps = {
   children: React.ReactElement | string;
   style?: RNTextProps['style'];
-  titleHref?: Href<string>;
+  titleHref?: Href;
 };
 
 export function ListTitle({ children, style, titleHref }: ListTitleProps) {
