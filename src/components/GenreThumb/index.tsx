@@ -1,9 +1,9 @@
 import { ImageBackground, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import { Gradient } from 'components/Gradient';
 import { Text } from 'components/Text';
 import { TextGradient } from 'components/TextGradient';
+import { theme } from 'theme';
 import { genresColor } from 'utils/genres';
 
 export type GenreThumbProps = {

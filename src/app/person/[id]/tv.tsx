@@ -4,15 +4,14 @@ import { FormattedMessage } from 'react-intl';
 import { Animated, StyleSheet, View } from 'react-native';
 import { tvPath } from 'routes';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import { useGetPerson, useGetPersonTvCredits } from 'api/person';
+import { ItemThumb } from 'components/app/person/ItemThumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 import { Header } from 'layouts/Content/Header';
-
-import { ItemThumb } from '../components/ItemThumb';
+import { theme } from 'theme';
 
 export default function PersonTv() {
   const [scrollYPosition, getScrollYPosition] = React.useState(
@@ -41,7 +40,7 @@ export default function PersonTv() {
         title={
           <>
             {name}
-            <FormattedMessage defaultMessage="'s series" key="title" />
+            <FormattedMessage defaultMessage="'s series" id="NfdtQ8" />
           </>
         }
         scrollY={scrollYPosition}

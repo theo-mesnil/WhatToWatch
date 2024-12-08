@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import { Gradient } from 'components/Gradient';
 import { Icon, MovieFillIcon, TvFillIcon } from 'components/Icon';
 import { Text } from 'components/Text';
+import { theme } from 'theme';
 
 export type CreditNumberThumbProps = {
   number: number;

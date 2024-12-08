@@ -4,7 +4,6 @@ import { Tabs } from 'expo-router';
 import * as React from 'react';
 import { useIntl } from 'react-intl';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import type { IconElement } from 'components/Icon';
 import {
@@ -18,6 +17,7 @@ import {
 } from 'components/Icon';
 import { isAndroid, isIos } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
+import { theme } from 'theme';
 
 function tabBarIcon({
   focused,
@@ -75,8 +75,8 @@ export default function Layout() {
         name="index"
         options={{
           title: intl.formatMessage({
-            id: 'discover',
-            defaultMessage: 'Discover'
+            defaultMessage: 'Discover',
+            id: 'cE4Hfw'
           }),
           tabBarIcon: (props) =>
             tabBarIcon({
@@ -90,8 +90,8 @@ export default function Layout() {
         name="search"
         options={{
           title: intl.formatMessage({
-            id: 'search',
-            defaultMessage: 'Search'
+            defaultMessage: 'Search',
+            id: 'xmcVZ0'
           }),
           tabBarIcon: (props) =>
             tabBarIcon({
@@ -105,8 +105,8 @@ export default function Layout() {
         name="streaming"
         options={{
           title: intl.formatMessage({
-            id: 'streaming',
-            defaultMessage: 'Streaming'
+            defaultMessage: 'Streaming',
+            id: 'NCupKV'
           }),
           tabBarIcon: (props) =>
             tabBarIcon({

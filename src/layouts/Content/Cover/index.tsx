@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Image, ImageBackground, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
+
 
 import { Gradient } from 'components/Gradient';
 import { Loader } from 'components/Loader';
 import { Text } from 'components/Text';
 import { COVER_HEIGHT } from 'constants/cover';
+import { theme } from 'theme';
 import type { ImageSizeBackdrop } from 'types/content';
 import { getImageUrl } from 'utils/images';
 

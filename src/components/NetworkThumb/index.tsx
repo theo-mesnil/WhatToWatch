@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
+
 
 import { Gradient } from 'components/Gradient';
 import { NetworkLogo } from 'components/NetworkLogo';
+import { theme } from 'theme';
 import type { NetworkId } from 'types/content';
 import { getNetworkColor } from 'utils/networks';
 

@@ -1,11 +1,12 @@
 import { useNavigation } from 'expo-router';
 import * as React from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
+
 
 import { Text } from 'components/Text';
 import { COVER_HEIGHT } from 'constants/cover';
 import { BasicLayout } from 'layouts/Basic';
+import { theme } from 'theme';
 
 import { Cover } from './Cover';
 import { Header } from './Header';

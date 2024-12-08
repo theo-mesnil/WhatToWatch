@@ -32,7 +32,7 @@ export function Family() {
       titleHref={genreMoviePath({ id: 10751 })}
       numberOfItems={1.5}
       results={data?.pages?.map((page) => page.results).flat()}
-      title={<FormattedMessage key="title" defaultMessage="Family movies" />}
+      title={<FormattedMessage defaultMessage="Family movies" id="o2T5zr" />}
       id="documentaries"
       renderItem={renderItem}
       isLoading={isLoading}

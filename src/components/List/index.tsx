@@ -3,10 +3,11 @@ import * as React from 'react';
 import type { FlatListProps, ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, View } from 'react-native';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
+
 
 import { ListTitle } from 'components/ListTitle';
 import { fakeData30 } from 'constants/mocks';
+import { theme } from 'theme';
 
 type VerticalListProps = Pick<
   FlatListProps<any>,
@@ -19,7 +20,7 @@ type VerticalListProps = Pick<
   numberOfItems?: number;
   results?: any;
   title?: JSX.Element | string;
-  titleHref?: Href<string>;
+  titleHref?: Href;
   /** remove resize from List render item */
   withoutSizing?: boolean;
 };

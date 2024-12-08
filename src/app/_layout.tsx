@@ -11,6 +11,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { IntlMessages } from 'locales';
 import * as React from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
+
 import { theme } from 'theme';
 
 SplashScreen.preventAutoHideAsync();

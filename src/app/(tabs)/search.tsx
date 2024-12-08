@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated, StyleSheet, View } from 'react-native';
 import { routeByType } from 'routes/utils';
-import { theme } from 'theme';
 
 import { useGetSearch } from 'api/search';
 import type { UseGetTrendingApiResponse } from 'api/trending';
@@ -20,6 +19,7 @@ import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
+import { theme } from 'theme';
 import type { ContentType } from 'types/content';
 import type { HeaderOptions } from 'types/navigation';
 
@@ -93,23 +93,20 @@ export default function Search() {
           <Icon icon={SearchFillIcon} size={80} color="brand-500" />
           <Text variant="h1" style={styles.noResultsTitle}>
             <FormattedMessage
-              key="no-results"
               defaultMessage="Oh no! We have found nothing 🥺"
+              id="hVXARm"
             />
           </Text>
         </View>
       ) : (
         <Text variant="h2" style={styles.listTitle}>
-          <FormattedMessage
-            key="search-list-title"
-            defaultMessage="We offer you:"
-          />
+          <FormattedMessage defaultMessage="We offer you:" id="qAbeEW" />
         </Text>
       )}
     </>
   ) : (
     <Text variant="h2" style={styles.listTitle}>
-      <FormattedMessage key="list-title" defaultMessage="Latest trends" />
+      <FormattedMessage defaultMessage="Latest trends" id="mnB7Ay" />
     </Text>
   );
 
@@ -125,9 +122,8 @@ export default function Search() {
               enterKeyHint="search"
               clearButtonMode="always"
               placeholder={intl.formatMessage({
-                // @ts-expect-error
-                key: 'placeholder',
-                defaultMessage: 'What would you like to watch?'
+                defaultMessage: 'What would you like to watch?',
+                id: 'UhsiMg'
               })}
             />
           }

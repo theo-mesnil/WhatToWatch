@@ -2,12 +2,13 @@ import * as React from 'react';
 import type { ViewProps } from 'react-native';
 import { Image, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
+
 
 import { useGetContentLogo } from 'api/logo';
 import { Gradient } from 'components/Gradient';
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
+import { theme } from 'theme';
 import type { ContentType, ImageSizeBackdrop } from 'types/content';
 import { getImageUrl } from 'utils/images';
 

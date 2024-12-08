@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { personPath, tvPath } from 'routes';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
 import type {
@@ -21,6 +20,7 @@ import {
   useGetTvSimilar,
   useGetTvVideos
 } from 'api/tv';
+import { EpisodeThumb } from 'components/app/tv/EpisodeThumb';
 import { Badge } from 'components/Badge';
 import { Button } from 'components/Button';
 import { ClockFillIcon, StarFillIcon } from 'components/Icon';
@@ -34,9 +34,8 @@ import { ThumbLink } from 'components/ThumbLink';
 import { TrailerButton } from 'components/TrailerButton';
 import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
+import { theme } from 'theme';
 import { formatTime } from 'utils/time';
-
-import { EpisodeThumb } from '../components/EpisodeThumb';
 
 export default function Tv() {
   const [selectedSeason, setSelectedSeason] = React.useState<number>(1);
@@ -142,10 +141,10 @@ export default function Tv() {
               <Badge testID="seasons">
                 {seasonsLength}{' '}
                 {seasonsLength === 1 && (
-                  <FormattedMessage id="season" defaultMessage="season" />
+                  <FormattedMessage defaultMessage="season" id="FQ0kXF" />
                 )}
                 {seasonsLength > 1 && (
-                  <FormattedMessage id="seasons" defaultMessage="seasons" />
+                  <FormattedMessage defaultMessage="seasons" id="zTL1+t" />
                 )}
               </Badge>
             )}
@@ -201,10 +200,7 @@ export default function Tv() {
             {isLoadingSeason && (
               <View style={styles.seasonLoading}>
                 <Text variant="h1">
-                  <FormattedMessage
-                    key="episodes-title"
-                    defaultMessage="Episodes"
-                  />
+                  <FormattedMessage defaultMessage="Episodes" id="oIih5v" />
                 </Text>
               </View>
             )}
@@ -216,19 +212,16 @@ export default function Tv() {
                 ]}
               >
                 <Text variant="h1">
-                  <FormattedMessage
-                    key="episodes-title"
-                    defaultMessage="Episodes"
-                  />
+                  <FormattedMessage defaultMessage="Episodes" id="oIih5v" />
                 </Text>
                 <Text>
                   <FormattedMessage
                     defaultMessage="{count} episodes on season {seasonNumber}"
+                    id="mYKY3z"
                     values={{
                       count: season.episodes.length,
                       seasonNumber: season.season_number
                     }}
-                    key="episodes_number"
                   />
                   {seasonAirDate &&
                     ` • ${new Date(seasonAirDate).getFullYear()}`}
@@ -252,7 +245,7 @@ export default function Tv() {
         )}
         {(isLoadingCredits || (!!casting && casting.length > 0)) && (
           <List
-            title={<FormattedMessage id="casting" defaultMessage="Casting" />}
+            title={<FormattedMessage defaultMessage="Casting" id="arTEbw" />}
             isLoading={isLoadingCredits}
             id="cast"
             renderItem={renderItemCast}
@@ -263,7 +256,7 @@ export default function Tv() {
           (!!videos?.results && videos.results.length > 0)) && (
           <List
             numberOfItems={1}
-            title={<FormattedMessage id="videos" defaultMessage="Videos" />}
+            title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
             isLoading={isLoadingVideos}
             id="videos"
             renderItem={renderItemVideo}
@@ -285,8 +278,8 @@ export default function Tv() {
           <List
             title={
               <FormattedMessage
-                id="similar"
                 defaultMessage="In the same spirit"
+                id="bxLtNh"
               />
             }
             id="similar"

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import type { DimensionValue } from 'react-native';
 import type { SvgProps } from 'react-native-svg';
+
 import { theme } from 'theme';
 import type { Color } from 'theme';
 

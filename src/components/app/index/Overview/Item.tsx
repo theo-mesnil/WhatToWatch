@@ -3,13 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { routeByType } from 'routes/utils';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
 import { Button } from 'components/Button';
 import { Gradient } from 'components/Gradient';
 import { ArrowNextIcon } from 'components/Icon';
 import { Text } from 'components/Text';
+import { theme } from 'theme';
 import type { ContentType } from 'types/content';
 import { getImageUrl } from 'utils/images';
 
@@ -58,7 +58,7 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
             size="lg"
             icon={ArrowNextIcon}
           >
-            <FormattedMessage defaultMessage="Discover" id="discover" />
+            <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
           </Button>
         </Link>
       </View>

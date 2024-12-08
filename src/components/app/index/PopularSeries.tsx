@@ -40,8 +40,8 @@ export function PopularSeries() {
       results={data?.pages?.map((page) => page.results).flat()}
       title={
         <FormattedMessage
-          key="title"
           defaultMessage="Popular series of all time"
+          id="mgcS1E"
         />
       }
       id="popular-series"

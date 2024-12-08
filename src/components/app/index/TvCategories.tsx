@@ -24,7 +24,7 @@ export function TvCategories() {
       withoutSizing
       results={data}
       title={
-        <FormattedMessage key="title" defaultMessage="Series by categories" />
+        <FormattedMessage defaultMessage="Series by categories" id="9Pg5Uj" />
       }
       id="tv-categories"
       renderItem={renderItem}

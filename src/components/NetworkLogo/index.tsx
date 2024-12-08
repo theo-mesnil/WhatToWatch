@@ -1,6 +1,5 @@
 import type { DimensionValue } from 'react-native';
 import { View } from 'react-native';
-import { theme } from 'theme';
 
 import {
   NETWORK_APPLE_TV_PLUS_ID,
@@ -13,6 +12,7 @@ import {
   NETWORK_PRIME_VIDEO,
   NETWORK_SHOWTIME_ID
 } from 'constants/networks';
+import { theme } from 'theme';
 import type { NetworkId } from 'types/content';
 
 import AppleTvPlus from './logos/AppleTvPlus';

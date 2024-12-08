@@ -2,13 +2,13 @@ import { FormattedMessage } from 'react-intl';
 import { StyleSheet, View } from 'react-native';
 import { movieImagesPath, tvImagesPath } from 'routes';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import type { UseGetMovieImagesApiResponse } from 'api/movie';
 import { Button } from 'components/Button';
 import { ListTitle } from 'components/ListTitle';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { theme } from 'theme';
 
 export type ImagesProps = {
   backdrops?: UseGetMovieImagesApiResponse['backdrops'];
@@ -29,7 +29,7 @@ export function Images({
     return (
       <View>
         <ListTitle>
-          <FormattedMessage id="images" defaultMessage="Images" />
+          <FormattedMessage defaultMessage="Images" id="Fip4H8" />
         </ListTitle>
         <View style={styles.images}>
           {backdrops?.length > 0 && (
@@ -53,8 +53,8 @@ export function Images({
                   <View style={[globalStyles.absoluteFill, styles.content]}>
                     <Button size="lg" style={styles.button} variant="secondary">
                       <FormattedMessage
-                        id="backdrops"
                         defaultMessage="Backdrops"
+                        id="eBDmdm"
                       />
                     </Button>
                   </View>
@@ -82,7 +82,7 @@ export function Images({
                   />
                   <View style={[globalStyles.absoluteFill, styles.content]}>
                     <Button size="lg" style={styles.button} variant="secondary">
-                      <FormattedMessage id="posters" defaultMessage="Posters" />
+                      <FormattedMessage defaultMessage="Posters" id="4NCdJM" />
                     </Button>
                   </View>
                 </>

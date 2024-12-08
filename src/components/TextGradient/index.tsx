@@ -4,10 +4,10 @@ import type { LinearGradientProps } from 'expo-linear-gradient';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { theme } from 'theme';
 
-import type { TextProps } from 'components/Text';
 import { Text } from 'components/Text';
+import type { TextProps } from 'components/Text';
+import { theme } from 'theme';
 
 export type TextGradientProps = {
   children: React.ReactNode;

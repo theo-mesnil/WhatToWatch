@@ -1,12 +1,13 @@
 import * as React from 'react';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
+
 
 import type { UseGetMovieImagesApiResponse } from 'api/movie';
 import type { UseGetPersonImagesApiResponse } from 'api/person';
 import type { UseGetTvImagesApiResponse } from 'api/tv';
 import { Thumb } from 'components/Thumb';
+import { theme } from 'theme';
 import type { ContentType } from 'types/content';
 
 type Images =

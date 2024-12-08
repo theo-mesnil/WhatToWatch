@@ -2,13 +2,14 @@ import { BlurView } from 'expo-blur';
 import { useNavigation } from 'expo-router';
 import { Animated, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
+
 
 import { Button } from 'components/Button';
 import { ArrowBackIcon, Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { isAndroid } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
+import { theme } from 'theme';
 
 type HeaderProps = {
   component?: React.ReactNode;

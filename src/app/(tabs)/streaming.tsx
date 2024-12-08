@@ -1,14 +1,14 @@
 import { useNavigation } from 'expo-router';
 import * as React from 'react';
 import { Animated, View } from 'react-native';
-import { theme } from 'theme';
 
+import { NetworkList } from 'components/app/streaming/NetworkList';
 import { GradientHeader } from 'components/GradientHeader';
 import { Header } from 'components/Header';
-import { NetworkList } from 'components/NetworkList';
 import { networksList } from 'constants/networks';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
+import { theme } from 'theme';
 import type { HeaderOptions } from 'types/navigation';
 
 export default function Networks() {

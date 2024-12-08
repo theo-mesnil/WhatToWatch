@@ -1,4 +1,6 @@
-export const genresColor = {
+import type { LinearGradientProps } from 'expo-linear-gradient';
+
+export const genresColor: { [key: number]: LinearGradientProps['colors'] } = {
   // action adventure
   10759: ['#00b109', '#03a8e1'],
   // adventure

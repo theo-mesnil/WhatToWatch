@@ -24,7 +24,7 @@ export function MovieCategories() {
       withoutSizing
       results={data}
       title={
-        <FormattedMessage key="title" defaultMessage="Movies by categories" />
+        <FormattedMessage defaultMessage="Movies by categories" id="6PpgeA" />
       }
       id="categories-movie"
       renderItem={renderItem}

@@ -23,7 +23,7 @@ export function InTheaters() {
 
   return (
     <List
-      title={<FormattedMessage key="title" defaultMessage="In Theaters" />}
+      title={<FormattedMessage defaultMessage="In Theaters" id="zzTAaI" />}
       id="in-theaters"
       renderItem={renderItem}
       isLoading={isLoading}

@@ -42,7 +42,7 @@ export function NetworkList({ id }: NetworkListProps) {
       titleHref={networkPath({ id })}
       title={
         <>
-          <FormattedMessage key="title" defaultMessage="Series on" />{' '}
+          <FormattedMessage defaultMessage="Series on" id="CBwLG1" />{' '}
           {network.title}
         </>
       }

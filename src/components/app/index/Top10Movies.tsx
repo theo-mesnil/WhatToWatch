@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
-import { tvPath } from 'routes';
+import { moviePath } from 'routes';
 
 import type { UseGetTrendingApiResponse } from 'api/trending';
 import { useGetTrending } from 'api/trending';
@@ -8,20 +8,20 @@ import { List } from 'components/List';
 import { NumberThumb } from 'components/NumberThumb';
 import { ThumbLink } from 'components/ThumbLink';
 
-export function Top10Series() {
+export function Top10Movies() {
   const { data, isLoading } = useGetTrending({
     maxPages: 1,
-    type: 'tv'
+    type: 'movie'
   });
 
   const renderItem = ({
     index,
     item: { id, poster_path }
   }: ListRenderItemInfo<
-    UseGetTrendingApiResponse['tv']['results'][number]
+    UseGetTrendingApiResponse['movie']['results'][number]
   >) => (
-    <ThumbLink href={tvPath({ id })}>
-      <NumberThumb number={index + 1} imageUrl={poster_path} type="tv" />
+    <ThumbLink href={moviePath({ id })}>
+      <NumberThumb number={index + 1} imageUrl={poster_path} type="movie" />
     </ThumbLink>
   );
 
@@ -32,8 +32,8 @@ export function Top10Series() {
         ?.map((page) => page.results)
         .flat()
         .slice(0, 10)}
-      title={<FormattedMessage key="title" defaultMessage="Top 10 Series" />}
-      id="top-10-series"
+      title={<FormattedMessage defaultMessage="Top 10 Movies" id="ZUCQbH" />}
+      id="top-10-movie"
       renderItem={renderItem}
       isLoading={isLoading}
     />

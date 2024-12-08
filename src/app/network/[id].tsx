@@ -3,7 +3,7 @@ import * as React from 'react';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated } from 'react-native';
 import { tvPath } from 'routes';
-import { theme } from 'theme';
+
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
@@ -16,6 +16,7 @@ import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
+import { theme } from 'theme';
 import type { NetworkId } from 'types/content';
 import { getNetworkColor } from 'utils/networks';
 

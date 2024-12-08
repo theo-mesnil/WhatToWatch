@@ -5,7 +5,6 @@ import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { moviePath, personPath } from 'routes';
 import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
 import type {
@@ -32,6 +31,7 @@ import { ThumbLink } from 'components/ThumbLink';
 import { TrailerButton } from 'components/TrailerButton';
 import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
+import { theme } from 'theme';
 import { formatTime } from 'utils/time';
 
 export default function Movie() {
@@ -151,7 +151,7 @@ export default function Movie() {
         )}
         {!!casting && casting.length > 0 && (
           <List
-            title={<FormattedMessage id="casting" defaultMessage="Casting" />}
+            title={<FormattedMessage defaultMessage="Casting" id="arTEbw" />}
             isLoading={isLoadingCredits}
             id="cast"
             renderItem={renderItemCast}
@@ -162,7 +162,7 @@ export default function Movie() {
           (!!videos?.results && videos.results.length > 0)) && (
           <List
             numberOfItems={1}
-            title={<FormattedMessage id="videos" defaultMessage="Videos" />}
+            title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
             isLoading={isLoadingVideos}
             id="videos"
             renderItem={renderItemVideo}
@@ -184,8 +184,8 @@ export default function Movie() {
           <List
             title={
               <FormattedMessage
-                id="similar"
                 defaultMessage="In the same spirit"
+                id="bxLtNh"
               />
             }
             id="similar"

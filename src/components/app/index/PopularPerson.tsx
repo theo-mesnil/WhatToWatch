@@ -22,7 +22,7 @@ export function PopularPerson() {
   return (
     <List
       results={data?.results}
-      title={<FormattedMessage key="title" defaultMessage="Stars" />}
+      title={<FormattedMessage defaultMessage="Stars" id="eo4WjQ" />}
       id="popular-person"
       renderItem={renderItem}
       isLoading={isLoading}

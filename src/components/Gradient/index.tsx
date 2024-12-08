@@ -4,11 +4,12 @@ import * as React from 'react';
 import type { ViewProps } from 'react-native';
 import { View } from 'react-native';
 import { globalStyles } from 'styles';
+
 import { theme } from 'theme';
 
 export type GradientProps = ViewProps & {
   angle?: number;
-  colors?: string[];
+  colors?: LinearGradientProps['colors'];
 };
 
 export function Gradient({

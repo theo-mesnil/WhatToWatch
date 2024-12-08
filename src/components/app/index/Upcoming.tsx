@@ -21,7 +21,7 @@ export function Upcoming() {
 
   return (
     <List
-      title={<FormattedMessage key="title" defaultMessage="Upcoming movies" />}
+      title={<FormattedMessage defaultMessage="Upcoming movies" id="AEBO3C" />}
       id="upcoming-movies"
       renderItem={renderItem}
       isLoading={isLoading}

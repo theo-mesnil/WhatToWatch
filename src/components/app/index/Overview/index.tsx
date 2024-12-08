@@ -6,11 +6,12 @@ import type {
   NativeSyntheticEvent,
   ViewToken
 } from 'react-native';
-import { theme } from 'theme';
+
 
 import type { UseGetTrendingApiResponse } from 'api/trending';
 import { useGetTrending } from 'api/trending';
 import { Loader } from 'components/Loader';
+import { theme } from 'theme';
 import type { ContentType } from 'types/content';
 
 import { Item } from './Item';

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import type { FlatListProps, ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, View } from 'react-native';
-import { theme } from 'theme';
 
 import { fakeData30 } from 'constants/mocks';
+import { theme } from 'theme';
+
 
 type VerticalListProps = Pick<
   FlatListProps<any>,

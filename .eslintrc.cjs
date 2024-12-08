@@ -5,7 +5,12 @@ module.exports = {
     'plugin:typescript-sort-keys/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended'
   ],
-  plugins: ['import', 'sort-destructure-keys', 'eslint-plugin-prettier'],
+  plugins: [
+    'import',
+    'sort-destructure-keys',
+    'eslint-plugin-prettier',
+    'formatjs'
+  ],
   parser: '@typescript-eslint/parser',
   rules: {
     'comma-dangle': ['error', 'never'],
@@ -35,7 +40,7 @@ module.exports = {
           { pattern: 'layouts/**', group: 'internal' },
           { pattern: 'navigation', group: 'internal' },
           { pattern: 'screens/**', group: 'internal' },
-          { pattern: 'themes/**', group: 'internal' },
+          { pattern: 'theme', group: 'internal' },
           { pattern: 'types/**', group: 'internal' },
           { pattern: 'utils/**', group: 'internal' }
         ],
@@ -65,7 +70,13 @@ module.exports = {
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,
     'react-native/no-inline-styles': 2,
-    'react-native/no-single-element-style-arrays': 2
+    'react-native/no-single-element-style-arrays': 2,
+    'formatjs/enforce-id': [
+      'error',
+      {
+        idInterpolationPattern: '[sha512:contenthash:base64:6]'
+      }
+    ]
   },
   overrides: [
     {

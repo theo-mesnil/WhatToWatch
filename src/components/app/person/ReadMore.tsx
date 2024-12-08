@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
 import type { NativeSyntheticEvent, TextLayoutEventData } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import { Text } from 'components/Text';
+import { theme } from 'theme';
+
 
 const maxLines = 8;
 

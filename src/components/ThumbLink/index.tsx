@@ -7,7 +7,7 @@ import { Touchable } from 'components/Touchable';
 
 export type ThumbLinkProps = Pick<TouchableProps, 'style'> & {
   children: React.ReactElement;
-  href: Href<string>;
+  href: Href;
   isLoading?: boolean;
 };
 

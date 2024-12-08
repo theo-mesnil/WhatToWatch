@@ -1,12 +1,13 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import type { Animated } from 'react-native';
-import { theme } from 'theme';
+
 
 import { useGetGenreMovieList, useGetGenreTvList } from 'api/genres';
 import { GradientHeader } from 'components/GradientHeader';
 import { Header } from 'components/Header';
 import { BasicLayout } from 'layouts/Basic';
+import { theme } from 'theme';
 import { genresColor } from 'utils/genres';
 
 export type GenreLayoutProps = {
