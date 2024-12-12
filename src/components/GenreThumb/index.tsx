@@ -51,5 +51,5 @@ const styles = StyleSheet.create({
     left: theme.space.md,
     bottom: theme.space.md
   },
-  whiteTitle: { zIndex: 1, opacity: 0.2 }
+  whiteTitle: { zIndex: 1, opacity: 0.3 }
 });

@@ -17,8 +17,13 @@
       }
     },
     "githubUrl": "https://github.com/theo-mesnil/WhatToWatch",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/icon-light.png",
     "ios": {
+      "icon": {
+        "light": "./src/assets/icon-light.png",
+        "dark": "./src/assets/icon-dark.png",
+        "tinted": "./src/assets/icon-tinted.png"
+      },
       "supportsTablet": false,
       "bundleIdentifier": "com.theomesnil.WhatToWatch"
     },

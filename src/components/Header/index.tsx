@@ -3,7 +3,6 @@ import { useNavigation } from 'expo-router';
 import { Animated, StyleSheet, View } from 'react-native';
 import { globalStyles } from 'styles';
 
-
 import { Button } from 'components/Button';
 import { ArrowBackIcon, Icon } from 'components/Icon';
 import { Text } from 'components/Text';

@@ -2,7 +2,6 @@ import * as React from 'react';
 import type { ViewProps } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 
-
 import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
 import type { IconElement } from 'components/Icon';
