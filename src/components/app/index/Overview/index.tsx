@@ -7,7 +7,6 @@ import type {
   ViewToken
 } from 'react-native';
 
-
 import type { UseGetTrendingApiResponse } from 'api/trending';
 import { useGetTrending } from 'api/trending';
 import { Loader } from 'components/Loader';
@@ -154,8 +153,7 @@ export function Overview() {
               direction === 'left' &&
                 index - 1 === activeSlide && {
                   width: prevWidth
-                },
-              index === activeSlide && styles.dotActive
+                }
             ]}
             key={`overview-list-dot-${index}`}
           />
@@ -181,8 +179,5 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 10,
     backgroundColor: theme.colors['default-400']
-  },
-  dotActive: {
-    backgroundColor: theme.colors.white
   }
 });
