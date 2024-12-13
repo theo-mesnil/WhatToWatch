@@ -39,7 +39,9 @@ module.exports = {
           { pattern: 'contexts/**', group: 'internal' },
           { pattern: 'layouts/**', group: 'internal' },
           { pattern: 'navigation', group: 'internal' },
+          { pattern: 'routes', group: 'internal' },
           { pattern: 'screens/**', group: 'internal' },
+          { pattern: 'styles', group: 'internal' },
           { pattern: 'theme', group: 'internal' },
           { pattern: 'types/**', group: 'internal' },
           { pattern: 'utils/**', group: 'internal' }

@@ -1,12 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
-import { genreTvPath } from 'routes';
 
 import type { UseGetGenreTvListApiResponse } from 'api/genres';
 import { useGetGenreTvList } from 'api/genres';
 import { GenreThumb } from 'components/GenreThumb';
 import { List } from 'components/List';
 import { ThumbLink } from 'components/ThumbLink';
+import { genreTvPath } from 'routes';
 
 export function TvCategories() {
   const { data, isLoading } = useGetGenreTvList();

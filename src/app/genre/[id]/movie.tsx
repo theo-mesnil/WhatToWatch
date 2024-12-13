@@ -1,7 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { Animated, type ListRenderItemInfo } from 'react-native';
-import { moviePath } from 'routes';
 
 import type { UseGetDiscoverMovieApiResponse } from 'api/discover';
 import { useGetDiscoverMovie } from 'api/discover';
@@ -11,6 +10,7 @@ import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import GenreLayout from 'layouts/Genre';
+import { moviePath } from 'routes';
 
 export default function Movie() {
   const [scrollYPosition, getScrollYPosition] = React.useState(

@@ -3,8 +3,6 @@ import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { moviePath, personPath } from 'routes';
-import { globalStyles } from 'styles';
 
 import { useGetContentLogo } from 'api/logo';
 import type {
@@ -31,6 +29,8 @@ import { ThumbLink } from 'components/ThumbLink';
 import { TrailerButton } from 'components/TrailerButton';
 import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
+import { moviePath, personPath } from 'routes';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 import { formatTime } from 'utils/time';
 

@@ -4,9 +4,7 @@ import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { personImagePath, personMoviesPath, personTvPath } from 'routes';
 import { routeByType } from 'routes/utils';
-import { globalStyles } from 'styles';
 
 import type {
   UseGetPersonCreditsApiResponse,
@@ -26,6 +24,8 @@ import { List } from 'components/List';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
+import { personImagePath, personMoviesPath, personTvPath } from 'routes';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 export default function Person() {

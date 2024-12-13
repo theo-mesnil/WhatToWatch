@@ -1,12 +1,13 @@
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
-import { tvPath } from 'routes';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
 import { List } from 'components/List';
 import { TextThumb } from 'components/TextThumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { tvPath } from 'routes';
 
 export function PopularSeries() {
   const { data, isLoading } = useGetDiscoverTv({

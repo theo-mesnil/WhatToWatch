@@ -1,6 +1,5 @@
 import { StyleSheet, View } from 'react-native';
 
-
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 import { theme } from 'theme';

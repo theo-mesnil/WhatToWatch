@@ -3,8 +3,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as React from 'react';
 import type { ViewProps } from 'react-native';
 import { View } from 'react-native';
-import { globalStyles } from 'styles';
 
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 export type GradientProps = ViewProps & {

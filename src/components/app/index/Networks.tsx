@@ -1,10 +1,10 @@
 import type { ListRenderItemInfo } from 'react-native';
-import { networkPath } from 'routes';
 
 import { List } from 'components/List';
 import { NetworkThumb } from 'components/NetworkThumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { networksList } from 'constants/networks';
+import { networkPath } from 'routes';
 
 export function Networks() {
   const renderItem = ({

@@ -1,12 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
-import { moviePath } from 'routes';
 
 import type { UseGetTrendingApiResponse } from 'api/trending';
 import { useGetTrending } from 'api/trending';
 import { List } from 'components/List';
 import { NumberThumb } from 'components/NumberThumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { moviePath } from 'routes';
 
 export function Top10Movies() {
   const { data, isLoading } = useGetTrending({

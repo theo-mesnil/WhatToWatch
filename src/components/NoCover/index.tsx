@@ -1,12 +1,11 @@
 import * as React from 'react';
 import type { DimensionValue } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { globalStyles } from 'styles';
-
 
 import { Gradient } from 'components/Gradient';
 import type { IconElement } from 'components/Icon';
 import { Icon } from 'components/Icon';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 type NoCoverProps = {

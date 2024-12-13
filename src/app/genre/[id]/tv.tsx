@@ -1,7 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { Animated, type ListRenderItemInfo } from 'react-native';
-import { tvPath } from 'routes';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
@@ -11,6 +10,7 @@ import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import GenreLayout from 'layouts/Genre';
+import { tvPath } from 'routes';
 
 export default function Tv() {
   const [scrollYPosition, getScrollYPosition] = React.useState(

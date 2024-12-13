@@ -1,6 +1,6 @@
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
-import { networkPath, tvPath } from 'routes';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
@@ -9,6 +9,7 @@ import { NetworkThumb } from 'components/NetworkThumb';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { networksList } from 'constants/networks';
+import { networkPath, tvPath } from 'routes';
 import type { NetworkId } from 'types/content';
 
 type NetworkListProps = {

@@ -1,12 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
-import { personPath } from 'routes';
 
 import type { UseGetPersonPopularApiResponse } from 'api/person';
 import { useGetPersonPopular } from 'api/person';
 import { List } from 'components/List';
 import { PersonThumb } from 'components/PersonThumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { personPath } from 'routes';
 
 export function PopularPerson() {
   const { data, isLoading } = useGetPersonPopular();

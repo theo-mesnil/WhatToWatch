@@ -1,13 +1,14 @@
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { StyleSheet, View } from 'react-native';
-import { movieImagesPath, tvImagesPath } from 'routes';
-import { globalStyles } from 'styles';
 
 import type { UseGetMovieImagesApiResponse } from 'api/movie';
 import { Button } from 'components/Button';
 import { ListTitle } from 'components/ListTitle';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { movieImagesPath, tvImagesPath } from 'routes';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 export type ImagesProps = {

@@ -1,12 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo } from 'react-native';
-import { genreMoviePath } from 'routes';
 
 import type { UseGetGenreMovieListApiResponse } from 'api/genres';
 import { useGetGenreMovieList } from 'api/genres';
 import { GenreThumb } from 'components/GenreThumb';
 import { List } from 'components/List';
 import { ThumbLink } from 'components/ThumbLink';
+import { genreMoviePath } from 'routes';
 
 export function MovieCategories() {
   const { data, isLoading } = useGetGenreMovieList();

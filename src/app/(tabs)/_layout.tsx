@@ -3,7 +3,6 @@ import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import * as React from 'react';
 import { useIntl } from 'react-intl';
-import { globalStyles } from 'styles';
 
 import type { IconElement } from 'components/Icon';
 import {
@@ -17,6 +16,7 @@ import {
 } from 'components/Icon';
 import { isAndroid, isIos } from 'constants/screen';
 import { useSafeHeights } from 'constants/useSafeHeights';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 function tabBarIcon({

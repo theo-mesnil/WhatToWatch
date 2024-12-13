@@ -2,8 +2,6 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Animated, StyleSheet, View } from 'react-native';
-import { tvPath } from 'routes';
-import { globalStyles } from 'styles';
 
 import { useGetPerson, useGetPersonTvCredits } from 'api/person';
 import { ItemThumb } from 'components/app/person/ItemThumb';
@@ -11,6 +9,8 @@ import { ThumbLink } from 'components/ThumbLink';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 import { Header } from 'layouts/Content/Header';
+import { tvPath } from 'routes';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
 export default function PersonTv() {

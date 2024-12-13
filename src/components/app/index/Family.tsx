@@ -1,12 +1,12 @@
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
-import { genreMoviePath, moviePath } from 'routes';
 
 import type { UseGetDiscoverMovieApiResponse } from 'api/discover';
 import { useGetDiscoverMovie } from 'api/discover';
 import { List } from 'components/List';
 import { TextThumb } from 'components/TextThumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { genreMoviePath, moviePath } from 'routes';
 
 export function Family() {
   const { data, isLoading } = useGetDiscoverMovie({

@@ -2,8 +2,6 @@ import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
-import { personPath, tvPath } from 'routes';
-import { globalStyles } from 'styles';
 
 import { useGetContentLogo } from 'api/logo';
 import type {
@@ -34,6 +32,8 @@ import { ThumbLink } from 'components/ThumbLink';
 import { TrailerButton } from 'components/TrailerButton';
 import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
+import { personPath, tvPath } from 'routes';
+import { globalStyles } from 'styles';
 import { theme } from 'theme';
 import { formatTime } from 'utils/time';
 

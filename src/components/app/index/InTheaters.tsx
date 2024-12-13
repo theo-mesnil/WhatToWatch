@@ -1,12 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 import type { ListRenderItemInfo } from 'react-native';
-import { moviePath } from 'routes';
 
 import type { UseGetMovieNowPlayingApiResponse } from 'api/movie';
 import { useGetMovieNowPlaying } from 'api/movie';
 import { List } from 'components/List';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
+import { moviePath } from 'routes';
 
 export function InTheaters() {
   const { data, isLoading } = useGetMovieNowPlaying();
