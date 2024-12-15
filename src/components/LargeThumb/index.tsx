@@ -46,7 +46,10 @@ export const LargeThumb = React.memo(
           aspectRatio={16 / 12}
         />
         <View style={[globalStyles.absoluteFill, styles.content]}>
-          <Gradient colors={['transparent', theme.colors.behind]} />
+          <Gradient
+            style={styles.gradient}
+            colors={['transparent', theme.colors.behind]}
+          />
           {!isLoadingLogo && logo && (
             <Image
               style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
@@ -86,5 +89,12 @@ const styles = StyleSheet.create({
     width: 250,
     maxHeight: 100,
     marginBottom: theme.space.lg
+  },
+  gradient: {
+    position: 'absolute',
+    height: '50%',
+    left: 0,
+    bottom: 0,
+    right: 0
   }
 });
