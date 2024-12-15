@@ -103,7 +103,7 @@ export function VerticalList<ItemProps>({
         }
       )}
       numColumns={numColumns}
-      onEndReachedThreshold={1}
+      onEndReachedThreshold={0.5}
       ListHeaderComponent={renderListHeaderComponent}
       renderItem={internalRenderItem}
       showsVerticalScrollIndicator={false}
