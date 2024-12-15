@@ -1,8 +1,8 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { intervalToDuration } from 'date-fns';
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { routeByType } from 'routes/utils';
 
@@ -27,6 +27,9 @@ import { ContentLayout } from 'layouts/Content';
 import { personImagePath, personMoviesPath, personTvPath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
+
+type ImageItem = UseGetPersonImagesApiResponse['profiles'][number];
+type CastItem = UseGetPersonCreditsApiResponse['cast'][number];
 
 export default function Person() {
   const params = useLocalSearchParams<{ id: string }>();
@@ -61,18 +64,18 @@ export default function Person() {
   const numberOfMovies = movies?.length;
   const numberOfTvShows = tv?.length;
 
-  const renderItemImage = ({
+  const renderItemImage: FlashListProps<ImageItem>['renderItem'] = ({
     index,
     item: { file_path }
-  }: ListRenderItemInfo<UseGetPersonImagesApiResponse['profiles'][number]>) => (
+  }) => (
     <ThumbLink href={personImagePath({ id: personID, start: index })}>
       <Thumb type="person" imageUrl={file_path} />
     </ThumbLink>
   );
 
-  const renderCreditImage = ({
+  const renderCreditImage: FlashListProps<CastItem>['renderItem'] = ({
     item: { id, media_type, poster_path }
-  }: ListRenderItemInfo<UseGetPersonCreditsApiResponse['cast'][number]>) => {
+  }) => {
     const type = media_type === 'movie' ? 'movie' : 'tv';
 
     return (
@@ -172,7 +175,7 @@ export default function Person() {
           </View>
         )}
         {(isLoadingCredits || credits?.length > 0) && (
-          <List
+          <List<CastItem>
             title={<FormattedMessage defaultMessage="Know for" id="//VHfC" />}
             id="similar"
             numberOfItems={2}
@@ -214,7 +217,7 @@ export default function Person() {
           </View>
         )}
         {(isLoadingImages || images?.length > 0) && (
-          <List
+          <List<ImageItem>
             title={<FormattedMessage defaultMessage="Pictures" id="DOPilz" />}
             id="similar"
             isLoading={isLoadingImages}

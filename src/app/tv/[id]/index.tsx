@@ -1,7 +1,8 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { type ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { useGetContentLogo } from 'api/logo';
 import type {
@@ -36,6 +37,11 @@ import { personPath, tvPath } from 'routes';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 import { formatTime } from 'utils/time';
+
+type SeasonItem = UseGetTvApiResponse['seasons'][number];
+type CastItem = UseGetTvCreditsApiResponse['cast'][number];
+type TvItem = UseGetTvSimilarApiResponse['results'][number];
+type VideoItem = UseGetTvVideosApiResponse['results'][number];
 
 export default function Tv() {
   const [selectedSeason, setSelectedSeason] = React.useState<number>(1);
@@ -88,9 +94,9 @@ export default function Tv() {
     (video) => video.type === 'Trailer'
   )?.[0];
 
-  const renderItemSeason = ({
+  const renderItemSeason: FlashListProps<SeasonItem>['renderItem'] = ({
     item: { season_number }
-  }: ListRenderItemInfo<UseGetTvApiResponse['seasons'][number]>) => (
+  }) => (
     <Button
       size="lg"
       isRounded
@@ -101,9 +107,9 @@ export default function Tv() {
     </Button>
   );
 
-  const renderItemCast = ({
+  const renderItemCast: FlashListProps<CastItem>['renderItem'] = ({
     item: { id, name, profile_path, roles }
-  }: ListRenderItemInfo<UseGetTvCreditsApiResponse['cast'][number]>) => (
+  }) => (
     <ThumbLink href={personPath({ id })}>
       <PersonThumb
         imageUrl={profile_path}
@@ -113,19 +119,17 @@ export default function Tv() {
     </ThumbLink>
   );
 
-  const renderItemSimilar = ({
+  const renderItemSimilar: FlashListProps<TvItem>['renderItem'] = ({
     item: { id, poster_path }
-  }: ListRenderItemInfo<UseGetTvSimilarApiResponse['results'][number]>) => (
+  }) => (
     <ThumbLink href={tvPath({ id })}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
   );
 
-  const renderItemVideo = ({
+  const renderItemVideo: FlashListProps<VideoItem>['renderItem'] = ({
     item: { key, name, site }
-  }: ListRenderItemInfo<UseGetTvVideosApiResponse['results'][number]>) => (
-    <VideoThumb id={key} type="tv" platform={site} name={name} />
-  );
+  }) => <VideoThumb id={key} type="tv" platform={site} name={name} />;
 
   return (
     <ContentLayout
@@ -190,7 +194,7 @@ export default function Tv() {
       <View style={styles.content}>
         {!!seasonsLength && (
           <View>
-            <List
+            <List<SeasonItem>
               gap={theme.space.sm}
               withoutSizing
               id="seasons-buttons"
@@ -244,7 +248,7 @@ export default function Tv() {
           </View>
         )}
         {(isLoadingCredits || (!!casting && casting.length > 0)) && (
-          <List
+          <List<CastItem>
             title={<FormattedMessage defaultMessage="Casting" id="arTEbw" />}
             isLoading={isLoadingCredits}
             id="cast"
@@ -254,7 +258,7 @@ export default function Tv() {
         )}
         {(isLoadingVideos ||
           (!!videos?.results && videos.results.length > 0)) && (
-          <List
+          <List<VideoItem>
             numberOfItems={1}
             title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
             isLoading={isLoadingVideos}
@@ -275,7 +279,7 @@ export default function Tv() {
           </View>
         )}
         {(isLoadingSimilar || similar?.results.length > 0) && (
-          <List
+          <List<TvItem>
             title={
               <FormattedMessage
                 defaultMessage="In the same spirit"

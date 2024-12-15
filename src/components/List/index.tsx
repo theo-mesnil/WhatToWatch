@@ -1,16 +1,17 @@
+import type { FlashListProps, ListRenderItemInfo } from '@shopify/flash-list';
+import { FlashList } from '@shopify/flash-list';
 import type { Href } from 'expo-router';
 import * as React from 'react';
-import type { FlatListProps, ListRenderItemInfo } from 'react-native';
-import { Animated, Dimensions, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 
 import { ListTitle } from 'components/ListTitle';
 import { fakeData30 } from 'constants/mocks';
 import { globalStyles } from 'styles';
 import { theme } from 'theme';
 
-type VerticalListProps = Pick<
-  FlatListProps<any>,
-  'initialNumToRender' | 'ListHeaderComponent' | 'renderItem'
+type ListProps<ItemProps> = Pick<
+  FlashListProps<ItemProps>,
+  'ListHeaderComponent' | 'renderItem'
 > & {
   gap?: number;
   /** uniq id for performance */
@@ -24,10 +25,9 @@ type VerticalListProps = Pick<
   withoutSizing?: boolean;
 };
 
-export function List({
+export function List<ItemProps>({
   gap = theme.space.md,
   id,
-  initialNumToRender = 20,
   isLoading,
   ListHeaderComponent,
   numberOfItems = 3,
@@ -36,7 +36,7 @@ export function List({
   title,
   titleHref,
   withoutSizing
-}: VerticalListProps) {
+}: ListProps<ItemProps>) {
   const dataFormatted = isLoading ? fakeData30 : results;
 
   const screenWidth = Dimensions.get('window').width;
@@ -51,10 +51,14 @@ export function List({
   );
 
   const internalRenderItem = React.useCallback(
-    (props: ListRenderItemInfo<any>) => {
+    (props: ListRenderItemInfo<ItemProps>) => {
       if (renderItem) {
         return (
-          <View style={{ width: withoutSizing ? undefined : itemSize }}>
+          <View
+            style={{
+              width: withoutSizing ? undefined : itemSize
+            }}
+          >
             {renderItem(props)}
           </View>
         );
@@ -66,19 +70,18 @@ export function List({
   );
 
   function renderListHeaderComponent() {
-    return (
-      <View style={{ width: withoutSizing ? undefined : itemSize }}>
-        {ListHeaderComponent as React.ReactElement}
-      </View>
-    );
-  }
-
-  function getItemLayout(_: any, index: number) {
-    return {
-      length: itemSize,
-      offset: itemSize * index + theme.space.marginList + gap * index,
-      index
-    };
+    if (ListHeaderComponent) {
+      return (
+        <View
+          style={{
+            width: withoutSizing ? undefined : itemSize,
+            marginRight: gap
+          }}
+        >
+          {ListHeaderComponent as React.ReactElement}
+        </View>
+      );
+    }
   }
 
   const renderTitle = React.useMemo(
@@ -90,29 +93,28 @@ export function List({
     [title, titleHref]
   );
 
+  function renderSeparators() {
+    return <View style={{ width: gap }} />;
+  }
+
   return (
     <View>
       {!!title && renderTitle}
-      <Animated.FlatList
+      <FlashList
         bounces={false}
-        getItemLayout={withoutSizing ? undefined : getItemLayout}
         data={dataFormatted}
-        initialNumToRender={initialNumToRender}
-        keyExtractor={(item, index) =>
-          isLoading ? `loading_${index}_${id}` : `${index}_${item.id}_${id}`
+        keyExtractor={(_, index: number) =>
+          isLoading ? `loading_${id}_${index}` : `${id}_${index}`
         }
-        ListHeaderComponent={
-          ListHeaderComponent ? renderListHeaderComponent : undefined
-        }
+        ListHeaderComponent={renderListHeaderComponent}
+        estimatedItemSize={itemSize}
         renderItem={internalRenderItem}
         horizontal
+        ItemSeparatorComponent={renderSeparators}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={[
-          {
-            gap,
-            paddingHorizontal: theme.space.marginList
-          }
-        ]}
+        contentContainerStyle={{
+          paddingHorizontal: theme.space.marginList
+        }}
       />
     </View>
   );

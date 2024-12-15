@@ -68,8 +68,7 @@ const styles = StyleSheet.create({
   wrapper: {
     borderRadius: theme.radii.xxl,
     width: '100%',
-    overflow: 'hidden',
-    marginBottom: theme.space.lg
+    overflow: 'hidden'
   },
   content: {
     justifyContent: 'flex-end',

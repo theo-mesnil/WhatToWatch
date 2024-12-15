@@ -1,5 +1,5 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { FormattedMessage } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
 
 import type { UseGetGenreTvListApiResponse } from 'api/genres';
 import { useGetGenreTvList } from 'api/genres';
@@ -8,19 +8,21 @@ import { List } from 'components/List';
 import { ThumbLink } from 'components/ThumbLink';
 import { genreTvPath } from 'routes';
 
+type Item = UseGetGenreTvListApiResponse['genres'][number];
+
 export function TvCategories() {
   const { data, isLoading } = useGetGenreTvList();
 
-  const renderItem = ({
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
     item: { id, name }
-  }: ListRenderItemInfo<UseGetGenreTvListApiResponse['genres'][number]>) => (
+  }) => (
     <ThumbLink href={genreTvPath({ id })}>
       <GenreThumb id={id} title={name} />
     </ThumbLink>
   );
 
   return (
-    <List
+    <List<Item>
       withoutSizing
       results={data}
       title={

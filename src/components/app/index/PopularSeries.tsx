@@ -1,6 +1,6 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
@@ -8,6 +8,8 @@ import { List } from 'components/List';
 import { TextThumb } from 'components/TextThumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { tvPath } from 'routes';
+
+type Item = UseGetDiscoverTvApiResponse['results'][number];
 
 export function PopularSeries() {
   const { data, isLoading } = useGetDiscoverTv({
@@ -17,9 +19,9 @@ export function PopularSeries() {
     ]
   });
 
-  const renderItem = ({
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
     item: { backdrop_path, id, name, overview, vote_average, vote_count }
-  }: ListRenderItemInfo<UseGetDiscoverTvApiResponse['results'][number]>) => (
+  }) => (
     <ThumbLink href={tvPath({ id })}>
       <TextThumb
         tag={
@@ -36,7 +38,7 @@ export function PopularSeries() {
   );
 
   return (
-    <List
+    <List<Item>
       numberOfItems={1.5}
       results={data?.pages?.map((page) => page.results).flat()}
       title={

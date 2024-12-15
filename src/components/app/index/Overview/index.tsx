@@ -1,11 +1,8 @@
+import type { FlashListProps, ViewToken } from '@shopify/flash-list';
+import { FlashList } from '@shopify/flash-list';
 import * as React from 'react';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
-import type {
-  ListRenderItemInfo,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  ViewToken
-} from 'react-native';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 
 import type { UseGetTrendingApiResponse } from 'api/trending';
 import { useGetTrending } from 'api/trending';
@@ -14,6 +11,8 @@ import { theme } from 'theme';
 import type { ContentType } from 'types/content';
 
 import { Item } from './Item';
+
+type Item = UseGetTrendingApiResponse['all']['results'][number];
 
 export function Overview() {
   const [activeSlide, setActiveSlide] = React.useState(0);
@@ -32,8 +31,8 @@ export function Overview() {
   const itemSize = Dimensions.get('window').width;
 
   const onViewableItemsChanged = React.useCallback(
-    ({ viewableItems }: { viewableItems: ViewToken<any>[] }) => {
-      const active = viewableItems?.[0].index;
+    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+      const active = viewableItems?.[0]?.index;
 
       if (active || active === 0) {
         setActiveSlide(active);
@@ -42,12 +41,10 @@ export function Overview() {
     []
   );
 
-  const renderItem = ({
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
     // @ts-expect-error (name is for tv type)
     item: { backdrop_path, id, media_type, name, overview, title }
-  }: ListRenderItemInfo<
-    UseGetTrendingApiResponse['all']['results'][number]
-  >) => {
+  }) => {
     return (
       <View style={{ width: itemSize }}>
         <Item
@@ -60,14 +57,6 @@ export function Overview() {
       </View>
     );
   };
-
-  function getItemLayout(_: any, index: number) {
-    return {
-      length: itemSize,
-      offset: itemSize * index,
-      index
-    };
-  }
 
   const widthAnimated = Animated.timing(width, {
     toValue: 20,
@@ -119,7 +108,7 @@ export function Overview() {
   }
   return (
     <View>
-      <Animated.FlatList
+      <FlashList
         onScroll={onScroll}
         onScrollBeginDrag={onScrollBeginDrag}
         onScrollEndDrag={onScrollEndDrag}
@@ -127,12 +116,12 @@ export function Overview() {
         numColumns={1}
         pagingEnabled
         bounces={false}
-        getItemLayout={getItemLayout}
+        estimatedItemSize={itemSize}
         data={results}
         keyExtractor={(item, index) =>
           isLoading
             ? `loading_${index}_overview`
-            : `${index}_${item.id}_$overview`
+            : `${index}_${item.id}_overview`
         }
         renderItem={renderItem}
         horizontal
@@ -153,7 +142,8 @@ export function Overview() {
               direction === 'left' &&
                 index - 1 === activeSlide && {
                   width: prevWidth
-                }
+                },
+              index === activeSlide && styles.activeDot
             ]}
             key={`overview-list-dot-${index}`}
           />
@@ -179,5 +169,8 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 10,
     backgroundColor: theme.colors['default-400']
+  },
+  activeDot: {
+    backgroundColor: theme.colors['default-100']
   }
 });

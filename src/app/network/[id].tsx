@@ -1,6 +1,6 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
-import type { ListRenderItemInfo } from 'react-native';
 import { Animated } from 'react-native';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
@@ -18,6 +18,8 @@ import { tvPath } from 'routes';
 import { theme } from 'theme';
 import type { NetworkId } from 'types/content';
 import { getNetworkColor } from 'utils/networks';
+
+type Item = UseGetDiscoverTvApiResponse['results'][number];
 
 export default function Network() {
   const params = useLocalSearchParams<{ id: string }>();
@@ -39,9 +41,9 @@ export default function Network() {
 
   const firstItem = !isLoading && data?.pages[0].results[0];
 
-  const renderItem = ({
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
     item: { id, poster_path }
-  }: ListRenderItemInfo<UseGetDiscoverTvApiResponse['results'][number]>) => (
+  }) => (
     <ThumbLink isLoading={isLoading} href={tvPath({ id })}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
@@ -76,7 +78,7 @@ export default function Network() {
         colors={[...getNetworkColor(networkID), theme.colors.behind]}
         scrollY={scrollYPosition}
       />
-      <VerticalList
+      <VerticalList<Item>
         renderItem={renderItem}
         id="network"
         ListHeaderComponent={

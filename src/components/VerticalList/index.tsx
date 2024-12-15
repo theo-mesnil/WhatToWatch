@@ -1,15 +1,14 @@
+import type { FlashListProps, ListRenderItemInfo } from '@shopify/flash-list';
+import { FlashList } from '@shopify/flash-list';
 import * as React from 'react';
-import type { FlatListProps, ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, View } from 'react-native';
 
 import { fakeData30 } from 'constants/mocks';
 import { theme } from 'theme';
 
-
-type VerticalListProps = Pick<
-  FlatListProps<any>,
+type VerticalListProps<ItemProps> = Pick<
+  FlashListProps<ItemProps>,
   | 'contentContainerStyle'
-  | 'initialNumToRender'
   | 'ListHeaderComponent'
   | 'numColumns'
   | 'onEndReached'
@@ -23,25 +22,23 @@ type VerticalListProps = Pick<
   results?: any;
 };
 
-export function VerticalList({
+export function VerticalList<ItemProps>({
   contentContainerStyle = {},
-  gap = theme.space.xs,
+  gap = theme.space.sm,
   getScrollYPosition,
   id,
-  initialNumToRender = 20,
   isLoading,
   ListHeaderComponent,
   numColumns = 3,
   onEndReached,
   renderItem,
   results
-}: VerticalListProps) {
+}: VerticalListProps<ItemProps>) {
   const dataFormatted = isLoading ? fakeData30 : results;
 
   const screenWidth = Dimensions.get('window').width;
-  const availableSpace =
-    screenWidth - theme.space.marginList * 2 - (numColumns - 1) * gap;
-  const itemSize = availableSpace / numColumns;
+  const availableSpace = screenWidth - theme.space.marginList * 2;
+  const itemSize = (availableSpace - gap * (numColumns - 1)) / numColumns;
   const [scrollY] = React.useState(new Animated.Value(0));
 
   React.useEffect(
@@ -49,18 +46,34 @@ export function VerticalList({
     [getScrollYPosition, scrollY]
   );
 
-  function internalRenderItem(props: ListRenderItemInfo<any>) {
-    if (renderItem) {
-      return <View style={{ width: itemSize }}>{renderItem(props)}</View>;
-    }
-
-    return null;
-  }
+  const internalRenderItem = React.useCallback(
+    (props: ListRenderItemInfo<ItemProps>) => {
+      if (renderItem) {
+        return (
+          <View
+            style={{
+              width: itemSize,
+              marginRight: gap,
+              marginBottom: gap
+            }}
+          >
+            {renderItem(props)}
+          </View>
+        );
+      }
+    },
+    [itemSize, renderItem, gap]
+  );
 
   function renderListHeaderComponent() {
     if (ListHeaderComponent) {
       return (
-        <View style={{ width: screenWidth - theme.space.marginList * 2 }}>
+        <View
+          style={{
+            width: availableSpace,
+            marginBottom: theme.space.lg
+          }}
+        >
           {ListHeaderComponent as React.ReactElement}
         </View>
       );
@@ -70,13 +83,12 @@ export function VerticalList({
   }
 
   return (
-    <Animated.FlatList
+    <FlashList
       onEndReached={onEndReached}
       bounces={false}
       data={dataFormatted}
-      initialNumToRender={initialNumToRender}
-      keyExtractor={(item, index) =>
-        isLoading ? `loading_${index}_${id}` : `${index}_${item.id}_${id}`
+      keyExtractor={(_, index: number) =>
+        isLoading ? `loading_${id}_${index}` : `${id}_${index}`
       }
       onScroll={Animated.event(
         [
@@ -95,14 +107,12 @@ export function VerticalList({
       ListHeaderComponent={renderListHeaderComponent}
       renderItem={internalRenderItem}
       showsVerticalScrollIndicator={false}
-      columnWrapperStyle={{ gap }}
-      contentContainerStyle={[
-        {
-          gap,
-          marginLeft: theme.space.marginList
-        },
-        contentContainerStyle
-      ]}
+      contentContainerStyle={{
+        ...contentContainerStyle,
+        paddingLeft: theme.space.marginList,
+        paddingRight: theme.space.marginList - gap
+      }}
+      estimatedItemSize={itemSize / (3 / 4)}
     />
   );
 }

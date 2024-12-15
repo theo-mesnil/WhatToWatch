@@ -1,7 +1,7 @@
+import type { FlashListProps } from '@shopify/flash-list';
+import { FlashList } from '@shopify/flash-list';
 import * as React from 'react';
-import type { ListRenderItemInfo } from 'react-native';
-import { Animated, Dimensions, StyleSheet, View } from 'react-native';
-
+import { Dimensions, StyleSheet, View } from 'react-native';
 
 import type { UseGetMovieImagesApiResponse } from 'api/movie';
 import type { UseGetPersonImagesApiResponse } from 'api/person';
@@ -34,9 +34,11 @@ export default function FullScreenImagesList({
   startAt = 0,
   type
 }: FullScreenImagesProps) {
-  const renderItem = ({
+  const flashListRef = React.useRef(null);
+
+  const renderItem: FlashListProps<Images[number]>['renderItem'] = ({
     item: { aspect_ratio, file_path }
-  }: ListRenderItemInfo<Images[number]>) => (
+  }) => (
     <View style={[{ width: CARD_WIDTH }, styles.thumb]}>
       <Thumb
         type={type}
@@ -51,32 +53,37 @@ export default function FullScreenImagesList({
     return CARD_WIDTH * index + GAP * index - CARD_LIST_INSET - GAP / 2;
   }
 
-  function getItemLayout(_: any, index: number) {
-    return {
-      length: CARD_WIDTH,
-      offset:
-        CARD_WIDTH * index +
-        CARD_LIST_INSET +
-        GAP * index -
-        Dimensions.get('window').width * 0.1,
-      index
-    };
+  function onLoad() {
+    if (startAt === images?.length) {
+      flashListRef.current.scrollToEnd();
+    } else {
+      flashListRef.current.scrollToOffset({
+        offset: getItemOffset(startAt)
+      });
+    }
+  }
+
+  function renderSeparators() {
+    return <View style={{ width: GAP }} />;
   }
 
   return (
     <View style={styles.list}>
-      <Animated.FlatList
+      <FlashList
+        onLoad={onLoad}
+        ref={flashListRef}
         numColumns={1}
-        initialScrollIndex={startAt}
-        initialNumToRender={2}
+        ItemSeparatorComponent={renderSeparators}
+        estimatedItemSize={CARD_WIDTH}
         pagingEnabled
         id="images"
         decelerationRate="fast"
         snapToOffsets={[...Array(images?.length)].map((_, i) =>
           getItemOffset(i)
         )}
-        contentContainerStyle={styles.listContainer}
-        getItemLayout={getItemLayout}
+        contentContainerStyle={{
+          paddingHorizontal: CARD_LIST_INSET
+        }}
         data={images}
         keyExtractor={(item, index) =>
           isLoading
@@ -96,10 +103,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '80%',
     justifyContent: 'center'
-  },
-  listContainer: {
-    paddingHorizontal: CARD_LIST_INSET,
-    gap: GAP
   },
   thumb: {
     alignSelf: 'center',

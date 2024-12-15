@@ -1,6 +1,6 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
 
 import type { UseGetDiscoverTvApiResponse } from 'api/discover';
 import { useGetDiscoverTv } from 'api/discover';
@@ -16,6 +16,8 @@ type NetworkListProps = {
   id: NetworkId;
 };
 
+type TvItem = UseGetDiscoverTvApiResponse['results'][number];
+
 export function NetworkList({ id }: NetworkListProps) {
   const network = networksList.filter((item) => item.id === id)[0];
   const { data, isLoading } = useGetDiscoverTv({
@@ -30,16 +32,16 @@ export function NetworkList({ id }: NetworkListProps) {
 
   const results = data?.pages?.map((page) => page.results).flat();
 
-  const renderItem = ({
+  const renderItem: FlashListProps<TvItem>['renderItem'] = ({
     item: { id: tvId, poster_path }
-  }: ListRenderItemInfo<UseGetDiscoverTvApiResponse['results'][number]>) => (
+  }) => (
     <ThumbLink isLoading={isLoading} href={tvPath({ id: tvId })}>
       <Thumb type="tv" imageUrl={poster_path} />
     </ThumbLink>
   );
 
   return (
-    <List
+    <List<TvItem>
       titleHref={networkPath({ id })}
       title={
         <>

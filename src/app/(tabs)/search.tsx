@@ -1,8 +1,8 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { useNavigation } from 'expo-router';
 import debounce from 'lodash.debounce';
 import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
 import { Animated, StyleSheet, View } from 'react-native';
 import { routeByType } from 'routes/utils';
 
@@ -22,6 +22,8 @@ import { BasicLayout } from 'layouts/Basic';
 import { theme } from 'theme';
 import type { ContentType } from 'types/content';
 import type { HeaderOptions } from 'types/navigation';
+
+type Item = UseGetTrendingApiResponse['all']['results'][number];
 
 export default function Search() {
   const [querySearch, setQuerySearch] = React.useState(null);
@@ -61,12 +63,10 @@ export default function Search() {
     }
   };
 
-  const renderItem = ({
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
     // @ts-expect-error wrong ts api from tmdb
     item: { id, media_type, name, poster_path, profile_path, title }
-  }: ListRenderItemInfo<
-    UseGetTrendingApiResponse['all']['results'][number]
-  >) => {
+  }) => {
     const isLoadingItem = isLoading || isSearchLoading;
 
     return (
@@ -142,7 +142,7 @@ export default function Search() {
   return (
     <BasicLayout isView>
       <GradientHeader scrollY={scrollYPosition} />
-      <VerticalList
+      <VerticalList<Item>
         id="search-trending"
         isLoading={isLoading || isSearchLoading}
         renderItem={renderItem}
