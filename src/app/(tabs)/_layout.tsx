@@ -59,8 +59,8 @@ export default function Layout() {
       ? {
           height: tabBarBottomHeight,
           backgroundColor: theme.colors.ahead,
-          borderTopColor: theme.colors.ahead,
-          position: 'absolute'
+          position: 'absolute',
+          borderTopWidth: 0
         }
       : {
           height: tabBarBottomHeight,
