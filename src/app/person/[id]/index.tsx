@@ -87,7 +87,6 @@ export default function Person() {
 
   return (
     <ContentLayout
-      isPersonContent
       isLoading={isLoading || isLoadingMovies || isLoadingTv}
       imageUrl={coverUrl}
       title={name}
