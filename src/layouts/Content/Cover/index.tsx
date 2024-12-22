@@ -27,7 +27,7 @@ export const Cover = React.memo(
         <ImageBackground
           testID="cover-image"
           source={{
-            uri: getImageUrl(imageUrl, 'w780')
+            uri: getImageUrl(imageUrl, 'w1280')
           }}
           style={styles.image}
         >

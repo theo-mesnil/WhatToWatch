@@ -1,5 +1,5 @@
 import type { FlashListProps, ListRenderItemInfo } from '@shopify/flash-list';
-import { FlashList } from '@shopify/flash-list';
+import { AnimatedFlashList } from '@shopify/flash-list';
 import * as React from 'react';
 import { Animated, Dimensions, View } from 'react-native';
 
@@ -83,7 +83,7 @@ export function VerticalList<ItemProps>({
   }
 
   return (
-    <FlashList
+    <AnimatedFlashList
       onEndReached={onEndReached}
       bounces={false}
       data={dataFormatted}
@@ -103,7 +103,7 @@ export function VerticalList<ItemProps>({
         }
       )}
       numColumns={numColumns}
-      onEndReachedThreshold={0.5}
+      onEndReachedThreshold={0.6}
       ListHeaderComponent={renderListHeaderComponent}
       renderItem={internalRenderItem}
       showsVerticalScrollIndicator={false}

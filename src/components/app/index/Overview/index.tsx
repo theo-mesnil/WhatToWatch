@@ -1,5 +1,5 @@
 import type { FlashListProps, ViewToken } from '@shopify/flash-list';
-import { FlashList } from '@shopify/flash-list';
+import { AnimatedFlashList } from '@shopify/flash-list';
 import * as React from 'react';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
@@ -108,7 +108,7 @@ export function Overview() {
   }
   return (
     <View>
-      <FlashList
+      <AnimatedFlashList
         onScroll={onScroll}
         onScrollBeginDrag={onScrollBeginDrag}
         onScrollEndDrag={onScrollEndDrag}

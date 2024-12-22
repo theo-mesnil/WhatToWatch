@@ -1,7 +1,6 @@
-import type { FlashListProps } from '@shopify/flash-list';
-import { FlashList } from '@shopify/flash-list';
 import * as React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import type { ListRenderItemInfo } from 'react-native';
+import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 
 import type { UseGetMovieImagesApiResponse } from 'api/movie';
 import type { UseGetPersonImagesApiResponse } from 'api/person';
@@ -25,7 +24,6 @@ export type FullScreenImagesProps = {
 };
 
 const GAP = theme.space.lg;
-const CARD_WIDTH = Dimensions.get('window').width * 0.8;
 const CARD_LIST_INSET = theme.space.marginList;
 
 export default function FullScreenImagesList({
@@ -34,11 +32,14 @@ export default function FullScreenImagesList({
   startAt = 0,
   type
 }: FullScreenImagesProps) {
-  const flashListRef = React.useRef(null);
+  const hasOneImage = images?.length === 1;
+  const CARD_WIDTH = hasOneImage
+    ? Dimensions.get('window').width - CARD_LIST_INSET * 2
+    : Dimensions.get('window').width * 0.8;
 
-  const renderItem: FlashListProps<Images[number]>['renderItem'] = ({
+  const renderItem = ({
     item: { aspect_ratio, file_path }
-  }) => (
+  }: ListRenderItemInfo<Images[number]>) => (
     <View style={[{ width: CARD_WIDTH }, styles.thumb]}>
       <Thumb
         type={type}
@@ -53,37 +54,32 @@ export default function FullScreenImagesList({
     return CARD_WIDTH * index + GAP * index - CARD_LIST_INSET - GAP / 2;
   }
 
-  function onLoad() {
-    if (startAt === images?.length) {
-      flashListRef.current.scrollToEnd();
-    } else {
-      flashListRef.current.scrollToOffset({
-        offset: getItemOffset(startAt)
-      });
-    }
-  }
-
-  function renderSeparators() {
-    return <View style={{ width: GAP }} />;
+  function getItemLayout(_: any, index: number) {
+    return {
+      length: CARD_WIDTH,
+      offset:
+        CARD_WIDTH * index +
+        CARD_LIST_INSET +
+        GAP * index -
+        Dimensions.get('window').width * 0.1,
+      index
+    };
   }
 
   return (
     <View style={styles.list}>
-      <FlashList
-        onLoad={onLoad}
-        ref={flashListRef}
+      <Animated.FlatList
         numColumns={1}
-        ItemSeparatorComponent={renderSeparators}
-        estimatedItemSize={CARD_WIDTH}
+        initialScrollIndex={startAt}
+        initialNumToRender={2}
         pagingEnabled
         id="images"
         decelerationRate="fast"
         snapToOffsets={[...Array(images?.length)].map((_, i) =>
           getItemOffset(i)
         )}
-        contentContainerStyle={{
-          paddingHorizontal: CARD_LIST_INSET
-        }}
+        contentContainerStyle={styles.listContainer}
+        getItemLayout={getItemLayout}
         data={images}
         keyExtractor={(item, index) =>
           isLoading
@@ -103,6 +99,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '80%',
     justifyContent: 'center'
+  },
+  listContainer: {
+    paddingHorizontal: CARD_LIST_INSET,
+    gap: GAP
   },
   thumb: {
     alignSelf: 'center',

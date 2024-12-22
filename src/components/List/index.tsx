@@ -1,5 +1,5 @@
 import type { FlashListProps, ListRenderItemInfo } from '@shopify/flash-list';
-import { FlashList } from '@shopify/flash-list';
+import { AnimatedFlashList } from '@shopify/flash-list';
 import type { Href } from 'expo-router';
 import * as React from 'react';
 import { Dimensions, View } from 'react-native';
@@ -100,7 +100,7 @@ export function List<ItemProps>({
   return (
     <View>
       {!!title && renderTitle}
-      <FlashList
+      <AnimatedFlashList
         bounces={false}
         data={dataFormatted}
         keyExtractor={(_, index: number) =>
