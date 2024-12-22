@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
+
 
 import { Loader } from 'components/Loader';
 import { NoCover } from 'components/NoCover';
+import { theme } from 'theme';
 import type {
   ContentType,
   ImageSizeBackdrop,

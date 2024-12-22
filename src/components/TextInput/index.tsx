@@ -1,6 +1,7 @@
 import * as React from 'react';
 import type { TextInputProps as RNTextInputProps } from 'react-native';
 import { TextInput as RNTextInput, StyleSheet } from 'react-native';
+
 import { theme } from 'theme';
 
 type TextInputProps = RNTextInputProps;

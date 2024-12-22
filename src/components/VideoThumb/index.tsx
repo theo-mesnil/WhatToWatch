@@ -1,9 +1,10 @@
 import { StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
+
 
 import { Text } from 'components/Text';
 import { Thumb } from 'components/Thumb';
 import { Touchable } from 'components/Touchable';
+import { theme } from 'theme';
 import { getVideo } from 'utils/videos';
 
 export type VideoThumbProps = {

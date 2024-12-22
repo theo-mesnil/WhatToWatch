@@ -1,11 +1,11 @@
 import { useNavigation } from 'expo-router';
 import * as React from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import { Text } from 'components/Text';
 import { COVER_HEIGHT } from 'constants/cover';
 import { BasicLayout } from 'layouts/Basic';
+import { theme } from 'theme';
 
 import { Cover } from './Cover';
 import { Header } from './Header';
@@ -15,7 +15,6 @@ export type ContentLayoutProps = {
   children: React.ReactNode;
   imageUrl?: string;
   isLoading?: boolean;
-  isPersonContent?: boolean;
   logo?: {
     aspectRatio: number;
     url: string;
@@ -29,7 +28,6 @@ export function ContentLayout({
   children,
   imageUrl,
   isLoading,
-  isPersonContent,
   logo,
   subtitle,
   title
@@ -60,7 +58,6 @@ export function ContentLayout({
         imageUrl={imageUrl}
         title={title}
         logo={logo}
-        isPerson={isPersonContent}
       />
       <View style={styles.infos}>
         {badges && <View style={styles.badges}>{badges}</View>}

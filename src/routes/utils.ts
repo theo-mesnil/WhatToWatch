@@ -1,5 +1,4 @@
 import { moviePath, personPath, tvPath } from 'routes';
-
 import type { ContentType } from 'types/content';
 
 export const routeByType = ({

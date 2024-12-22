@@ -2,17 +2,16 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Animated, StyleSheet, View } from 'react-native';
-import { moviePath } from 'routes';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import { useGetPerson, useGetPersonMovieCredits } from 'api/person';
+import { ItemThumb } from 'components/app/person/ItemThumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
 import { Header } from 'layouts/Content/Header';
-
-import { ItemThumb } from '../components/ItemThumb';
+import { moviePath } from 'routes';
+import { globalStyles } from 'styles';
+import { theme } from 'theme';
 
 export default function PersonMovies() {
   const [scrollYPosition, getScrollYPosition] = React.useState(
@@ -40,7 +39,7 @@ export default function PersonMovies() {
         title={
           <>
             {name}
-            <FormattedMessage defaultMessage="'s movies" key="title" />
+            <FormattedMessage defaultMessage="'s movies" id="uM+ly3" />
           </>
         }
         scrollY={scrollYPosition}

@@ -7,31 +7,37 @@ import {
   useFonts
 } from '@expo-google-fonts/poppins';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { SplashScreen, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import { IntlMessages } from 'locales';
 import * as React from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
+
 import { theme } from 'theme';
 
 SplashScreen.preventAutoHideAsync();
 
+SplashScreen.setOptions({
+  duration: 2000,
+  fade: true
+});
+
 const queryClient = new QueryClient();
 
 export default function Layout() {
-  let [fontsLoaded, fontError] = useFonts({
+  let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold
   });
 
   React.useEffect(() => {
-    if (fontsLoaded || fontError) {
-      // Hide the splash screen after the fonts have loaded (or an error was returned) and the UI is ready.
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded]);
 
   // Prevent rendering until the font has loaded or an error was returned
-  if (!fontsLoaded && !fontError) {
+  if (!fontsLoaded) {
     return null;
   }
 

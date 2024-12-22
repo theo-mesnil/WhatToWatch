@@ -3,16 +3,16 @@ import { Link } from 'expo-router';
 import { FormattedMessage } from 'react-intl';
 import type { TextProps as RNTextProps } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import { ArrowNextIcon, Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import { Touchable } from 'components/Touchable';
+import { theme } from 'theme';
 
 export type ListTitleProps = {
   children: React.ReactElement | string;
   style?: RNTextProps['style'];
-  titleHref?: Href<string>;
+  titleHref?: Href;
 };
 
 export function ListTitle({ children, style, titleHref }: ListTitleProps) {
@@ -36,7 +36,7 @@ export function ListTitle({ children, style, titleHref }: ListTitleProps) {
           <Touchable>
             <View style={styles.moreWrapper}>
               <Text variant="lg" style={styles.moreText}>
-                <FormattedMessage key="all-link" defaultMessage="More" />
+                <FormattedMessage defaultMessage="More" id="I5NMJ8" />
               </Text>
               <Icon color="brand-100" size={20} icon={ArrowNextIcon} />
             </View>

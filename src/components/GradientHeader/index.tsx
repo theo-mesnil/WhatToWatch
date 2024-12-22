@@ -1,9 +1,9 @@
 import { Animated, ImageBackground, StyleSheet } from 'react-native';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
+import { globalStyles } from 'styles';
+import { theme } from 'theme';
 
 export type GradientHeaderProps = {
   colors?: GradientProps['colors'];

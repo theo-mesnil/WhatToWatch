@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { View } from 'react-native';
 import type { SvgProps } from 'react-native-svg';
 import Svg, { Path } from 'react-native-svg';
+
 import { theme } from 'theme';
 const SvgComponent = (props: SvgProps) => (
   <View style={{ aspectRatio: 215 / 83 }}>

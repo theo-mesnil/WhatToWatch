@@ -1,7 +1,7 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
-import { Animated, type ListRenderItemInfo } from 'react-native';
-import { moviePath } from 'routes';
+import { Animated } from 'react-native';
 
 import type { UseGetDiscoverMovieApiResponse } from 'api/discover';
 import { useGetDiscoverMovie } from 'api/discover';
@@ -11,6 +11,9 @@ import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import GenreLayout from 'layouts/Genre';
+import { moviePath } from 'routes';
+
+type Item = UseGetDiscoverMovieApiResponse['results'][number];
 
 export default function Movie() {
   const [scrollYPosition, getScrollYPosition] = React.useState(
@@ -26,9 +29,9 @@ export default function Movie() {
 
   const firstItem = !isLoading && data?.pages[0].results[0];
 
-  const renderItem = ({
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
     item: { id, poster_path }
-  }: ListRenderItemInfo<UseGetDiscoverMovieApiResponse['results'][number]>) => (
+  }) => (
     <ThumbLink isLoading={isLoading} href={moviePath({ id })}>
       <Thumb type="movie" imageUrl={poster_path} />
     </ThumbLink>
@@ -42,7 +45,7 @@ export default function Movie() {
 
   return (
     <GenreLayout scrollYPosition={scrollYPosition}>
-      <VerticalList
+      <VerticalList<Item>
         renderItem={renderItem}
         id="genre"
         ListHeaderComponent={

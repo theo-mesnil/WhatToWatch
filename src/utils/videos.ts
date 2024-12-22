@@ -1,5 +1,6 @@
 import { router } from 'expo-router';
 import { Linking } from 'react-native';
+
 import { videoPath } from 'routes';
 
 type getVideoProps = {

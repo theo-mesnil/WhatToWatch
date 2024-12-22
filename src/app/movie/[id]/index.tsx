@@ -1,11 +1,8 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { moviePath, personPath } from 'routes';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import { useGetContentLogo } from 'api/logo';
 import type {
@@ -32,7 +29,14 @@ import { ThumbLink } from 'components/ThumbLink';
 import { TrailerButton } from 'components/TrailerButton';
 import { VideoThumb } from 'components/VideoThumb';
 import { ContentLayout } from 'layouts/Content';
+import { moviePath, personPath } from 'routes';
+import { globalStyles } from 'styles';
+import { theme } from 'theme';
 import { formatTime } from 'utils/time';
+
+type CastItem = UseGetMovieCreditsApiResponse['cast'][number];
+type MovieItem = UseGetMovieSimilarApiResponse['results'][number];
+type VideoItem = UseGetMovieVideosApiResponse['results'][number];
 
 export default function Movie() {
   const params = useLocalSearchParams<{ id: string }>();
@@ -73,27 +77,25 @@ export default function Movie() {
     (video) => video.type === 'Trailer'
   )?.[0];
 
-  const renderItemCast = ({
+  const renderItemCast: FlashListProps<CastItem>['renderItem'] = ({
     item: { character, id, name, profile_path }
-  }: ListRenderItemInfo<UseGetMovieCreditsApiResponse['cast'][number]>) => (
+  }) => (
     <ThumbLink href={personPath({ id })}>
       <PersonThumb imageUrl={profile_path} name={name} character={character} />
     </ThumbLink>
   );
 
-  const renderItemMovie = ({
+  const renderItemMovie: FlashListProps<MovieItem>['renderItem'] = ({
     item: { id, poster_path }
-  }: ListRenderItemInfo<UseGetMovieSimilarApiResponse['results'][number]>) => (
+  }) => (
     <ThumbLink href={moviePath({ id })}>
       <Thumb type="movie" imageUrl={poster_path} />
     </ThumbLink>
   );
 
-  const renderItemVideo = ({
+  const renderItemVideo: FlashListProps<VideoItem>['renderItem'] = ({
     item: { key, name, site }
-  }: ListRenderItemInfo<UseGetMovieVideosApiResponse['results'][number]>) => (
-    <VideoThumb id={key} type="movie" platform={site} name={name} />
-  );
+  }) => <VideoThumb id={key} type="movie" platform={site} name={name} />;
 
   return (
     <ContentLayout
@@ -150,8 +152,8 @@ export default function Movie() {
           </Text>
         )}
         {!!casting && casting.length > 0 && (
-          <List
-            title={<FormattedMessage id="casting" defaultMessage="Casting" />}
+          <List<CastItem>
+            title={<FormattedMessage defaultMessage="Casting" id="arTEbw" />}
             isLoading={isLoadingCredits}
             id="cast"
             renderItem={renderItemCast}
@@ -160,9 +162,9 @@ export default function Movie() {
         )}
         {(isLoadingVideos ||
           (!!videos?.results && videos.results.length > 0)) && (
-          <List
+          <List<VideoItem>
             numberOfItems={1}
-            title={<FormattedMessage id="videos" defaultMessage="Videos" />}
+            title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
             isLoading={isLoadingVideos}
             id="videos"
             renderItem={renderItemVideo}
@@ -181,11 +183,11 @@ export default function Movie() {
           </View>
         )}
         {(isLoadingSimilar || similar?.results.length > 0) && (
-          <List
+          <List<MovieItem>
             title={
               <FormattedMessage
-                id="similar"
                 defaultMessage="In the same spirit"
+                id="bxLtNh"
               />
             }
             id="similar"

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import { Icon, type IconElement } from 'components/Icon';
 import { Text } from 'components/Text';
+import { theme } from 'theme';
 
 export type BadgeProps = {
   children: React.ReactNode;

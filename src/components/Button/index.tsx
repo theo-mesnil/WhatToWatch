@@ -1,8 +1,6 @@
 import * as React from 'react';
-import type { ViewProps } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
-import type { Color } from 'theme';
+import type { ViewProps } from 'react-native';
 
 import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
@@ -11,6 +9,8 @@ import { Icon } from 'components/Icon';
 import { Text } from 'components/Text';
 import type { TouchableProps } from 'components/Touchable';
 import { Touchable } from 'components/Touchable';
+import type { Color } from 'theme';
+import { theme } from 'theme';
 
 export type ButtonProps = ViewProps & {
   backgroundColor?: Color;

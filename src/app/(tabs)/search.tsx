@@ -1,11 +1,10 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { useNavigation } from 'expo-router';
 import debounce from 'lodash.debounce';
 import * as React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
 import { Animated, StyleSheet, View } from 'react-native';
 import { routeByType } from 'routes/utils';
-import { theme } from 'theme';
 
 import { useGetSearch } from 'api/search';
 import type { UseGetTrendingApiResponse } from 'api/trending';
@@ -20,8 +19,11 @@ import { ThumbLink } from 'components/ThumbLink';
 import { VerticalList } from 'components/VerticalList';
 import { useSafeHeights } from 'constants/useSafeHeights';
 import { BasicLayout } from 'layouts/Basic';
+import { theme } from 'theme';
 import type { ContentType } from 'types/content';
 import type { HeaderOptions } from 'types/navigation';
+
+type Item = UseGetTrendingApiResponse['all']['results'][number];
 
 export default function Search() {
   const [querySearch, setQuerySearch] = React.useState(null);
@@ -61,12 +63,10 @@ export default function Search() {
     }
   };
 
-  const renderItem = ({
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
     // @ts-expect-error wrong ts api from tmdb
     item: { id, media_type, name, poster_path, profile_path, title }
-  }: ListRenderItemInfo<
-    UseGetTrendingApiResponse['all']['results'][number]
-  >) => {
+  }) => {
     const isLoadingItem = isLoading || isSearchLoading;
 
     return (
@@ -93,23 +93,20 @@ export default function Search() {
           <Icon icon={SearchFillIcon} size={80} color="brand-500" />
           <Text variant="h1" style={styles.noResultsTitle}>
             <FormattedMessage
-              key="no-results"
               defaultMessage="Oh no! We have found nothing 🥺"
+              id="hVXARm"
             />
           </Text>
         </View>
       ) : (
         <Text variant="h2" style={styles.listTitle}>
-          <FormattedMessage
-            key="search-list-title"
-            defaultMessage="We offer you:"
-          />
+          <FormattedMessage defaultMessage="We offer you:" id="qAbeEW" />
         </Text>
       )}
     </>
   ) : (
     <Text variant="h2" style={styles.listTitle}>
-      <FormattedMessage key="list-title" defaultMessage="Latest trends" />
+      <FormattedMessage defaultMessage="Latest trends" id="mnB7Ay" />
     </Text>
   );
 
@@ -125,9 +122,8 @@ export default function Search() {
               enterKeyHint="search"
               clearButtonMode="always"
               placeholder={intl.formatMessage({
-                // @ts-expect-error
-                key: 'placeholder',
-                defaultMessage: 'What would you like to watch?'
+                defaultMessage: 'What would you like to watch?',
+                id: 'UhsiMg'
               })}
             />
           }
@@ -146,7 +142,7 @@ export default function Search() {
   return (
     <BasicLayout isView>
       <GradientHeader scrollY={scrollYPosition} />
-      <VerticalList
+      <VerticalList<Item>
         id="search-trending"
         isLoading={isLoading || isSearchLoading}
         renderItem={renderItem}

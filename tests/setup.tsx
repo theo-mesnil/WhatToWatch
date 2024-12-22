@@ -17,3 +17,7 @@ jest.mock('react-native-safe-area-context', () => ({
     bottom: 0
   })
 }));
+
+afterEach(() => {
+  jest.restoreAllMocks();
+});

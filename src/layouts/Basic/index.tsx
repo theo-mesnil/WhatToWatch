@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Animated, StyleSheet } from 'react-native';
+
 import { theme } from 'theme';
 
 type BasicLayoutProps = {

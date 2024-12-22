@@ -34,7 +34,7 @@ describe('<Person />', () => {
       'Daniel Radcliffe'
     );
     expect(screen.queryByTestId('cover-image')).toHaveProp('source', {
-      uri: 'https://image.tmdb.org/t/p/w780/iPg0J9UzAlPj1fLEJNllpW9IhGe.jpg'
+      uri: 'https://image.tmdb.org/t/p/w1280/iPg0J9UzAlPj1fLEJNllpW9IhGe.jpg'
     });
   });
 

@@ -1,11 +1,11 @@
 import { FormattedMessage } from 'react-intl';
 import { Linking, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import type { ButtonProps } from 'components/Button';
 import { Button } from 'components/Button';
 import { NetworkLogo } from 'components/NetworkLogo';
 import { Text } from 'components/Text';
+import { theme } from 'theme';
 import type { NetworkId } from 'types/content';
 import { getNetworkColor } from 'utils/networks';
 
@@ -25,7 +25,7 @@ export function NetworkButton({ id, link, style }: NetworkButtonProps) {
       isCustomChildren
     >
       <Text variant="h3">
-        <FormattedMessage defaultMessage="Watch on" id="watch-on" />
+        <FormattedMessage defaultMessage="Watch on" id="hFKSw/" />
       </Text>
       <View style={styles.logo}>
         <NetworkLogo id={id} height={23} />

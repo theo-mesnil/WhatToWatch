@@ -25,7 +25,7 @@ describe('<Movie />', () => {
     );
     expect(screen.queryByTestId('cover-title')).toBeFalsy();
     expect(screen.queryByTestId('cover-image')).toHaveProp('source', {
-      uri: 'https://image.tmdb.org/t/p/w780/hziiv14OpD73u9gAak4XDDfBKa2.jpg'
+      uri: 'https://image.tmdb.org/t/p/w1280/hziiv14OpD73u9gAak4XDDfBKa2.jpg'
     });
     expect(screen.queryByTestId('cover-logo')).toHaveProp(
       'src',

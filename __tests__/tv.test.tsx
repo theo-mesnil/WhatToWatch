@@ -23,7 +23,7 @@ describe('<Tv />', () => {
     );
     expect(screen.queryByTestId('cover-title')).toBeFalsy();
     expect(screen.queryByTestId('cover-image')).toHaveProp('source', {
-      uri: 'https://image.tmdb.org/t/p/w780/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg'
+      uri: 'https://image.tmdb.org/t/p/w1280/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg'
     });
     expect(screen.queryByTestId('cover-logo')).toHaveProp(
       'src',

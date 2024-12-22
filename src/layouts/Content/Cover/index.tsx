@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Image, ImageBackground, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import { Gradient } from 'components/Gradient';
 import { Loader } from 'components/Loader';
 import { Text } from 'components/Text';
 import { COVER_HEIGHT } from 'constants/cover';
+import { theme } from 'theme';
 import type { ImageSizeBackdrop } from 'types/content';
 import { getImageUrl } from 'utils/images';
 
@@ -13,7 +13,6 @@ export type CoverProps = {
   imageUrl?: string;
   imageWidth?: ImageSizeBackdrop;
   isLoading?: boolean;
-  isPerson?: boolean;
   logo?: {
     aspectRatio: number;
     url: string;
@@ -22,20 +21,20 @@ export type CoverProps = {
 };
 
 export const Cover = React.memo(
-  ({ imageUrl, isLoading, isPerson, logo, title }: CoverProps) => {
+  ({ imageUrl, isLoading, logo, title }: CoverProps) => {
     return (
       <View style={styles.wrapper}>
         <ImageBackground
           testID="cover-image"
           source={{
-            uri: getImageUrl(imageUrl, 'w780')
+            uri: getImageUrl(imageUrl, 'w1280')
           }}
           style={styles.image}
         >
           {isLoading && <Loader style={styles.loading} />}
         </ImageBackground>
         <Gradient
-          style={[styles.gradient, isPerson && styles.personGradient]}
+          style={styles.gradient}
           colors={['transparent', theme.colors.behind]}
         />
         <View style={styles.content}>
@@ -66,13 +65,9 @@ const styles = StyleSheet.create({
   },
   gradient: {
     position: 'absolute',
-    marginTop: 50,
-    height: COVER_HEIGHT - 50,
-    width: '100%'
-  },
-  personGradient: {
     marginTop: 150,
-    height: COVER_HEIGHT - 150
+    height: COVER_HEIGHT - 150,
+    width: '100%'
   },
   content: {
     height: '100%',

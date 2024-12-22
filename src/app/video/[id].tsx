@@ -1,9 +1,10 @@
 import { useLocalSearchParams } from 'expo-router';
 import { Dimensions, View } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import { theme } from 'theme';
 
 import ModalLayout from 'layouts/Modal';
+import { theme } from 'theme';
+
 
 const gap = theme.space.sm;
 const width = Dimensions.get('window').width - gap;

@@ -1,13 +1,10 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import { intervalToDuration } from 'date-fns';
 import { useLocalSearchParams } from 'expo-router';
 import * as React from 'react';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-import type { ListRenderItemInfo } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { personImagePath, personMoviesPath, personTvPath } from 'routes';
 import { routeByType } from 'routes/utils';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
 
 import type {
   UseGetPersonCreditsApiResponse,
@@ -20,14 +17,19 @@ import {
   useGetPersonMovieCredits,
   useGetPersonTvCredits
 } from 'api/person';
+import { CreditNumberThumb } from 'components/app/person/CreditNumberThumb';
+import { ReadMore } from 'components/app/person/ReadMore';
 import { Badge } from 'components/Badge';
 import { List } from 'components/List';
 import { Thumb } from 'components/Thumb';
 import { ThumbLink } from 'components/ThumbLink';
 import { ContentLayout } from 'layouts/Content';
+import { personImagePath, personMoviesPath, personTvPath } from 'routes';
+import { globalStyles } from 'styles';
+import { theme } from 'theme';
 
-import { CreditNumberThumb } from '../components/CreditNumberThumb';
-import { ReadMore } from '../components/ReadMore';
+type ImageItem = UseGetPersonImagesApiResponse['profiles'][number];
+type CastItem = UseGetPersonCreditsApiResponse['cast'][number];
 
 export default function Person() {
   const params = useLocalSearchParams<{ id: string }>();
@@ -62,18 +64,18 @@ export default function Person() {
   const numberOfMovies = movies?.length;
   const numberOfTvShows = tv?.length;
 
-  const renderItemImage = ({
+  const renderItemImage: FlashListProps<ImageItem>['renderItem'] = ({
     index,
     item: { file_path }
-  }: ListRenderItemInfo<UseGetPersonImagesApiResponse['profiles'][number]>) => (
+  }) => (
     <ThumbLink href={personImagePath({ id: personID, start: index })}>
       <Thumb type="person" imageUrl={file_path} />
     </ThumbLink>
   );
 
-  const renderCreditImage = ({
+  const renderCreditImage: FlashListProps<CastItem>['renderItem'] = ({
     item: { id, media_type, poster_path }
-  }: ListRenderItemInfo<UseGetPersonCreditsApiResponse['cast'][number]>) => {
+  }) => {
     const type = media_type === 'movie' ? 'movie' : 'tv';
 
     return (
@@ -85,7 +87,6 @@ export default function Person() {
 
   return (
     <ContentLayout
-      isPersonContent
       isLoading={isLoading || isLoadingMovies || isLoadingTv}
       imageUrl={coverUrl}
       title={name}
@@ -95,7 +96,7 @@ export default function Person() {
           {!!birthday && (
             <Badge testID="birthday">
               <>
-                <FormattedMessage defaultMessage="Born on" key="born_on" />{' '}
+                <FormattedMessage defaultMessage="Born on" id="/QsGmC" />{' '}
                 <FormattedDate
                   day="numeric"
                   year="numeric"
@@ -111,7 +112,7 @@ export default function Person() {
                         end: new Date()
                       }).years
                     }
-                    <FormattedMessage defaultMessage="y" key="age" />)
+                    <FormattedMessage defaultMessage="y" id="EhtHdK" />)
                   </>
                 )}
               </>
@@ -119,7 +120,7 @@ export default function Person() {
           )}
           {!!deathday && (
             <Badge testID="deathday">
-              <FormattedMessage defaultMessage="Died on" key="died_on" />{' '}
+              <FormattedMessage defaultMessage="Died on" id="jMuk1E" />{' '}
               <FormattedDate
                 day="numeric"
                 year="numeric"
@@ -134,7 +135,7 @@ export default function Person() {
                     end: new Date(deathday)
                   }).years
                 }
-                <FormattedMessage defaultMessage="y" key="age" />)
+                <FormattedMessage defaultMessage="y" id="EhtHdK" />)
               </>
             </Badge>
           )}
@@ -145,10 +146,10 @@ export default function Person() {
             <Badge testID="movies">
               {numberOfMovies}{' '}
               {numberOfMovies === 1 && (
-                <FormattedMessage id="movie" defaultMessage="movie" />
+                <FormattedMessage defaultMessage="movie" id="RzXthk" />
               )}
               {numberOfMovies > 1 && (
-                <FormattedMessage id="movies" defaultMessage="movies" />
+                <FormattedMessage defaultMessage="movies" id="2xXGzb" />
               )}
             </Badge>
           )}
@@ -156,10 +157,10 @@ export default function Person() {
             <Badge testID="series">
               {numberOfTvShows}{' '}
               {numberOfTvShows === 1 && (
-                <FormattedMessage id="serie" defaultMessage="serie" />
+                <FormattedMessage defaultMessage="serie" id="rwqNY9" />
               )}
               {numberOfTvShows > 1 && (
-                <FormattedMessage id="series" defaultMessage="series" />
+                <FormattedMessage defaultMessage="series" id="INk7fF" />
               )}
             </Badge>
           )}
@@ -173,8 +174,8 @@ export default function Person() {
           </View>
         )}
         {(isLoadingCredits || credits?.length > 0) && (
-          <List
-            title={<FormattedMessage id="know_for" defaultMessage="Know for" />}
+          <List<CastItem>
+            title={<FormattedMessage defaultMessage="Know for" id="//VHfC" />}
             id="similar"
             numberOfItems={2}
             isLoading={isLoadingCredits}
@@ -192,7 +193,7 @@ export default function Person() {
                 <CreditNumberThumb
                   type="movie"
                   title={
-                    <FormattedMessage key="movies" defaultMessage="movies" />
+                    <FormattedMessage defaultMessage="movies" id="2xXGzb" />
                   }
                   number={numberOfMovies}
                 />
@@ -206,7 +207,7 @@ export default function Person() {
                 <CreditNumberThumb
                   type="tv"
                   title={
-                    <FormattedMessage key="series" defaultMessage="series" />
+                    <FormattedMessage defaultMessage="series" id="INk7fF" />
                   }
                   number={numberOfTvShows}
                 />
@@ -215,8 +216,8 @@ export default function Person() {
           </View>
         )}
         {(isLoadingImages || images?.length > 0) && (
-          <List
-            title={<FormattedMessage id="pictures" defaultMessage="Pictures" />}
+          <List<ImageItem>
+            title={<FormattedMessage defaultMessage="Pictures" id="DOPilz" />}
             id="similar"
             isLoading={isLoadingImages}
             renderItem={renderItemImage}

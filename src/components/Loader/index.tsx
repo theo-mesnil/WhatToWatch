@@ -1,10 +1,11 @@
 import * as React from 'react';
 import type { ViewProps } from 'react-native';
 import { Animated, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
+
 
 import type { GradientProps } from 'components/Gradient';
 import { Gradient } from 'components/Gradient';
+import { theme } from 'theme';
 
 export type LoaderProps = ViewProps & {
   colors?: GradientProps['colors'];

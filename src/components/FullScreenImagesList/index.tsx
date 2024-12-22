@@ -1,12 +1,12 @@
 import * as React from 'react';
 import type { ListRenderItemInfo } from 'react-native';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
-import { theme } from 'theme';
 
 import type { UseGetMovieImagesApiResponse } from 'api/movie';
 import type { UseGetPersonImagesApiResponse } from 'api/person';
 import type { UseGetTvImagesApiResponse } from 'api/tv';
 import { Thumb } from 'components/Thumb';
+import { theme } from 'theme';
 import type { ContentType } from 'types/content';
 
 type Images =
@@ -24,7 +24,6 @@ export type FullScreenImagesProps = {
 };
 
 const GAP = theme.space.lg;
-const CARD_WIDTH = Dimensions.get('window').width * 0.8;
 const CARD_LIST_INSET = theme.space.marginList;
 
 export default function FullScreenImagesList({
@@ -33,6 +32,11 @@ export default function FullScreenImagesList({
   startAt = 0,
   type
 }: FullScreenImagesProps) {
+  const hasOneImage = images?.length === 1;
+  const CARD_WIDTH = hasOneImage
+    ? Dimensions.get('window').width - CARD_LIST_INSET * 2
+    : Dimensions.get('window').width * 0.8;
+
   const renderItem = ({
     item: { aspect_ratio, file_path }
   }: ListRenderItemInfo<Images[number]>) => (
