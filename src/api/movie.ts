@@ -1,7 +1,6 @@
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
-import axios from 'axios';
 
 import { LOCALE, REGION_CODE } from 'constants/locales';
 import type { NetworkId } from 'types/content';
@@ -57,15 +56,14 @@ export type UseGetMovie = UseQueryResult<
 export function useGetMovie(props?: UseGetMovieApiProps): UseGetMovie {
   const { id } = props || {};
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `movie/${id}`
   });
 
   return useQuery({
     queryKey: ['movie', id, LOCALE],
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieApiResponse> =
-        await axios.get(queryUrl());
+      const { data }: AxiosResponse<UseGetMovieApiResponse> = await callApi();
 
       const networkId = getNetworkFromUrl(data.homepage);
 
@@ -102,7 +100,7 @@ export function useGetMovie(props?: UseGetMovieApiProps): UseGetMovie {
 export function useGetMovieCredits(props?: UseGetMovieEnabledApiProps) {
   const { enabled, id } = props || {};
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `movie/${id}/credits`
   });
 
@@ -110,7 +108,7 @@ export function useGetMovieCredits(props?: UseGetMovieEnabledApiProps) {
     queryKey: ['movie', id, 'credits', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieCreditsApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return {
         cast: data.cast.slice(0, 30)
@@ -125,7 +123,7 @@ export function useGetMovieImages(props?: UseGetMovieEnabledApiProps) {
 
   const locales = `${LOCALE},en`;
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `movie/${id}/images`,
     params: [
       {
@@ -139,7 +137,7 @@ export function useGetMovieImages(props?: UseGetMovieEnabledApiProps) {
     queryKey: ['movie', id, 'images', locales],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieImagesApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return data;
     },
@@ -148,7 +146,7 @@ export function useGetMovieImages(props?: UseGetMovieEnabledApiProps) {
 }
 
 export function useGetMovieNowPlaying() {
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: 'movie/now_playing',
     params: [{ name: 'region', value: REGION_CODE }]
   });
@@ -157,7 +155,7 @@ export function useGetMovieNowPlaying() {
     queryKey: ['movies', 'now_playing', REGION_CODE, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieNowPlayingApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return data;
     }
@@ -165,7 +163,7 @@ export function useGetMovieNowPlaying() {
 }
 
 export function useGetMovieUpcoming() {
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: 'movie/upcoming',
     params: [{ name: 'region', value: REGION_CODE }]
   });
@@ -174,7 +172,7 @@ export function useGetMovieUpcoming() {
     queryKey: ['movies', 'upcoming', REGION_CODE, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieUpcomingApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return data;
     }
@@ -184,7 +182,7 @@ export function useGetMovieUpcoming() {
 export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
   const { enabled, id } = props || {};
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `movie/${id}/similar`
   });
 
@@ -192,7 +190,7 @@ export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
     queryKey: ['movie', id, 'similar', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieSimilarApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return data;
     },
@@ -203,7 +201,7 @@ export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
 export function useGetMovieVideos(props?: UseGetMovieApiProps) {
   const { id } = props || {};
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `movie/${id}/videos`
   });
 
@@ -211,7 +209,7 @@ export function useGetMovieVideos(props?: UseGetMovieApiProps) {
     queryKey: ['movie', id, 'videos', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetMovieVideosApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return data;
     },

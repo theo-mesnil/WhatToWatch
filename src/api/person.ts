@@ -1,7 +1,6 @@
 import type { UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
-import axios from 'axios';
 
 import { LOCALE } from 'constants/locales';
 
@@ -45,15 +44,14 @@ export type UseGetPerson = UseQueryResult<
 export function useGetPerson(props?: UseGetPersonApiProps): UseGetPerson {
   const { id } = props || {};
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `person/${id}`
   });
 
   return useQuery({
     queryKey: ['person', id, LOCALE],
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetPersonApiResponse> =
-        await axios.get(queryUrl());
+      const { data }: AxiosResponse<UseGetPersonApiResponse> = await callApi();
 
       return {
         biography: data.biography,
@@ -74,7 +72,7 @@ export function useGetPersonMovieCredits(
 ) {
   const { id, isActing } = props || {};
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `person/${id}/movie_credits`
   });
 
@@ -82,7 +80,7 @@ export function useGetPersonMovieCredits(
     queryKey: ['person', id, 'movies', isActing, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonMovieCreditsApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return isActing ? data.cast : data.crew;
     },
@@ -95,7 +93,7 @@ export function useGetPersonTvCredits(
 ) {
   const { id, isActing } = props || {};
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `person/${id}/tv_credits`
   });
 
@@ -103,7 +101,7 @@ export function useGetPersonTvCredits(
     queryKey: ['person', id, 'tv', isActing, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonTvCreditsApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return isActing ? data.cast : data.crew;
     },
@@ -116,7 +114,7 @@ export function useGetPersonCredits(
 ) {
   const { id, isActing } = props || {};
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `person/${id}/combined_credits`
   });
 
@@ -124,7 +122,7 @@ export function useGetPersonCredits(
     queryKey: ['person', id, 'credits', isActing, LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonCreditsApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return isActing ? data.cast : data.crew;
     },
@@ -137,7 +135,7 @@ export function useGetPersonImages(props?: UseGetPersonApiProps) {
 
   const locales = `${LOCALE},en`;
 
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: `person/${id}/images`,
     params: [
       {
@@ -151,7 +149,7 @@ export function useGetPersonImages(props?: UseGetPersonApiProps) {
     queryKey: ['person', id, 'tv', 'images', locales],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonImagesApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return data.profiles;
     },
@@ -160,7 +158,7 @@ export function useGetPersonImages(props?: UseGetPersonApiProps) {
 }
 
 export function useGetPersonPopular() {
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: 'person/popular'
   });
 
@@ -168,7 +166,7 @@ export function useGetPersonPopular() {
     queryKey: ['person', 'popular', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetPersonPopularApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return data;
     }

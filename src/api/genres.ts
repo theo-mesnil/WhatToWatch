@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
-import axios from 'axios';
 
 import { LOCALE } from 'constants/locales';
 
@@ -13,7 +12,7 @@ export type UseGetGenreTvListApiResponse =
   paths['/3/genre/tv/list']['get']['responses']['200']['content']['application/json'];
 
 export function useGetGenreMovieList() {
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: 'genre/movie/list'
   });
 
@@ -21,7 +20,7 @@ export function useGetGenreMovieList() {
     queryKey: ['genre', 'movie', 'list', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetGenreMovieListApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
 
       return data?.genres;
     }
@@ -29,7 +28,7 @@ export function useGetGenreMovieList() {
 }
 
 export function useGetGenreTvList() {
-  const { queryUrl } = getApi({
+  const { callApi } = getApi({
     query: 'genre/tv/list'
   });
 
@@ -37,7 +36,7 @@ export function useGetGenreTvList() {
     queryKey: ['genre', 'tv', 'list', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetGenreTvListApiResponse> =
-        await axios.get(queryUrl());
+        await callApi();
       return data.genres;
     }
   });
