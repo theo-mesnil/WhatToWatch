@@ -1,6 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
-import axios from 'axios';
 
 import { LOCALE } from 'constants/locales';
 
@@ -30,7 +29,7 @@ export type UseGetDiscoverMovieApiProps = {
 export function useGetDiscoverTv(props?: UseGetDiscoverTvApiProps) {
   const { maxPages = 30, params } = props || {};
 
-  const { queryParams, queryUrl } = getApi({
+  const { callApi, queryParams } = getApi({
     query: 'discover/tv',
     params
   });
@@ -39,7 +38,7 @@ export function useGetDiscoverTv(props?: UseGetDiscoverTvApiProps) {
     queryKey: ['discover', 'tv', ...queryParams, LOCALE],
     queryFn: async ({ pageParam }) => {
       const { data }: AxiosResponse<UseGetDiscoverTvApiResponse> =
-        await axios.get(queryUrl(pageParam));
+        await callApi(pageParam);
       return data;
     },
     initialPageParam: 1,
@@ -52,7 +51,7 @@ export function useGetDiscoverTv(props?: UseGetDiscoverTvApiProps) {
 export function useGetDiscoverMovie(props?: UseGetDiscoverMovieApiProps) {
   const { maxPages = 30, params } = props || {};
 
-  const { queryParams, queryUrl } = getApi({
+  const { callApi, queryParams } = getApi({
     query: 'discover/movie',
     params
   });
@@ -61,7 +60,7 @@ export function useGetDiscoverMovie(props?: UseGetDiscoverMovieApiProps) {
     queryKey: ['discover', 'movie', ...queryParams, LOCALE],
     queryFn: async ({ pageParam }) => {
       const { data }: AxiosResponse<UseGetDiscoverMovieApiResponse> =
-        await axios.get(queryUrl(pageParam));
+        await callApi(pageParam);
       return data;
     },
     initialPageParam: 1,
