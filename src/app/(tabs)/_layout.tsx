@@ -116,6 +116,21 @@ export default function Layout() {
             })
         }}
       />
+      <Tabs.Screen
+        name="user"
+        options={{
+          title: intl.formatMessage({
+            defaultMessage: 'User',
+            id: 'EwRIOm'
+          }),
+          tabBarIcon: (props) =>
+            tabBarIcon({
+              ...props,
+              icon: EyeIcon,
+              iconFocused: EyeFillIcon
+            })
+        }}
+      />
     </Tabs>
   );
 }
