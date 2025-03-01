@@ -1,5 +1,3 @@
-import '@testing-library/react-native/extend-expect';
-
 jest.useFakeTimers();
 
 jest.mock('expo-localization', () => ({
@@ -20,4 +18,5 @@ jest.mock('react-native-safe-area-context', () => ({
 
 afterEach(() => {
   jest.restoreAllMocks();
+  jest.clearAllTimers(); // Clear any pending timers
 });

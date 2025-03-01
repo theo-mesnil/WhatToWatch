@@ -10,6 +10,7 @@ function generateTranslationFiles() {
 
   // Check if temp file exists
   if (!fs.existsSync(tempFilePath)) {
+    // eslint-disable-next-line no-console
     console.error('No temp translation file found. Run extraction first.');
     process.exit(1);
   }
@@ -56,6 +57,7 @@ function generateTranslationFiles() {
     'utf-8'
   );
 
+  // eslint-disable-next-line no-console
   console.log('Translation files generated ✅');
 
   // Optional: Remove temp file
