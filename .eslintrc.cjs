@@ -92,5 +92,5 @@ module.exports = {
       moduleDirectory: ['node_modules', 'src']
     }
   },
-  ignorePatterns: ['src/api/types.d.ts']
+  ignorePatterns: ['src/api/types.d.ts', 'coverage']
 };
