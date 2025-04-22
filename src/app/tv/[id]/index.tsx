@@ -1,155 +1,138 @@
-import type { FlashListProps } from '@shopify/flash-list';
-import { useLocalSearchParams } from 'expo-router';
-import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { StyleSheet, View } from 'react-native';
+import type { FlashListProps } from '@shopify/flash-list'
+import { useLocalSearchParams } from 'expo-router'
+import * as React from 'react'
+import { FormattedMessage } from 'react-intl'
+import { StyleSheet, View } from 'react-native'
 
-import { useGetContentLogo } from 'api/logo';
+import { useGetContentLogo } from '~/api/logo'
 import type {
   UseGetTvApiResponse,
   UseGetTvCreditsApiResponse,
   UseGetTvSimilarApiResponse,
-  UseGetTvVideosApiResponse
-} from 'api/tv';
+  UseGetTvVideosApiResponse,
+} from '~/api/tv'
 import {
   useGetTv,
   useGetTvCredits,
   useGetTvImages,
   useGetTvSeason,
   useGetTvSimilar,
-  useGetTvVideos
-} from 'api/tv';
-import { EpisodeThumb } from 'components/app/tv/EpisodeThumb';
-import { Badge } from 'components/Badge';
-import { Button } from 'components/Button';
-import { ClockFillIcon, StarFillIcon } from 'components/Icon';
-import { Images } from 'components/Images';
-import { List } from 'components/List';
-import { NetworkButton } from 'components/NetworkButton';
-import { PersonThumb } from 'components/PersonThumb';
-import { Text } from 'components/Text';
-import { Thumb } from 'components/Thumb';
-import { ThumbLink } from 'components/ThumbLink';
-import { TrailerButton } from 'components/TrailerButton';
-import { VideoThumb } from 'components/VideoThumb';
-import { ContentLayout } from 'layouts/Content';
-import { personPath, tvPath } from 'routes';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
-import { formatTime } from 'utils/time';
+  useGetTvVideos,
+} from '~/api/tv'
+import { EpisodeThumb } from '~/components/app/tv/EpisodeThumb'
+import { Badge } from '~/components/Badge'
+import { Button } from '~/components/Button'
+import { ClockFillIcon, StarFillIcon } from '~/components/Icon'
+import { Images } from '~/components/Images'
+import { List } from '~/components/List'
+import { NetworkButton } from '~/components/NetworkButton'
+import { PersonThumb } from '~/components/PersonThumb'
+import { Text } from '~/components/Text'
+import { Thumb } from '~/components/Thumb'
+import { ThumbLink } from '~/components/ThumbLink'
+import { TrailerButton } from '~/components/TrailerButton'
+import { VideoThumb } from '~/components/VideoThumb'
+import { ContentLayout } from '~/layouts//Content'
+import { personPath, tvPath } from '~/routes'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
+import { formatTime } from '~/utils/time'
 
-type SeasonItem = UseGetTvApiResponse['seasons'][number];
-type CastItem = UseGetTvCreditsApiResponse['cast'][number];
-type TvItem = UseGetTvSimilarApiResponse['results'][number];
-type VideoItem = UseGetTvVideosApiResponse['results'][number];
+type CastItem = UseGetTvCreditsApiResponse['cast'][number]
+type SeasonItem = UseGetTvApiResponse['seasons'][number]
+type TvItem = UseGetTvSimilarApiResponse['results'][number]
+type VideoItem = UseGetTvVideosApiResponse['results'][number]
 
 export default function Tv() {
-  const [selectedSeason, setSelectedSeason] = React.useState<number>(1);
-  const params = useLocalSearchParams<{ id: string }>();
-  const tvID = Number(params?.id);
+  const [selectedSeason, setSelectedSeason] = React.useState<number>(1)
+  const params = useLocalSearchParams<{ id: string }>()
+  const tvID = Number(params?.id)
 
-  const { data, isLoading } = useGetTv({ id: tvID });
+  const { data, isLoading } = useGetTv({ id: tvID })
 
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id: tvID,
-    type: 'tv'
-  });
+    type: 'tv',
+  })
   const { data: season, isLoading: isLoadingSeason } = useGetTvSeason({
     id: tvID,
-    seasonNumber: selectedSeason
-  });
+    seasonNumber: selectedSeason,
+  })
   const { data: videos, isLoading: isLoadingVideos } = useGetTvVideos({
-    id: tvID
-  });
+    id: tvID,
+  })
   const { data: credits, isLoading: isLoadingCredits } = useGetTvCredits({
+    enabled: !isLoadingSeason,
     id: tvID,
-    enabled: !isLoadingSeason
-  });
+  })
   const { data: images, isLoading: isLoadingImages } = useGetTvImages({
+    enabled: !isLoadingCredits,
     id: tvID,
-    enabled: !isLoadingCredits
-  });
+  })
   const { data: similar, isLoading: isLoadingSimilar } = useGetTvSimilar({
+    enabled: !isLoadingCredits,
     id: tvID,
-    enabled: !isLoadingCredits
-  });
+  })
 
-  const tagline = data?.tagline;
-  const coverUrl = data?.coverUrl;
-  const name = data?.name;
-  const genres = data?.genres;
-  const startYear = data?.startYear;
-  const endYear = data?.endYear;
-  const networkLink = data?.networkLink;
-  const overview = data?.overview;
-  const rating = data?.rating;
-  const runtime = data?.runtime;
-  const seasons = data?.seasons?.filter(
-    (item) => item.season_number > 0 && item.episode_count > 0
-  );
-  const seasonsLength = seasons?.length;
-  const seasonAirDate = season?.air_date;
-  const casting = credits?.cast;
-  const trailer = videos?.results?.filter(
-    (video) => video.type === 'Trailer'
-  )?.[0];
+  const tagline = data?.tagline
+  const coverUrl = data?.coverUrl
+  const name = data?.name
+  const genres = data?.genres
+  const startYear = data?.startYear
+  const endYear = data?.endYear
+  const networkLink = data?.networkLink
+  const overview = data?.overview
+  const rating = data?.rating
+  const runtime = data?.runtime
+  const seasons = data?.seasons?.filter(item => item.season_number > 0 && item.episode_count > 0)
+  const seasonsLength = seasons?.length
+  const seasonAirDate = season?.air_date
+  const casting = credits?.cast
+  const trailer = videos?.results?.filter(video => video.type === 'Trailer')?.[0]
 
   const renderItemSeason: FlashListProps<SeasonItem>['renderItem'] = ({
-    item: { season_number }
+    item: { season_number },
   }) => (
     <Button
-      size="lg"
       isRounded
-      variant={selectedSeason === season_number ? 'secondary' : 'primary'}
       onPress={() => setSelectedSeason(season_number)}
+      size="lg"
+      variant={selectedSeason === season_number ? 'secondary' : 'primary'}
     >
       S{season_number}
     </Button>
-  );
+  )
 
   const renderItemCast: FlashListProps<CastItem>['renderItem'] = ({
-    item: { id, name, profile_path, roles }
+    item: { id, name, profile_path, roles },
   }) => (
     <ThumbLink href={personPath({ id })}>
-      <PersonThumb
-        imageUrl={profile_path}
-        name={name}
-        character={roles?.[0]?.character}
-      />
+      <PersonThumb character={roles?.[0]?.character} imageUrl={profile_path} name={name} />
     </ThumbLink>
-  );
+  )
 
   const renderItemSimilar: FlashListProps<TvItem>['renderItem'] = ({
-    item: { id, poster_path }
+    item: { id, poster_path },
   }) => (
     <ThumbLink href={tvPath({ id })}>
-      <Thumb type="tv" imageUrl={poster_path} />
+      <Thumb imageUrl={poster_path} type="tv" />
     </ThumbLink>
-  );
+  )
 
   const renderItemVideo: FlashListProps<VideoItem>['renderItem'] = ({
-    item: { key, name, site }
-  }) => <VideoThumb id={key} type="tv" platform={site} name={name} />;
+    item: { key, name, site },
+  }) => <VideoThumb id={key} name={name} platform={site} type="tv" />
 
   return (
     <ContentLayout
-      isLoading={isLoading || isLoadingLogo}
-      imageUrl={coverUrl}
-      title={!isLoadingLogo && name}
-      subtitle={genres}
-      logo={logo}
       badges={
         !isLoading && (
           <>
             {!!seasonsLength && (
               <Badge testID="seasons">
                 {seasonsLength}{' '}
-                {seasonsLength === 1 && (
-                  <FormattedMessage defaultMessage="season" id="FQ0kXF" />
-                )}
-                {seasonsLength > 1 && (
-                  <FormattedMessage defaultMessage="seasons" id="zTL1+t" />
-                )}
+                {seasonsLength === 1 && <FormattedMessage defaultMessage="season" id="FQ0kXF" />}
+                {seasonsLength > 1 && <FormattedMessage defaultMessage="seasons" id="zTL1+t" />}
               </Badge>
             )}
             {!!startYear && (
@@ -159,25 +142,26 @@ export default function Tv() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge testID="runtime" icon={ClockFillIcon}>
+              <Badge icon={ClockFillIcon} testID="runtime">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge testID="votes" icon={StarFillIcon}>
+              <Badge icon={StarFillIcon} testID="votes">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
           </>
         )
       }
+      imageUrl={coverUrl}
+      isLoading={isLoading || isLoadingLogo}
+      logo={logo}
+      subtitle={genres}
+      title={!isLoadingLogo && name}
     >
       {!!networkLink && (
-        <NetworkButton
-          id={networkLink.id}
-          link={networkLink.link}
-          style={globalStyles.centered}
-        />
+        <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
       )}
       {!!trailer && (
         <TrailerButton
@@ -187,7 +171,7 @@ export default function Tv() {
         />
       )}
       {(!!overview || !!tagline) && (
-        <Text variant="lg" style={styles.tagline}>
+        <Text style={styles.tagline} variant="lg">
           {overview || tagline}
         </Text>
       )}
@@ -196,10 +180,10 @@ export default function Tv() {
           <View>
             <List<SeasonItem>
               gap={theme.space.sm}
-              withoutSizing
               id="seasons-buttons"
               renderItem={renderItemSeason}
               results={seasonsLength > 1 ? seasons : null}
+              withoutSizing
             />
             {isLoadingSeason && (
               <View style={styles.seasonLoading}>
@@ -212,7 +196,7 @@ export default function Tv() {
               <View
                 style={[
                   styles.episodesContent,
-                  seasonsLength > 1 && styles.episodesContentMultipleSeasons
+                  seasonsLength > 1 && styles.episodesContentMultipleSeasons,
                 ]}
               >
                 <Text variant="h1">
@@ -224,22 +208,21 @@ export default function Tv() {
                     id="mYKY3z"
                     values={{
                       count: season.episodes.length,
-                      seasonNumber: season.season_number
+                      seasonNumber: season.season_number,
                     }}
                   />
-                  {seasonAirDate &&
-                    ` • ${new Date(seasonAirDate).getFullYear()}`}
+                  {seasonAirDate && ` • ${new Date(seasonAirDate).getFullYear()}`}
                 </Text>
                 <View style={styles.episodesList}>
                   {season.episodes.map((episode, index) => (
                     <EpisodeThumb
                       airDate={episode.air_date}
-                      number={index + 1}
-                      runtime={episode.runtime}
+                      imageUrl={episode.still_path}
                       key={`${index}-${episode.id}`}
                       name={episode.name}
-                      imageUrl={episode.still_path}
+                      number={index + 1}
                       overview={episode.overview}
+                      runtime={episode.runtime}
                     />
                   ))}
                 </View>
@@ -249,30 +232,29 @@ export default function Tv() {
         )}
         {(isLoadingCredits || (!!casting && casting.length > 0)) && (
           <List<CastItem>
-            title={<FormattedMessage defaultMessage="Casting" id="arTEbw" />}
-            isLoading={isLoadingCredits}
             id="cast"
+            isLoading={isLoadingCredits}
             renderItem={renderItemCast}
             results={casting}
+            title={<FormattedMessage defaultMessage="Casting" id="arTEbw" />}
           />
         )}
-        {(isLoadingVideos ||
-          (!!videos?.results && videos.results.length > 0)) && (
+        {(isLoadingVideos || (!!videos?.results && videos.results.length > 0)) && (
           <List<VideoItem>
-            numberOfItems={1}
-            title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
-            isLoading={isLoadingVideos}
             id="videos"
+            isLoading={isLoadingVideos}
+            numberOfItems={1}
             renderItem={renderItemVideo}
             results={videos?.results}
+            title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
           />
         )}
         {(isLoadingImages || !!images) && (
           <View style={globalStyles.centered}>
             <Images
+              backdrops={images?.backdrops}
               id={tvID}
               isLoading={isLoadingImages}
-              backdrops={images?.backdrops}
               posters={images?.posters}
               type="tv"
             />
@@ -280,48 +262,43 @@ export default function Tv() {
         )}
         {(isLoadingSimilar || similar?.results.length > 0) && (
           <List<TvItem>
-            title={
-              <FormattedMessage
-                defaultMessage="In the same spirit"
-                id="bxLtNh"
-              />
-            }
             id="similar"
             isLoading={isLoadingSimilar}
             renderItem={renderItemSimilar}
             results={similar?.results}
+            title={<FormattedMessage defaultMessage="In the same spirit" id="bxLtNh" />}
           />
         )}
       </View>
     </ContentLayout>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
+  content: {
+    gap: theme.space.xl,
+    marginTop: theme.space.xxl,
+  },
+  episodesContent: {
+    paddingHorizontal: theme.space.marginList,
+  },
+  episodesContentMultipleSeasons: {
+    marginTop: theme.space.xl,
+  },
+  episodesList: {
+    gap: theme.space.xl,
+    marginTop: theme.space.lg,
+  },
+  playButton: {
+    marginTop: theme.space.sm,
+  },
+  seasonLoading: {
+    height: 700,
+    marginTop: theme.space.xl,
+  },
   tagline: {
     color: theme.colors.white,
     marginTop: theme.space.md,
-    paddingHorizontal: theme.space.marginList
+    paddingHorizontal: theme.space.marginList,
   },
-  content: {
-    marginTop: theme.space.xxl,
-    gap: theme.space.xl
-  },
-  episodesContent: {
-    paddingHorizontal: theme.space.marginList
-  },
-  episodesContentMultipleSeasons: {
-    marginTop: theme.space.xl
-  },
-  episodesList: {
-    marginTop: theme.space.lg,
-    gap: theme.space.xl
-  },
-  seasonLoading: {
-    marginTop: theme.space.xl,
-    height: 700
-  },
-  playButton: {
-    marginTop: theme.space.sm
-  }
-});
+})

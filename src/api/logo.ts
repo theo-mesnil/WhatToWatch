@@ -1,75 +1,69 @@
-import type { UseQueryResult } from '@tanstack/react-query';
-import { useQuery } from '@tanstack/react-query';
-import type { AxiosResponse } from 'axios';
+import type { UseQueryResult } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+import type { AxiosResponse } from 'axios'
 
-import type { Locale } from 'constants/locales';
-import { LOCALE } from 'constants/locales';
-import type { ContentType } from 'types/content';
+import type { Locale } from '~/constants/locales'
+import { LOCALE } from '~/constants/locales'
+import type { ContentType } from '~/types/content'
 
-import { getApi } from './api';
-import type { paths } from './types';
+import { getApi } from './api'
+import type { paths } from './types'
 
 export type UseGetContentImagesApiResponse =
-  paths['/3/tv/{series_id}/images']['get']['responses']['200']['content']['application/json'];
-
-type useGetContentLogoProps = {
-  id: number;
-  type: ContentType;
-};
-
-function formatImageToLogo(
-  data: UseGetContentImagesApiResponse,
-  locale: Locale
-) {
-  const logo =
-    data.logos.filter((logo) => logo.iso_639_1 === locale)?.[0] ||
-    data.logos.filter((logo) => logo.iso_639_1 === 'en')?.[0];
-
-  const logoUrl = logo?.file_path;
-  const logoAspectRatio = logo?.aspect_ratio;
-  const isSvg = logoUrl?.endsWith('svg');
-
-  return logoUrl && !isSvg
-    ? {
-        url: logoUrl,
-        aspectRatio: logoAspectRatio
-      }
-    : null;
-}
+  paths['/3/tv/{series_id}/images']['get']['responses']['200']['content']['application/json']
 
 export type UseGetContentLogo = UseQueryResult<
-  {
-    aspectRatio: number;
-    url: string;
-  } | null,
+  null | {
+    aspectRatio: number
+    url: string
+  },
   Error
->;
+>
 
-export function useGetContentLogo(
-  props?: useGetContentLogoProps
-): UseGetContentLogo {
-  const { id, type } = props || {};
+type useGetContentLogoProps = {
+  id: number
+  type: ContentType
+}
 
-  const locales = `${LOCALE},en`;
+export function useGetContentLogo(props?: useGetContentLogoProps): UseGetContentLogo {
+  const { id, type } = props || {}
+
+  const locales = `${LOCALE},en`
 
   const { callApi } = getApi({
-    query: `${type}/${id}/images`,
     params: [
       {
         name: 'include_image_language',
-        value: locales
-      }
-    ]
-  });
+        value: locales,
+      },
+    ],
+    query: `${type}/${id}/images`,
+  })
 
   return useQuery({
-    queryKey: [type, id, 'images', 'logo', locales],
+    enabled: !!id && !!type,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetContentImagesApiResponse> =
-        await callApi();
+      const { data }: AxiosResponse<UseGetContentImagesApiResponse> = await callApi()
 
-      return formatImageToLogo(data, LOCALE);
+      return formatImageToLogo(data, LOCALE)
     },
-    enabled: !!id && !!type
-  });
+    queryKey: [type, id, 'images', 'logo', locales],
+  })
+}
+
+function formatImageToLogo(data: UseGetContentImagesApiResponse, locale: Locale) {
+  const logo =
+    data.logos.filter(logo => logo.iso_639_1 === locale)?.[0] ||
+    data.logos.filter(logo => logo.iso_639_1 === 'en')?.[0]
+
+  const logoUrl = logo?.file_path
+  const logoAspectRatio = logo?.aspect_ratio
+  const isSvg = logoUrl?.endsWith('svg')
+
+  return logoUrl && !isSvg
+    ? {
+        aspectRatio: logoAspectRatio,
+        url: logoUrl,
+      }
+    : null
 }

@@ -1,109 +1,102 @@
-import type { FlashListProps } from '@shopify/flash-list';
-import { useLocalSearchParams } from 'expo-router';
-import * as React from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import { StyleSheet, View } from 'react-native';
+import type { FlashListProps } from '@shopify/flash-list'
+import { useLocalSearchParams } from 'expo-router'
+import * as React from 'react'
+import { FormattedDate, FormattedMessage } from 'react-intl'
+import { StyleSheet, View } from 'react-native'
 
-import { useGetContentLogo } from 'api/logo';
+import { useGetContentLogo } from '~/api/logo'
 import type {
   UseGetMovieCreditsApiResponse,
   UseGetMovieSimilarApiResponse,
-  UseGetMovieVideosApiResponse
-} from 'api/movie';
+  UseGetMovieVideosApiResponse,
+} from '~/api/movie'
 import {
   useGetMovie,
   useGetMovieCredits,
   useGetMovieImages,
   useGetMovieSimilar,
-  useGetMovieVideos
-} from 'api/movie';
-import { Badge } from 'components/Badge';
-import { ClockFillIcon, StarFillIcon } from 'components/Icon';
-import { Images } from 'components/Images';
-import { List } from 'components/List';
-import { NetworkButton } from 'components/NetworkButton';
-import { PersonThumb } from 'components/PersonThumb';
-import { Text } from 'components/Text';
-import { Thumb } from 'components/Thumb';
-import { ThumbLink } from 'components/ThumbLink';
-import { TrailerButton } from 'components/TrailerButton';
-import { VideoThumb } from 'components/VideoThumb';
-import { ContentLayout } from 'layouts/Content';
-import { moviePath, personPath } from 'routes';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
-import { formatTime } from 'utils/time';
+  useGetMovieVideos,
+} from '~/api/movie'
+import { Badge } from '~/components/Badge'
+import { ClockFillIcon, StarFillIcon } from '~/components/Icon'
+import { Images } from '~/components/Images'
+import { List } from '~/components/List'
+import { NetworkButton } from '~/components/NetworkButton'
+import { PersonThumb } from '~/components/PersonThumb'
+import { Text } from '~/components/Text'
+import { Thumb } from '~/components/Thumb'
+import { ThumbLink } from '~/components/ThumbLink'
+import { TrailerButton } from '~/components/TrailerButton'
+import { VideoThumb } from '~/components/VideoThumb'
+import { ContentLayout } from '~/layouts//Content'
+import { moviePath, personPath } from '~/routes'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
+import { formatTime } from '~/utils/time'
 
-type CastItem = UseGetMovieCreditsApiResponse['cast'][number];
-type MovieItem = UseGetMovieSimilarApiResponse['results'][number];
-type VideoItem = UseGetMovieVideosApiResponse['results'][number];
+type CastItem = UseGetMovieCreditsApiResponse['cast'][number]
+type MovieItem = UseGetMovieSimilarApiResponse['results'][number]
+type VideoItem = UseGetMovieVideosApiResponse['results'][number]
 
 export default function Movie() {
-  const params = useLocalSearchParams<{ id: string }>();
-  const movieID = Number(params?.id);
+  const params = useLocalSearchParams<{ id: string }>()
+  const movieID = Number(params?.id)
 
-  const { data, isLoading } = useGetMovie({ id: movieID });
+  const { data, isLoading } = useGetMovie({ id: movieID })
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id: movieID,
-    type: 'movie'
-  });
+    type: 'movie',
+  })
   const { data: videos, isLoading: isLoadingVideos } = useGetMovieVideos({
-    id: movieID
-  });
+    id: movieID,
+  })
   const { data: credits, isLoading: isLoadingCredits } = useGetMovieCredits({
+    enabled: !isLoading,
     id: movieID,
-    enabled: !isLoading
-  });
+  })
   const { data: images, isLoading: isLoadingImages } = useGetMovieImages({
+    enabled: !isLoading,
     id: movieID,
-    enabled: !isLoading
-  });
+  })
   const { data: similar, isLoading: isLoadingSimilar } = useGetMovieSimilar({
+    enabled: !isLoading,
     id: movieID,
-    enabled: !isLoading
-  });
+  })
 
-  const casting = credits?.cast;
-  const coverUrl = data?.coverUrl;
-  const genres = data?.genres;
-  const networkLink = data?.networkLink;
-  const overview = data?.overview;
-  const rating = data?.rating;
-  const releaseDate = data?.releaseDate;
-  const runtime = data?.runtime;
-  const title = data?.title;
-  const tagline = data?.tagline;
-  const trailer = videos?.results?.filter(
-    (video) => video.type === 'Trailer'
-  )?.[0];
+  const casting = credits?.cast
+  const coverUrl = data?.coverUrl
+  const genres = data?.genres
+  const networkLink = data?.networkLink
+  const overview = data?.overview
+  const rating = data?.rating
+  const releaseDate = data?.releaseDate
+  const runtime = data?.runtime
+  const title = data?.title
+  const tagline = data?.tagline
+  const trailer = videos?.results?.filter(video => video.type === 'Trailer')?.[0]
 
   const renderItemCast: FlashListProps<CastItem>['renderItem'] = ({
-    item: { character, id, name, profile_path }
+    item: { character, id, name, profile_path },
   }) => (
     <ThumbLink href={personPath({ id })}>
-      <PersonThumb imageUrl={profile_path} name={name} character={character} />
+      <PersonThumb character={character} imageUrl={profile_path} name={name} />
     </ThumbLink>
-  );
+  )
 
   const renderItemMovie: FlashListProps<MovieItem>['renderItem'] = ({
-    item: { id, poster_path }
+    item: { id, poster_path },
   }) => (
     <ThumbLink href={moviePath({ id })}>
-      <Thumb type="movie" imageUrl={poster_path} />
+      <Thumb imageUrl={poster_path} type="movie" />
     </ThumbLink>
-  );
+  )
 
   const renderItemVideo: FlashListProps<VideoItem>['renderItem'] = ({
-    item: { key, name, site }
-  }) => <VideoThumb id={key} type="movie" platform={site} name={name} />;
+    item: { key, name, site },
+  }) => <VideoThumb id={key} name={name} platform={site} type="movie" />
 
   return (
     <ContentLayout
-      isLoading={isLoading || isLoadingLogo}
-      imageUrl={coverUrl}
-      title={!isLoadingLogo && title}
-      subtitle={genres}
-      logo={logo}
       badges={
         !isLoading && (
           <>
@@ -111,32 +104,33 @@ export default function Movie() {
               <Badge testID="release-date">
                 <FormattedDate
                   day="numeric"
-                  year="numeric"
                   month="long"
                   value={new Date(releaseDate)}
+                  year="numeric"
                 />
               </Badge>
             )}
             {!!runtime && (
-              <Badge testID="runtime" icon={ClockFillIcon}>
+              <Badge icon={ClockFillIcon} testID="runtime">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge testID="votes" icon={StarFillIcon}>
+              <Badge icon={StarFillIcon} testID="votes">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
           </>
         )
       }
+      imageUrl={coverUrl}
+      isLoading={isLoading || isLoadingLogo}
+      logo={logo}
+      subtitle={genres}
+      title={!isLoadingLogo && title}
     >
       {!!networkLink && (
-        <NetworkButton
-          id={networkLink.id}
-          link={networkLink.link}
-          style={globalStyles.centered}
-        />
+        <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
       )}
       {!!trailer && (
         <TrailerButton
@@ -147,70 +141,64 @@ export default function Movie() {
       )}
       <View style={styles.content}>
         {(!!overview || !!tagline) && (
-          <Text variant="lg" style={styles.tagline}>
+          <Text style={styles.tagline} variant="lg">
             {overview || tagline}
           </Text>
         )}
         {!!casting && casting.length > 0 && (
           <List<CastItem>
-            title={<FormattedMessage defaultMessage="Casting" id="arTEbw" />}
-            isLoading={isLoadingCredits}
             id="cast"
+            isLoading={isLoadingCredits}
             renderItem={renderItemCast}
             results={casting}
+            title={<FormattedMessage defaultMessage="Casting" id="arTEbw" />}
           />
         )}
-        {(isLoadingVideos ||
-          (!!videos?.results && videos.results.length > 0)) && (
+        {(isLoadingVideos || (!!videos?.results && videos.results.length > 0)) && (
           <List<VideoItem>
-            numberOfItems={1}
-            title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
-            isLoading={isLoadingVideos}
             id="videos"
+            isLoading={isLoadingVideos}
+            numberOfItems={1}
             renderItem={renderItemVideo}
             results={videos?.results}
+            title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
           />
         )}
         {(isLoadingImages || !!images) && (
           <View style={globalStyles.centered}>
             <Images
-              id={movieID}
-              type="movie"
-              posters={images?.posters}
               backdrops={images?.backdrops}
+              id={movieID}
               isLoading={isLoadingImages}
+              posters={images?.posters}
+              type="movie"
             />
           </View>
         )}
         {(isLoadingSimilar || similar?.results.length > 0) && (
           <List<MovieItem>
-            title={
-              <FormattedMessage
-                defaultMessage="In the same spirit"
-                id="bxLtNh"
-              />
-            }
             id="similar"
             isLoading={isLoadingSimilar}
             renderItem={renderItemMovie}
             results={similar?.results}
+            title={<FormattedMessage defaultMessage="In the same spirit" id="bxLtNh" />}
           />
         )}
       </View>
     </ContentLayout>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
+  content: {
+    gap: theme.space.xl,
+  },
+  playButton: {
+    marginTop: theme.space.sm,
+  },
   tagline: {
     color: theme.colors.white,
     marginTop: theme.space.md,
-    paddingHorizontal: theme.space.marginList
+    paddingHorizontal: theme.space.marginList,
   },
-  content: {
-    gap: theme.space.xl
-  },
-  playButton: {
-    marginTop: theme.space.sm
-  }
-});
+})

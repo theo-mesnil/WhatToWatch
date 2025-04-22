@@ -1,39 +1,38 @@
-import type { UseQueryResult } from '@tanstack/react-query';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render } from '@testing-library/react-native';
-import { IntlMessages } from 'locales';
-import * as React from 'react';
+import type { UseQueryResult } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { render } from '@testing-library/react-native'
+import * as React from 'react'
+
+import { IntlMessages } from '~/locales'
 
 type AllTheProvidersProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 const AllTheProviders = ({ children }: AllTheProvidersProps) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         // ✅ turns retries off
-        retry: false
-      }
-    }
-  });
+        retry: false,
+      },
+    },
+  })
 
   return (
     <IntlMessages>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </IntlMessages>
-  );
-};
+  )
+}
 
 const customRender = (ui: React.ReactElement, options?: unknown[]) =>
-  render(ui, { wrapper: AllTheProviders, ...options });
+  render(ui, { wrapper: AllTheProviders, ...options })
 
-export * from '@testing-library/react-native';
+export * from '@testing-library/react-native'
 
 export function mockQuery<T>(data: T): UseQueryResult<T> {
   return {
-    // @ts-ignore
-    promise: jest.fn(() => Promise.resolve({ data })),
     data,
     dataUpdatedAt: 1000000,
     error: null,
@@ -41,10 +40,12 @@ export function mockQuery<T>(data: T): UseQueryResult<T> {
     errorUpdatedAt: 100000,
     failureCount: 0,
     failureReason: null,
+    fetchStatus: 'idle',
     isError: false,
     isFetched: true,
     isFetchedAfterMount: false,
     isFetching: false,
+    isInitialLoading: false,
     isLoading: false,
     isLoadingError: false,
     isPaused: false,
@@ -54,11 +55,11 @@ export function mockQuery<T>(data: T): UseQueryResult<T> {
     isRefetching: false,
     isStale: false,
     isSuccess: true,
+    // @ts-expect-error (mocking a function)
+    promise: jest.fn(() => Promise.resolve({ data })),
     refetch: jest.fn(),
     status: 'success',
-    fetchStatus: 'idle',
-    isInitialLoading: false
-  };
+  }
 }
 
-export { customRender as render };
+export { customRender as render }

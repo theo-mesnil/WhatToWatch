@@ -1,45 +1,44 @@
-import { colors } from './colors';
+import { colors } from './colors'
 
-export type Text = 'h0' | 'h1' | 'h2' | 'h3' | 'md' | 'lg';
+export type Text = 'h0' | 'h1' | 'h2' | 'h3' | 'lg' | 'md'
 
 export type Texts = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   [key in Text]: {
-    color: string;
-    fontSize: number;
-    fontWeight: 'bold' | 'normal';
-  };
-};
+    color: string
+    fontSize: number
+    fontWeight: 'bold' | 'normal'
+  }
+}
 
 export const texts: Texts = {
   h0: {
+    color: colors.white,
     fontSize: 38,
     fontWeight: 'bold',
-    color: colors.white
   },
   h1: {
+    color: colors.white,
     fontSize: 24,
     fontWeight: 'bold',
-    color: colors.white
   },
   h2: {
+    color: colors.white,
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.white
   },
   h3: {
+    color: colors.white,
     fontSize: 16,
     fontWeight: 'bold',
-    color: colors.white
   },
   lg: {
+    color: colors.text,
     fontSize: 16,
     fontWeight: 'normal',
-    color: colors.text
   },
   md: {
+    color: colors.text,
     fontSize: 13,
     fontWeight: 'normal',
-    color: colors.text
-  }
-};
+  },
+}

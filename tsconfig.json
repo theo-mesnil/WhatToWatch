@@ -1,10 +1,10 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "baseUrl": "./src",
-    "noImplicitAny": true,
-    "types": ["node", "jest", "@testing-library/react-native"],
-    "module": "esnext"
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "types": ["node", "jest", "@testing-library/react-native"]
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
   "exclude": ["src/api/types.d.ts"]

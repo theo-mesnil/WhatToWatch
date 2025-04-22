@@ -1,64 +1,62 @@
-import * as React from 'react';
-import { Animated, StyleSheet } from 'react-native';
+import * as React from 'react'
+import { Animated, StyleSheet } from 'react-native'
 
-import { theme } from 'theme';
+import { theme } from '~/theme'
 
 type BasicLayoutProps = {
-  children: React.ReactNode;
-  contentContainerStyle?: any;
-  getScrollYPosition?: (value: Animated.Value) => void;
-  isView?: boolean;
-  titleOffset?: number;
-  titleOffsetSubtraction?: number;
-};
+  children: React.ReactNode
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contentContainerStyle?: any
+  getScrollYPosition?: (value: Animated.Value) => void
+  isView?: boolean
+  titleOffset?: number
+  titleOffsetSubtraction?: number
+}
 
 export function BasicLayout({
   children,
   contentContainerStyle = {},
   getScrollYPosition,
-  isView = false
+  isView = false,
 }: BasicLayoutProps) {
-  const [scrollY] = React.useState(new Animated.Value(0));
+  const [scrollY] = React.useState(new Animated.Value(0))
 
-  const AnimateComponent = isView ? Animated.View : Animated.ScrollView;
+  const AnimateComponent = isView ? Animated.View : Animated.ScrollView
 
-  React.useEffect(
-    () => getScrollYPosition?.(scrollY),
-    [getScrollYPosition, scrollY]
-  );
+  React.useEffect(() => getScrollYPosition?.(scrollY), [getScrollYPosition, scrollY])
 
   return (
     <AnimateComponent
-      style={styles.wrapper}
+      bounces={false}
+      contentContainerStyle={contentContainerStyle}
       onScroll={
         !isView
           ? Animated.event(
               [
                 {
                   nativeEvent: {
-                    contentOffset: { y: scrollY }
-                  }
-                }
+                    contentOffset: { y: scrollY },
+                  },
+                },
               ],
               {
-                useNativeDriver: false
+                useNativeDriver: false,
               }
             )
           : undefined
       }
-      bounces={false}
       scrollEventThrottle={1}
-      contentContainerStyle={contentContainerStyle}
       showsVerticalScrollIndicator={false}
+      style={styles.wrapper}
     >
       {children}
     </AnimateComponent>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: theme.colors.behind,
-    flex: 1
-  }
-});
+    flex: 1,
+  },
+})

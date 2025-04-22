@@ -1,5 +1,5 @@
-import type { UseGetMovie } from 'api/movie';
-import { NETWORK_NETFLIX_ID } from 'constants/networks';
+import type { UseGetMovie } from '~/api/movie'
+import { NETWORK_NETFLIX_ID } from '~/constants/networks'
 
 export const MOCK_MOVIE: UseGetMovie['data'] = {
   coverUrl: '/hziiv14OpD73u9gAak4XDDfBKa2.jpg',
@@ -10,13 +10,13 @@ export const MOCK_MOVIE: UseGetMovie['data'] = {
   releaseDate: '2001-11-16',
   runtime: 152,
   tagline: 'Let the magic begin.',
-  title: "Harry Potter and the Philosopher's Stone"
-};
+  title: "Harry Potter and the Philosopher's Stone",
+}
 
 export const MOCK_MOVIE_WITH_NETWORK: UseGetMovie['data'] = {
   ...MOCK_MOVIE,
   networkLink: {
     id: NETWORK_NETFLIX_ID,
-    link: 'link-to-network'
-  }
-};
+    link: 'link-to-network',
+  },
+}

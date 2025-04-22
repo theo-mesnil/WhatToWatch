@@ -1,21 +1,15 @@
-import type { TextProps as RNTextProps } from 'react-native';
-import { Text as RNText } from 'react-native';
+import type { TextProps as RNTextProps } from 'react-native'
+import { Text as RNText } from 'react-native'
 
-import { theme } from 'theme';
-import type { Text as ThemeText } from 'theme';
+import { theme } from '~/theme'
+import type { Text as ThemeText } from '~/theme'
 
 export type TextProps = Pick<
   RNTextProps,
-  | 'children'
-  | 'style'
-  | 'numberOfLines'
-  | 'onPress'
-  | 'onTextLayout'
-  | 'ellipsizeMode'
-  | 'testID'
+  'children' | 'ellipsizeMode' | 'numberOfLines' | 'onPress' | 'onTextLayout' | 'style' | 'testID'
 > & {
-  variant?: ThemeText;
-};
+  variant?: ThemeText
+}
 
 export const Text: React.FC<TextProps> = ({
   children,
@@ -25,22 +19,18 @@ export const Text: React.FC<TextProps> = ({
   onTextLayout,
   style,
   testID,
-  variant = 'md'
+  variant = 'md',
 }) => {
   return (
     <RNText
-      testID={testID}
-      style={[
-        theme.texts[variant],
-        { lineHeight: theme.texts[variant].fontSize + 3 },
-        style
-      ]}
+      ellipsizeMode={ellipsizeMode}
       numberOfLines={numberOfLines}
       onPress={onPress}
       onTextLayout={onTextLayout}
-      ellipsizeMode={ellipsizeMode}
+      style={[theme.texts[variant], { lineHeight: theme.texts[variant].fontSize + 3 }, style]}
+      testID={testID}
     >
       {children}
     </RNText>
-  );
-};
+  )
+}

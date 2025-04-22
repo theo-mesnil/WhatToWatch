@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
 const Link = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
 
-const useNavigation = jest.fn().mockReturnValue({ setOptions: jest.fn() });
-const useLocalSearchParams = jest.fn().mockReturnValue({ id: '1' });
+const useNavigation = jest.fn().mockReturnValue({ setOptions: jest.fn() })
+const useLocalSearchParams = jest.fn().mockReturnValue({ id: '1' })
 
-export { Link, useNavigation, useLocalSearchParams };
+export { Link, useLocalSearchParams, useNavigation }

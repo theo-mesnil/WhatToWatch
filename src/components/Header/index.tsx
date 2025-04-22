@@ -1,23 +1,23 @@
-import { BlurView } from 'expo-blur';
-import { useNavigation } from 'expo-router';
-import { Animated, StyleSheet, View } from 'react-native';
+import { BlurView } from 'expo-blur'
+import { useNavigation } from 'expo-router'
+import { Animated, StyleSheet, View } from 'react-native'
 
-import { Button } from 'components/Button';
-import { ArrowBackIcon, Icon } from 'components/Icon';
-import { Text } from 'components/Text';
-import { isAndroid } from 'constants/screen';
-import { useSafeHeights } from 'constants/useSafeHeights';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
+import { Button } from '~/components/Button'
+import { ArrowBackIcon, Icon } from '~/components/Icon'
+import { Text } from '~/components/Text'
+import { isAndroid } from '~/constants/screen'
+import { useSafeHeights } from '~/constants/useSafeHeights'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
 type HeaderProps = {
-  component?: React.ReactNode;
-  customTitle?: React.ReactNode;
-  hideOnStart?: boolean;
-  scrollY?: Animated.Value;
-  title?: React.ReactNode | string;
-  withBackButton?: boolean;
-};
+  component?: React.ReactNode
+  customTitle?: React.ReactNode
+  hideOnStart?: boolean
+  scrollY?: Animated.Value
+  title?: React.ReactNode | string
+  withBackButton?: boolean
+}
 
 export const Header: React.FC<HeaderProps> = ({
   component,
@@ -25,13 +25,12 @@ export const Header: React.FC<HeaderProps> = ({
   hideOnStart,
   scrollY,
   title,
-  withBackButton
+  withBackButton,
 }) => {
-  const navigation = useNavigation();
-  const { headerHeight, headerSafeHeight, statusBarHeight } =
-    useSafeHeights(!!component);
+  const navigation = useNavigation()
+  const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights(!!component)
 
-  const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
+  const AnimatedBlurView = Animated.createAnimatedComponent(BlurView)
 
   return (
     <Animated.View
@@ -41,37 +40,37 @@ export const Header: React.FC<HeaderProps> = ({
         hideOnStart && {
           opacity: scrollY?.interpolate({
             inputRange: [0, 50],
-            outputRange: [0, 1]
-          })
-        }
+            outputRange: [0, 1],
+          }),
+        },
       ]}
     >
       {isAndroid ? (
         <Animated.View
           style={[
             {
+              backgroundColor: theme.colors.ahead,
               opacity: scrollY?.interpolate({
                 inputRange: [0, 50],
-                outputRange: [0, 1]
+                outputRange: [0, 1],
               }),
-              backgroundColor: theme.colors.ahead
             },
-            globalStyles.absoluteFill
+            globalStyles.absoluteFill,
           ]}
         />
       ) : (
         <AnimatedBlurView
+          intensity={150}
           style={[
             {
               opacity: scrollY?.interpolate({
                 inputRange: [0, 50],
-                outputRange: [0, 1]
-              })
+                outputRange: [0, 1],
+              }),
             },
-            globalStyles.absoluteFill
+            globalStyles.absoluteFill,
           ]}
           tint="dark"
-          intensity={150}
         />
       )}
       <View
@@ -79,17 +78,17 @@ export const Header: React.FC<HeaderProps> = ({
           styles.content,
           {
             height: headerHeight,
-            marginTop: statusBarHeight
-          }
+            marginTop: statusBarHeight,
+          },
         ]}
       >
         {withBackButton && (
           <View style={styles.firstLast}>
             <Button
-              testID="header-back-button"
-              isTransparent
               isCustomChildren
+              isTransparent
               onPress={() => navigation.goBack()}
+              testID="header-back-button"
             >
               <Icon icon={ArrowBackIcon} size={30} />
             </Button>
@@ -103,32 +102,32 @@ export const Header: React.FC<HeaderProps> = ({
       </View>
       {component && <View style={styles.input}>{component}</View>}
     </Animated.View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
-  wrapper: {
-    width: '100%',
-    position: 'absolute',
-    zIndex: 999
-  },
   content: {
-    paddingHorizontal: theme.space.lg,
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  input: {
-    paddingHorizontal: theme.space.lg
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: theme.space.lg,
   },
   firstLast: {
-    width: 50
+    width: 50,
+  },
+  input: {
+    paddingHorizontal: theme.space.lg,
   },
   middle: {
+    flex: 1,
     flexDirection: 'row',
-    flex: 1
   },
   middleCustom: {
-    justifyContent: 'center'
-  }
-});
+    justifyContent: 'center',
+  },
+  wrapper: {
+    position: 'absolute',
+    width: '100%',
+    zIndex: 999,
+  },
+})

@@ -1,41 +1,42 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import type { AxiosResponse } from 'axios';
+import { useInfiniteQuery } from '@tanstack/react-query'
+import type { AxiosResponse } from 'axios'
 
-import { LOCALE } from 'constants/locales';
+import { LOCALE } from '~/constants/locales'
 
-import { getApi } from './api';
-import type { paths } from './types';
+import { getApi } from './api'
+import type { paths } from './types'
 
-export type Type = 'all' | 'tv' | 'movie' | 'person';
-
-export type UseGetTrendingApiResponse = {
-  all: paths['/3/trending/all/{time_window}']['get']['responses']['200']['content']['application/json'];
-  movie: paths['/3/trending/movie/{time_window}']['get']['responses']['200']['content']['application/json'];
-  person: paths['/3/trending/person/{time_window}']['get']['responses']['200']['content']['application/json'];
-  tv: paths['/3/trending/tv/{time_window}']['get']['responses']['200']['content']['application/json'];
-};
+export type Type = 'all' | 'movie' | 'person' | 'tv'
 
 export type UseGetTrendingApiProps = {
-  maxPages?: number;
-  type?: Type;
-};
+  maxPages?: number
+  type?: Type
+}
+
+export type UseGetTrendingApiResponse = {
+  all: paths['/3/trending/all/{time_window}']['get']['responses']['200']['content']['application/json']
+  movie: paths['/3/trending/movie/{time_window}']['get']['responses']['200']['content']['application/json']
+  person: paths['/3/trending/person/{time_window}']['get']['responses']['200']['content']['application/json']
+  tv: paths['/3/trending/tv/{time_window}']['get']['responses']['200']['content']['application/json']
+}
 
 export function useGetTrending(props?: UseGetTrendingApiProps) {
-  const { maxPages = 30, type = 'all' } = props || {};
+  const { maxPages = 30, type = 'all' } = props || {}
   const { callApi } = getApi({
-    query: `trending/${type}/day`
-  });
+    query: `trending/${type}/day`,
+  })
 
-  return useInfiniteQuery({
-    queryKey: ['trending', type, LOCALE],
-    queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetTrendingApiResponse[Type]> =
-        await callApi(pageParam);
-      return data;
+  return useInfiniteQuery<UseGetTrendingApiResponse[Type], Error>({
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined
     },
     initialPageParam: 1,
-    getNextPageParam: ({ page }) => {
-      return page + 1 <= maxPages ? page + 1 : undefined;
-    }
-  });
+    queryFn: async ({ pageParam }) => {
+      const { data }: AxiosResponse<UseGetTrendingApiResponse[Type]> = await callApi(
+        pageParam as number
+      )
+      return data
+    },
+    queryKey: ['trending', type, LOCALE],
+  })
 }

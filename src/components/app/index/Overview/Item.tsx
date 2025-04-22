@@ -1,37 +1,37 @@
-import { Link } from 'expo-router';
-import { FormattedMessage } from 'react-intl';
-import { Image, ImageBackground, StyleSheet, View } from 'react-native';
-import { routeByType } from 'routes/utils';
+import { Link } from 'expo-router'
+import { FormattedMessage } from 'react-intl'
+import { Image, ImageBackground, StyleSheet, View } from 'react-native'
 
-import { useGetContentLogo } from 'api/logo';
-import { Button } from 'components/Button';
-import { Gradient } from 'components/Gradient';
-import { ArrowNextIcon } from 'components/Icon';
-import { Text } from 'components/Text';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
-import type { ContentType } from 'types/content';
-import { getImageUrl } from 'utils/images';
+import { useGetContentLogo } from '~/api/logo'
+import { Button } from '~/components/Button'
+import { Gradient } from '~/components/Gradient'
+import { ArrowNextIcon } from '~/components/Icon'
+import { Text } from '~/components/Text'
+import { routeByType } from '~/routes/utils'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
+import type { ContentType } from '~/types/content'
+import { getImageUrl } from '~/utils/images'
 
 export type ItemProps = {
-  description?: string;
-  id: number;
-  imageUrl: string;
-  title: string;
-  type: ContentType;
-};
+  description?: string
+  id: number
+  imageUrl: string
+  title: string
+  type: ContentType
+}
 
 export function Item({ description, id, imageUrl, title, type }: ItemProps) {
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id,
-    type
-  });
+    type,
+  })
 
   return (
     <View style={styles.wrapper}>
       <ImageBackground
         source={{
-          uri: getImageUrl(imageUrl, 'w1280')
+          uri: getImageUrl(imageUrl, 'w1280'),
         }}
         style={globalStyles.absoluteFill}
       />
@@ -39,8 +39,8 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
         <Gradient colors={['transparent', theme.colors.behind]} />
         {!isLoadingLogo && logo && (
           <Image
-            style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
             src={getImageUrl(logo.url, 'w500')}
+            style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
           />
         )}
         {!isLoadingLogo && !logo && (
@@ -48,49 +48,44 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
             {title}
           </Text>
         )}
-        <Text style={styles.subtitle} numberOfLines={3}>
+        <Text numberOfLines={3} style={styles.subtitle}>
           {description}
         </Text>
-        <Link href={routeByType({ type, id })} asChild>
-          <Button
-            style={styles.cta}
-            variant="secondary"
-            size="lg"
-            icon={ArrowNextIcon}
-          >
+        <Link asChild href={routeByType({ id, type })}>
+          <Button icon={ArrowNextIcon} size="lg" style={styles.cta} variant="secondary">
             <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
           </Button>
         </Link>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    height: 600,
-    justifyContent: 'flex-end'
-  },
   content: {
+    alignItems: 'center',
     height: 400,
     justifyContent: 'flex-end',
-    alignItems: 'center',
     paddingBottom: 40,
-    paddingHorizontal: theme.space.xxl
+    paddingHorizontal: theme.space.xxl,
   },
-  title: {
-    textAlign: 'center'
+  cta: {
+    marginTop: theme.space.lg,
+  },
+  logo: {
+    maxHeight: 150,
+    width: 250,
   },
   subtitle: {
     color: theme.colors.white,
+    marginTop: theme.space.sm,
     textAlign: 'center',
-    marginTop: theme.space.sm
   },
-  cta: {
-    marginTop: theme.space.lg
+  title: {
+    textAlign: 'center',
   },
-  logo: {
-    width: 250,
-    maxHeight: 150
-  }
-});
+  wrapper: {
+    height: 600,
+    justifyContent: 'flex-end',
+  },
+})

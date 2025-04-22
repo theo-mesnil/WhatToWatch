@@ -1,27 +1,27 @@
-import { useNavigation } from 'expo-router';
-import * as React from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { useNavigation } from 'expo-router'
+import * as React from 'react'
+import { Animated, StyleSheet, View } from 'react-native'
 
-import { Text } from 'components/Text';
-import { COVER_HEIGHT } from 'constants/cover';
-import { BasicLayout } from 'layouts/Basic';
-import { theme } from 'theme';
+import { Text } from '~/components/Text'
+import { COVER_HEIGHT } from '~/constants/cover'
+import { BasicLayout } from '~/layouts//Basic'
+import { theme } from '~/theme'
 
-import { Cover } from './Cover';
-import { Header } from './Header';
+import { Cover } from './Cover'
+import { Header } from './Header'
 
 export type ContentLayoutProps = {
-  badges?: React.ReactNode;
-  children: React.ReactNode;
-  imageUrl?: string;
-  isLoading?: boolean;
+  badges?: React.ReactNode
+  children: React.ReactNode
+  imageUrl?: string
+  isLoading?: boolean
   logo?: {
-    aspectRatio: number;
-    url: string;
-  };
-  subtitle?: string;
-  title?: string;
-};
+    aspectRatio: number
+    url: string
+  }
+  subtitle?: string
+  title?: string
+}
 
 export function ContentLayout({
   badges,
@@ -30,56 +30,49 @@ export function ContentLayout({
   isLoading,
   logo,
   subtitle,
-  title
+  title,
 }: ContentLayoutProps) {
-  const [scrollYPosition, getScrollYPosition] = React.useState(
-    new Animated.Value(0)
-  );
-  const navigation = useNavigation();
+  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
+  const navigation = useNavigation()
 
   const HeaderComponent = React.useCallback(
-    () => <Header title={title} scrollY={scrollYPosition} />,
+    () => <Header scrollY={scrollYPosition} title={title} />,
     [scrollYPosition, title]
-  );
+  )
 
   React.useEffect(() => {
     navigation.setOptions({
-      header: HeaderComponent
-    });
-  }, [HeaderComponent, navigation]);
+      header: HeaderComponent,
+    })
+  }, [HeaderComponent, navigation])
 
   return (
     <BasicLayout
-      getScrollYPosition={getScrollYPosition}
       contentContainerStyle={{ paddingBottom: theme.space.xl }}
+      getScrollYPosition={getScrollYPosition}
     >
-      <Cover
-        isLoading={isLoading}
-        imageUrl={imageUrl}
-        title={title}
-        logo={logo}
-      />
+      <Cover imageUrl={imageUrl} isLoading={isLoading} logo={logo} title={title} />
       <View style={styles.infos}>
         {badges && <View style={styles.badges}>{badges}</View>}
         {subtitle && <Text testID="subtitle">{subtitle}</Text>}
       </View>
       {children}
     </BasicLayout>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
-  infos: {
-    marginTop: COVER_HEIGHT + theme.space.lg,
-    paddingHorizontal: theme.space.xxl,
-    paddingBottom: theme.space.lg,
-    alignItems: 'center',
-    gap: theme.space.sm
-  },
   badges: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: theme.space.xs,
     justifyContent: 'center',
-    gap: theme.space.xs
-  }
-});
+  },
+  infos: {
+    alignItems: 'center',
+    gap: theme.space.sm,
+    marginTop: COVER_HEIGHT + theme.space.lg,
+    paddingBottom: theme.space.lg,
+    paddingHorizontal: theme.space.xxl,
+  },
+})

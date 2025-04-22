@@ -1,10 +1,10 @@
-import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
-import { BlurView } from 'expo-blur';
-import { Tabs } from 'expo-router';
-import * as React from 'react';
-import { useIntl } from 'react-intl';
+import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
+import { BlurView } from 'expo-blur'
+import { Tabs } from 'expo-router'
+import * as React from 'react'
+import { useIntl } from 'react-intl'
 
-import type { IconElement } from 'components/Icon';
+import type { IconElement } from '~/components/Icon'
 import {
   EyeFillIcon,
   EyeIcon,
@@ -12,39 +12,16 @@ import {
   FlashIcon,
   Icon,
   SearchFillIcon,
-  SearchIcon
-} from 'components/Icon';
-import { isAndroid, isIos } from 'constants/screen';
-import { useSafeHeights } from 'constants/useSafeHeights';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
-
-function tabBarIcon({
-  focused,
-  icon: IconComponent,
-  iconFocused: IconComponentFocused
-}: {
-  focused: boolean;
-  icon: IconElement;
-  iconFocused: IconElement;
-}) {
-  return (
-    <Icon
-      color={focused ? 'brand-500' : 'text'}
-      icon={focused ? IconComponentFocused : IconComponent}
-    />
-  );
-}
-
-function BottomBarBackground() {
-  return (
-    <BlurView tint="dark" intensity={150} style={globalStyles.absoluteFill} />
-  );
-}
+  SearchIcon,
+} from '~/components/Icon'
+import { isAndroid, isIos } from '~/constants/screen'
+import { useSafeHeights } from '~/constants/useSafeHeights'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
 export default function Layout() {
-  const intl = useIntl();
-  const { tabBarBottomHeight } = useSafeHeights();
+  const intl = useIntl()
+  const { tabBarBottomHeight } = useSafeHeights()
 
   const screenOptions: BottomTabNavigationOptions = {
     headerTransparent: true,
@@ -52,70 +29,91 @@ export default function Layout() {
     tabBarBackground: isIos ? BottomBarBackground : undefined,
     tabBarInactiveTintColor: theme.colors.text,
     tabBarLabelStyle: {
+      fontFamily: 'Poppins_400Regular',
       fontSize: 12,
-      fontFamily: 'Poppins_400Regular'
     },
     tabBarStyle: isAndroid
       ? {
-          height: tabBarBottomHeight,
           backgroundColor: theme.colors.ahead,
+          borderTopWidth: 0,
+          height: tabBarBottomHeight,
           position: 'absolute',
-          borderTopWidth: 0
         }
       : {
-          height: tabBarBottomHeight,
           borderTopColor: 'transparent',
-          position: 'absolute'
-        }
-  };
+          height: tabBarBottomHeight,
+          position: 'absolute',
+        },
+  }
 
   return (
     <Tabs screenOptions={screenOptions}>
       <Tabs.Screen
         name="index"
         options={{
-          title: intl.formatMessage({
-            defaultMessage: 'Discover',
-            id: 'cE4Hfw'
-          }),
-          tabBarIcon: (props) =>
+          tabBarIcon: props =>
             tabBarIcon({
               ...props,
               icon: FlashIcon,
-              iconFocused: FlashFillIcon
-            })
+              iconFocused: FlashFillIcon,
+            }),
+          title: intl.formatMessage({
+            defaultMessage: 'Discover',
+            id: 'cE4Hfw',
+          }),
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          title: intl.formatMessage({
-            defaultMessage: 'Search',
-            id: 'xmcVZ0'
-          }),
-          tabBarIcon: (props) =>
+          tabBarIcon: props =>
             tabBarIcon({
               ...props,
               icon: SearchIcon,
-              iconFocused: SearchFillIcon
-            })
+              iconFocused: SearchFillIcon,
+            }),
+          title: intl.formatMessage({
+            defaultMessage: 'Search',
+            id: 'xmcVZ0',
+          }),
         }}
       />
       <Tabs.Screen
         name="streaming"
         options={{
-          title: intl.formatMessage({
-            defaultMessage: 'Streaming',
-            id: 'NCupKV'
-          }),
-          tabBarIcon: (props) =>
+          tabBarIcon: props =>
             tabBarIcon({
               ...props,
               icon: EyeIcon,
-              iconFocused: EyeFillIcon
-            })
+              iconFocused: EyeFillIcon,
+            }),
+          title: intl.formatMessage({
+            defaultMessage: 'Streaming',
+            id: 'NCupKV',
+          }),
         }}
       />
     </Tabs>
-  );
+  )
+}
+
+function BottomBarBackground() {
+  return <BlurView intensity={150} style={globalStyles.absoluteFill} tint="dark" />
+}
+
+function tabBarIcon({
+  focused,
+  icon: IconComponent,
+  iconFocused: IconComponentFocused,
+}: {
+  focused: boolean
+  icon: IconElement
+  iconFocused: IconElement
+}) {
+  return (
+    <Icon
+      color={focused ? 'brand-500' : 'text'}
+      icon={focused ? IconComponentFocused : IconComponent}
+    />
+  )
 }

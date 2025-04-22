@@ -1,1 +1,1 @@
-export type HeaderOptions = { options: { title: string } };
+export type HeaderOptions = { options: { title: string } }
