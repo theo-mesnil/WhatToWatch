@@ -17,5 +17,6 @@ export default config(
     'web-build/*',
     'node_modules/*',
     'coverage/*',
+    'src/locales/*',
   ])
 )

@@ -7,8 +7,8 @@ import type {
   NETWORK_NETFLIX_ID,
   NETWORK_PARAMOUNT_PLUS,
   NETWORK_PRIME_VIDEO,
-  NETWORK_SHOWTIME_ID
-} from 'constants/networks';
+  NETWORK_SHOWTIME_ID,
+} from 'constants/networks'
 
 export type NetworkId =
   | typeof NETWORK_APPLE_TV_PLUS_ID
@@ -19,17 +19,10 @@ export type NetworkId =
   | typeof NETWORK_NETFLIX_ID
   | typeof NETWORK_PARAMOUNT_PLUS
   | typeof NETWORK_PRIME_VIDEO
-  | typeof NETWORK_SHOWTIME_ID;
+  | typeof NETWORK_SHOWTIME_ID
 
-export type ContentType = 'tv' | 'movie' | 'person';
+export type ContentType = 'tv' | 'movie' | 'person'
 
-export type ImageSize = ImageSizePoster | ImageSizeBackdrop;
-export type ImageSizeBackdrop = 'original' | 'w300' | 'w780' | 'w1280';
-export type ImageSizePoster =
-  | 'original'
-  | 'w154'
-  | 'w185'
-  | 'w342'
-  | 'w500'
-  | 'w780'
-  | 'w92';
+export type ImageSize = ImageSizePoster | ImageSizeBackdrop
+export type ImageSizeBackdrop = 'original' | 'w300' | 'w780' | 'w1280'
+export type ImageSizePoster = 'original' | 'w154' | 'w185' | 'w342' | 'w500' | 'w780' | 'w92'

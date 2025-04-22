@@ -1,27 +1,24 @@
-import { useNavigation } from 'expo-router';
-import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { useNavigation } from 'expo-router'
+import * as React from 'react'
+import { StyleSheet, View } from 'react-native'
 
-
-import { Button } from 'components/Button';
-import { CrossIcon, Icon } from 'components/Icon';
-import { isAndroid } from 'constants/screen';
-import { useSafeHeights } from 'constants/useSafeHeights';
-import { theme } from 'theme';
+import { Button } from 'components/Button'
+import { CrossIcon, Icon } from 'components/Icon'
+import { isAndroid } from 'constants/screen'
+import { useSafeHeights } from 'constants/useSafeHeights'
+import { theme } from 'theme'
 
 export type ModalLayoutProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 export default function ModalLayout({ children }: ModalLayoutProps) {
-  const navigation = useNavigation();
-  const { statusBarHeight } = useSafeHeights();
+  const navigation = useNavigation()
+  const { statusBarHeight } = useSafeHeights()
 
   const HeaderComponent = React.useCallback(
     () => (
-      <View
-        style={[styles.header, isAndroid && { paddingTop: statusBarHeight }]}
-      >
+      <View style={[styles.header, isAndroid && { paddingTop: statusBarHeight }]}>
         <Button
           testID="header-close-button"
           isCustomChildren
@@ -33,15 +30,15 @@ export default function ModalLayout({ children }: ModalLayoutProps) {
       </View>
     ),
     [navigation, statusBarHeight]
-  );
+  )
 
   React.useEffect(() => {
     navigation.setOptions({
-      header: HeaderComponent
-    });
-  }, [HeaderComponent, navigation]);
+      header: HeaderComponent,
+    })
+  }, [HeaderComponent, navigation])
 
-  return <View style={styles.wrapper}>{children}</View>;
+  return <View style={styles.wrapper}>{children}</View>
 }
 
 const styles = StyleSheet.create({
@@ -49,12 +46,12 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.behind,
     alignItems: 'flex-end',
     position: 'absolute',
-    width: '100%'
+    width: '100%',
   },
   wrapper: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: theme.colors.behind
+    backgroundColor: theme.colors.behind,
   },
   closeButton: {
     width: 30,
@@ -63,6 +60,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     backgroundColor: theme.colors['default-600'],
     marginRight: theme.space.md,
-    marginTop: theme.space.md
-  }
-});
+    marginTop: theme.space.md,
+  },
+})

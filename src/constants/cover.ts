@@ -1,1 +1,1 @@
-export const COVER_HEIGHT = 450;
+export const COVER_HEIGHT = 450

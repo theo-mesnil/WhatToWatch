@@ -1,49 +1,49 @@
-import type { FlashListProps, ViewToken } from '@shopify/flash-list';
-import { AnimatedFlashList } from '@shopify/flash-list';
-import * as React from 'react';
-import { Animated, Dimensions, StyleSheet, View } from 'react-native';
-import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import type { FlashListProps, ViewToken } from '@shopify/flash-list'
+import { AnimatedFlashList } from '@shopify/flash-list'
+import * as React from 'react'
+import { Animated, Dimensions, StyleSheet, View } from 'react-native'
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 
-import type { UseGetTrendingApiResponse } from 'api/trending';
-import { useGetTrending } from 'api/trending';
-import { Loader } from 'components/Loader';
-import { theme } from 'theme';
-import type { ContentType } from 'types/content';
+import type { UseGetTrendingApiResponse } from 'api/trending'
+import { useGetTrending } from 'api/trending'
+import { Loader } from 'components/Loader'
+import { theme } from 'theme'
+import type { ContentType } from 'types/content'
 
-import { Item } from './Item';
+import { Item } from './Item'
 
-type Item = UseGetTrendingApiResponse['all']['results'][number];
+type Item = UseGetTrendingApiResponse['all']['results'][number]
 
 export function Overview() {
-  const [activeSlide, setActiveSlide] = React.useState(0);
-  const [isScrolling, setIsScrolling] = React.useState(false);
-  const [lastContentOffset, setLastContentOffset] = React.useState(0);
-  const [direction, setDirection] = React.useState<'left' | 'right'>('left');
-  const [width] = React.useState(new Animated.Value(10));
-  const [prevWidth] = React.useState(new Animated.Value(20));
+  const [activeSlide, setActiveSlide] = React.useState(0)
+  const [isScrolling, setIsScrolling] = React.useState(false)
+  const [lastContentOffset, setLastContentOffset] = React.useState(0)
+  const [direction, setDirection] = React.useState<'left' | 'right'>('left')
+  const [width] = React.useState(new Animated.Value(10))
+  const [prevWidth] = React.useState(new Animated.Value(20))
 
-  const { data, isLoading } = useGetTrending();
+  const { data, isLoading } = useGetTrending()
   const results = data?.pages
-    ?.map((page) => page.results)
+    ?.map(page => page.results)
     .flat()
-    .slice(0, 5);
+    .slice(0, 5)
 
-  const itemSize = Dimensions.get('window').width;
+  const itemSize = Dimensions.get('window').width
 
   const onViewableItemsChanged = React.useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
-      const active = viewableItems?.[0]?.index;
+      const active = viewableItems?.[0]?.index
 
       if (active || active === 0) {
-        setActiveSlide(active);
+        setActiveSlide(active)
       }
     },
     []
-  );
+  )
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({
     // @ts-expect-error (name is for tv type)
-    item: { backdrop_path, id, media_type, name, overview, title }
+    item: { backdrop_path, id, media_type, name, overview, title },
   }) => {
     return (
       <View style={{ width: itemSize }}>
@@ -55,56 +55,56 @@ export function Overview() {
           description={overview}
         />
       </View>
-    );
-  };
+    )
+  }
 
   const widthAnimated = Animated.timing(width, {
     toValue: 20,
     duration: 200,
-    useNativeDriver: false
-  });
+    useNativeDriver: false,
+  })
 
   const prevWidthAnimated = Animated.timing(prevWidth, {
     toValue: 10,
     duration: 200,
-    useNativeDriver: false
-  });
+    useNativeDriver: false,
+  })
 
   function onScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
     if (lastContentOffset > event.nativeEvent.contentOffset.x) {
       if (isScrolling) {
-        setDirection('left');
+        setDirection('left')
       }
     } else if (lastContentOffset < event.nativeEvent.contentOffset.x) {
       if (isScrolling) {
-        setDirection('right');
+        setDirection('right')
       }
     }
-    setLastContentOffset(event.nativeEvent.contentOffset.x);
+    setLastContentOffset(event.nativeEvent.contentOffset.x)
   }
 
   function onScrollBeginDrag() {
-    setIsScrolling(true);
+    setIsScrolling(true)
   }
 
   function onScrollEndDrag() {
-    setIsScrolling(true);
+    setIsScrolling(true)
   }
 
   React.useEffect(() => {
-    prevWidthAnimated.reset();
-    prevWidthAnimated.start();
-    widthAnimated.reset();
-    widthAnimated.start();
+    prevWidthAnimated.reset()
+    prevWidthAnimated.start()
+    widthAnimated.reset()
+    widthAnimated.start()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSlide]);
+  }, [activeSlide])
 
   if (isLoading) {
     return (
       <View style={styles.item}>
         <Loader />
       </View>
-    );
+    )
   }
   return (
     <View>
@@ -119,9 +119,7 @@ export function Overview() {
         estimatedItemSize={itemSize}
         data={results}
         keyExtractor={(item, index) =>
-          isLoading
-            ? `loading_${index}_overview`
-            : `${index}_${item.id}_overview`
+          isLoading ? `loading_${index}_overview` : `${index}_${item.id}_overview`
         }
         renderItem={renderItem}
         horizontal
@@ -133,24 +131,24 @@ export function Overview() {
             style={[
               styles.dot,
               index === activeSlide && {
-                width
+                width,
               },
               direction === 'right' &&
                 index + 1 === activeSlide && {
-                  width: prevWidth
+                  width: prevWidth,
                 },
               direction === 'left' &&
                 index - 1 === activeSlide && {
-                  width: prevWidth
+                  width: prevWidth,
                 },
-              index === activeSlide && styles.activeDot
+              index === activeSlide && styles.activeDot,
             ]}
             key={`overview-list-dot-${index}`}
           />
         ))}
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -162,15 +160,15 @@ const styles = StyleSheet.create({
     right: 0,
     flexDirection: 'row',
     gap: theme.space.md,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   dot: {
     width: 10,
     height: 10,
     borderRadius: 10,
-    backgroundColor: theme.colors['default-400']
+    backgroundColor: theme.colors['default-400'],
   },
   activeDot: {
-    backgroundColor: theme.colors['default-100']
-  }
-});
+    backgroundColor: theme.colors['default-100'],
+  },
+})

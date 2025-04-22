@@ -1,5 +1,5 @@
-import type { UseGetTv } from 'api/tv';
-import { NETWORK_HBO_ID } from 'constants/networks';
+import type { UseGetTv } from 'api/tv'
+import { NETWORK_HBO_ID } from 'constants/networks'
 
 export const MOCK_TV: UseGetTv['data'] = {
   coverUrl: '/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',
@@ -19,7 +19,7 @@ export const MOCK_TV: UseGetTv['data'] = {
       overview: '',
       poster_path: '/qVU4112Ob2ikHBu4VRC50MdWZcM.jpg',
       season_number: 0,
-      vote_average: 0
+      vote_average: 0,
     },
     {
       air_date: '2022-08-20',
@@ -29,7 +29,7 @@ export const MOCK_TV: UseGetTv['data'] = {
       overview: '',
       poster_path: '/m7ta0kNg2ONvnBFF76miVvbWK1V.jpg',
       season_number: 1,
-      vote_average: 8
+      vote_average: 8,
     },
     {
       air_date: '2024-06-16',
@@ -39,17 +39,17 @@ export const MOCK_TV: UseGetTv['data'] = {
       overview: '',
       poster_path: '/xhjADf5sslq7lbRjc50FgvIYIkT.jpg',
       season_number: 2,
-      vote_average: 7.9
-    }
+      vote_average: 7.9,
+    },
   ],
   startYear: 2022,
-  tagline: 'All must choose.'
-};
+  tagline: 'All must choose.',
+}
 
 export const MOCK_TV_WITH_NETWORK: UseGetTv['data'] = {
   ...MOCK_TV,
   networkLink: {
     id: NETWORK_HBO_ID,
-    link: 'link-to-network'
-  }
-};
+    link: 'link-to-network',
+  },
+}

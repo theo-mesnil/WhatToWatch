@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import * as React from 'react'
+import { StyleSheet, View } from 'react-native'
 
-import { Icon, type IconElement } from 'components/Icon';
-import { Text } from 'components/Text';
-import { theme } from 'theme';
+import { Icon, type IconElement } from 'components/Icon'
+import { Text } from 'components/Text'
+import { theme } from 'theme'
 
 export type BadgeProps = {
-  children: React.ReactNode;
-  icon?: IconElement;
-  testID?: string;
-};
+  children: React.ReactNode
+  icon?: IconElement
+  testID?: string
+}
 
 export function Badge({ children, icon, testID }: BadgeProps) {
   return (
@@ -17,7 +17,7 @@ export function Badge({ children, icon, testID }: BadgeProps) {
       {icon && <Icon icon={icon} size={13} />}
       <Text style={styles.text}>{children}</Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
     borderRadius: theme.radii.xs,
     paddingVertical: theme.space.xxs,
     paddingHorizontal: theme.space.xs,
-    gap: 2
+    gap: 2,
   },
   text: {
-    color: theme.colors.white
-  }
-});
+    color: theme.colors.white,
+  },
+})

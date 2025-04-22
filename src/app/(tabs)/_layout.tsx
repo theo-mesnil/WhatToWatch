@@ -1,10 +1,10 @@
-import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
-import { BlurView } from 'expo-blur';
-import { Tabs } from 'expo-router';
-import * as React from 'react';
-import { useIntl } from 'react-intl';
+import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
+import { BlurView } from 'expo-blur'
+import { Tabs } from 'expo-router'
+import * as React from 'react'
+import { useIntl } from 'react-intl'
 
-import type { IconElement } from 'components/Icon';
+import type { IconElement } from 'components/Icon'
 import {
   EyeFillIcon,
   EyeIcon,
@@ -12,39 +12,37 @@ import {
   FlashIcon,
   Icon,
   SearchFillIcon,
-  SearchIcon
-} from 'components/Icon';
-import { isAndroid, isIos } from 'constants/screen';
-import { useSafeHeights } from 'constants/useSafeHeights';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
+  SearchIcon,
+} from 'components/Icon'
+import { isAndroid, isIos } from 'constants/screen'
+import { useSafeHeights } from 'constants/useSafeHeights'
+import { globalStyles } from 'styles'
+import { theme } from 'theme'
 
 function tabBarIcon({
   focused,
   icon: IconComponent,
-  iconFocused: IconComponentFocused
+  iconFocused: IconComponentFocused,
 }: {
-  focused: boolean;
-  icon: IconElement;
-  iconFocused: IconElement;
+  focused: boolean
+  icon: IconElement
+  iconFocused: IconElement
 }) {
   return (
     <Icon
       color={focused ? 'brand-500' : 'text'}
       icon={focused ? IconComponentFocused : IconComponent}
     />
-  );
+  )
 }
 
 function BottomBarBackground() {
-  return (
-    <BlurView tint="dark" intensity={150} style={globalStyles.absoluteFill} />
-  );
+  return <BlurView tint="dark" intensity={150} style={globalStyles.absoluteFill} />
 }
 
 export default function Layout() {
-  const intl = useIntl();
-  const { tabBarBottomHeight } = useSafeHeights();
+  const intl = useIntl()
+  const { tabBarBottomHeight } = useSafeHeights()
 
   const screenOptions: BottomTabNavigationOptions = {
     headerTransparent: true,
@@ -53,21 +51,21 @@ export default function Layout() {
     tabBarInactiveTintColor: theme.colors.text,
     tabBarLabelStyle: {
       fontSize: 12,
-      fontFamily: 'Poppins_400Regular'
+      fontFamily: 'Poppins_400Regular',
     },
     tabBarStyle: isAndroid
       ? {
           height: tabBarBottomHeight,
           backgroundColor: theme.colors.ahead,
           position: 'absolute',
-          borderTopWidth: 0
+          borderTopWidth: 0,
         }
       : {
           height: tabBarBottomHeight,
           borderTopColor: 'transparent',
-          position: 'absolute'
-        }
-  };
+          position: 'absolute',
+        },
+  }
 
   return (
     <Tabs screenOptions={screenOptions}>
@@ -76,14 +74,14 @@ export default function Layout() {
         options={{
           title: intl.formatMessage({
             defaultMessage: 'Discover',
-            id: 'cE4Hfw'
+            id: 'cE4Hfw',
           }),
-          tabBarIcon: (props) =>
+          tabBarIcon: props =>
             tabBarIcon({
               ...props,
               icon: FlashIcon,
-              iconFocused: FlashFillIcon
-            })
+              iconFocused: FlashFillIcon,
+            }),
         }}
       />
       <Tabs.Screen
@@ -91,14 +89,14 @@ export default function Layout() {
         options={{
           title: intl.formatMessage({
             defaultMessage: 'Search',
-            id: 'xmcVZ0'
+            id: 'xmcVZ0',
           }),
-          tabBarIcon: (props) =>
+          tabBarIcon: props =>
             tabBarIcon({
               ...props,
               icon: SearchIcon,
-              iconFocused: SearchFillIcon
-            })
+              iconFocused: SearchFillIcon,
+            }),
         }}
       />
       <Tabs.Screen
@@ -106,16 +104,16 @@ export default function Layout() {
         options={{
           title: intl.formatMessage({
             defaultMessage: 'Streaming',
-            id: 'NCupKV'
+            id: 'NCupKV',
           }),
-          tabBarIcon: (props) =>
+          tabBarIcon: props =>
             tabBarIcon({
               ...props,
               icon: EyeIcon,
-              iconFocused: EyeFillIcon
-            })
+              iconFocused: EyeFillIcon,
+            }),
         }}
       />
     </Tabs>
-  );
+  )
 }

@@ -1,36 +1,35 @@
-import { useLocalSearchParams, useNavigation } from 'expo-router';
-import * as React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Animated, StyleSheet, View } from 'react-native';
+import { useLocalSearchParams, useNavigation } from 'expo-router'
+import * as React from 'react'
+import { FormattedMessage } from 'react-intl'
+import { Animated, StyleSheet, View } from 'react-native'
 
-import { useGetPerson, useGetPersonMovieCredits } from 'api/person';
-import { ItemThumb } from 'components/app/person/ItemThumb';
-import { ThumbLink } from 'components/ThumbLink';
-import { useSafeHeights } from 'constants/useSafeHeights';
-import { BasicLayout } from 'layouts/Basic';
-import { Header } from 'layouts/Content/Header';
-import { moviePath } from 'routes';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
+import { useGetPerson, useGetPersonMovieCredits } from 'api/person'
+import { ItemThumb } from 'components/app/person/ItemThumb'
+import { ThumbLink } from 'components/ThumbLink'
+import { useSafeHeights } from 'constants/useSafeHeights'
+import { BasicLayout } from 'layouts/Basic'
+import { Header } from 'layouts/Content/Header'
+import { moviePath } from 'routes'
+import { globalStyles } from 'styles'
+import { theme } from 'theme'
 
 export default function PersonMovies() {
-  const [scrollYPosition, getScrollYPosition] = React.useState(
-    new Animated.Value(0)
-  );
-  const navigation = useNavigation();
-  const params = useLocalSearchParams<{ id: string }>();
-  const { containerStyle } = useSafeHeights();
-  const personID = Number(params?.id);
+  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
+  const navigation = useNavigation()
+  const params = useLocalSearchParams<{ id: string }>()
+  const { containerStyle } = useSafeHeights()
+  const personID = Number(params?.id)
 
-  const { data, isLoading } = useGetPerson({ id: personID });
+  const { data, isLoading } = useGetPerson({ id: personID })
 
-  const isActing = data?.department === 'Acting';
+  const isActing = data?.department === 'Acting'
 
-  const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits(
-    { id: personID, isActing }
-  );
+  const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits({
+    id: personID,
+    isActing,
+  })
 
-  const name = data?.name;
+  const name = data?.name
 
   const HeaderComponent = React.useCallback(
     () => (
@@ -46,19 +45,16 @@ export default function PersonMovies() {
       />
     ),
     [name, scrollYPosition]
-  );
+  )
 
   React.useEffect(() => {
     navigation.setOptions({
-      header: HeaderComponent
-    });
-  }, [HeaderComponent, navigation]);
+      header: HeaderComponent,
+    })
+  }, [HeaderComponent, navigation])
 
   return (
-    <BasicLayout
-      getScrollYPosition={getScrollYPosition}
-      contentContainerStyle={containerStyle}
-    >
+    <BasicLayout getScrollYPosition={getScrollYPosition} contentContainerStyle={containerStyle}>
       {!isLoadingMovies && (
         <View style={styles.items}>
           {movies?.map(
@@ -70,7 +66,7 @@ export default function PersonMovies() {
                 overview,
                 poster_path,
                 release_date,
-                title
+                title,
               },
               index
             ) => (
@@ -93,12 +89,12 @@ export default function PersonMovies() {
         </View>
       )}
     </BasicLayout>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   items: {
     gap: theme.space.md,
-    ...globalStyles.centered
-  }
-});
+    ...globalStyles.centered,
+  },
+})

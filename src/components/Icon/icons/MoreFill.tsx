@@ -1,6 +1,6 @@
-import * as React from 'react';
-import type { SvgProps } from 'react-native-svg';
-import Svg, { Circle } from 'react-native-svg';
+import * as React from 'react'
+import type { SvgProps } from 'react-native-svg'
+import Svg, { Circle } from 'react-native-svg'
 
 function SvgComponent({ color, ...props }: SvgProps) {
   return (
@@ -9,8 +9,8 @@ function SvgComponent({ color, ...props }: SvgProps) {
       <Circle cx={19} cy={12} r={3} />
       <Circle cx={5} cy={12} r={3} />
     </Svg>
-  );
+  )
 }
 
-const MemoSvgComponent = React.memo(SvgComponent);
-export default MemoSvgComponent;
+const MemoSvgComponent = React.memo(SvgComponent)
+export default MemoSvgComponent

@@ -1,21 +1,15 @@
-import { moviePath, personPath, tvPath } from 'routes';
-import type { ContentType } from 'types/content';
+import { moviePath, personPath, tvPath } from 'routes'
+import type { ContentType } from 'types/content'
 
-export const routeByType = ({
-  id,
-  type
-}: {
-  id: number;
-  type: ContentType;
-}) => {
+export const routeByType = ({ id, type }: { id: number; type: ContentType }) => {
   switch (type) {
     case 'tv':
-      return tvPath({ id });
+      return tvPath({ id })
     case 'movie':
-      return moviePath({ id });
+      return moviePath({ id })
     case 'person':
-      return personPath({ id });
+      return personPath({ id })
     default:
-      break;
+      break
   }
-};
+}

@@ -1,29 +1,29 @@
-import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
-import type { ViewProps } from 'react-native';
+import * as React from 'react'
+import { StyleSheet, View } from 'react-native'
+import type { ViewProps } from 'react-native'
 
-import type { GradientProps } from 'components/Gradient';
-import { Gradient } from 'components/Gradient';
-import type { IconElement } from 'components/Icon';
-import { Icon } from 'components/Icon';
-import { Text } from 'components/Text';
-import type { TouchableProps } from 'components/Touchable';
-import { Touchable } from 'components/Touchable';
-import type { Color } from 'theme';
-import { theme } from 'theme';
+import type { GradientProps } from 'components/Gradient'
+import { Gradient } from 'components/Gradient'
+import type { IconElement } from 'components/Icon'
+import { Icon } from 'components/Icon'
+import { Text } from 'components/Text'
+import type { TouchableProps } from 'components/Touchable'
+import { Touchable } from 'components/Touchable'
+import type { Color } from 'theme'
+import { theme } from 'theme'
 
 export type ButtonProps = ViewProps & {
-  backgroundColor?: Color;
-  children: React.ReactNode;
-  gradientColors?: GradientProps['colors'];
-  icon?: IconElement;
-  isCustomChildren?: boolean;
-  isRounded?: boolean;
-  isTransparent?: boolean;
-  onPress?: TouchableProps['onPress'];
-  size?: 'md' | 'lg';
-  variant?: 'primary' | 'secondary';
-};
+  backgroundColor?: Color
+  children: React.ReactNode
+  gradientColors?: GradientProps['colors']
+  icon?: IconElement
+  isCustomChildren?: boolean
+  isRounded?: boolean
+  isTransparent?: boolean
+  onPress?: TouchableProps['onPress']
+  size?: 'md' | 'lg'
+  variant?: 'primary' | 'secondary'
+}
 
 export const Button = React.forwardRef<never, ButtonProps>(
   (
@@ -52,7 +52,7 @@ export const Button = React.forwardRef<never, ButtonProps>(
             styles[variant],
             isTransparent && styles.transparent,
             isRounded && { borderRadius: styles[size].height },
-            style
+            style,
           ]}
           {...rest}
         >
@@ -66,7 +66,7 @@ export const Button = React.forwardRef<never, ButtonProps>(
                 style={[
                   { color: theme.colors.white },
                   size === 'lg' && styles['text-lg'],
-                  gradientColors && styles.gradientColors
+                  gradientColors && styles.gradientColors,
                 ]}
               >
                 {children}
@@ -76,9 +76,9 @@ export const Button = React.forwardRef<never, ButtonProps>(
           )}
         </View>
       </Touchable>
-    );
+    )
   }
-);
+)
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -88,27 +88,27 @@ const styles = StyleSheet.create({
     borderRadius: theme.radii.sm,
     paddingHorizontal: theme.space.lg,
     overflow: 'hidden',
-    gap: theme.space.xs
+    gap: theme.space.xs,
   },
   primary: {
-    backgroundColor: theme.colors['default-700']
+    backgroundColor: theme.colors['default-700'],
   },
   secondary: {
-    backgroundColor: theme.colors['brand-700']
+    backgroundColor: theme.colors['brand-700'],
   },
   md: {
-    height: 25
+    height: 25,
   },
   lg: {
-    height: 40
+    height: 40,
   },
   'text-lg': {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   transparent: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   gradientColors: {
-    color: theme.colors.white
-  }
-});
+    color: theme.colors.white,
+  },
+})

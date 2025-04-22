@@ -1,16 +1,15 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native'
 
-
-import { Text } from 'components/Text';
-import { Thumb } from 'components/Thumb';
-import { theme } from 'theme';
-import type { ContentType } from 'types/content';
+import { Text } from 'components/Text'
+import { Thumb } from 'components/Thumb'
+import { theme } from 'theme'
+import type { ContentType } from 'types/content'
 
 export type NumberThumbProps = {
-  imageUrl: string;
-  number: number;
-  type: ContentType;
-};
+  imageUrl: string
+  number: number
+  type: ContentType
+}
 
 export function NumberThumb({ imageUrl, number, type }: NumberThumbProps) {
   return (
@@ -24,29 +23,29 @@ export function NumberThumb({ imageUrl, number, type }: NumberThumbProps) {
         <Thumb imageUrl={imageUrl} type={type} />
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   wrapper: { flexDirection: 'row' },
   thumb: {
     width: 110,
-    marginLeft: 45
+    marginLeft: 45,
   },
   firstNumber: {
-    marginLeft: 37
+    marginLeft: 37,
   },
   numberWrapper: {
     position: 'absolute',
     bottom: -20,
     left: 0,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   number: {
     flexDirection: 'row',
     letterSpacing: -15,
     color: theme.colors['brand-500'],
     fontSize: 100,
-    lineHeight: 100
-  }
-});
+    lineHeight: 100,
+  },
+})

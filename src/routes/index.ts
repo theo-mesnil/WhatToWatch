@@ -1,70 +1,61 @@
-import type { Href } from 'expo-router';
+import type { Href } from 'expo-router'
 
 export const tvPath = (params: { id: number }): Href => ({
   pathname: '/tv/[id]',
-  params
-});
+  params,
+})
 
-export const tvImagesPath = (params: {
-  id: number;
-  type: 'posters' | 'backdrops';
-}): Href => ({
+export const tvImagesPath = (params: { id: number; type: 'posters' | 'backdrops' }): Href => ({
   pathname: '/tv/[id]/images/[type]',
-  params
-});
+  params,
+})
 
 export const moviePath = (params: { id: number }): Href => ({
   pathname: '/movie/[id]',
-  params
-});
+  params,
+})
 
-export const movieImagesPath = (params: {
-  id: number;
-  type: 'posters' | 'backdrops';
-}): Href => ({
+export const movieImagesPath = (params: { id: number; type: 'posters' | 'backdrops' }): Href => ({
   pathname: '/movie/[id]/images/[type]',
-  params
-});
+  params,
+})
 
 export const personPath = (params: { id: number }): Href => ({
   pathname: '/person/[id]',
-  params
-});
+  params,
+})
 
 export const personMoviesPath = (params: { id: number }): Href => ({
   pathname: '/person/[id]/movies',
-  params
-});
+  params,
+})
 
 export const personTvPath = (params: { id: number }): Href => ({
   pathname: '/person/[id]/tv',
-  params
-});
+  params,
+})
 
-export const personImagePath = (params: {
-  id: number;
-  start: number;
-}): Href => ({
+export const personImagePath = (params: { id: number; start: number }): Href => ({
   pathname: '/person/[id]/images/[start]',
-  params
-});
+  params,
+})
 
 export const networkPath = (params: { id: number }): Href => ({
   pathname: '/network/[id]',
-  params
-});
+  params,
+})
 
 export const genreMoviePath = (params: { id: number }): Href => ({
   pathname: '/genre/[id]/movie',
-  params
-});
+  params,
+})
 
 export const genreTvPath = (params: { id: number }): Href => ({
   pathname: '/genre/[id]/tv',
-  params
-});
+  params,
+})
 
 export const videoPath = (params: { id: string }): Href => ({
   pathname: '/video/[id]',
-  params
-});
+  params,
+})

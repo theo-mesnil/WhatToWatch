@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { memo } from 'react';
-import { View } from 'react-native';
-import type { SvgProps } from 'react-native-svg';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import { memo } from 'react'
+import { View } from 'react-native'
+import type { SvgProps } from 'react-native-svg'
+import Svg, { Path } from 'react-native-svg'
 
-import { theme } from 'theme';
+import { theme } from 'theme'
 const SvgComponent = (props: SvgProps) => (
   <View style={{ aspectRatio: 215 / 83 }}>
     <Svg height="100%" width="100%" fill="none" viewBox="0 0 215 83" {...props}>
@@ -32,6 +32,6 @@ const SvgComponent = (props: SvgProps) => (
       />
     </Svg>
   </View>
-);
-const Logo = memo(SvgComponent);
-export { Logo };
+)
+const Logo = memo(SvgComponent)
+export { Logo }

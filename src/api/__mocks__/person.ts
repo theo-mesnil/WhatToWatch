@@ -1,4 +1,4 @@
-import type { UseGetPerson } from 'api/person';
+import type { UseGetPerson } from 'api/person'
 
 export const MOCK_PERSON: UseGetPerson['data'] = {
   biography:
@@ -9,8 +9,8 @@ export const MOCK_PERSON: UseGetPerson['data'] = {
   deathday: null,
   department: 'Acting',
   name: 'Daniel Radcliffe',
-  placeOfBirth: 'Hammersmith, London, England, UK'
-};
+  placeOfBirth: 'Hammersmith, London, England, UK',
+}
 
 export const MOCK_PERSON_MOVIES = [
   {
@@ -31,9 +31,9 @@ export const MOCK_PERSON_MOVIES = [
     title: "Harry Potter and the Philosopher's Stone",
     video: false,
     vote_average: 7.914,
-    vote_count: 26930
-  }
-];
+    vote_count: 26930,
+  },
+]
 
 export const MOCK_PERSON_TV = [
   {
@@ -54,6 +54,6 @@ export const MOCK_PERSON_TV = [
     popularity: 35.232,
     poster_path: '/dweqcAMlpidmoJcLu4omwuwsnef.jpg',
     vote_average: 5.8,
-    vote_count: 22
-  }
-];
+    vote_count: 22,
+  },
+]

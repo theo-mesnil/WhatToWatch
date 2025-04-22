@@ -1,6 +1,6 @@
-import * as React from 'react';
-import type { SvgProps } from 'react-native-svg';
-import Svg, { Path } from 'react-native-svg';
+import * as React from 'react'
+import type { SvgProps } from 'react-native-svg'
+import Svg, { Path } from 'react-native-svg'
 
 function SvgComponent({ color, ...props }: SvgProps) {
   return (
@@ -10,8 +10,8 @@ function SvgComponent({ color, ...props }: SvgProps) {
         data-name="arrow-forward"
       />
     </Svg>
-  );
+  )
 }
 
-const MemoSvgComponent = React.memo(SvgComponent);
-export default MemoSvgComponent;
+const MemoSvgComponent = React.memo(SvgComponent)
+export default MemoSvgComponent

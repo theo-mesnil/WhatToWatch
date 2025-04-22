@@ -1,37 +1,37 @@
-import { Link } from 'expo-router';
-import { FormattedMessage } from 'react-intl';
-import { Image, ImageBackground, StyleSheet, View } from 'react-native';
-import { routeByType } from 'routes/utils';
+import { Link } from 'expo-router'
+import { FormattedMessage } from 'react-intl'
+import { Image, ImageBackground, StyleSheet, View } from 'react-native'
+import { routeByType } from 'routes/utils'
 
-import { useGetContentLogo } from 'api/logo';
-import { Button } from 'components/Button';
-import { Gradient } from 'components/Gradient';
-import { ArrowNextIcon } from 'components/Icon';
-import { Text } from 'components/Text';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
-import type { ContentType } from 'types/content';
-import { getImageUrl } from 'utils/images';
+import { useGetContentLogo } from 'api/logo'
+import { Button } from 'components/Button'
+import { Gradient } from 'components/Gradient'
+import { ArrowNextIcon } from 'components/Icon'
+import { Text } from 'components/Text'
+import { globalStyles } from 'styles'
+import { theme } from 'theme'
+import type { ContentType } from 'types/content'
+import { getImageUrl } from 'utils/images'
 
 export type ItemProps = {
-  description?: string;
-  id: number;
-  imageUrl: string;
-  title: string;
-  type: ContentType;
-};
+  description?: string
+  id: number
+  imageUrl: string
+  title: string
+  type: ContentType
+}
 
 export function Item({ description, id, imageUrl, title, type }: ItemProps) {
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id,
-    type
-  });
+    type,
+  })
 
   return (
     <View style={styles.wrapper}>
       <ImageBackground
         source={{
-          uri: getImageUrl(imageUrl, 'w1280')
+          uri: getImageUrl(imageUrl, 'w1280'),
         }}
         style={globalStyles.absoluteFill}
       />
@@ -52,45 +52,40 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
           {description}
         </Text>
         <Link href={routeByType({ type, id })} asChild>
-          <Button
-            style={styles.cta}
-            variant="secondary"
-            size="lg"
-            icon={ArrowNextIcon}
-          >
+          <Button style={styles.cta} variant="secondary" size="lg" icon={ArrowNextIcon}>
             <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
           </Button>
         </Link>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   wrapper: {
     height: 600,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   content: {
     height: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingBottom: 40,
-    paddingHorizontal: theme.space.xxl
+    paddingHorizontal: theme.space.xxl,
   },
   title: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   subtitle: {
     color: theme.colors.white,
     textAlign: 'center',
-    marginTop: theme.space.sm
+    marginTop: theme.space.sm,
   },
   cta: {
-    marginTop: theme.space.lg
+    marginTop: theme.space.lg,
   },
   logo: {
     width: 250,
-    maxHeight: 150
-  }
-});
+    maxHeight: 150,
+  },
+})

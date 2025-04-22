@@ -1,40 +1,32 @@
-import * as React from 'react';
-import type { ViewProps } from 'react-native';
-import { Image, StyleSheet, View } from 'react-native';
+import * as React from 'react'
+import type { ViewProps } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 
-import { useGetContentLogo } from 'api/logo';
-import { Gradient } from 'components/Gradient';
-import { Text } from 'components/Text';
-import { Thumb } from 'components/Thumb';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
-import type { ContentType, ImageSizeBackdrop } from 'types/content';
-import { getImageUrl } from 'utils/images';
+import { useGetContentLogo } from 'api/logo'
+import { Gradient } from 'components/Gradient'
+import { Text } from 'components/Text'
+import { Thumb } from 'components/Thumb'
+import { globalStyles } from 'styles'
+import { theme } from 'theme'
+import type { ContentType, ImageSizeBackdrop } from 'types/content'
+import { getImageUrl } from 'utils/images'
 
 export type LargeThumbProps = {
-  id?: number;
-  imageUrl?: string;
-  imageWidth?: ImageSizeBackdrop;
-  isLoading?: boolean;
-  style?: ViewProps['style'];
-  title?: React.ReactElement | string;
-  type: ContentType;
-};
+  id?: number
+  imageUrl?: string
+  imageWidth?: ImageSizeBackdrop
+  isLoading?: boolean
+  style?: ViewProps['style']
+  title?: React.ReactElement | string
+  type: ContentType
+}
 
 export const LargeThumb = React.memo(
-  ({
-    id,
-    imageUrl,
-    imageWidth = 'w780',
-    isLoading,
-    style,
-    title,
-    type
-  }: LargeThumbProps) => {
+  ({ id, imageUrl, imageWidth = 'w780', isLoading, style, title, type }: LargeThumbProps) => {
     const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
       id,
-      type
-    });
+      type,
+    })
 
     return (
       <View style={[styles.wrapper, style]}>
@@ -46,10 +38,7 @@ export const LargeThumb = React.memo(
           aspectRatio={16 / 12}
         />
         <View style={[globalStyles.absoluteFill, styles.content]}>
-          <Gradient
-            style={styles.gradient}
-            colors={['transparent', theme.colors.behind]}
-          />
+          <Gradient style={styles.gradient} colors={['transparent', theme.colors.behind]} />
           {!isLoadingLogo && logo && (
             <Image
               style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
@@ -63,38 +52,38 @@ export const LargeThumb = React.memo(
           )}
         </View>
       </View>
-    );
+    )
   }
-);
+)
 
 const styles = StyleSheet.create({
   wrapper: {
     borderRadius: theme.radii.xxl,
     width: '100%',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   content: {
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     paddingHorizontal: theme.space.lg,
     paddingBottom: theme.space.sm,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   loading: {
-    width: '100%'
+    width: '100%',
   },
   logo: {
     width: 250,
     maxHeight: 100,
-    marginBottom: theme.space.lg
+    marginBottom: theme.space.lg,
   },
   gradient: {
     position: 'absolute',
     height: '50%',
     left: 0,
     bottom: 0,
-    right: 0
-  }
-});
+    right: 0,
+  },
+})

@@ -1,5 +1,5 @@
-import type { DimensionValue } from 'react-native';
-import { View } from 'react-native';
+import type { DimensionValue } from 'react-native'
+import { View } from 'react-native'
 
 import {
   NETWORK_APPLE_TV_PLUS_ID,
@@ -10,39 +10,34 @@ import {
   NETWORK_NETFLIX_ID,
   NETWORK_PARAMOUNT_PLUS,
   NETWORK_PRIME_VIDEO,
-  NETWORK_SHOWTIME_ID
-} from 'constants/networks';
-import { theme } from 'theme';
-import type { NetworkId } from 'types/content';
+  NETWORK_SHOWTIME_ID,
+} from 'constants/networks'
+import { theme } from 'theme'
+import type { NetworkId } from 'types/content'
 
-import AppleTvPlus from './logos/AppleTvPlus';
-import DisneyPlus from './logos/DisneyPlus';
-import Fox from './logos/Fox';
-import HBO from './logos/Hbo';
-import Hulu from './logos/Hulu';
-import Netflix from './logos/Netflix';
-import ParamountPlus from './logos/ParamountPlus';
-import PrimeVideo from './logos/PrimeVideo';
-import Showtime from './logos/Showtime';
+import AppleTvPlus from './logos/AppleTvPlus'
+import DisneyPlus from './logos/DisneyPlus'
+import Fox from './logos/Fox'
+import HBO from './logos/Hbo'
+import Hulu from './logos/Hulu'
+import Netflix from './logos/Netflix'
+import ParamountPlus from './logos/ParamountPlus'
+import PrimeVideo from './logos/PrimeVideo'
+import Showtime from './logos/Showtime'
 
 export type NetworkLogoProps = {
-  color?: string;
-  height?: DimensionValue;
-  id: NetworkId;
-  width?: DimensionValue;
-};
+  color?: string
+  height?: DimensionValue
+  id: NetworkId
+  width?: DimensionValue
+}
 
-export function NetworkLogo({
-  color = theme.colors.white,
-  height,
-  id,
-  width
-}: NetworkLogoProps) {
+export function NetworkLogo({ color = theme.colors.white, height, id, width }: NetworkLogoProps) {
   return (
     <View
       style={{
         height,
-        width
+        width,
       }}
     >
       {id === NETWORK_APPLE_TV_PLUS_ID && <AppleTvPlus color={color} />}
@@ -55,5 +50,5 @@ export function NetworkLogo({
       {id === NETWORK_SHOWTIME_ID && <Showtime color={color} />}
       {id === NETWORK_PARAMOUNT_PLUS && <ParamountPlus color={color} />}
     </View>
-  );
+  )
 }

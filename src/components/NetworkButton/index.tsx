@@ -1,18 +1,18 @@
-import { FormattedMessage } from 'react-intl';
-import { Linking, StyleSheet, View } from 'react-native';
+import { FormattedMessage } from 'react-intl'
+import { Linking, StyleSheet, View } from 'react-native'
 
-import type { ButtonProps } from 'components/Button';
-import { Button } from 'components/Button';
-import { NetworkLogo } from 'components/NetworkLogo';
-import { Text } from 'components/Text';
-import { theme } from 'theme';
-import type { NetworkId } from 'types/content';
-import { getNetworkColor } from 'utils/networks';
+import type { ButtonProps } from 'components/Button'
+import { Button } from 'components/Button'
+import { NetworkLogo } from 'components/NetworkLogo'
+import { Text } from 'components/Text'
+import { theme } from 'theme'
+import type { NetworkId } from 'types/content'
+import { getNetworkColor } from 'utils/networks'
 
 export type NetworkButtonProps = Pick<ButtonProps, 'style'> & {
-  id: NetworkId;
-  link: string;
-};
+  id: NetworkId
+  link: string
+}
 
 export function NetworkButton({ id, link, style }: NetworkButtonProps) {
   return (
@@ -31,11 +31,11 @@ export function NetworkButton({ id, link, style }: NetworkButtonProps) {
         <NetworkLogo id={id} height={23} />
       </View>
     </Button>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   logo: {
-    marginLeft: theme.space.sm
-  }
-});
+    marginLeft: theme.space.sm,
+  },
+})

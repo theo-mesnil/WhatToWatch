@@ -1,15 +1,14 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native'
 
-
-import { Text } from 'components/Text';
-import { Thumb } from 'components/Thumb';
-import { theme } from 'theme';
+import { Text } from 'components/Text'
+import { Thumb } from 'components/Thumb'
+import { theme } from 'theme'
 
 export type PersonThumbProps = {
-  character?: string;
-  imageUrl: string;
-  name: string;
-};
+  character?: string
+  imageUrl: string
+  name: string
+}
 
 export function PersonThumb({ character, imageUrl, name }: PersonThumbProps) {
   return (
@@ -22,11 +21,11 @@ export function PersonThumb({ character, imageUrl, name }: PersonThumbProps) {
         {character && <Text numberOfLines={2}>{character}</Text>}
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   text: {
-    marginTop: theme.space.xs
-  }
-});
+    marginTop: theme.space.xs,
+  },
+})

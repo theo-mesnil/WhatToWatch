@@ -7,88 +7,88 @@ import {
   NETWORK_NETFLIX_ID,
   NETWORK_PARAMOUNT_PLUS,
   NETWORK_PRIME_VIDEO,
-  NETWORK_SHOWTIME_ID
-} from 'constants/networks';
-import type { NetworkId } from 'types/content';
+  NETWORK_SHOWTIME_ID,
+} from 'constants/networks'
+import type { NetworkId } from 'types/content'
 
 export function getNetworkName(id: NetworkId) {
   switch (id) {
     case NETWORK_APPLE_TV_PLUS_ID:
-      return 'Apple Tv +';
+      return 'Apple Tv +'
     case NETWORK_DISNEY_PLUS_ID:
-      return 'Disney +';
+      return 'Disney +'
     case NETWORK_FOX_ID:
-      return 'Fox';
+      return 'Fox'
     case NETWORK_HBO_ID:
-      return 'HBO';
+      return 'HBO'
     case NETWORK_HULU_ID:
-      return 'Hulu';
+      return 'Hulu'
     case NETWORK_NETFLIX_ID:
-      return 'Netflix';
+      return 'Netflix'
     case NETWORK_PRIME_VIDEO:
-      return 'Prime Video';
+      return 'Prime Video'
     case NETWORK_SHOWTIME_ID:
-      return 'Showtime';
+      return 'Showtime'
     default:
-      return null;
+      return null
   }
 }
 
 export function getNetworkColor(id?: NetworkId): [string, string] {
   switch (id) {
     case NETWORK_APPLE_TV_PLUS_ID:
-      return ['#323232', '#181818'];
+      return ['#323232', '#181818']
     case NETWORK_DISNEY_PLUS_ID:
-      return ['#049FAA', '#025f66'];
+      return ['#049FAA', '#025f66']
     case NETWORK_FOX_ID:
-      return ['#0086BD', '#00435e'];
+      return ['#0086BD', '#00435e']
     case NETWORK_HBO_ID:
-      return ['#7B2ABF', '#441769'];
+      return ['#7B2ABF', '#441769']
     case NETWORK_HULU_ID:
-      return ['#1EE783', '#0d7641'];
+      return ['#1EE783', '#0d7641']
     case NETWORK_NETFLIX_ID:
-      return ['#E50914', '#b70710'];
+      return ['#E50914', '#b70710']
     case NETWORK_PARAMOUNT_PLUS:
-      return ['#0064ff', '#0037c5'];
+      return ['#0064ff', '#0037c5']
     case NETWORK_PRIME_VIDEO:
-      return ['#1C97FE', '#014d8c'];
+      return ['#1C97FE', '#014d8c']
     case NETWORK_SHOWTIME_ID:
-      return ['#FF1928', '#c4000d'];
+      return ['#FF1928', '#c4000d']
     default:
-      return ['#323232', '#181818'];
+      return ['#323232', '#181818']
   }
 }
 
 export function getNetworkFromUrl(url: string) {
-  let network;
+  let network
 
   if (url.includes('netflix.com')) {
-    network = NETWORK_NETFLIX_ID;
+    network = NETWORK_NETFLIX_ID
   }
   if (url.includes('amazon.com')) {
-    network = NETWORK_PRIME_VIDEO;
+    network = NETWORK_PRIME_VIDEO
   }
   if (url.includes('hbomax.com') || url.includes('hbo.com')) {
-    network = NETWORK_HBO_ID;
+    network = NETWORK_HBO_ID
   }
   if (url.includes('disney.com') || url.includes('disneyplus')) {
-    network = NETWORK_DISNEY_PLUS_ID;
+    network = NETWORK_DISNEY_PLUS_ID
   }
   if (url.includes('apple.com')) {
-    network = NETWORK_APPLE_TV_PLUS_ID;
+    network = NETWORK_APPLE_TV_PLUS_ID
   }
   if (url.includes('hulu.com')) {
-    network = NETWORK_HULU_ID;
+    network = NETWORK_HULU_ID
   }
   if (url.includes('fox.com')) {
-    network = NETWORK_FOX_ID;
+    network = NETWORK_FOX_ID
   }
   if (url.includes('sho.com')) {
-    network = NETWORK_SHOWTIME_ID;
+    network = NETWORK_SHOWTIME_ID
   }
   if (url.includes('paramountplus.com')) {
-    network = NETWORK_PARAMOUNT_PLUS;
+    network = NETWORK_PARAMOUNT_PLUS
   }
 
-  return network;
+  return network
 }

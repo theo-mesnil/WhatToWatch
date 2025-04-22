@@ -1,5 +1,5 @@
-export type Color = keyof typeof colors;
-export type Colors = typeof colors;
+export type Color = keyof typeof colors
+export type Colors = typeof colors
 
 const core = {
   'brand-100': '#b98eed',
@@ -21,13 +21,13 @@ const core = {
   'default-800': '#1a1a1a',
   'default-900': '#0d0d0d',
   black: '#000000',
-  white: '#ffffff'
-};
+  white: '#ffffff',
+}
 
 export const colors = {
   ...core,
   ahead: core['default-800'],
   behind: core['default-900'],
   text: core['default-300'],
-  title: core.white
-};
+  title: core.white,
+}

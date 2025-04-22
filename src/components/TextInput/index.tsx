@@ -1,10 +1,10 @@
-import * as React from 'react';
-import type { TextInputProps as RNTextInputProps } from 'react-native';
-import { TextInput as RNTextInput, StyleSheet } from 'react-native';
+import * as React from 'react'
+import type { TextInputProps as RNTextInputProps } from 'react-native'
+import { TextInput as RNTextInput, StyleSheet } from 'react-native'
 
-import { theme } from 'theme';
+import { theme } from 'theme'
 
-type TextInputProps = RNTextInputProps;
+type TextInputProps = RNTextInputProps
 
 export function TextInput(props: TextInputProps) {
   return (
@@ -15,7 +15,7 @@ export function TextInput(props: TextInputProps) {
       autoCorrect={false}
       {...props}
     />
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
     borderRadius: theme.radii.sm,
     color: theme.colors['default-900'],
     padding: theme.space.lg,
-    ...theme.texts.lg
-  }
-});
+    ...theme.texts.lg,
+  },
+})

@@ -1,89 +1,87 @@
-import type { FlashListProps } from '@shopify/flash-list';
-import { intervalToDuration } from 'date-fns';
-import { useLocalSearchParams } from 'expo-router';
-import * as React from 'react';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import { StyleSheet, View } from 'react-native';
-import { routeByType } from 'routes/utils';
+import type { FlashListProps } from '@shopify/flash-list'
+import { intervalToDuration } from 'date-fns'
+import { useLocalSearchParams } from 'expo-router'
+import * as React from 'react'
+import { FormattedDate, FormattedMessage } from 'react-intl'
+import { StyleSheet, View } from 'react-native'
+import { routeByType } from 'routes/utils'
 
-import type {
-  UseGetPersonCreditsApiResponse,
-  UseGetPersonImagesApiResponse
-} from 'api/person';
+import type { UseGetPersonCreditsApiResponse, UseGetPersonImagesApiResponse } from 'api/person'
 import {
   useGetPerson,
   useGetPersonCredits,
   useGetPersonImages,
   useGetPersonMovieCredits,
-  useGetPersonTvCredits
-} from 'api/person';
-import { CreditNumberThumb } from 'components/app/person/CreditNumberThumb';
-import { ReadMore } from 'components/app/person/ReadMore';
-import { Badge } from 'components/Badge';
-import { List } from 'components/List';
-import { Thumb } from 'components/Thumb';
-import { ThumbLink } from 'components/ThumbLink';
-import { ContentLayout } from 'layouts/Content';
-import { personImagePath, personMoviesPath, personTvPath } from 'routes';
-import { globalStyles } from 'styles';
-import { theme } from 'theme';
+  useGetPersonTvCredits,
+} from 'api/person'
+import { CreditNumberThumb } from 'components/app/person/CreditNumberThumb'
+import { ReadMore } from 'components/app/person/ReadMore'
+import { Badge } from 'components/Badge'
+import { List } from 'components/List'
+import { Thumb } from 'components/Thumb'
+import { ThumbLink } from 'components/ThumbLink'
+import { ContentLayout } from 'layouts/Content'
+import { personImagePath, personMoviesPath, personTvPath } from 'routes'
+import { globalStyles } from 'styles'
+import { theme } from 'theme'
 
-type ImageItem = UseGetPersonImagesApiResponse['profiles'][number];
-type CastItem = UseGetPersonCreditsApiResponse['cast'][number];
+type ImageItem = UseGetPersonImagesApiResponse['profiles'][number]
+type CastItem = UseGetPersonCreditsApiResponse['cast'][number]
 
 export default function Person() {
-  const params = useLocalSearchParams<{ id: string }>();
-  const personID = Number(params?.id);
+  const params = useLocalSearchParams<{ id: string }>()
+  const personID = Number(params?.id)
 
-  const { data, isLoading } = useGetPerson({ id: personID });
+  const { data, isLoading } = useGetPerson({ id: personID })
   const { data: images, isLoading: isLoadingImages } = useGetPersonImages({
-    id: personID
-  });
+    id: personID,
+  })
 
-  const biography = data?.biography;
-  const birthday = data?.birthday;
-  const coverUrl = data?.coverUrl;
-  const deathday = data?.deathday;
-  const department = data?.department;
-  const isActing = department === 'Acting';
-  const name = data?.name;
-  const placeOfBirth = data?.placeOfBirth;
+  const biography = data?.biography
+  const birthday = data?.birthday
+  const coverUrl = data?.coverUrl
+  const deathday = data?.deathday
+  const department = data?.department
+  const isActing = department === 'Acting'
+  const name = data?.name
+  const placeOfBirth = data?.placeOfBirth
 
   const { data: tv, isLoading: isLoadingTv } = useGetPersonTvCredits({
     id: personID,
-    isActing
-  });
+    isActing,
+  })
   const { data: credits, isLoading: isLoadingCredits } = useGetPersonCredits({
     id: personID,
-    isActing
-  });
-  const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits(
-    { id: personID, isActing }
-  );
+    isActing,
+  })
+  const { data: movies, isLoading: isLoadingMovies } = useGetPersonMovieCredits({
+    id: personID,
+    isActing,
+  })
 
-  const numberOfMovies = movies?.length;
-  const numberOfTvShows = tv?.length;
+  const numberOfMovies = movies?.length
+  const numberOfTvShows = tv?.length
 
   const renderItemImage: FlashListProps<ImageItem>['renderItem'] = ({
     index,
-    item: { file_path }
+    item: { file_path },
   }) => (
     <ThumbLink href={personImagePath({ id: personID, start: index })}>
       <Thumb type="person" imageUrl={file_path} />
     </ThumbLink>
-  );
+  )
 
   const renderCreditImage: FlashListProps<CastItem>['renderItem'] = ({
-    item: { id, media_type, poster_path }
+    item: { id, media_type, poster_path },
   }) => {
-    const type = media_type === 'movie' ? 'movie' : 'tv';
+    const type = media_type === 'movie' ? 'movie' : 'tv'
 
     return (
       <ThumbLink href={routeByType({ type, id })}>
         <Thumb imageWidth="w500" type={type} imageUrl={poster_path} />
       </ThumbLink>
-    );
-  };
+    )
+  }
 
   return (
     <ContentLayout
@@ -109,7 +107,7 @@ export default function Person() {
                     {
                       intervalToDuration({
                         start: new Date(birthday),
-                        end: new Date()
+                        end: new Date(),
                       }).years
                     }
                     <FormattedMessage defaultMessage="y" id="EhtHdK" />)
@@ -121,47 +119,32 @@ export default function Person() {
           {!!deathday && (
             <Badge testID="deathday">
               <FormattedMessage defaultMessage="Died on" id="jMuk1E" />{' '}
-              <FormattedDate
-                day="numeric"
-                year="numeric"
-                month="long"
-                value={new Date(deathday)}
-              />
+              <FormattedDate day="numeric" year="numeric" month="long" value={new Date(deathday)} />
               <>
                 {' ('}
                 {
                   intervalToDuration({
                     start: new Date(birthday),
-                    end: new Date(deathday)
+                    end: new Date(deathday),
                   }).years
                 }
                 <FormattedMessage defaultMessage="y" id="EhtHdK" />)
               </>
             </Badge>
           )}
-          {!!placeOfBirth && (
-            <Badge testID="place-of-birth">{placeOfBirth}</Badge>
-          )}
+          {!!placeOfBirth && <Badge testID="place-of-birth">{placeOfBirth}</Badge>}
           {!!numberOfMovies && (
             <Badge testID="movies">
               {numberOfMovies}{' '}
-              {numberOfMovies === 1 && (
-                <FormattedMessage defaultMessage="movie" id="RzXthk" />
-              )}
-              {numberOfMovies > 1 && (
-                <FormattedMessage defaultMessage="movies" id="2xXGzb" />
-              )}
+              {numberOfMovies === 1 && <FormattedMessage defaultMessage="movie" id="RzXthk" />}
+              {numberOfMovies > 1 && <FormattedMessage defaultMessage="movies" id="2xXGzb" />}
             </Badge>
           )}
           {!!numberOfTvShows && (
             <Badge testID="series">
               {numberOfTvShows}{' '}
-              {numberOfTvShows === 1 && (
-                <FormattedMessage defaultMessage="serie" id="rwqNY9" />
-              )}
-              {numberOfTvShows > 1 && (
-                <FormattedMessage defaultMessage="series" id="INk7fF" />
-              )}
+              {numberOfTvShows === 1 && <FormattedMessage defaultMessage="serie" id="rwqNY9" />}
+              {numberOfTvShows > 1 && <FormattedMessage defaultMessage="series" id="INk7fF" />}
             </Badge>
           )}
         </>
@@ -186,29 +169,19 @@ export default function Person() {
         {(!!numberOfMovies || !!numberOfTvShows) && (
           <View style={[globalStyles.centered, styles.creditNumbers]}>
             {!!numberOfMovies && (
-              <ThumbLink
-                style={styles.creditNumber}
-                href={personMoviesPath({ id: personID })}
-              >
+              <ThumbLink style={styles.creditNumber} href={personMoviesPath({ id: personID })}>
                 <CreditNumberThumb
                   type="movie"
-                  title={
-                    <FormattedMessage defaultMessage="movies" id="2xXGzb" />
-                  }
+                  title={<FormattedMessage defaultMessage="movies" id="2xXGzb" />}
                   number={numberOfMovies}
                 />
               </ThumbLink>
             )}
             {!!numberOfTvShows && (
-              <ThumbLink
-                style={styles.creditNumber}
-                href={personTvPath({ id: personID })}
-              >
+              <ThumbLink style={styles.creditNumber} href={personTvPath({ id: personID })}>
                 <CreditNumberThumb
                   type="tv"
-                  title={
-                    <FormattedMessage defaultMessage="series" id="INk7fF" />
-                  }
+                  title={<FormattedMessage defaultMessage="series" id="INk7fF" />}
                   number={numberOfTvShows}
                 />
               </ThumbLink>
@@ -226,16 +199,16 @@ export default function Person() {
         )}
       </View>
     </ContentLayout>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   content: {
     gap: theme.space.xl,
-    marginBottom: theme.space.xl
+    marginBottom: theme.space.xl,
   },
   creditNumbers: { flexDirection: 'row', gap: theme.space.lg },
   creditNumber: {
-    flex: 1
-  }
-});
+    flex: 1,
+  },
+})
