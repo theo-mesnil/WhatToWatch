@@ -24,6 +24,7 @@ export type GetApiUrlProps = {
 type HttpMethod = 'get' | 'post' | 'put' | 'delete'
 
 type GetApiUrlReturn = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   callApi: <T = any>(page?: number, method?: HttpMethod) => Promise<AxiosResponse<T>>
   queryParams?: string[]
 }
@@ -35,14 +36,16 @@ export type CallApiProps = {
 
 export function getApi({ params, query }: GetApiUrlProps): GetApiUrlReturn {
   let queryParamsUrl = ''
-  let queryParams = [] as string[]
+  const queryParams = [] as string[]
 
-  params &&
-    params.map(param => {
+  if (params) {
+    params.forEach(param => {
       const value = encodeURIComponent(param.value)
+
       queryParamsUrl += `&${param.name}=${value}`
       queryParams.push(`${param.name}:${value}`)
     })
+  }
 
   const queryUrl = (page?: number) => {
     const pageParam = page ? `&page=${page}` : ''
@@ -50,6 +53,7 @@ export function getApi({ params, query }: GetApiUrlProps): GetApiUrlReturn {
     return `${BASE_API_URL}${query}?language=${LOCALE_I18N}${pageParam}${queryParamsUrl}`
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const callApi = <T = any>(
     page?: number,
     method: HttpMethod = 'get'

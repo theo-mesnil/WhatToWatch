@@ -51,6 +51,8 @@ export const Cover = React.memo(({ imageUrl, isLoading, logo, title }: CoverProp
   )
 })
 
+Cover.displayName = 'Cover'
+
 const styles = StyleSheet.create({
   wrapper: {
     height: COVER_HEIGHT,

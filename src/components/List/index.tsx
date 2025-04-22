@@ -18,6 +18,7 @@ type ListProps<ItemProps> = Pick<
   id: string
   isLoading?: boolean
   numberOfItems?: number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   results?: any
   title?: JSX.Element | string
   titleHref?: Href

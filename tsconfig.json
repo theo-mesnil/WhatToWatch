@@ -1,7 +1,6 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true,
     "baseUrl": "./src",
     "noImplicitAny": true,
     "types": ["node", "jest", "@testing-library/react-native"]

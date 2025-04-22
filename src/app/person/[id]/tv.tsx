@@ -60,7 +60,7 @@ export default function PersonTv() {
           {tv?.map(
             (
               {
-                // @ts-expect-error
+                // @ts-expect-error (character is missing in the api type)
                 character,
                 first_air_date,
                 id,

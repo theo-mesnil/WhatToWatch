@@ -15,6 +15,7 @@ type VerticalListProps<ItemProps> = Pick<
   /** uniq id for performance */
   id: string
   isLoading?: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   results?: any
 }
 

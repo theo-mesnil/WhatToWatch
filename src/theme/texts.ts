@@ -3,7 +3,6 @@ import { colors } from './colors'
 export type Text = 'h0' | 'h1' | 'h2' | 'h3' | 'md' | 'lg'
 
 export type Texts = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   [key in Text]: {
     color: string
     fontSize: number

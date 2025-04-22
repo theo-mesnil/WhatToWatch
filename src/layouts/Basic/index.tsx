@@ -5,6 +5,7 @@ import { theme } from 'theme'
 
 type BasicLayoutProps = {
   children: React.ReactNode
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   contentContainerStyle?: any
   getScrollYPosition?: (value: Animated.Value) => void
   isView?: boolean

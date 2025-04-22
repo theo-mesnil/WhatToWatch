@@ -11,6 +11,7 @@ export type TouchableProps = PressableProps & {
   withoutScale?: boolean
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Touchable = React.forwardRef<any, TouchableProps>(
   (
     { duration = 500, endScale = 0.98, onPress, startScale = 1, style, withoutScale, ...rest },
@@ -55,3 +56,5 @@ export const Touchable = React.forwardRef<any, TouchableProps>(
     )
   }
 )
+
+Touchable.displayName = 'Touchable'

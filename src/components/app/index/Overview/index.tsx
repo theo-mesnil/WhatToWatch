@@ -12,8 +12,6 @@ import type { ContentType } from 'types/content'
 
 import { Item } from './Item'
 
-type Item = UseGetTrendingApiResponse['all']['results'][number]
-
 export function Overview() {
   const [activeSlide, setActiveSlide] = React.useState(0)
   const [isScrolling, setIsScrolling] = React.useState(false)
@@ -41,7 +39,9 @@ export function Overview() {
     []
   )
 
-  const renderItem: FlashListProps<Item>['renderItem'] = ({
+  const renderItem: FlashListProps<
+    UseGetTrendingApiResponse['all']['results'][number]
+  >['renderItem'] = ({
     // @ts-expect-error (name is for tv type)
     item: { backdrop_path, id, media_type, name, overview, title },
   }) => {

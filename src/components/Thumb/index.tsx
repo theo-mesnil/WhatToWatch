@@ -55,6 +55,8 @@ export const Thumb = React.memo(
   }
 )
 
+Thumb.displayName = 'Thumb'
+
 const styles = StyleSheet.create({
   wrapper: {
     borderRadius: theme.radii.sm,

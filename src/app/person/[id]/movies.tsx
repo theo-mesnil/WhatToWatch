@@ -60,7 +60,7 @@ export default function PersonMovies() {
           {movies?.map(
             (
               {
-                // @ts-expect-error
+                // @ts-expect-error (character is missing in the api type)
                 character,
                 id,
                 overview,

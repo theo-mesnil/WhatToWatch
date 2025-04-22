@@ -21,7 +21,7 @@ SplashScreen.setOptions({
 const queryClient = new QueryClient()
 
 export default function Layout() {
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
   })

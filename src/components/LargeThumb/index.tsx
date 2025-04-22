@@ -56,6 +56,8 @@ export const LargeThumb = React.memo(
   }
 )
 
+LargeThumb.displayName = 'LargeThumb'
+
 const styles = StyleSheet.create({
   wrapper: {
     borderRadius: theme.radii.xxl,

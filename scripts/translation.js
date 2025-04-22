@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs')
 const path = require('path')
 
@@ -10,7 +11,6 @@ function generateTranslationFiles() {
 
   // Check if temp file exists
   if (!fs.existsSync(tempFilePath)) {
-    // eslint-disable-next-line no-console
     console.error('No temp translation file found. Run extraction first.')
     process.exit(1)
   }
@@ -49,7 +49,6 @@ function generateTranslationFiles() {
   // Write French translations
   fs.writeFileSync(frFilePath, JSON.stringify(frTranslations, null, 2), 'utf-8')
 
-  // eslint-disable-next-line no-console
   console.log('Translation files generated ✅')
 
   // Optional: Remove temp file

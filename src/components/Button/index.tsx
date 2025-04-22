@@ -80,6 +80,8 @@ export const Button = React.forwardRef<never, ButtonProps>(
   }
 )
 
+Button.displayName = 'Button'
+
 const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',

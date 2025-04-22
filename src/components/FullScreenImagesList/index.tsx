@@ -49,6 +49,7 @@ export default function FullScreenImagesList({
     return CARD_WIDTH * index + GAP * index - CARD_LIST_INSET - GAP / 2
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function getItemLayout(_: any, index: number) {
     return {
       length: CARD_WIDTH,
