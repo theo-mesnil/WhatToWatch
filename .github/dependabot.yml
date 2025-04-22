@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    pull-request-branch-name:
+      separator: '-'
+    schedule:
+      interval: daily
+      time: '07:45'
+    open-pull-requests-limit: 3
+    allow:
+      - dependency-type: 'direct'
