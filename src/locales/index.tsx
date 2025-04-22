@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { IntlProvider } from 'react-intl'
 
-import { LOCALE } from 'constants/locales'
+import { LOCALE } from '~/constants/locales'
 
 import en from './en-US.json'
 import fr from './fr-FR.json'

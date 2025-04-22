@@ -2,21 +2,21 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
-import type { UseGetMovieImagesApiResponse } from 'api/movie'
-import { Button } from 'components/Button'
-import { ListTitle } from 'components/ListTitle'
-import { Thumb } from 'components/Thumb'
-import { ThumbLink } from 'components/ThumbLink'
-import { movieImagesPath, tvImagesPath } from 'routes'
-import { globalStyles } from 'styles'
-import { theme } from 'theme'
+import type { UseGetMovieImagesApiResponse } from '~/api/movie'
+import { Button } from '~/components/Button'
+import { ListTitle } from '~/components/ListTitle'
+import { Thumb } from '~/components/Thumb'
+import { ThumbLink } from '~/components/ThumbLink'
+import { movieImagesPath, tvImagesPath } from '~/routes'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
 export type ImagesProps = {
   backdrops?: UseGetMovieImagesApiResponse['backdrops']
   id: number
   isLoading: boolean
   posters?: UseGetMovieImagesApiResponse['posters']
-  type: 'tv' | 'movie'
+  type: 'movie' | 'tv'
 }
 
 export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps) {
@@ -40,10 +40,10 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                   <Thumb
                     aspectRatio={backdrops?.[0]?.aspect_ratio}
                     height="100%"
-                    isLoading={isLoading}
-                    type="movie"
                     imageUrl={backdrops?.[0]?.file_path}
                     imageWidth="w780"
+                    isLoading={isLoading}
+                    type="movie"
                   />
                   <View style={[globalStyles.absoluteFill, styles.content]}>
                     <Button size="lg" style={styles.button} variant="secondary">
@@ -67,10 +67,10 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                   <Thumb
                     aspectRatio={posters?.[0]?.aspect_ratio}
                     height="100%"
-                    isLoading={isLoading}
-                    type="movie"
                     imageUrl={posters?.[0]?.file_path}
                     imageWidth="w780"
+                    isLoading={isLoading}
+                    type="movie"
                   />
                   <View style={[globalStyles.absoluteFill, styles.content]}>
                     <Button size="lg" style={styles.button} variant="secondary">
@@ -90,25 +90,25 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
 }
 
 const styles = StyleSheet.create({
-  images: {
-    flexDirection: 'row',
-    gap: theme.space.lg,
-    aspectRatio: 16 / 9,
-  },
-  content: {
-    justifyContent: 'flex-end',
-  },
-  button: {
-    width: '100%',
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 0,
-  },
   backdrops: {
     height: '100%',
     width: '60%',
   },
+  button: {
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    width: '100%',
+  },
+  content: {
+    justifyContent: 'flex-end',
+  },
+  images: {
+    aspectRatio: 16 / 9,
+    flexDirection: 'row',
+    gap: theme.space.lg,
+  },
   posters: {
-    height: '100%',
     flex: 1,
+    height: '100%',
   },
 })

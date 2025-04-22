@@ -4,8 +4,8 @@ import * as React from 'react'
 import type { ViewProps } from 'react-native'
 import { View } from 'react-native'
 
-import { globalStyles } from 'styles'
-import { theme } from 'theme'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
 export type GradientProps = ViewProps & {
   angle?: number
@@ -23,8 +23,8 @@ export function Gradient({
     <View style={globalStyles.absoluteFill} {...rest}>
       <LinearGradient
         colors={colors}
-        start={[0, 0]}
         end={end as LinearGradientProps['end']}
+        start={[0, 0]}
         style={globalStyles.absoluteFill}
       />
     </View>

@@ -11,9 +11,9 @@ import {
   NETWORK_PARAMOUNT_PLUS,
   NETWORK_PRIME_VIDEO,
   NETWORK_SHOWTIME_ID,
-} from 'constants/networks'
-import { theme } from 'theme'
-import type { NetworkId } from 'types/content'
+} from '~/constants/networks'
+import { theme } from '~/theme'
+import type { NetworkId } from '~/types/content'
 
 import AppleTvPlus from './logos/AppleTvPlus'
 import DisneyPlus from './logos/DisneyPlus'

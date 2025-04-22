@@ -2,8 +2,8 @@ import { useCallback, useState } from 'react'
 import type { NativeSyntheticEvent, TextLayoutEventData } from 'react-native'
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from 'components/Text'
-import { theme } from 'theme'
+import { Text } from '~/components/Text'
+import { theme } from '~/theme'
 
 const maxLines = 8
 
@@ -33,11 +33,11 @@ export function ReadMore({ children }: ReadMoreProps) {
 
   return (
     <View>
-      <Text onTextLayout={onTextLayout} numberOfLines={numLines}>
+      <Text numberOfLines={numLines} onTextLayout={onTextLayout}>
         {children}
       </Text>
       {showMoreButton && (
-        <Text style={styles.button} onPress={toggleTextShown}>
+        <Text onPress={toggleTextShown} style={styles.button}>
           {isExpanded ? 'Read Less' : 'Read More'}
         </Text>
       )}

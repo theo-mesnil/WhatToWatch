@@ -1,10 +1,10 @@
 import { FormattedDate } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from 'components/Text'
-import { Thumb } from 'components/Thumb'
-import { theme } from 'theme'
-import type { ContentType } from 'types/content'
+import { Text } from '~/components/Text'
+import { Thumb } from '~/components/Thumb'
+import { theme } from '~/theme'
+import type { ContentType } from '~/types/content'
 
 export type ItemThumbProps = {
   date?: string
@@ -20,13 +20,13 @@ export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: 
   return (
     <View style={styles.wrapper}>
       <View style={styles.thumb}>
-        <Thumb type={type} imageUrl={posterUrl} />
+        <Thumb imageUrl={posterUrl} type={type} />
       </View>
       <View style={styles.content}>
         <View style={styles.infos}>
           <Text variant="h3">{title}</Text>
           {subtitle && (
-            <Text variant="h3" style={styles.subtitle}>
+            <Text style={styles.subtitle} variant="h3">
               {subtitle}
             </Text>
           )}
@@ -37,7 +37,7 @@ export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: 
           )}
         </View>
         {overview && (
-          <Text style={styles.overview} numberOfLines={4}>
+          <Text numberOfLines={4} style={styles.overview}>
             {overview}
           </Text>
         )}
@@ -47,16 +47,6 @@ export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: 
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flexDirection: 'row',
-    gap: theme.space.md,
-  },
-  thumb: {
-    width: 100,
-  },
-  subtitle: {
-    color: theme.colors.text,
-  },
   content: {
     flex: 1,
   },
@@ -65,5 +55,15 @@ const styles = StyleSheet.create({
   },
   overview: {
     marginTop: theme.space.md,
+  },
+  subtitle: {
+    color: theme.colors.text,
+  },
+  thumb: {
+    width: 100,
+  },
+  wrapper: {
+    flexDirection: 'row',
+    gap: theme.space.md,
   },
 })

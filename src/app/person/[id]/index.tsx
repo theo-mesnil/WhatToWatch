@@ -4,29 +4,29 @@ import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedDate, FormattedMessage } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
-import { routeByType } from 'routes/utils'
 
-import type { UseGetPersonCreditsApiResponse, UseGetPersonImagesApiResponse } from 'api/person'
+import type { UseGetPersonCreditsApiResponse, UseGetPersonImagesApiResponse } from '~/api/person'
 import {
   useGetPerson,
   useGetPersonCredits,
   useGetPersonImages,
   useGetPersonMovieCredits,
   useGetPersonTvCredits,
-} from 'api/person'
-import { CreditNumberThumb } from 'components/app/person/CreditNumberThumb'
-import { ReadMore } from 'components/app/person/ReadMore'
-import { Badge } from 'components/Badge'
-import { List } from 'components/List'
-import { Thumb } from 'components/Thumb'
-import { ThumbLink } from 'components/ThumbLink'
-import { ContentLayout } from 'layouts/Content'
-import { personImagePath, personMoviesPath, personTvPath } from 'routes'
-import { globalStyles } from 'styles'
-import { theme } from 'theme'
+} from '~/api/person'
+import { CreditNumberThumb } from '~/components/app/person/CreditNumberThumb'
+import { ReadMore } from '~/components/app/person/ReadMore'
+import { Badge } from '~/components/Badge'
+import { List } from '~/components/List'
+import { Thumb } from '~/components/Thumb'
+import { ThumbLink } from '~/components/ThumbLink'
+import { ContentLayout } from '~/layouts//Content'
+import { personImagePath, personMoviesPath, personTvPath } from '~/routes'
+import { routeByType } from '~/routes/utils'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
-type ImageItem = UseGetPersonImagesApiResponse['profiles'][number]
 type CastItem = UseGetPersonCreditsApiResponse['cast'][number]
+type ImageItem = UseGetPersonImagesApiResponse['profiles'][number]
 
 export default function Person() {
   const params = useLocalSearchParams<{ id: string }>()
@@ -67,7 +67,7 @@ export default function Person() {
     item: { file_path },
   }) => (
     <ThumbLink href={personImagePath({ id: personID, start: index })}>
-      <Thumb type="person" imageUrl={file_path} />
+      <Thumb imageUrl={file_path} type="person" />
     </ThumbLink>
   )
 
@@ -77,17 +77,14 @@ export default function Person() {
     const type = media_type === 'movie' ? 'movie' : 'tv'
 
     return (
-      <ThumbLink href={routeByType({ type, id })}>
-        <Thumb imageWidth="w500" type={type} imageUrl={poster_path} />
+      <ThumbLink href={routeByType({ id, type })}>
+        <Thumb imageUrl={poster_path} imageWidth="w500" type={type} />
       </ThumbLink>
     )
   }
 
   return (
     <ContentLayout
-      isLoading={isLoading || isLoadingMovies || isLoadingTv}
-      imageUrl={coverUrl}
-      title={name}
       badges={
         <>
           {!!department && <Badge testID="department">{department}</Badge>}
@@ -97,17 +94,17 @@ export default function Person() {
                 <FormattedMessage defaultMessage="Born on" id="/QsGmC" />{' '}
                 <FormattedDate
                   day="numeric"
-                  year="numeric"
                   month="long"
                   value={new Date(birthday)}
+                  year="numeric"
                 />
                 {!deathday && (
                   <>
                     {' ('}
                     {
                       intervalToDuration({
-                        start: new Date(birthday),
                         end: new Date(),
+                        start: new Date(birthday),
                       }).years
                     }
                     <FormattedMessage defaultMessage="y" id="EhtHdK" />)
@@ -119,13 +116,13 @@ export default function Person() {
           {!!deathday && (
             <Badge testID="deathday">
               <FormattedMessage defaultMessage="Died on" id="jMuk1E" />{' '}
-              <FormattedDate day="numeric" year="numeric" month="long" value={new Date(deathday)} />
+              <FormattedDate day="numeric" month="long" value={new Date(deathday)} year="numeric" />
               <>
                 {' ('}
                 {
                   intervalToDuration({
-                    start: new Date(birthday),
                     end: new Date(deathday),
+                    start: new Date(birthday),
                   }).years
                 }
                 <FormattedMessage defaultMessage="y" id="EhtHdK" />)
@@ -149,6 +146,9 @@ export default function Person() {
           )}
         </>
       }
+      imageUrl={coverUrl}
+      isLoading={isLoading || isLoadingMovies || isLoadingTv}
+      title={name}
     >
       <View style={styles.content}>
         {!!biography && (
@@ -158,31 +158,31 @@ export default function Person() {
         )}
         {(isLoadingCredits || credits?.length > 0) && (
           <List<CastItem>
-            title={<FormattedMessage defaultMessage="Know for" id="//VHfC" />}
             id="similar"
-            numberOfItems={2}
             isLoading={isLoadingCredits}
+            numberOfItems={2}
             renderItem={renderCreditImage}
             results={credits?.slice(0, 8)}
+            title={<FormattedMessage defaultMessage="Know for" id="//VHfC" />}
           />
         )}
         {(!!numberOfMovies || !!numberOfTvShows) && (
           <View style={[globalStyles.centered, styles.creditNumbers]}>
             {!!numberOfMovies && (
-              <ThumbLink style={styles.creditNumber} href={personMoviesPath({ id: personID })}>
+              <ThumbLink href={personMoviesPath({ id: personID })} style={styles.creditNumber}>
                 <CreditNumberThumb
-                  type="movie"
-                  title={<FormattedMessage defaultMessage="movies" id="2xXGzb" />}
                   number={numberOfMovies}
+                  title={<FormattedMessage defaultMessage="movies" id="2xXGzb" />}
+                  type="movie"
                 />
               </ThumbLink>
             )}
             {!!numberOfTvShows && (
-              <ThumbLink style={styles.creditNumber} href={personTvPath({ id: personID })}>
+              <ThumbLink href={personTvPath({ id: personID })} style={styles.creditNumber}>
                 <CreditNumberThumb
-                  type="tv"
-                  title={<FormattedMessage defaultMessage="series" id="INk7fF" />}
                   number={numberOfTvShows}
+                  title={<FormattedMessage defaultMessage="series" id="INk7fF" />}
+                  type="tv"
                 />
               </ThumbLink>
             )}
@@ -190,11 +190,11 @@ export default function Person() {
         )}
         {(isLoadingImages || images?.length > 0) && (
           <List<ImageItem>
-            title={<FormattedMessage defaultMessage="Pictures" id="DOPilz" />}
             id="similar"
             isLoading={isLoadingImages}
             renderItem={renderItemImage}
             results={images}
+            title={<FormattedMessage defaultMessage="Pictures" id="DOPilz" />}
           />
         )}
       </View>
@@ -207,8 +207,8 @@ const styles = StyleSheet.create({
     gap: theme.space.xl,
     marginBottom: theme.space.xl,
   },
-  creditNumbers: { flexDirection: 'row', gap: theme.space.lg },
   creditNumber: {
     flex: 1,
   },
+  creditNumbers: { flexDirection: 'row', gap: theme.space.lg },
 })

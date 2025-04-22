@@ -1,9 +1,9 @@
 import { ImageBackground, StyleSheet, View } from 'react-native'
 
-import { Gradient } from 'components/Gradient'
-import { Text } from 'components/Text'
-import { theme } from 'theme'
-import { genresColor } from 'utils/genres'
+import { Gradient } from '~/components/Gradient'
+import { Text } from '~/components/Text'
+import { theme } from '~/theme'
+import { genresColor } from '~/utils/genres'
 
 export type GenreThumbProps = {
   id: number
@@ -18,10 +18,10 @@ export function GenreThumb({ id, title }: GenreThumbProps) {
       <Gradient angle={0.4} colors={gradientColors} />
       {/* eslint-disable-next-line @typescript-eslint/no-require-imports */}
       <ImageBackground source={require('../../assets/thumb-gradient.png')} style={styles.content}>
-        <Text variant="h1" style={[styles.title, { color: gradientColors?.[1] }]}>
+        <Text style={[styles.title, { color: gradientColors?.[1] }]} variant="h1">
           {title}
         </Text>
-        <Text variant="h1" style={[styles.title, styles.whiteTitle]}>
+        <Text style={[styles.title, styles.whiteTitle]} variant="h1">
           {title}
         </Text>
       </ImageBackground>
@@ -30,21 +30,21 @@ export function GenreThumb({ id, title }: GenreThumbProps) {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    borderRadius: theme.radii.md,
-    overflow: 'hidden',
-    width: 200,
-    aspectRatio: 16 / 9,
-  },
   content: {
     aspectRatio: 16 / 9,
     justifyContent: 'flex-end',
     padding: theme.space.md,
   },
   title: {
-    position: 'absolute',
-    left: theme.space.md,
     bottom: theme.space.md,
+    left: theme.space.md,
+    position: 'absolute',
   },
-  whiteTitle: { zIndex: 1, opacity: 0.3 },
+  whiteTitle: { opacity: 0.3, zIndex: 1 },
+  wrapper: {
+    aspectRatio: 16 / 9,
+    borderRadius: theme.radii.md,
+    overflow: 'hidden',
+    width: 200,
+  },
 })

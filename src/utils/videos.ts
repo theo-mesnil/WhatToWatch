@@ -1,7 +1,7 @@
 import { router } from 'expo-router'
 import { Linking } from 'react-native'
 
-import { videoPath } from 'routes'
+import { videoPath } from '~/routes'
 
 type getVideoProps = {
   id: string
@@ -22,8 +22,8 @@ export const getVideo = ({ id, platform }: getVideoProps) => {
   }
 
   return {
+    handlePress,
     imageUrl,
     isYoutube,
-    handlePress,
   }
 }

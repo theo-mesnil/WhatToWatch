@@ -1,10 +1,10 @@
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from 'components/Text'
-import { Thumb } from 'components/Thumb'
-import { Touchable } from 'components/Touchable'
-import { theme } from 'theme'
-import { getVideo } from 'utils/videos'
+import { Text } from '~/components/Text'
+import { Thumb } from '~/components/Thumb'
+import { Touchable } from '~/components/Touchable'
+import { theme } from '~/theme'
+import { getVideo } from '~/utils/videos'
 
 export type VideoThumbProps = {
   id: string
@@ -18,9 +18,9 @@ export function VideoThumb({ id, name, platform, type }: VideoThumbProps) {
 
   return (
     <Touchable onPress={() => handlePress()}>
-      <Thumb aspectRatio={16 / 9} type={type} externalImageUrl={imageUrl} />
+      <Thumb aspectRatio={16 / 9} externalImageUrl={imageUrl} type={type} />
       <View style={styles.text}>
-        <Text variant="h3" numberOfLines={2}>
+        <Text numberOfLines={2} variant="h3">
           {name}
         </Text>
       </View>

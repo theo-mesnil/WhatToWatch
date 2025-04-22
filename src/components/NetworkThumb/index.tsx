@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { Gradient } from 'components/Gradient'
-import { NetworkLogo } from 'components/NetworkLogo'
-import { theme } from 'theme'
-import type { NetworkId } from 'types/content'
-import { getNetworkColor } from 'utils/networks'
+import { Gradient } from '~/components/Gradient'
+import { NetworkLogo } from '~/components/NetworkLogo'
+import { theme } from '~/theme'
+import type { NetworkId } from '~/types/content'
+import { getNetworkColor } from '~/utils/networks'
 
 export type NetworkThumbProps = {
   aspectRatio?: number
@@ -38,15 +38,15 @@ export const NetworkThumb = ({
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    borderRadius: theme.radii.sm,
-    overflow: 'hidden',
+  icon: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   minimalist: {
     borderRadius: 200,
   },
-  icon: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  wrapper: {
+    borderRadius: theme.radii.sm,
+    overflow: 'hidden',
   },
 })

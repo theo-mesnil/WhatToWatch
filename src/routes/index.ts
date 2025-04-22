@@ -1,61 +1,61 @@
 import type { Href } from 'expo-router'
 
 export const tvPath = (params: { id: number }): Href => ({
-  pathname: '/tv/[id]',
   params,
+  pathname: '/tv/[id]',
 })
 
-export const tvImagesPath = (params: { id: number; type: 'posters' | 'backdrops' }): Href => ({
-  pathname: '/tv/[id]/images/[type]',
+export const tvImagesPath = (params: { id: number; type: 'backdrops' | 'posters' }): Href => ({
   params,
+  pathname: '/tv/[id]/images/[type]',
 })
 
 export const moviePath = (params: { id: number }): Href => ({
-  pathname: '/movie/[id]',
   params,
+  pathname: '/movie/[id]',
 })
 
-export const movieImagesPath = (params: { id: number; type: 'posters' | 'backdrops' }): Href => ({
-  pathname: '/movie/[id]/images/[type]',
+export const movieImagesPath = (params: { id: number; type: 'backdrops' | 'posters' }): Href => ({
   params,
+  pathname: '/movie/[id]/images/[type]',
 })
 
 export const personPath = (params: { id: number }): Href => ({
-  pathname: '/person/[id]',
   params,
+  pathname: '/person/[id]',
 })
 
 export const personMoviesPath = (params: { id: number }): Href => ({
-  pathname: '/person/[id]/movies',
   params,
+  pathname: '/person/[id]/movies',
 })
 
 export const personTvPath = (params: { id: number }): Href => ({
-  pathname: '/person/[id]/tv',
   params,
+  pathname: '/person/[id]/tv',
 })
 
 export const personImagePath = (params: { id: number; start: number }): Href => ({
-  pathname: '/person/[id]/images/[start]',
   params,
+  pathname: '/person/[id]/images/[start]',
 })
 
 export const networkPath = (params: { id: number }): Href => ({
-  pathname: '/network/[id]',
   params,
+  pathname: '/network/[id]',
 })
 
 export const genreMoviePath = (params: { id: number }): Href => ({
-  pathname: '/genre/[id]/movie',
   params,
+  pathname: '/genre/[id]/movie',
 })
 
 export const genreTvPath = (params: { id: number }): Href => ({
-  pathname: '/genre/[id]/tv',
   params,
+  pathname: '/genre/[id]/tv',
 })
 
 export const videoPath = (params: { id: string }): Href => ({
-  pathname: '/video/[id]',
   params,
+  pathname: '/video/[id]',
 })

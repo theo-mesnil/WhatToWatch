@@ -5,11 +5,11 @@ import { Poppins_400Regular, Poppins_600SemiBold, useFonts } from '@expo-google-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import { IntlMessages } from 'locales'
 import * as React from 'react'
 import { StatusBar, StyleSheet, View } from 'react-native'
 
-import { theme } from 'theme'
+import { IntlMessages } from '~/locales'
+import { theme } from '~/theme'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -39,7 +39,7 @@ export default function Layout() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" animated backgroundColor="transparent" translucent />
+      <StatusBar animated backgroundColor="transparent" barStyle="light-content" translucent />
       <IntlMessages>
         <QueryClientProvider client={queryClient}>
           <View style={styles.wrapper}>
@@ -78,7 +78,7 @@ export default function Layout() {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
     backgroundColor: theme.colors.behind,
+    flex: 1,
   },
 })

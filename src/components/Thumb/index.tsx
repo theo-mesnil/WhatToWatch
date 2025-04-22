@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { ImageBackground, StyleSheet, View } from 'react-native'
 
-import { Loader } from 'components/Loader'
-import { NoCover } from 'components/NoCover'
-import { theme } from 'theme'
-import type { ContentType, ImageSizeBackdrop, ImageSizePoster } from 'types/content'
-import { getIconType } from 'utils/icons'
-import { getImageUrl } from 'utils/images'
+import { Loader } from '~/components/Loader'
+import { NoCover } from '~/components/NoCover'
+import { theme } from '~/theme'
+import type { ContentType, ImageSizeBackdrop, ImageSizePoster } from '~/types/content'
+import { getIconType } from '~/utils/icons'
+import { getImageUrl } from '~/utils/images'
 
 export type ThumbProps = {
   aspectRatio?: number
@@ -58,17 +58,17 @@ export const Thumb = React.memo(
 Thumb.displayName = 'Thumb'
 
 const styles = StyleSheet.create({
-  wrapper: {
-    borderRadius: theme.radii.sm,
-    overflow: 'hidden',
-  },
-  rounded: {
-    borderRadius: 500,
-  },
   image: {
     backgroundColor: theme.colors.ahead,
   },
   loading: {
     width: '100%',
+  },
+  rounded: {
+    borderRadius: 500,
+  },
+  wrapper: {
+    borderRadius: theme.radii.sm,
+    overflow: 'hidden',
   },
 })

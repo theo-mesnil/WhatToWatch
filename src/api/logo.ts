@@ -2,9 +2,9 @@ import type { UseQueryResult } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
 import type { AxiosResponse } from 'axios'
 
-import type { Locale } from 'constants/locales'
-import { LOCALE } from 'constants/locales'
-import type { ContentType } from 'types/content'
+import type { Locale } from '~/constants/locales'
+import { LOCALE } from '~/constants/locales'
+import type { ContentType } from '~/types/content'
 
 import { getApi } from './api'
 import type { paths } from './types'
@@ -12,9 +12,43 @@ import type { paths } from './types'
 export type UseGetContentImagesApiResponse =
   paths['/3/tv/{series_id}/images']['get']['responses']['200']['content']['application/json']
 
+export type UseGetContentLogo = UseQueryResult<
+  null | {
+    aspectRatio: number
+    url: string
+  },
+  Error
+>
+
 type useGetContentLogoProps = {
   id: number
   type: ContentType
+}
+
+export function useGetContentLogo(props?: useGetContentLogoProps): UseGetContentLogo {
+  const { id, type } = props || {}
+
+  const locales = `${LOCALE},en`
+
+  const { callApi } = getApi({
+    params: [
+      {
+        name: 'include_image_language',
+        value: locales,
+      },
+    ],
+    query: `${type}/${id}/images`,
+  })
+
+  return useQuery({
+    enabled: !!id && !!type,
+    queryFn: async () => {
+      const { data }: AxiosResponse<UseGetContentImagesApiResponse> = await callApi()
+
+      return formatImageToLogo(data, LOCALE)
+    },
+    queryKey: [type, id, 'images', 'logo', locales],
+  })
 }
 
 function formatImageToLogo(data: UseGetContentImagesApiResponse, locale: Locale) {
@@ -28,42 +62,8 @@ function formatImageToLogo(data: UseGetContentImagesApiResponse, locale: Locale)
 
   return logoUrl && !isSvg
     ? {
-        url: logoUrl,
         aspectRatio: logoAspectRatio,
+        url: logoUrl,
       }
     : null
-}
-
-export type UseGetContentLogo = UseQueryResult<
-  {
-    aspectRatio: number
-    url: string
-  } | null,
-  Error
->
-
-export function useGetContentLogo(props?: useGetContentLogoProps): UseGetContentLogo {
-  const { id, type } = props || {}
-
-  const locales = `${LOCALE},en`
-
-  const { callApi } = getApi({
-    query: `${type}/${id}/images`,
-    params: [
-      {
-        name: 'include_image_language',
-        value: locales,
-      },
-    ],
-  })
-
-  return useQuery({
-    queryKey: [type, id, 'images', 'logo', locales],
-    queryFn: async () => {
-      const { data }: AxiosResponse<UseGetContentImagesApiResponse> = await callApi()
-
-      return formatImageToLogo(data, LOCALE)
-    },
-    enabled: !!id && !!type,
-  })
 }

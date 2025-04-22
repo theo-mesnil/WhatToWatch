@@ -2,6 +2,7 @@ export type Color = keyof typeof colors
 export type Colors = typeof colors
 
 const core = {
+  black: '#000000',
   'brand-100': '#b98eed',
   'brand-200': '#af7dea',
   'brand-300': '#a56de8',
@@ -20,7 +21,6 @@ const core = {
   'default-700': '#333333',
   'default-800': '#1a1a1a',
   'default-900': '#0d0d0d',
-  black: '#000000',
   white: '#ffffff',
 }
 

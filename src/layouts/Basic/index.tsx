@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Animated, StyleSheet } from 'react-native'
 
-import { theme } from 'theme'
+import { theme } from '~/theme'
 
 type BasicLayoutProps = {
   children: React.ReactNode
@@ -27,7 +27,8 @@ export function BasicLayout({
 
   return (
     <AnimateComponent
-      style={styles.wrapper}
+      bounces={false}
+      contentContainerStyle={contentContainerStyle}
       onScroll={
         !isView
           ? Animated.event(
@@ -44,10 +45,9 @@ export function BasicLayout({
             )
           : undefined
       }
-      bounces={false}
       scrollEventThrottle={1}
-      contentContainerStyle={contentContainerStyle}
       showsVerticalScrollIndicator={false}
+      style={styles.wrapper}
     >
       {children}
     </AnimateComponent>

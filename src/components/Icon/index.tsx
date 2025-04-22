@@ -2,8 +2,8 @@ import * as React from 'react'
 import type { DimensionValue } from 'react-native'
 import type { SvgProps } from 'react-native-svg'
 
-import { theme } from 'theme'
-import type { Color } from 'theme'
+import { theme } from '~/theme'
+import type { Color } from '~/theme'
 
 import ArrowBackIcon from './icons/ArrowBack'
 import ArrowNextIcon from './icons/ArrowNext'
@@ -46,8 +46,8 @@ const Icon: React.FC<IconProps> = ({ color = 'white', icon: IconComponent, size 
   return (
     <IconComponent
       color={theme.colors[color]}
-      width={size as SvgProps['width']}
       height={size as SvgProps['width']}
+      width={size as SvgProps['width']}
     />
   )
 }

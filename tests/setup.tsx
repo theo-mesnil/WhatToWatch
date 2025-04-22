@@ -11,8 +11,8 @@ jest.mock('expo-localization', () => ({
 
 jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({
-    top: 0,
     bottom: 0,
+    top: 0,
   }),
 }))
 

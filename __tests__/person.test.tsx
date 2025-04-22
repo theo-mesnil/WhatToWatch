@@ -1,8 +1,7 @@
-import Person from 'app/person/[id]'
+import { MOCK_PERSON, MOCK_PERSON_MOVIES, MOCK_PERSON_TV } from '~/api/__mocks__/person'
+import * as person from '~/api/person'
+import Person from '~/app/person/[id]'
 
-import { MOCK_PERSON, MOCK_PERSON_MOVIES, MOCK_PERSON_TV } from 'api/__mocks__/person'
-
-import * as person from '../src/api/person'
 import { mockQuery, render, screen } from '../tests/render'
 
 describe('<Person />', () => {

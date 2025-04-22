@@ -2,15 +2,15 @@ import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { ViewProps } from 'react-native'
 
-import type { GradientProps } from 'components/Gradient'
-import { Gradient } from 'components/Gradient'
-import type { IconElement } from 'components/Icon'
-import { Icon } from 'components/Icon'
-import { Text } from 'components/Text'
-import type { TouchableProps } from 'components/Touchable'
-import { Touchable } from 'components/Touchable'
-import type { Color } from 'theme'
-import { theme } from 'theme'
+import type { GradientProps } from '~/components/Gradient'
+import { Gradient } from '~/components/Gradient'
+import type { IconElement } from '~/components/Icon'
+import { Icon } from '~/components/Icon'
+import { Text } from '~/components/Text'
+import type { TouchableProps } from '~/components/Touchable'
+import { Touchable } from '~/components/Touchable'
+import type { Color } from '~/theme'
+import { theme } from '~/theme'
 
 export type ButtonProps = ViewProps & {
   backgroundColor?: Color
@@ -21,7 +21,7 @@ export type ButtonProps = ViewProps & {
   isRounded?: boolean
   isTransparent?: boolean
   onPress?: TouchableProps['onPress']
-  size?: 'md' | 'lg'
+  size?: 'lg' | 'md'
   variant?: 'primary' | 'secondary'
 }
 
@@ -44,7 +44,7 @@ export const Button = React.forwardRef<never, ButtonProps>(
     ref
   ) => {
     return (
-      <Touchable ref={ref} onPress={onPress} testID={testID}>
+      <Touchable onPress={onPress} ref={ref} testID={testID}>
         <View
           style={[
             styles.wrapper,
@@ -62,12 +62,12 @@ export const Button = React.forwardRef<never, ButtonProps>(
           ) : (
             <>
               <Text
-                variant={size}
                 style={[
                   { color: theme.colors.white },
                   size === 'lg' && styles['text-lg'],
                   gradientColors && styles.gradientColors,
                 ]}
+                variant={size}
               >
                 {children}
               </Text>
@@ -83,14 +83,14 @@ export const Button = React.forwardRef<never, ButtonProps>(
 Button.displayName = 'Button'
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: theme.radii.sm,
-    paddingHorizontal: theme.space.lg,
-    overflow: 'hidden',
-    gap: theme.space.xs,
+  gradientColors: {
+    color: theme.colors.white,
+  },
+  lg: {
+    height: 40,
+  },
+  md: {
+    height: 25,
   },
   primary: {
     backgroundColor: theme.colors['default-700'],
@@ -98,19 +98,19 @@ const styles = StyleSheet.create({
   secondary: {
     backgroundColor: theme.colors['brand-700'],
   },
-  md: {
-    height: 25,
-  },
-  lg: {
-    height: 40,
-  },
   'text-lg': {
     fontWeight: 'bold',
   },
   transparent: {
     backgroundColor: 'transparent',
   },
-  gradientColors: {
-    color: theme.colors.white,
+  wrapper: {
+    alignItems: 'center',
+    borderRadius: theme.radii.sm,
+    flexDirection: 'row',
+    gap: theme.space.xs,
+    justifyContent: 'center',
+    overflow: 'hidden',
+    paddingHorizontal: theme.space.lg,
   },
 })

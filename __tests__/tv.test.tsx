@@ -1,10 +1,9 @@
-import Tv from 'app/tv/[id]'
+import { MOCK_LOGO, MOCK_LOGO_EMPTY } from '~/api/__mocks__/logo'
+import { MOCK_TV, MOCK_TV_WITH_NETWORK } from '~/api/__mocks__/tv'
+import * as logo from '~/api/logo'
+import * as tv from '~/api/tv'
+import Tv from '~/app/tv/[id]'
 
-import { MOCK_LOGO, MOCK_LOGO_EMPTY } from 'api/__mocks__/logo'
-import { MOCK_TV, MOCK_TV_WITH_NETWORK } from 'api/__mocks__/tv'
-
-import * as logo from '../src/api/logo'
-import * as tv from '../src/api/tv'
 import { mockQuery, render, screen } from '../tests/render'
 
 describe('<Tv />', () => {

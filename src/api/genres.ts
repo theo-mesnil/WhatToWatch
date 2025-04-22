@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import type { AxiosResponse } from 'axios'
 
-import { LOCALE } from 'constants/locales'
+import { LOCALE } from '~/constants/locales'
 
 import { getApi } from './api'
 import type { paths } from './types'
@@ -17,12 +17,12 @@ export function useGetGenreMovieList() {
   })
 
   return useQuery({
-    queryKey: ['genre', 'movie', 'list', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetGenreMovieListApiResponse> = await callApi()
 
       return data?.genres
     },
+    queryKey: ['genre', 'movie', 'list', LOCALE],
   })
 }
 
@@ -32,10 +32,10 @@ export function useGetGenreTvList() {
   })
 
   return useQuery({
-    queryKey: ['genre', 'tv', 'list', LOCALE],
     queryFn: async () => {
       const { data }: AxiosResponse<UseGetGenreTvListApiResponse> = await callApi()
       return data.genres
     },
+    queryKey: ['genre', 'tv', 'list', LOCALE],
   })
 }

@@ -1,4 +1,4 @@
-import type { UseGetPerson } from 'api/person'
+import type { UseGetPerson } from '~/api/person'
 
 export const MOCK_PERSON: UseGetPerson['data'] = {
   biography:

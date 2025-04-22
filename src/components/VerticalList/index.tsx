@@ -3,8 +3,8 @@ import { AnimatedFlashList } from '@shopify/flash-list'
 import * as React from 'react'
 import { Animated, Dimensions, View } from 'react-native'
 
-import { fakeData30 } from 'constants/mocks'
-import { theme } from 'theme'
+import { fakeData30 } from '~/constants/mocks'
+import { theme } from '~/theme'
 
 type VerticalListProps<ItemProps> = Pick<
   FlashListProps<ItemProps>,
@@ -46,9 +46,9 @@ export function VerticalList<ItemProps>({
         return (
           <View
             style={{
-              width: itemSize,
-              marginRight: gap,
               marginBottom: gap,
+              marginRight: gap,
+              width: itemSize,
             }}
           >
             {renderItem(props)}
@@ -64,8 +64,8 @@ export function VerticalList<ItemProps>({
       return (
         <View
           style={{
-            width: availableSpace,
             marginBottom: theme.space.lg,
+            width: availableSpace,
           }}
         >
           {ListHeaderComponent as React.ReactElement}
@@ -78,10 +78,19 @@ export function VerticalList<ItemProps>({
 
   return (
     <AnimatedFlashList
-      onEndReached={onEndReached}
       bounces={false}
+      contentContainerStyle={{
+        ...contentContainerStyle,
+        paddingLeft: theme.space.marginList,
+        paddingRight: theme.space.marginList - gap,
+      }}
       data={dataFormatted}
+      estimatedItemSize={itemSize / (3 / 4)}
       keyExtractor={(_, index: number) => (isLoading ? `loading_${id}_${index}` : `${id}_${index}`)}
+      ListHeaderComponent={renderListHeaderComponent}
+      numColumns={numColumns}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.6}
       onScroll={Animated.event(
         [
           {
@@ -94,17 +103,8 @@ export function VerticalList<ItemProps>({
           useNativeDriver: false,
         }
       )}
-      numColumns={numColumns}
-      onEndReachedThreshold={0.6}
-      ListHeaderComponent={renderListHeaderComponent}
       renderItem={internalRenderItem}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        ...contentContainerStyle,
-        paddingLeft: theme.space.marginList,
-        paddingRight: theme.space.marginList - gap,
-      }}
-      estimatedItemSize={itemSize / (3 / 4)}
     />
   )
 }

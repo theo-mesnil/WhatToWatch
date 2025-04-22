@@ -2,12 +2,12 @@ import { useLocalSearchParams, useNavigation } from 'expo-router'
 import * as React from 'react'
 import type { Animated } from 'react-native'
 
-import { useGetGenreMovieList, useGetGenreTvList } from 'api/genres'
-import { GradientHeader } from 'components/GradientHeader'
-import { Header } from 'components/Header'
-import { BasicLayout } from 'layouts/Basic'
-import { theme } from 'theme'
-import { genresColor } from 'utils/genres'
+import { useGetGenreMovieList, useGetGenreTvList } from '~/api/genres'
+import { GradientHeader } from '~/components/GradientHeader'
+import { Header } from '~/components/Header'
+import { BasicLayout } from '~/layouts//Basic'
+import { theme } from '~/theme'
+import { genresColor } from '~/utils/genres'
 
 export type GenreLayoutProps = {
   children: React.ReactNode
@@ -26,7 +26,7 @@ export default function GenreLayout({ children, scrollYPosition }: GenreLayoutPr
     genreTv?.filter(genre => genre.id === genreID)?.[0]
 
   const HeaderComponent = React.useCallback(
-    () => <Header withBackButton title={title?.name} scrollY={scrollYPosition} />,
+    () => <Header scrollY={scrollYPosition} title={title?.name} withBackButton />,
     [scrollYPosition, title?.name]
   )
 

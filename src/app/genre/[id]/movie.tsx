@@ -3,15 +3,15 @@ import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { Animated } from 'react-native'
 
-import type { UseGetDiscoverMovieApiResponse } from 'api/discover'
-import { useGetDiscoverMovie } from 'api/discover'
-import { LargeThumb } from 'components/LargeThumb'
-import { Thumb } from 'components/Thumb'
-import { ThumbLink } from 'components/ThumbLink'
-import { VerticalList } from 'components/VerticalList'
-import { useSafeHeights } from 'constants/useSafeHeights'
-import GenreLayout from 'layouts/Genre'
-import { moviePath } from 'routes'
+import type { UseGetDiscoverMovieApiResponse } from '~/api/discover'
+import { useGetDiscoverMovie } from '~/api/discover'
+import { LargeThumb } from '~/components/LargeThumb'
+import { Thumb } from '~/components/Thumb'
+import { ThumbLink } from '~/components/ThumbLink'
+import { VerticalList } from '~/components/VerticalList'
+import { useSafeHeights } from '~/constants/useSafeHeights'
+import GenreLayout from '~/layouts//Genre'
+import { moviePath } from '~/routes'
 
 type Item = UseGetDiscoverMovieApiResponse['results'][number]
 
@@ -28,8 +28,8 @@ export default function Movie() {
   const firstItem = !isLoading && data?.pages[0].results[0]
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({ item: { id, poster_path } }) => (
-    <ThumbLink isLoading={isLoading} href={moviePath({ id })}>
-      <Thumb type="movie" imageUrl={poster_path} />
+    <ThumbLink href={moviePath({ id })} isLoading={isLoading}>
+      <Thumb imageUrl={poster_path} type="movie" />
     </ThumbLink>
   )
 
@@ -42,23 +42,23 @@ export default function Movie() {
   return (
     <GenreLayout scrollYPosition={scrollYPosition}>
       <VerticalList<Item>
-        renderItem={renderItem}
+        contentContainerStyle={containerStyle}
+        getScrollYPosition={getScrollYPosition}
         id="genre"
+        isLoading={isLoading}
         ListHeaderComponent={
-          <ThumbLink isLoading={isLoading} href={moviePath({ id: firstItem?.id })}>
+          <ThumbLink href={moviePath({ id: firstItem?.id })} isLoading={isLoading}>
             <LargeThumb
-              type="movie"
               id={firstItem?.id}
-              title={firstItem?.title}
               imageUrl={firstItem?.backdrop_path}
+              title={firstItem?.title}
+              type="movie"
             />
           </ThumbLink>
         }
-        isLoading={isLoading}
-        getScrollYPosition={getScrollYPosition}
-        results={data?.pages?.map(page => page.results).flat()}
         onEndReached={loadMore}
-        contentContainerStyle={containerStyle}
+        renderItem={renderItem}
+        results={data?.pages?.map(page => page.results).flat()}
       />
     </GenreLayout>
   )

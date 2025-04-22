@@ -5,9 +5,9 @@ import { LinearGradient } from 'expo-linear-gradient'
 import * as React from 'react'
 import { StyleSheet } from 'react-native'
 
-import { Text } from 'components/Text'
-import type { TextProps } from 'components/Text'
-import { theme } from 'theme'
+import { Text } from '~/components/Text'
+import type { TextProps } from '~/components/Text'
+import { theme } from '~/theme'
 
 export type TextGradientProps = {
   children: React.ReactNode
@@ -23,9 +23,9 @@ export const TextGradient = ({
   variant,
 }: TextGradientProps) => {
   return (
-    <MaskedView style={style} maskElement={<Text variant={variant}>{children}</Text>}>
-      <LinearGradient colors={colors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-        <Text variant={variant} style={styles.hiddenTitle}>
+    <MaskedView maskElement={<Text variant={variant}>{children}</Text>} style={style}>
+      <LinearGradient colors={colors} end={{ x: 1, y: 0 }} start={{ x: 0, y: 0 }}>
+        <Text style={styles.hiddenTitle} variant={variant}>
           {children}
         </Text>
       </LinearGradient>

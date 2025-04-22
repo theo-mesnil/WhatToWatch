@@ -1,8 +1,9 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "baseUrl": "./src",
-    "noImplicitAny": true,
+    "paths": {
+      "~/*": ["./src/*"]
+    },
     "types": ["node", "jest", "@testing-library/react-native"]
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],

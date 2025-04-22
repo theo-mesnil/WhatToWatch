@@ -2,10 +2,10 @@ import { useNavigation } from 'expo-router'
 import * as React from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
 
-import { Text } from 'components/Text'
-import { COVER_HEIGHT } from 'constants/cover'
-import { BasicLayout } from 'layouts/Basic'
-import { theme } from 'theme'
+import { Text } from '~/components/Text'
+import { COVER_HEIGHT } from '~/constants/cover'
+import { BasicLayout } from '~/layouts//Basic'
+import { theme } from '~/theme'
 
 import { Cover } from './Cover'
 import { Header } from './Header'
@@ -36,7 +36,7 @@ export function ContentLayout({
   const navigation = useNavigation()
 
   const HeaderComponent = React.useCallback(
-    () => <Header title={title} scrollY={scrollYPosition} />,
+    () => <Header scrollY={scrollYPosition} title={title} />,
     [scrollYPosition, title]
   )
 
@@ -48,10 +48,10 @@ export function ContentLayout({
 
   return (
     <BasicLayout
-      getScrollYPosition={getScrollYPosition}
       contentContainerStyle={{ paddingBottom: theme.space.xl }}
+      getScrollYPosition={getScrollYPosition}
     >
-      <Cover isLoading={isLoading} imageUrl={imageUrl} title={title} logo={logo} />
+      <Cover imageUrl={imageUrl} isLoading={isLoading} logo={logo} title={title} />
       <View style={styles.infos}>
         {badges && <View style={styles.badges}>{badges}</View>}
         {subtitle && <Text testID="subtitle">{subtitle}</Text>}
@@ -62,17 +62,17 @@ export function ContentLayout({
 }
 
 const styles = StyleSheet.create({
-  infos: {
-    marginTop: COVER_HEIGHT + theme.space.lg,
-    paddingHorizontal: theme.space.xxl,
-    paddingBottom: theme.space.lg,
-    alignItems: 'center',
-    gap: theme.space.sm,
-  },
   badges: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
     gap: theme.space.xs,
+    justifyContent: 'center',
+  },
+  infos: {
+    alignItems: 'center',
+    gap: theme.space.sm,
+    marginTop: COVER_HEIGHT + theme.space.lg,
+    paddingBottom: theme.space.lg,
+    paddingHorizontal: theme.space.xxl,
   },
 })

@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native'
 
-import { Gradient } from 'components/Gradient'
-import { Icon, MovieFillIcon, TvFillIcon } from 'components/Icon'
-import { Text } from 'components/Text'
-import { theme } from 'theme'
+import { Gradient } from '~/components/Gradient'
+import { Icon, MovieFillIcon, TvFillIcon } from '~/components/Icon'
+import { Text } from '~/components/Text'
+import { theme } from '~/theme'
 
 export type CreditNumberThumbProps = {
   number: number
@@ -18,16 +18,16 @@ export function CreditNumberThumb({ number, title, type }: CreditNumberThumbProp
       <View style={styles.content}>
         <View style={styles.icon}>
           <Icon
+            color="default-900"
             icon={type === 'movie' ? MovieFillIcon : TvFillIcon}
             size={80}
-            color="default-900"
           />
         </View>
         <View>
-          <Text variant="h0" style={styles.number}>
+          <Text style={styles.number} variant="h0">
             {number}
           </Text>
-          <Text variant="h2" style={styles.title}>
+          <Text style={styles.title} variant="h2">
             {title}
           </Text>
         </View>
@@ -37,10 +37,6 @@ export function CreditNumberThumb({ number, title, type }: CreditNumberThumbProp
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    borderRadius: theme.radii.md,
-    overflow: 'hidden',
-  },
   content: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -54,5 +50,9 @@ const styles = StyleSheet.create({
   },
   title: {
     textTransform: 'capitalize',
+  },
+  wrapper: {
+    borderRadius: theme.radii.md,
+    overflow: 'hidden',
   },
 })

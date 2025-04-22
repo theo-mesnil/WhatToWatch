@@ -1,10 +1,9 @@
-import Movie from 'app/movie/[id]'
+import { MOCK_LOGO, MOCK_LOGO_EMPTY } from '~/api/__mocks__/logo'
+import { MOCK_MOVIE, MOCK_MOVIE_WITH_NETWORK } from '~/api/__mocks__/movie'
+import * as logo from '~/api/logo'
+import * as movie from '~/api/movie'
+import Movie from '~/app/movie/[id]'
 
-import { MOCK_LOGO, MOCK_LOGO_EMPTY } from 'api/__mocks__/logo'
-import { MOCK_MOVIE, MOCK_MOVIE_WITH_NETWORK } from 'api/__mocks__/movie'
-
-import * as logo from '../src/api/logo'
-import * as movie from '../src/api/movie'
 import { mockQuery, render, screen } from '../tests/render'
 
 describe('<Movie />', () => {

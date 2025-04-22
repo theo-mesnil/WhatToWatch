@@ -4,10 +4,10 @@ import type { Href } from 'expo-router'
 import * as React from 'react'
 import { Dimensions, View } from 'react-native'
 
-import { ListTitle } from 'components/ListTitle'
-import { fakeData30 } from 'constants/mocks'
-import { globalStyles } from 'styles'
-import { theme } from 'theme'
+import { ListTitle } from '~/components/ListTitle'
+import { fakeData30 } from '~/constants/mocks'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
 type ListProps<ItemProps> = Pick<
   FlashListProps<ItemProps>,
@@ -75,8 +75,8 @@ export function List<ItemProps>({
       return (
         <View
           style={{
-            width: withoutSizing ? undefined : itemSize,
             marginRight: gap,
+            width: withoutSizing ? undefined : itemSize,
           }}
         >
           {ListHeaderComponent as React.ReactElement}
@@ -87,7 +87,7 @@ export function List<ItemProps>({
 
   const renderTitle = React.useMemo(
     () => (
-      <ListTitle titleHref={titleHref} style={globalStyles.centered}>
+      <ListTitle style={globalStyles.centered} titleHref={titleHref}>
         {title}
       </ListTitle>
     ),
@@ -103,19 +103,19 @@ export function List<ItemProps>({
       {!!title && renderTitle}
       <AnimatedFlashList
         bounces={false}
+        contentContainerStyle={{
+          paddingHorizontal: theme.space.marginList,
+        }}
         data={dataFormatted}
+        estimatedItemSize={itemSize}
+        horizontal
+        ItemSeparatorComponent={renderSeparators}
         keyExtractor={(_, index: number) =>
           isLoading ? `loading_${id}_${index}` : `${id}_${index}`
         }
         ListHeaderComponent={renderListHeaderComponent}
-        estimatedItemSize={itemSize}
         renderItem={internalRenderItem}
-        horizontal
-        ItemSeparatorComponent={renderSeparators}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingHorizontal: theme.space.marginList,
-        }}
       />
     </View>
   )

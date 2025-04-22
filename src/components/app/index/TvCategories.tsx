@@ -1,12 +1,12 @@
 import type { FlashListProps } from '@shopify/flash-list'
 import { FormattedMessage } from 'react-intl'
 
-import type { UseGetGenreTvListApiResponse } from 'api/genres'
-import { useGetGenreTvList } from 'api/genres'
-import { GenreThumb } from 'components/GenreThumb'
-import { List } from 'components/List'
-import { ThumbLink } from 'components/ThumbLink'
-import { genreTvPath } from 'routes'
+import type { UseGetGenreTvListApiResponse } from '~/api/genres'
+import { useGetGenreTvList } from '~/api/genres'
+import { GenreThumb } from '~/components/GenreThumb'
+import { List } from '~/components/List'
+import { ThumbLink } from '~/components/ThumbLink'
+import { genreTvPath } from '~/routes'
 
 type Item = UseGetGenreTvListApiResponse['genres'][number]
 
@@ -21,12 +21,12 @@ export function TvCategories() {
 
   return (
     <List<Item>
-      withoutSizing
+      id="tv-categories"
+      isLoading={isLoading}
+      renderItem={renderItem}
       results={data}
       title={<FormattedMessage defaultMessage="Series by categories" id="9Pg5Uj" />}
-      id="tv-categories"
-      renderItem={renderItem}
-      isLoading={isLoading}
+      withoutSizing
     />
   )
 }

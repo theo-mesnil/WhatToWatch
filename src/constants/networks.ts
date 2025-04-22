@@ -1,4 +1,4 @@
-import type { NetworkId } from 'types/content'
+import type { NetworkId } from '~/types/content'
 
 // import { REGION_CODE } from './locales';
 
@@ -24,13 +24,13 @@ export type NetworksList = Network[]
  * /!| do not change the order /!\
  */
 export const networksList: NetworksList = [
-  { id: NETWORK_NETFLIX_ID, title: 'Netflix', slug: 'netflix' },
-  { id: NETWORK_DISNEY_PLUS_ID, title: 'Disney+', slug: 'disney-plus' },
-  { id: NETWORK_APPLE_TV_PLUS_ID, title: 'Apple TV+', slug: 'apple-tv-plus' },
-  { id: NETWORK_PRIME_VIDEO, title: 'Prime Video', slug: 'prime-video' },
-  { id: NETWORK_PARAMOUNT_PLUS, title: 'Paramount+', slug: 'paramount-plus' },
-  { id: NETWORK_HBO_ID, title: 'HBO', slug: 'hbo' },
-  { id: NETWORK_HULU_ID, title: 'Hulu', slug: 'hulu' },
-  { id: NETWORK_SHOWTIME_ID, title: 'Showtime', slug: 'showtime' },
-  { id: NETWORK_FOX_ID, title: 'FOX', slug: 'fox' },
+  { id: NETWORK_NETFLIX_ID, slug: 'netflix', title: 'Netflix' },
+  { id: NETWORK_DISNEY_PLUS_ID, slug: 'disney-plus', title: 'Disney+' },
+  { id: NETWORK_APPLE_TV_PLUS_ID, slug: 'apple-tv-plus', title: 'Apple TV+' },
+  { id: NETWORK_PRIME_VIDEO, slug: 'prime-video', title: 'Prime Video' },
+  { id: NETWORK_PARAMOUNT_PLUS, slug: 'paramount-plus', title: 'Paramount+' },
+  { id: NETWORK_HBO_ID, slug: 'hbo', title: 'HBO' },
+  { id: NETWORK_HULU_ID, slug: 'hulu', title: 'Hulu' },
+  { id: NETWORK_SHOWTIME_ID, slug: 'showtime', title: 'Showtime' },
+  { id: NETWORK_FOX_ID, slug: 'fox', title: 'FOX' },
 ]

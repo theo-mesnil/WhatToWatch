@@ -1,9 +1,9 @@
 import { Animated, ImageBackground, StyleSheet } from 'react-native'
 
-import type { GradientProps } from 'components/Gradient'
-import { Gradient } from 'components/Gradient'
-import { globalStyles } from 'styles'
-import { theme } from 'theme'
+import type { GradientProps } from '~/components/Gradient'
+import { Gradient } from '~/components/Gradient'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
 export type GradientHeaderProps = {
   colors?: GradientProps['colors']
@@ -28,9 +28,9 @@ export function GradientHeader({
       ]}
     >
       <ImageBackground
-        style={[globalStyles.absoluteFill, styles.imageBackground]}
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         source={require('../../assets/thumb-gradient.png')}
+        style={[globalStyles.absoluteFill, styles.imageBackground]}
       />
       <Gradient angle={0} colors={colors} style={globalStyles.absoluteFill} />
       <Gradient
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
   },
   darkGradient: {
     height: 50,
-    zIndex: 2,
     marginTop: 250,
+    zIndex: 2,
   },
   imageBackground: {
     zIndex: 1,

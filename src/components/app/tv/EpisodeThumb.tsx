@@ -1,10 +1,10 @@
 import { FormattedDate } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from 'components/Text'
-import { Thumb } from 'components/Thumb'
-import { theme } from 'theme'
-import { formatTime } from 'utils/time'
+import { Text } from '~/components/Text'
+import { Thumb } from '~/components/Thumb'
+import { theme } from '~/theme'
+import { formatTime } from '~/utils/time'
 
 export type EpisodeThumbProps = {
   airDate?: string
@@ -27,7 +27,7 @@ export function EpisodeThumb({
     <View style={styles.wrapper}>
       <View style={styles.main}>
         <View style={styles.thumb}>
-          <Thumb type="tv" aspectRatio={16 / 9} imageUrl={imageUrl} />
+          <Thumb aspectRatio={16 / 9} imageUrl={imageUrl} type="tv" />
         </View>
         <View style={styles.infos}>
           <Text style={styles.name} variant="lg">
@@ -38,7 +38,7 @@ export function EpisodeThumb({
             {airDate && (
               <Text>
                 {runtime && ' • '}
-                <FormattedDate month="2-digit" day="2-digit" value={new Date(airDate)} />
+                <FormattedDate day="2-digit" month="2-digit" value={new Date(airDate)} />
               </Text>
             )}
           </View>
@@ -50,25 +50,25 @@ export function EpisodeThumb({
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    gap: theme.space.xs,
+  infos: {
+    flexShrink: 1,
+    gap: theme.space.sm,
+    justifyContent: 'center',
+    marginLeft: theme.space.md,
   },
   main: {
     flexDirection: 'row',
-  },
-  thumb: {
-    width: 150,
-  },
-  infos: {
-    marginLeft: theme.space.md,
-    flexShrink: 1,
-    justifyContent: 'center',
-    gap: theme.space.sm,
   },
   name: {
     color: theme.colors.white,
   },
   runtime: {
     flexDirection: 'row',
+  },
+  thumb: {
+    width: 150,
+  },
+  wrapper: {
+    gap: theme.space.xs,
   },
 })

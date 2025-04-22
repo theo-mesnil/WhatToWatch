@@ -8,31 +8,8 @@ import {
   NETWORK_PARAMOUNT_PLUS,
   NETWORK_PRIME_VIDEO,
   NETWORK_SHOWTIME_ID,
-} from 'constants/networks'
-import type { NetworkId } from 'types/content'
-
-export function getNetworkName(id: NetworkId) {
-  switch (id) {
-    case NETWORK_APPLE_TV_PLUS_ID:
-      return 'Apple Tv +'
-    case NETWORK_DISNEY_PLUS_ID:
-      return 'Disney +'
-    case NETWORK_FOX_ID:
-      return 'Fox'
-    case NETWORK_HBO_ID:
-      return 'HBO'
-    case NETWORK_HULU_ID:
-      return 'Hulu'
-    case NETWORK_NETFLIX_ID:
-      return 'Netflix'
-    case NETWORK_PRIME_VIDEO:
-      return 'Prime Video'
-    case NETWORK_SHOWTIME_ID:
-      return 'Showtime'
-    default:
-      return null
-  }
-}
+} from '~/constants/networks'
+import type { NetworkId } from '~/types/content'
 
 export function getNetworkColor(id?: NetworkId): [string, string] {
   switch (id) {
@@ -91,4 +68,27 @@ export function getNetworkFromUrl(url: string) {
   }
 
   return network
+}
+
+export function getNetworkName(id: NetworkId) {
+  switch (id) {
+    case NETWORK_APPLE_TV_PLUS_ID:
+      return 'Apple Tv +'
+    case NETWORK_DISNEY_PLUS_ID:
+      return 'Disney +'
+    case NETWORK_FOX_ID:
+      return 'Fox'
+    case NETWORK_HBO_ID:
+      return 'HBO'
+    case NETWORK_HULU_ID:
+      return 'Hulu'
+    case NETWORK_NETFLIX_ID:
+      return 'Netflix'
+    case NETWORK_PRIME_VIDEO:
+      return 'Prime Video'
+    case NETWORK_SHOWTIME_ID:
+      return 'Showtime'
+    default:
+      return null
+  }
 }

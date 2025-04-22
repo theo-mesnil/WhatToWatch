@@ -22,16 +22,16 @@ export const Touchable = React.forwardRef<any, TouchableProps>(
 
     function onPressIn() {
       Animated.timing(scaleAnimation, {
-        toValue: endScaleFormatted,
         duration,
+        toValue: endScaleFormatted,
         useNativeDriver: true,
       }).start()
     }
 
     function onPressOut() {
       Animated.timing(scaleAnimation, {
-        toValue: startScale,
         duration,
+        toValue: startScale,
         useNativeDriver: true,
       }).start()
     }
@@ -46,10 +46,10 @@ export const Touchable = React.forwardRef<any, TouchableProps>(
         ]}
       >
         <Pressable
-          ref={ref}
           onPress={onPress}
           onPressIn={onPressIn}
           onPressOut={onPressOut}
+          ref={ref}
           {...rest}
         />
       </Animated.View>

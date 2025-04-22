@@ -16,8 +16,8 @@ type Theme = {
 
 const theme: Theme = {
   colors,
-  space,
   radii,
+  space,
   texts,
 }
 

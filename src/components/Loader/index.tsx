@@ -2,9 +2,9 @@ import * as React from 'react'
 import type { ViewProps } from 'react-native'
 import { Animated, StyleSheet, View } from 'react-native'
 
-import type { GradientProps } from 'components/Gradient'
-import { Gradient } from 'components/Gradient'
-import { theme } from 'theme'
+import type { GradientProps } from '~/components/Gradient'
+import { Gradient } from '~/components/Gradient'
+import { theme } from '~/theme'
 
 export type LoaderProps = ViewProps & {
   colors?: GradientProps['colors']
@@ -22,13 +22,13 @@ export function Loader({
     Animated.loop(
       Animated.sequence([
         Animated.timing(fadeAnim, {
-          toValue: 1,
           duration: 800,
+          toValue: 1,
           useNativeDriver: true,
         }),
         Animated.timing(fadeAnim, {
-          toValue: startValue,
           duration: 500,
+          toValue: startValue,
           useNativeDriver: true,
         }),
       ])
@@ -52,11 +52,11 @@ export function Loader({
 }
 
 const styles = StyleSheet.create({
+  content: {
+    height: '100%',
+    width: '100%',
+  },
   wrapper: {
     backgroundColor: theme.colors.ahead,
-  },
-  content: {
-    width: '100%',
-    height: '100%',
   },
 })

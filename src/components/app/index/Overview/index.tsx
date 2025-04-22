@@ -4,11 +4,11 @@ import * as React from 'react'
 import { Animated, Dimensions, StyleSheet, View } from 'react-native'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 
-import type { UseGetTrendingApiResponse } from 'api/trending'
-import { useGetTrending } from 'api/trending'
-import { Loader } from 'components/Loader'
-import { theme } from 'theme'
-import type { ContentType } from 'types/content'
+import type { UseGetTrendingApiResponse } from '~/api/trending'
+import { useGetTrending } from '~/api/trending'
+import { Loader } from '~/components/Loader'
+import { theme } from '~/theme'
+import type { ContentType } from '~/types/content'
 
 import { Item } from './Item'
 
@@ -48,25 +48,25 @@ export function Overview() {
     return (
       <View style={{ width: itemSize }}>
         <Item
-          type={media_type as ContentType}
-          id={id}
-          title={title || name}
-          imageUrl={backdrop_path}
           description={overview}
+          id={id}
+          imageUrl={backdrop_path}
+          title={title || name}
+          type={media_type as ContentType}
         />
       </View>
     )
   }
 
   const widthAnimated = Animated.timing(width, {
-    toValue: 20,
     duration: 200,
+    toValue: 20,
     useNativeDriver: false,
   })
 
   const prevWidthAnimated = Animated.timing(prevWidth, {
-    toValue: 10,
     duration: 200,
+    toValue: 10,
     useNativeDriver: false,
   })
 
@@ -109,25 +109,26 @@ export function Overview() {
   return (
     <View>
       <AnimatedFlashList
+        bounces={false}
+        data={results}
+        estimatedItemSize={itemSize}
+        horizontal
+        keyExtractor={(item, index) =>
+          isLoading ? `loading_${index}_overview` : `${index}_${item.id}_overview`
+        }
+        numColumns={1}
         onScroll={onScroll}
         onScrollBeginDrag={onScrollBeginDrag}
         onScrollEndDrag={onScrollEndDrag}
         onViewableItemsChanged={onViewableItemsChanged}
-        numColumns={1}
         pagingEnabled
-        bounces={false}
-        estimatedItemSize={itemSize}
-        data={results}
-        keyExtractor={(item, index) =>
-          isLoading ? `loading_${index}_overview` : `${index}_${item.id}_overview`
-        }
         renderItem={renderItem}
-        horizontal
         showsHorizontalScrollIndicator={false}
       />
       <View style={styles.dots}>
         {results?.map((_, index) => (
           <Animated.View
+            key={`overview-list-dot-${index}`}
             style={[
               styles.dot,
               index === activeSlide && {
@@ -143,7 +144,6 @@ export function Overview() {
                 },
               index === activeSlide && styles.activeDot,
             ]}
-            key={`overview-list-dot-${index}`}
           />
         ))}
       </View>
@@ -152,23 +152,23 @@ export function Overview() {
 }
 
 const styles = StyleSheet.create({
-  item: { height: 600 },
-  dots: {
-    position: 'absolute',
-    bottom: theme.space.md,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    gap: theme.space.md,
-    justifyContent: 'center',
-  },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 10,
-    backgroundColor: theme.colors['default-400'],
-  },
   activeDot: {
     backgroundColor: theme.colors['default-100'],
   },
+  dot: {
+    backgroundColor: theme.colors['default-400'],
+    borderRadius: 10,
+    height: 10,
+    width: 10,
+  },
+  dots: {
+    bottom: theme.space.md,
+    flexDirection: 'row',
+    gap: theme.space.md,
+    justifyContent: 'center',
+    left: 0,
+    position: 'absolute',
+    right: 0,
+  },
+  item: { height: 600 },
 })

@@ -1,14 +1,11 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import type { AxiosResponse } from 'axios'
 
-import { LOCALE } from 'constants/locales'
+import { LOCALE } from '~/constants/locales'
 
 import type { SpecificApiParam } from './api'
 import { getApi } from './api'
 import type { paths } from './types'
-
-export type UseGetSearchApiResponse =
-  paths['/3/search/multi']['get']['responses']['200']['content']['application/json']
 
 export type UseGetSearchApiParams = paths['/3/search/multi']['get']['parameters']['query']
 
@@ -17,24 +14,27 @@ export type UseGetSearchApiProps = {
   params?: SpecificApiParam<UseGetSearchApiParams>[]
 }
 
+export type UseGetSearchApiResponse =
+  paths['/3/search/multi']['get']['responses']['200']['content']['application/json']
+
 export function useGetSearch(props?: UseGetSearchApiProps) {
   const { maxPages = 30, params } = props || {}
 
   const { callApi, queryParams } = getApi({
-    query: 'search/multi',
     params,
+    query: 'search/multi',
   })
 
-  return useInfiniteQuery({
-    queryKey: ['search', 'multi', ...queryParams, LOCALE],
-    queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetSearchApiResponse> = await callApi(pageParam)
-
-      return data
-    },
-    initialPageParam: 1,
+  return useInfiniteQuery<UseGetSearchApiResponse, Error>({
     getNextPageParam: ({ page }) => {
       return page + 1 <= maxPages ? page + 1 : undefined
     },
+    initialPageParam: 1,
+    queryFn: async ({ pageParam }) => {
+      const { data }: AxiosResponse<UseGetSearchApiResponse> = await callApi(pageParam as number)
+
+      return data
+    },
+    queryKey: ['search', 'multi', ...queryParams, LOCALE],
   })
 }

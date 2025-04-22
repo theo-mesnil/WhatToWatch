@@ -1,6 +1,6 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { theme } from 'theme'
+import { theme } from '~/theme'
 
 import { isAndroid } from './screen'
 
@@ -17,14 +17,14 @@ export function useSafeHeights(withComponent?: boolean) {
   const tabBarSafeHeight = bottomHeight + tabBarBottomHeight
 
   return {
+    containerStyle: {
+      paddingBottom: tabBarSafeHeight + theme.space.xl,
+      paddingTop: headerSafeHeight,
+    },
+    headerHeight,
+    headerSafeHeight,
+    statusBarHeight,
     tabBarBottomHeight: tabBarSafeHeight,
     tabBarBottomSafeHeight: tabBarSafeHeight,
-    containerStyle: {
-      paddingTop: headerSafeHeight,
-      paddingBottom: tabBarSafeHeight + theme.space.xl,
-    },
-    headerSafeHeight,
-    headerHeight,
-    statusBarHeight,
   }
 }

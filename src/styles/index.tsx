@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native'
 
-import { theme } from 'theme'
+import { theme } from '~/theme'
 
 export const globalStyles = StyleSheet.create({
   absoluteFill: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
     bottom: 0,
+    left: 0,
+    position: 'absolute',
     right: 0,
+    top: 0,
   },
   centered: {
     marginHorizontal: theme.space.marginList,

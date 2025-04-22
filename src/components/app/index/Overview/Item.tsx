@@ -1,17 +1,17 @@
 import { Link } from 'expo-router'
 import { FormattedMessage } from 'react-intl'
 import { Image, ImageBackground, StyleSheet, View } from 'react-native'
-import { routeByType } from 'routes/utils'
 
-import { useGetContentLogo } from 'api/logo'
-import { Button } from 'components/Button'
-import { Gradient } from 'components/Gradient'
-import { ArrowNextIcon } from 'components/Icon'
-import { Text } from 'components/Text'
-import { globalStyles } from 'styles'
-import { theme } from 'theme'
-import type { ContentType } from 'types/content'
-import { getImageUrl } from 'utils/images'
+import { useGetContentLogo } from '~/api/logo'
+import { Button } from '~/components/Button'
+import { Gradient } from '~/components/Gradient'
+import { ArrowNextIcon } from '~/components/Icon'
+import { Text } from '~/components/Text'
+import { routeByType } from '~/routes/utils'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
+import type { ContentType } from '~/types/content'
+import { getImageUrl } from '~/utils/images'
 
 export type ItemProps = {
   description?: string
@@ -39,8 +39,8 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
         <Gradient colors={['transparent', theme.colors.behind]} />
         {!isLoadingLogo && logo && (
           <Image
-            style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
             src={getImageUrl(logo.url, 'w500')}
+            style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
           />
         )}
         {!isLoadingLogo && !logo && (
@@ -48,11 +48,11 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
             {title}
           </Text>
         )}
-        <Text style={styles.subtitle} numberOfLines={3}>
+        <Text numberOfLines={3} style={styles.subtitle}>
           {description}
         </Text>
-        <Link href={routeByType({ type, id })} asChild>
-          <Button style={styles.cta} variant="secondary" size="lg" icon={ArrowNextIcon}>
+        <Link asChild href={routeByType({ id, type })}>
+          <Button icon={ArrowNextIcon} size="lg" style={styles.cta} variant="secondary">
             <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
           </Button>
         </Link>
@@ -62,30 +62,30 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    height: 600,
-    justifyContent: 'flex-end',
-  },
   content: {
+    alignItems: 'center',
     height: 400,
     justifyContent: 'flex-end',
-    alignItems: 'center',
     paddingBottom: 40,
     paddingHorizontal: theme.space.xxl,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  subtitle: {
-    color: theme.colors.white,
-    textAlign: 'center',
-    marginTop: theme.space.sm,
   },
   cta: {
     marginTop: theme.space.lg,
   },
   logo: {
-    width: 250,
     maxHeight: 150,
+    width: 250,
+  },
+  subtitle: {
+    color: theme.colors.white,
+    marginTop: theme.space.sm,
+    textAlign: 'center',
+  },
+  title: {
+    textAlign: 'center',
+  },
+  wrapper: {
+    height: 600,
+    justifyContent: 'flex-end',
   },
 })

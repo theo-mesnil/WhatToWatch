@@ -1,5 +1,5 @@
-import type { UseGetTv } from 'api/tv'
-import { NETWORK_HBO_ID } from 'constants/networks'
+import type { UseGetTv } from '~/api/tv'
+import { NETWORK_HBO_ID } from '~/constants/networks'
 
 export const MOCK_TV: UseGetTv['data'] = {
   coverUrl: '/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',

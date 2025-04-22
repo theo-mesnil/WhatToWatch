@@ -1,4 +1,4 @@
-import { NETWORK_HBO_ID, NETWORK_NETFLIX_ID } from 'constants/networks'
+import { NETWORK_HBO_ID, NETWORK_NETFLIX_ID } from '~/constants/networks'
 
 import { getNetworkColor, getNetworkFromUrl } from './networks'
 

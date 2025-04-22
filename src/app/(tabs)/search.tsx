@@ -4,24 +4,24 @@ import debounce from 'lodash.debounce'
 import * as React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Animated, StyleSheet, View } from 'react-native'
-import { routeByType } from 'routes/utils'
 
-import { useGetSearch } from 'api/search'
-import type { UseGetTrendingApiResponse } from 'api/trending'
-import { useGetTrending } from 'api/trending'
-import { GradientHeader } from 'components/GradientHeader'
-import { Header } from 'components/Header'
-import { Icon, SearchFillIcon } from 'components/Icon'
-import { Text } from 'components/Text'
-import { TextInput } from 'components/TextInput'
-import { Thumb } from 'components/Thumb'
-import { ThumbLink } from 'components/ThumbLink'
-import { VerticalList } from 'components/VerticalList'
-import { useSafeHeights } from 'constants/useSafeHeights'
-import { BasicLayout } from 'layouts/Basic'
-import { theme } from 'theme'
-import type { ContentType } from 'types/content'
-import type { HeaderOptions } from 'types/navigation'
+import { useGetSearch } from '~/api/search'
+import type { UseGetTrendingApiResponse } from '~/api/trending'
+import { useGetTrending } from '~/api/trending'
+import { GradientHeader } from '~/components/GradientHeader'
+import { Header } from '~/components/Header'
+import { Icon, SearchFillIcon } from '~/components/Icon'
+import { Text } from '~/components/Text'
+import { TextInput } from '~/components/TextInput'
+import { Thumb } from '~/components/Thumb'
+import { ThumbLink } from '~/components/ThumbLink'
+import { VerticalList } from '~/components/VerticalList'
+import { useSafeHeights } from '~/constants/useSafeHeights'
+import { BasicLayout } from '~/layouts//Basic'
+import { routeByType } from '~/routes/utils'
+import { theme } from '~/theme'
+import type { ContentType } from '~/types/content'
+import type { HeaderOptions } from '~/types/navigation'
 
 type Item = UseGetTrendingApiResponse['all']['results'][number]
 
@@ -69,14 +69,14 @@ export default function Search() {
 
     return (
       <ThumbLink
-        href={routeByType({ type: media_type as ContentType, id })}
+        href={routeByType({ id, type: media_type as ContentType })}
         isLoading={isLoadingItem}
       >
         <>
           <Thumb
-            type={media_type as ContentType}
             imageUrl={poster_path || profile_path}
             imageWidth="w300"
+            type={media_type as ContentType}
           />
           {querySearch && <Text numberOfLines={3}>{name || title}</Text>}
         </>
@@ -88,19 +88,19 @@ export default function Search() {
     <>
       {!isSearchLoading && !results.length ? (
         <View style={styles.noResults}>
-          <Icon icon={SearchFillIcon} size={80} color="brand-500" />
-          <Text variant="h1" style={styles.noResultsTitle}>
+          <Icon color="brand-500" icon={SearchFillIcon} size={80} />
+          <Text style={styles.noResultsTitle} variant="h1">
             <FormattedMessage defaultMessage="Oh no! We have found nothing 🥺" id="hVXARm" />
           </Text>
         </View>
       ) : (
-        <Text variant="h2" style={styles.listTitle}>
+        <Text style={styles.listTitle} variant="h2">
           <FormattedMessage defaultMessage="We offer you:" id="qAbeEW" />
         </Text>
       )}
     </>
   ) : (
-    <Text variant="h2" style={styles.listTitle}>
+    <Text style={styles.listTitle} variant="h2">
       <FormattedMessage defaultMessage="Latest trends" id="mnB7Ay" />
     </Text>
   )
@@ -109,19 +109,19 @@ export default function Search() {
     ({ options: { title } }: HeaderOptions) => {
       return (
         <Header
-          title={title}
-          scrollY={scrollYPosition}
           component={
             <TextInput
-              onChangeText={debounce(setQuerySearch, 300)}
-              enterKeyHint="search"
               clearButtonMode="always"
+              enterKeyHint="search"
+              onChangeText={debounce(setQuerySearch, 300)}
               placeholder={intl.formatMessage({
                 defaultMessage: 'What would you like to watch?',
                 id: 'UhsiMg',
               })}
             />
           }
+          scrollY={scrollYPosition}
+          title={title}
         />
       )
     },
@@ -138,14 +138,14 @@ export default function Search() {
     <BasicLayout isView>
       <GradientHeader scrollY={scrollYPosition} />
       <VerticalList<Item>
+        contentContainerStyle={containerStyle}
+        getScrollYPosition={getScrollYPosition}
         id="search-trending"
         isLoading={isLoading || isSearchLoading}
-        renderItem={renderItem}
-        getScrollYPosition={getScrollYPosition}
-        results={results}
-        onEndReached={loadMore}
-        contentContainerStyle={containerStyle}
         ListHeaderComponent={renderListHeaderComponent}
+        onEndReached={loadMore}
+        renderItem={renderItem}
+        results={results}
       />
     </BasicLayout>
   )
@@ -156,12 +156,12 @@ const styles = StyleSheet.create({
     marginTop: theme.space.xl,
   },
   noResults: {
-    marginTop: theme.space.xl,
     alignItems: 'center',
+    marginTop: theme.space.xl,
   },
   noResultsTitle: {
-    textAlign: 'center',
     marginTop: theme.space.md,
     maxWidth: 250,
+    textAlign: 'center',
   },
 })

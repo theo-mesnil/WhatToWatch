@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from 'components/Text'
-import { Thumb } from 'components/Thumb'
-import { theme } from 'theme'
-import type { ContentType } from 'types/content'
+import { Text } from '~/components/Text'
+import { Thumb } from '~/components/Thumb'
+import { theme } from '~/theme'
+import type { ContentType } from '~/types/content'
 
 export type NumberThumbProps = {
   imageUrl: string
@@ -15,7 +15,7 @@ export function NumberThumb({ imageUrl, number, type }: NumberThumbProps) {
   return (
     <View style={styles.wrapper}>
       <View style={styles.numberWrapper}>
-        <Text variant="h0" style={styles.number}>
+        <Text style={styles.number} variant="h0">
           {number}
         </Text>
       </View>
@@ -27,25 +27,25 @@ export function NumberThumb({ imageUrl, number, type }: NumberThumbProps) {
 }
 
 const styles = StyleSheet.create({
-  wrapper: { flexDirection: 'row' },
-  thumb: {
-    width: 110,
-    marginLeft: 45,
-  },
   firstNumber: {
     marginLeft: 37,
   },
-  numberWrapper: {
-    position: 'absolute',
-    bottom: -20,
-    left: 0,
-    justifyContent: 'center',
-  },
   number: {
-    flexDirection: 'row',
-    letterSpacing: -15,
     color: theme.colors['brand-500'],
+    flexDirection: 'row',
     fontSize: 100,
+    letterSpacing: -15,
     lineHeight: 100,
   },
+  numberWrapper: {
+    bottom: -20,
+    justifyContent: 'center',
+    left: 0,
+    position: 'absolute',
+  },
+  thumb: {
+    marginLeft: 45,
+    width: 110,
+  },
+  wrapper: { flexDirection: 'row' },
 })

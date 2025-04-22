@@ -1,5 +1,5 @@
-import type { UseGetMovie } from 'api/movie'
-import { NETWORK_NETFLIX_ID } from 'constants/networks'
+import type { UseGetMovie } from '~/api/movie'
+import { NETWORK_NETFLIX_ID } from '~/constants/networks'
 
 export const MOCK_MOVIE: UseGetMovie['data'] = {
   coverUrl: '/hziiv14OpD73u9gAak4XDDfBKa2.jpg',

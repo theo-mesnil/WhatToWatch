@@ -2,13 +2,13 @@ import { BlurView } from 'expo-blur'
 import { useNavigation } from 'expo-router'
 import { Animated, Dimensions, StyleSheet, View } from 'react-native'
 
-import { Button } from 'components/Button'
-import { ArrowBackIcon, Icon } from 'components/Icon'
-import { Text } from 'components/Text'
-import { isAndroid } from 'constants/screen'
-import { useSafeHeights } from 'constants/useSafeHeights'
-import { globalStyles } from 'styles'
-import { theme } from 'theme'
+import { Button } from '~/components/Button'
+import { ArrowBackIcon, Icon } from '~/components/Icon'
+import { Text } from '~/components/Text'
+import { isAndroid } from '~/constants/screen'
+import { useSafeHeights } from '~/constants/useSafeHeights'
+import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
 type HeaderProps = {
   component?: React.ReactNode
@@ -37,17 +37,18 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, showHeaderOnStart, titl
         <Animated.View
           style={[
             {
+              backgroundColor: theme.colors.ahead,
               opacity: scrollY?.interpolate({
                 inputRange: [250, 300],
                 outputRange: [0, 1],
               }),
-              backgroundColor: theme.colors.ahead,
             },
             globalStyles.absoluteFill,
           ]}
         />
       ) : (
         <AnimatedBlurView
+          intensity={150}
           style={[
             {
               opacity: scrollY?.interpolate({
@@ -58,15 +59,14 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, showHeaderOnStart, titl
             globalStyles.absoluteFill,
           ]}
           tint="dark"
-          intensity={150}
         />
       )}
       <View
         style={[
           styles.content,
           {
-            top: statusBarHeight,
             height: headerHeight - 20,
+            top: statusBarHeight,
           },
         ]}
       >
@@ -88,11 +88,11 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, showHeaderOnStart, titl
           }}
         >
           <Text
+            numberOfLines={1}
             style={{
               maxWidth: Dimensions.get('window').width - 60,
             }}
             variant="h2"
-            numberOfLines={1}
           >
             {title}
           </Text>
@@ -103,22 +103,22 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, showHeaderOnStart, titl
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    width: '100%',
-    position: 'absolute',
-    zIndex: 999,
+  closeButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 30,
+    height: 30,
+    paddingHorizontal: 0,
+    width: 30,
   },
   content: {
-    paddingHorizontal: theme.space.lg,
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
     gap: theme.space.sm,
+    paddingHorizontal: theme.space.lg,
   },
-  closeButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 30,
-    paddingHorizontal: 0,
-    backgroundColor: 'transparent',
+  wrapper: {
+    position: 'absolute',
+    width: '100%',
+    zIndex: 999,
   },
 })
