@@ -6,7 +6,7 @@ import { LOCALE } from '~/constants/locales'
 import type { NetworkId } from '~/types/content'
 import { getNetworkFromUrl } from '~/utils/networks'
 
-import { getApi } from './api'
+import { api } from './api'
 import type { paths } from './types'
 
 export type UseGetTv = UseQueryResult<
@@ -73,14 +73,10 @@ export type UseGetTvWithSeasonApiProps = {
 export function useGetTv(props?: UseGetTvApiProps): UseGetTv {
   const { id } = props || {}
 
-  const { callApi } = getApi({
-    query: `tv/${id}`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetTvApiResponse> = await api.get(`tv/${id}`)
 
       const startYear = data.first_air_date
         ? new Date(data.first_air_date).getFullYear()
@@ -126,14 +122,12 @@ export function useGetTv(props?: UseGetTvApiProps): UseGetTv {
 export function useGetTvCredits(props?: UseGetTvEnabledApiProps) {
   const { enabled, id } = props || {}
 
-  const { callApi } = getApi({
-    query: `tv/${id}/aggregate_credits`,
-  })
-
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvCreditsApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetTvCreditsApiResponse> = await api.get(
+        `tv/${id}/aggregate_credits`
+      )
 
       return {
         cast: data.cast.slice(0, 30),
@@ -148,20 +142,14 @@ export function useGetTvImages(props?: UseGetTvEnabledApiProps) {
 
   const locales = `${LOCALE},en`
 
-  const { callApi } = getApi({
-    params: [
-      {
-        name: 'include_image_language',
-        value: locales,
-      },
-    ],
-    query: `tv/${id}/images`,
-  })
-
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvImagesApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetTvImagesApiResponse> = await api.get(`tv/${id}/images`, {
+        params: {
+          include_image_language: locales,
+        },
+      })
 
       return data
     },
@@ -172,14 +160,12 @@ export function useGetTvImages(props?: UseGetTvEnabledApiProps) {
 export function useGetTvSeason(props?: UseGetTvWithSeasonApiProps) {
   const { id, seasonNumber } = props || {}
 
-  const { callApi } = getApi({
-    query: `tv/${id}/season/${seasonNumber}`,
-  })
-
   return useQuery({
     enabled: !!id && !!seasonNumber,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvSeasonApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetTvSeasonApiResponse> = await api.get(
+        `tv/${id}/season/${seasonNumber}`
+      )
 
       return data
     },
@@ -190,14 +176,10 @@ export function useGetTvSeason(props?: UseGetTvWithSeasonApiProps) {
 export function useGetTvSimilar(props?: UseGetTvEnabledApiProps) {
   const { enabled, id } = props || {}
 
-  const { callApi } = getApi({
-    query: `tv/${id}/similar`,
-  })
-
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvSimilarApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetTvSimilarApiResponse> = await api.get(`tv/${id}/similar`)
 
       return data
     },
@@ -208,14 +190,10 @@ export function useGetTvSimilar(props?: UseGetTvEnabledApiProps) {
 export function useGetTvVideos(props?: UseGetTvApiProps) {
   const { id } = props || {}
 
-  const { callApi } = getApi({
-    query: `tv/${id}/videos`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvVideosApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetTvVideosApiResponse> = await api.get(`tv/${id}/videos`)
 
       return data
     },

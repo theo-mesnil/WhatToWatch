@@ -42,7 +42,7 @@ export default function Search() {
     hasNextPage: hasSearchNextPage,
     isLoading: isSearchLoading,
   } = useGetSearch({
-    params: [{ name: 'query', value: querySearch }],
+    params: { query: querySearch },
   })
 
   const results = querySearch

@@ -4,7 +4,7 @@ import type { AxiosResponse } from 'axios'
 
 import { LOCALE } from '~/constants/locales'
 
-import { getApi } from './api'
+import { api } from './api'
 import type { paths } from './types'
 
 export type UseGetPerson = UseQueryResult<
@@ -44,14 +44,10 @@ export type UseGetPersonWithDepartmentApiProps = UseGetPersonApiProps & {
 export function useGetPerson(props?: UseGetPersonApiProps): UseGetPerson {
   const { id } = props || {}
 
-  const { callApi } = getApi({
-    query: `person/${id}`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetPersonApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetPersonApiResponse> = await api.get(`person/${id}`)
 
       return {
         biography: data.biography,
@@ -70,14 +66,12 @@ export function useGetPerson(props?: UseGetPersonApiProps): UseGetPerson {
 export function useGetPersonCredits(props?: UseGetPersonWithDepartmentApiProps) {
   const { id, isActing } = props || {}
 
-  const { callApi } = getApi({
-    query: `person/${id}/combined_credits`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetPersonCreditsApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetPersonCreditsApiResponse> = await api.get(
+        `person/${id}/combined_credits`
+      )
 
       return isActing ? data.cast : data.crew
     },
@@ -90,20 +84,17 @@ export function useGetPersonImages(props?: UseGetPersonApiProps) {
 
   const locales = `${LOCALE},en`
 
-  const { callApi } = getApi({
-    params: [
-      {
-        name: 'include_image_language',
-        value: locales,
-      },
-    ],
-    query: `person/${id}/images`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetPersonImagesApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetPersonImagesApiResponse> = await api.get(
+        `person/${id}/images`,
+        {
+          params: {
+            include_image_language: locales,
+          },
+        }
+      )
 
       return data.profiles
     },
@@ -114,14 +105,12 @@ export function useGetPersonImages(props?: UseGetPersonApiProps) {
 export function useGetPersonMovieCredits(props?: UseGetPersonWithDepartmentApiProps) {
   const { id, isActing } = props || {}
 
-  const { callApi } = getApi({
-    query: `person/${id}/movie_credits`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetPersonMovieCreditsApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetPersonMovieCreditsApiResponse> = await api.get(
+        `person/${id}/movie_credits`
+      )
 
       return isActing ? data.cast : data.crew
     },
@@ -130,13 +119,10 @@ export function useGetPersonMovieCredits(props?: UseGetPersonWithDepartmentApiPr
 }
 
 export function useGetPersonPopular() {
-  const { callApi } = getApi({
-    query: 'person/popular',
-  })
-
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetPersonPopularApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetPersonPopularApiResponse> =
+        await api.get('person/popular')
 
       return data
     },
@@ -147,14 +133,12 @@ export function useGetPersonPopular() {
 export function useGetPersonTvCredits(props?: UseGetPersonWithDepartmentApiProps) {
   const { id, isActing } = props || {}
 
-  const { callApi } = getApi({
-    query: `person/${id}/tv_credits`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetPersonTvCreditsApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetPersonTvCreditsApiResponse> = await api.get(
+        `person/${id}/tv_credits`
+      )
 
       return isActing ? data.cast : data.crew
     },

@@ -3,7 +3,7 @@ import type { AxiosResponse } from 'axios'
 
 import { LOCALE } from '~/constants/locales'
 
-import { getApi } from './api'
+import { api } from './api'
 import type { paths } from './types'
 
 export type Type = 'all' | 'movie' | 'person' | 'tv'
@@ -22,9 +22,6 @@ export type UseGetTrendingApiResponse = {
 
 export function useGetTrending(props?: UseGetTrendingApiProps) {
   const { maxPages = 30, type = 'all' } = props || {}
-  const { callApi } = getApi({
-    query: `trending/${type}/day`,
-  })
 
   return useInfiniteQuery<UseGetTrendingApiResponse[Type], Error>({
     getNextPageParam: ({ page }) => {
@@ -32,8 +29,13 @@ export function useGetTrending(props?: UseGetTrendingApiProps) {
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetTrendingApiResponse[Type]> = await callApi(
-        pageParam as number
+      const { data }: AxiosResponse<UseGetTrendingApiResponse[Type]> = await api.get(
+        `trending/${type}/day`,
+        {
+          params: {
+            page: pageParam,
+          },
+        }
       )
       return data
     },

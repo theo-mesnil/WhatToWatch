@@ -3,7 +3,7 @@ import type { AxiosResponse } from 'axios'
 
 import { LOCALE } from '~/constants/locales'
 
-import { getApi } from './api'
+import { api } from './api'
 import type { paths } from './types'
 
 export type UseGetGenreMovieListApiResponse =
@@ -12,13 +12,10 @@ export type UseGetGenreTvListApiResponse =
   paths['/3/genre/tv/list']['get']['responses']['200']['content']['application/json']
 
 export function useGetGenreMovieList() {
-  const { callApi } = getApi({
-    query: 'genre/movie/list',
-  })
-
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetGenreMovieListApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetGenreMovieListApiResponse> =
+        await api.get('genre/movie/list')
 
       return data?.genres
     },
@@ -27,14 +24,11 @@ export function useGetGenreMovieList() {
 }
 
 export function useGetGenreTvList() {
-  const { callApi } = getApi({
-    query: 'genre/tv/list',
-  })
-
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetGenreTvListApiResponse> = await callApi()
-      return data.genres
+      const { data }: AxiosResponse<UseGetGenreTvListApiResponse> = await api.get('genre/tv/list')
+
+      return data?.genres
     },
     queryKey: ['genre', 'tv', 'list', LOCALE],
   })

@@ -6,7 +6,7 @@ import { LOCALE, REGION_CODE } from '~/constants/locales'
 import type { NetworkId } from '~/types/content'
 import { getNetworkFromUrl } from '~/utils/networks'
 
-import { getApi } from './api'
+import { api } from './api'
 import type { paths } from './types'
 
 export type UseGetMovie = UseQueryResult<
@@ -56,14 +56,10 @@ export type UseGetMovieVideosApiResponse =
 export function useGetMovie(props?: UseGetMovieApiProps): UseGetMovie {
   const { id } = props || {}
 
-  const { callApi } = getApi({
-    query: `movie/${id}`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetMovieApiResponse> = await api.get(`movie/${id}`)
 
       const networkId = getNetworkFromUrl(data.homepage)
 
@@ -100,14 +96,12 @@ export function useGetMovie(props?: UseGetMovieApiProps): UseGetMovie {
 export function useGetMovieCredits(props?: UseGetMovieEnabledApiProps) {
   const { enabled, id } = props || {}
 
-  const { callApi } = getApi({
-    query: `movie/${id}/credits`,
-  })
-
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieCreditsApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetMovieCreditsApiResponse> = await api.get(
+        `movie/${id}/credits`
+      )
 
       return {
         cast: data.cast.slice(0, 30),
@@ -122,20 +116,17 @@ export function useGetMovieImages(props?: UseGetMovieEnabledApiProps) {
 
   const locales = `${LOCALE},en`
 
-  const { callApi } = getApi({
-    params: [
-      {
-        name: 'include_image_language',
-        value: locales,
-      },
-    ],
-    query: `movie/${id}/images`,
-  })
-
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieImagesApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetMovieImagesApiResponse> = await api.get(
+        `movie/${id}/images`,
+        {
+          params: {
+            include_image_language: locales,
+          },
+        }
+      )
 
       return data
     },
@@ -144,14 +135,16 @@ export function useGetMovieImages(props?: UseGetMovieEnabledApiProps) {
 }
 
 export function useGetMovieNowPlaying() {
-  const { callApi } = getApi({
-    params: [{ name: 'region', value: REGION_CODE }],
-    query: 'movie/now_playing',
-  })
-
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieNowPlayingApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetMovieNowPlayingApiResponse> = await api.get(
+        `movie/now_playing`,
+        {
+          params: {
+            region: REGION_CODE,
+          },
+        }
+      )
 
       return data
     },
@@ -162,14 +155,12 @@ export function useGetMovieNowPlaying() {
 export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
   const { enabled, id } = props || {}
 
-  const { callApi } = getApi({
-    query: `movie/${id}/similar`,
-  })
-
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieSimilarApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetMovieSimilarApiResponse> = await api.get(
+        `movie/${id}/similar`
+      )
 
       return data
     },
@@ -178,14 +169,16 @@ export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
 }
 
 export function useGetMovieUpcoming() {
-  const { callApi } = getApi({
-    params: [{ name: 'region', value: REGION_CODE }],
-    query: 'movie/upcoming',
-  })
-
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieUpcomingApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetMovieUpcomingApiResponse> = await api.get(
+        `movie/upcoming`,
+        {
+          params: {
+            region: REGION_CODE,
+          },
+        }
+      )
 
       return data
     },
@@ -196,14 +189,12 @@ export function useGetMovieUpcoming() {
 export function useGetMovieVideos(props?: UseGetMovieApiProps) {
   const { id } = props || {}
 
-  const { callApi } = getApi({
-    query: `movie/${id}/videos`,
-  })
-
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieVideosApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetMovieVideosApiResponse> = await api.get(
+        `movie/${id}/videos`
+      )
 
       return data
     },

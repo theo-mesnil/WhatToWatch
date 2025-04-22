@@ -13,10 +13,10 @@ type Item = UseGetDiscoverTvApiResponse['results'][number]
 
 export function PopularSeries() {
   const { data, isLoading } = useGetDiscoverTv({
-    params: [
-      { name: 'vote_count.gte', value: 2000 },
-      { name: 'sort_by', value: 'vote_average.desc' },
-    ],
+    params: {
+      sort_by: 'vote_average.desc',
+      'vote_count.gte': 2000,
+    },
   })
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({
