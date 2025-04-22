@@ -22,12 +22,9 @@ export function NetworkList({ id }: NetworkListProps) {
   const network = networksList.filter(item => item.id === id)[0]
   const { data, isLoading } = useGetDiscoverTv({
     maxPages: 1,
-    params: [
-      {
-        name: 'with_networks',
-        value: id,
-      },
-    ],
+    params: {
+      with_networks: id,
+    },
   })
 
   const results = data?.pages?.map(page => page.results).flat()

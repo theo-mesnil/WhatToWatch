@@ -12,7 +12,9 @@ type Item = UseGetDiscoverMovieApiResponse['results'][number]
 
 export function Family() {
   const { data, isLoading } = useGetDiscoverMovie({
-    params: [{ name: 'with_genres', value: '10751' }],
+    params: {
+      with_genres: '10751',
+    },
   })
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({

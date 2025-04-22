@@ -29,12 +29,9 @@ export default function Network() {
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTv({
-    params: [
-      {
-        name: 'with_networks',
-        value: networkID,
-      },
-    ],
+    params: {
+      with_networks: networkID,
+    },
   })
 
   const firstItem = !isLoading && data?.pages[0].results[0]

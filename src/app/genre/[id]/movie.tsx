@@ -22,7 +22,9 @@ export default function Movie() {
   const { containerStyle } = useSafeHeights()
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverMovie({
-    params: [{ name: 'with_genres', value: `${genreID}` }],
+    params: {
+      with_genres: `${genreID}`,
+    },
   })
 
   const firstItem = !isLoading && data?.pages[0].results[0]

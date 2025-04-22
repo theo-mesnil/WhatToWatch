@@ -6,7 +6,7 @@ import type { Locale } from '~/constants/locales'
 import { LOCALE } from '~/constants/locales'
 import type { ContentType } from '~/types/content'
 
-import { getApi } from './api'
+import { api } from './api'
 import type { paths } from './types'
 
 export type UseGetContentImagesApiResponse =
@@ -30,20 +30,17 @@ export function useGetContentLogo(props?: useGetContentLogoProps): UseGetContent
 
   const locales = `${LOCALE},en`
 
-  const { callApi } = getApi({
-    params: [
-      {
-        name: 'include_image_language',
-        value: locales,
-      },
-    ],
-    query: `${type}/${id}/images`,
-  })
-
   return useQuery({
     enabled: !!id && !!type,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetContentImagesApiResponse> = await callApi()
+      const { data }: AxiosResponse<UseGetContentImagesApiResponse> = await api.get(
+        `/${type}/${id}/images`,
+        {
+          params: {
+            include_image_language: locales,
+          },
+        }
+      )
 
       return formatImageToLogo(data, LOCALE)
     },
