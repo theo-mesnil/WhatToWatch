@@ -3,9 +3,9 @@ import axios from 'axios'
 import { LOCALE_I18N } from '~/constants/locales'
 
 export const BASE_API_URL = 'https://api.themoviedb.org/3/'
+export const BASE_API_URL_V4 = 'https://api.themoviedb.org/4/'
 
-export const api = axios.create({
-  baseURL: BASE_API_URL,
+const apiProps = {
   headers: {
     Accept: 'application/json',
     Authorization: `Bearer ${process.env.EXPO_PUBLIC_THEMOVIEDB_API_KEY}`,
@@ -13,4 +13,14 @@ export const api = axios.create({
   params: {
     language: LOCALE_I18N,
   },
+}
+
+export const api = axios.create({
+  baseURL: BASE_API_URL,
+  ...apiProps,
+})
+
+export const apiV4 = axios.create({
+  baseURL: BASE_API_URL_V4,
+  ...apiProps,
 })

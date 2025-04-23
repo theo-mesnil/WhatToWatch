@@ -25,7 +25,10 @@
         "tinted": "./src/assets/icon-tinted.png"
       },
       "supportsTablet": false,
-      "bundleIdentifier": "com.theomesnil.WhatToWatch"
+      "bundleIdentifier": "com.theomesnil.WhatToWatch",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "name": "WhatToWatch",
     "orientation": "portrait",

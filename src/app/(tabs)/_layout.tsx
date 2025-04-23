@@ -6,6 +6,8 @@ import { useIntl } from 'react-intl'
 
 import type { IconElement } from '~/components/Icon'
 import {
+  BulbFillIcon,
+  BulbIcon,
   EyeFillIcon,
   EyeIcon,
   FlashFillIcon,
@@ -13,15 +15,18 @@ import {
   Icon,
   SearchFillIcon,
   SearchIcon,
+  SmileIcon,
 } from '~/components/Icon'
 import { isAndroid, isIos } from '~/constants/screen'
 import { useSafeHeights } from '~/constants/useSafeHeights'
+import { useAuth } from '~/contexts/Auth'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 
 export default function Layout() {
   const intl = useIntl()
   const { tabBarBottomHeight } = useSafeHeights()
+  const { accountId } = useAuth()
 
   const screenOptions: BottomTabNavigationOptions = {
     headerTransparent: true,
@@ -90,6 +95,21 @@ export default function Layout() {
           title: intl.formatMessage({
             defaultMessage: 'Streaming',
             id: 'NCupKV',
+          }),
+        }}
+      />
+      <Tabs.Screen
+        name="me"
+        options={{
+          tabBarIcon: props =>
+            tabBarIcon({
+              ...props,
+              icon: accountId ? SmileIcon : BulbIcon,
+              iconFocused: accountId ? SmileIcon : BulbFillIcon,
+            }),
+          title: intl.formatMessage({
+            defaultMessage: 'Me',
+            id: 'TdbPNK',
           }),
         }}
       />

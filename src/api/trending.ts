@@ -24,10 +24,6 @@ export function useGetTrending(props?: UseGetTrendingApiProps) {
   const { maxPages = 30, type = 'all' } = props || {}
 
   return useInfiniteQuery<UseGetTrendingApiResponse[Type], Error>({
-    getNextPageParam: ({ page }) => {
-      return page + 1 <= maxPages ? page + 1 : undefined
-    },
-    initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
       const { data }: AxiosResponse<UseGetTrendingApiResponse[Type]> = await api.get(
         `trending/${type}/day`,
@@ -38,6 +34,12 @@ export function useGetTrending(props?: UseGetTrendingApiProps) {
         }
       )
       return data
+    },
+    // eslint-disable-next-line perfectionist/sort-objects
+    initialPageParam: 1,
+    // eslint-disable-next-line perfectionist/sort-objects
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined
     },
     queryKey: ['trending', type, LOCALE],
   })

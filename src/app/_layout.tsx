@@ -8,6 +8,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import * as React from 'react'
 import { StatusBar, StyleSheet, View } from 'react-native'
 
+import { AuthProvider } from '~/contexts/Auth'
 import { IntlMessages } from '~/locales'
 import { theme } from '~/theme'
 
@@ -18,7 +19,7 @@ SplashScreen.setOptions({
   fade: true,
 })
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
@@ -26,19 +27,13 @@ export default function Layout() {
     Poppins_600SemiBold,
   })
 
-  React.useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync()
-    }
-  }, [fontsLoaded])
-
   // Prevent rendering until the font has loaded or an error was returned
   if (!fontsLoaded) {
     return null
   }
 
   return (
-    <>
+    <AuthProvider>
       <StatusBar animated backgroundColor="transparent" barStyle="light-content" translucent />
       <IntlMessages>
         <QueryClientProvider client={queryClient}>
@@ -68,11 +63,17 @@ export default function Layout() {
                   presentation: 'modal',
                 }}
               />
+              <Stack.Screen
+                name="login/index"
+                options={{
+                  presentation: 'modal',
+                }}
+              />
             </Stack>
           </View>
         </QueryClientProvider>
       </IntlMessages>
-    </>
+    </AuthProvider>
   )
 }
 
