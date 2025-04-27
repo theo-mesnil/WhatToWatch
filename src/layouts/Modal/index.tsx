@@ -3,7 +3,7 @@ import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { Button } from '~/components/Button'
-import { CrossIcon, Icon } from '~/components/Icon'
+import { Icon } from '~/components/Icon'
 import { isAndroid } from '~/constants/screen'
 import { useSafeHeights } from '~/constants/useSafeHeights'
 import { theme } from '~/theme'
@@ -25,7 +25,7 @@ export default function ModalLayout({ children }: ModalLayoutProps) {
           style={styles.closeButton}
           testID="header-close-button"
         >
-          <Icon icon={CrossIcon} />
+          <Icon name="xmark" />
         </Button>
       </View>
     ),

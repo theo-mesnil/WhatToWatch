@@ -14,7 +14,7 @@ export type TouchableProps = PressableProps & {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Touchable = React.forwardRef<any, TouchableProps>(
   (
-    { duration = 500, endScale = 0.98, onPress, startScale = 1, style, withoutScale, ...rest },
+    { duration = 50, endScale = 0.95, onPress, startScale = 1, style, withoutScale, ...rest },
     ref
   ) => {
     const [scaleAnimation] = React.useState(new Animated.Value(startScale))

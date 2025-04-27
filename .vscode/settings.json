@@ -1,5 +1,0 @@
-{
-  "i18n-ally.localesPaths": ["src/locales"],
-  "circleci.persistedProjectSelection": ["gh/theo-mesnil/WhatToWatch"],
-  "i18n-ally.keystyle": "nested"
-}
