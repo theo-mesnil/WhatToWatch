@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import type { TextProps as RNTextProps } from 'react-native'
 import { StyleSheet, View } from 'react-native'
 
-import { ArrowNextIcon, Icon } from '~/components/Icon'
+import { Icon } from '~/components/Icon'
 import { Text } from '~/components/Text'
 import { Touchable } from '~/components/Touchable'
 import { theme } from '~/theme'
@@ -32,7 +32,7 @@ export function ListTitle({ children, style, titleHref }: ListTitleProps) {
               <Text style={styles.moreText} variant="lg">
                 <FormattedMessage defaultMessage="More" id="I5NMJ8" />
               </Text>
-              <Icon color="brand-100" icon={ArrowNextIcon} size={20} />
+              <Icon color="brand-100" name="arrow-right" size={20} />
             </View>
           </Touchable>
         </Link>

@@ -5,7 +5,6 @@ import { Image, ImageBackground, StyleSheet, View } from 'react-native'
 import { useGetContentLogo } from '~/api/logo'
 import { Button } from '~/components/Button'
 import { Gradient } from '~/components/Gradient'
-import { ArrowNextIcon } from '~/components/Icon'
 import { Text } from '~/components/Text'
 import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
@@ -52,7 +51,7 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
           {description}
         </Text>
         <Link asChild href={routeByType({ id, type })}>
-          <Button icon={ArrowNextIcon} size="lg" style={styles.cta} variant="secondary">
+          <Button icon="arrow-right" size="lg" style={styles.cta} variant="secondary">
             <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
           </Button>
         </Link>

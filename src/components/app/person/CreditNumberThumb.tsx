@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 
 import { Gradient } from '~/components/Gradient'
-import { Icon, MovieFillIcon, TvFillIcon } from '~/components/Icon'
+import { Icon } from '~/components/Icon'
 import { Text } from '~/components/Text'
 import { theme } from '~/theme'
 
@@ -17,11 +17,7 @@ export function CreditNumberThumb({ number, title, type }: CreditNumberThumbProp
       <Gradient angle={0.6} colors={[theme.colors['brand-100'], theme.colors.ahead]} />
       <View style={styles.content}>
         <View style={styles.icon}>
-          <Icon
-            color="default-900"
-            icon={type === 'movie' ? MovieFillIcon : TvFillIcon}
-            size={80}
-          />
+          <Icon color="default-900" name={type === 'movie' ? 'film' : 'tv'} size={80} />
         </View>
         <View>
           <Text style={styles.number} variant="h0">
@@ -43,6 +39,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: -30,
+    marginRight: theme.space.xs,
     opacity: 0.4,
   },
   number: {

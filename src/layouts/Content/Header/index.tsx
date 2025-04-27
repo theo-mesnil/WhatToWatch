@@ -3,7 +3,7 @@ import { useNavigation } from 'expo-router'
 import { Animated, Dimensions, StyleSheet, View } from 'react-native'
 
 import { Button } from '~/components/Button'
-import { ArrowBackIcon, Icon } from '~/components/Icon'
+import { Icon } from '~/components/Icon'
 import { Text } from '~/components/Text'
 import { isAndroid } from '~/constants/screen'
 import { useSafeHeights } from '~/constants/useSafeHeights'
@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, showHeaderOnStart, titl
           style={styles.closeButton}
           testID="header-back-button"
         >
-          <Icon icon={ArrowBackIcon} size={30} />
+          <Icon name="arrow-left" size={30} />
         </Button>
         <Animated.View
           style={{

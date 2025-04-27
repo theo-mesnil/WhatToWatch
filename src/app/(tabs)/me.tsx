@@ -36,8 +36,16 @@ export default function Discover() {
       getScrollYPosition={getScrollYPosition}
     >
       <View style={{ paddingTop: headerSafeHeight }}>
-        {!accountId && <Button onPress={openLoginWebview}>Login</Button>}
-        {accountId && <Button onPress={() => handleLogout()}>LogOut</Button>}
+        {!accountId && (
+          <Button icon="arrow-right" onPress={openLoginWebview} size="lg">
+            Login
+          </Button>
+        )}
+        {accountId && (
+          <Button icon="arrow-right-on-rectangle" onPress={() => handleLogout()} size="lg">
+            LogOut
+          </Button>
+        )}
       </View>
     </BasicLayout>
   )

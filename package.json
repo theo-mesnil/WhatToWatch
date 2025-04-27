@@ -25,7 +25,8 @@
     "generate:api:types": "npx openapi-typescript https://developer.themoviedb.org/openapi/64542913e1f86100738e227f -o ./src/api/types.d.ts && npx openapi-typescript https://developer.themoviedb.org/openapi/6453cc549c91cf004cd2a015 -o ./src/api/types-v4.d.ts",
     "prepare": "husky",
     "preview": "eas update --branch preview --message",
-    "pre-release": "eas update --branch pre-release --message"
+    "pre-release": "eas update --branch pre-release --message",
+    "export-icons": "npx @svgr/cli -- src/components/Icon/icons && yarn eslint src/components/Icon --max-warnings 0 --fix"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.3",
@@ -76,6 +77,7 @@
     "@eslint/js": "^9.25.1",
     "@formatjs/cli": "^6.6.4",
     "@react-native/babel-preset": "^0.79.1",
+    "@svgr/cli": "^8.1.0",
     "@tanstack/eslint-plugin-query": "^5.73.3",
     "@testing-library/react-native": "^13.2.0",
     "@types/jest": "^29.5.14",
