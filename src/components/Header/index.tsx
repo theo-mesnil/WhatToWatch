@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({
               onPress={() => navigation.goBack()}
               testID="header-back-button"
             >
-              <Icon name="arrow-left" size={30} />
+              <Icon name="arrow-left" size={26} />
             </Button>
           </View>
         )}

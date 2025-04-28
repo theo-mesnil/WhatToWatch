@@ -52,7 +52,7 @@ export function useCreateAccessToken(requestToken: string) {
       return data
     },
     queryKey: ['auth', 'access_token'],
-    staleTime: Infinity,
+    staleTime: 0,
   })
 }
 
@@ -95,6 +95,6 @@ export function useRequestToken() {
       return data
     },
     queryKey: ['auth', 'request_token'],
-    staleTime: Infinity,
+    staleTime: 0,
   })
 }

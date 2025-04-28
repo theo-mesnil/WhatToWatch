@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({ scrollY, showHeaderOnStart, titl
           style={styles.closeButton}
           testID="header-back-button"
         >
-          <Icon name="arrow-left" size={30} />
+          <Icon name="arrow-left" size={26} />
         </Button>
         <Animated.View
           style={{

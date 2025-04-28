@@ -6,8 +6,10 @@ import { BlurView } from 'expo-blur'
 import { Tabs } from 'expo-router'
 import * as React from 'react'
 import { useIntl } from 'react-intl'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
+import { useUser } from '~/api/account'
+import { Avatar } from '~/components/Avatar'
 import type { IconProps } from '~/components/Icon'
 import { Icon } from '~/components/Icon'
 import { Touchable } from '~/components/Touchable'
@@ -21,6 +23,7 @@ export default function Layout() {
   const intl = useIntl()
   const { tabBarBottomHeight } = useSafeHeights()
   const { accountId } = useAuth()
+  const tabBarIcon = useTabBarIcon()
 
   const screenOptions: BottomTabNavigationOptions = {
     headerTransparent: true,
@@ -98,6 +101,7 @@ export default function Layout() {
               ...props,
               icon: accountId ? 'user-circle' : 'user-circle',
               iconFocused: accountId ? 'user-circle-fill' : 'user-circle-fill',
+              isUser: !!accountId,
             }),
           title: intl.formatMessage({
             defaultMessage: 'Me',
@@ -115,27 +119,48 @@ function BottomBarBackground() {
 
 function TabBarButton({ onPress, ...props }: BottomTabBarButtonProps) {
   return (
-    <Touchable onPress={onPress} style={styles.tabBarButton}>
+    <Touchable endScale={0.85} onPress={onPress} style={styles.tabBarButton}>
       {props.children}
     </Touchable>
   )
 }
 
-function tabBarIcon({
-  focused,
-  icon,
-  iconFocused,
-}: {
-  focused: boolean
-  icon: IconProps['name']
-  iconFocused: IconProps['name']
-}) {
-  return (
-    <Icon color={focused ? 'brand-500' : 'text'} name={focused ? iconFocused : icon} size={32} />
-  )
+function useTabBarIcon() {
+  const { data: user } = useUser()
+
+  function tabBarIcon({
+    focused,
+    icon,
+    iconFocused,
+    isUser,
+  }: {
+    focused: boolean
+    icon: IconProps['name']
+    iconFocused: IconProps['name']
+    isUser?: boolean
+  }) {
+    if (isUser) {
+      return (
+        <View style={[focused ? styles.focused : undefined]}>
+          <Avatar imageUrl={user?.avatar} name={user?.name} size={26} />
+        </View>
+      )
+    }
+
+    return (
+      <Icon color={focused ? 'brand-500' : 'text'} name={focused ? iconFocused : icon} size={28} />
+    )
+  }
+
+  return tabBarIcon
 }
 
 const styles = StyleSheet.create({
+  focused: {
+    borderColor: theme.colors['brand-500'],
+    borderRadius: 999,
+    borderWidth: 1,
+  },
   tabBarButton: {
     alignItems: 'center',
     flex: 1,

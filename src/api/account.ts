@@ -9,6 +9,8 @@ import type { paths } from './types'
 export type UseGetUser =
   paths['/3/account/{account_id}']['get']['responses']['200']['content']['application/json']
 
+type FormatUser = { avatar: null | string; id: number; name: string }
+
 export function useUser() {
   const { sessionId } = useAuth()
 
@@ -22,7 +24,7 @@ export function useUser() {
           },
         })
 
-        return data
+        return formatUser(data)
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('useUser', error.response.data)
@@ -31,4 +33,18 @@ export function useUser() {
     },
     queryKey: ['account', sessionId],
   })
+}
+
+function formatUser(user: UseGetUser): FormatUser {
+  const avatar = user.avatar?.tmdb?.avatar_path
+    ? `https://image.tmdb.org/t/p/w500${user.avatar.tmdb.avatar_path}`
+    : user.avatar?.gravatar?.hash
+      ? `https://www.gravatar.com/avatar/${user.avatar.gravatar.hash}`
+      : null
+
+  return {
+    avatar,
+    id: user.id,
+    name: user.name || user.username,
+  }
 }
