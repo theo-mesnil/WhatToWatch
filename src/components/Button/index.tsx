@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics'
 import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { ViewProps } from 'react-native'
@@ -43,8 +44,15 @@ export const Button = React.forwardRef<never, ButtonProps>(
     },
     ref
   ) => {
+    function handleOnPress(event) {
+      if (onPress) {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+        onPress(event)
+      }
+    }
+
     return (
-      <Touchable onPress={onPress} ref={ref} testID={testID}>
+      <Touchable onPress={handleOnPress} ref={ref} testID={testID}>
         <View
           style={[
             styles.wrapper,
