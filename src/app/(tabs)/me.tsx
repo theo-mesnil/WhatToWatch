@@ -11,9 +11,10 @@ import { useSafeHeights } from '~/constants/useSafeHeights'
 import { useAuth } from '~/contexts/Auth'
 import { BasicLayout } from '~/layouts//Basic'
 import { globalStyles } from '~/styles'
+import { theme } from '~/theme'
 
 export default function Discover() {
-  const { containerStyle } = useSafeHeights()
+  const { containerStyle, headerHeight } = useSafeHeights()
   const navigation = useNavigation()
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const { accountId, openLoginWebview } = useAuth()
@@ -36,7 +37,13 @@ export default function Discover() {
   }, [HeaderComponent, navigation])
 
   return (
-    <BasicLayout contentContainerStyle={containerStyle} getScrollYPosition={getScrollYPosition}>
+    <BasicLayout
+      contentContainerStyle={[
+        containerStyle,
+        accountId ? { paddingTop: headerHeight + theme.space.lg } : {},
+      ]}
+      getScrollYPosition={getScrollYPosition}
+    >
       <GradientHeader scrollY={scrollYPosition} />
       {!accountId && (
         <View style={globalStyles.centered}>

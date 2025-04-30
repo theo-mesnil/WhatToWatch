@@ -9,7 +9,8 @@ import { Text } from '~/components/Text'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 
-import { Favorites } from './components/Favorites'
+import { Favorite } from './components/Favorite'
+import { Watchlist } from './components/Watchlist'
 
 export function Logged() {
   const intl = useIntl()
@@ -42,8 +43,10 @@ export function Logged() {
         <Avatar imageUrl={user?.avatar} name={user?.name} size={80} />
         <Text variant="h1">{user?.name}</Text>
       </View>
-      <Favorites type="tv" />
-      <Favorites type="movies" />
+      <Favorite type="tv" />
+      <Watchlist type="tv" />
+      <Favorite type="movies" />
+      <Watchlist type="movies" />
       <View style={globalStyles.centered}>
         <Button icon="arrow-right-on-rectangle" onPress={() => handleLogout()} size="lg">
           <FormattedMessage defaultMessage="Logout" id="C81/uG" />

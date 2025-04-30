@@ -2,8 +2,7 @@ import type { FlashListProps } from '@shopify/flash-list'
 import { FormattedMessage } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
-import type { UseGetFavorite } from '~/api/account'
-import { useGetFavorite } from '~/api/account'
+import { useGetWatchlist, type UseGetWatchlist } from '~/api/account'
 import { List } from '~/components/List'
 import { ListTitle } from '~/components/ListTitle'
 import { Text } from '~/components/Text'
@@ -15,11 +14,11 @@ import { theme } from '~/theme'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetFavorite['movies']['results'][number]
-type TVItem = UseGetFavorite['tv']['results'][number]
+type MovieItem = UseGetWatchlist['movies']['results'][number]
+type TVItem = UseGetWatchlist['tv']['results'][number]
 
-export function Favorites({ type }: { type: 'movies' | 'tv' }) {
-  const { data, isLoading } = useGetFavorite({
+export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
+  const { data, isLoading } = useGetWatchlist({
     maxPages: 1,
     type,
   })
@@ -27,9 +26,9 @@ export function Favorites({ type }: { type: 'movies' | 'tv' }) {
   const results = data?.pages?.map(page => page.results).flat()
   const listTitle =
     type === 'movies' ? (
-      <FormattedMessage defaultMessage="My Favorites Movies" id="oXYUTN" />
+      <FormattedMessage defaultMessage="My Movies Watchlist" id="vAP/To" />
     ) : (
-      <FormattedMessage defaultMessage="My Favorites TV" id="vWAJia" />
+      <FormattedMessage defaultMessage="My Tv Watchlist" id="inHmAw" />
     )
 
   // Type guard to check if item is a movie
@@ -58,7 +57,7 @@ export function Favorites({ type }: { type: 'movies' | 'tv' }) {
     <>
       {(isLoading || !!results.length) && (
         <List<Item>
-          id="favorite-tv"
+          id={`watchlist-${type}`}
           isLoading={isLoading}
           renderItem={renderItem}
           results={results}
@@ -71,9 +70,9 @@ export function Favorites({ type }: { type: 'movies' | 'tv' }) {
           <View style={styles.empty}>
             <Text variant="lg">
               {type === 'movies' ? (
-                <FormattedMessage defaultMessage="No favorite movies found" id="LMqQH5" />
+                <FormattedMessage defaultMessage="No movies on watchlist" id="EB9asy" />
               ) : (
-                <FormattedMessage defaultMessage="No favorite TV shows found" id="ubW84r" />
+                <FormattedMessage defaultMessage="No tv on watchlist" id="x2c3j1" />
               )}
             </Text>
           </View>
