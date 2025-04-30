@@ -23,16 +23,14 @@ export function useGetDiscoverMovie(props?: UseGetDiscoverMovieApiProps) {
   const { maxPages = 30, params } = props || {}
 
   return useInfiniteQuery<UseGetDiscoverMovieApiResponse, Error>({
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined
+    },
+    initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
       const { data } = await api.get('discover/movie', { params: { ...params, page: pageParam } })
 
       return data
-    },
-    // eslint-disable-next-line perfectionist/sort-objects
-    initialPageParam: 1,
-    // eslint-disable-next-line perfectionist/sort-objects
-    getNextPageParam: ({ page }) => {
-      return page + 1 <= maxPages ? page + 1 : undefined
     },
     queryKey: ['discover', 'movie', params, LOCALE],
   })
@@ -42,16 +40,14 @@ export function useGetDiscoverTv(props?: UseGetDiscoverTvApiProps) {
   const { maxPages = 30, params } = props || {}
 
   return useInfiniteQuery<UseGetDiscoverMovieApiResponse>({
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined
+    },
+    initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
       const { data } = await api.get('discover/tv', { params: { ...params, page: pageParam } })
 
       return data
-    },
-    // eslint-disable-next-line perfectionist/sort-objects
-    initialPageParam: 1,
-    // eslint-disable-next-line perfectionist/sort-objects
-    getNextPageParam: ({ page }) => {
-      return page + 1 <= maxPages ? page + 1 : undefined
     },
     queryKey: ['discover', 'tv', params, LOCALE],
   })

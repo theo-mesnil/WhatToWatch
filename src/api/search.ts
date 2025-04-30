@@ -20,6 +20,10 @@ export function useGetSearch(props?: UseGetSearchApiProps) {
   const { maxPages = 30, params } = props || {}
 
   return useInfiniteQuery<UseGetSearchApiResponse, Error>({
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined
+    },
+    initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
       const { data }: AxiosResponse<UseGetSearchApiResponse> = await api.get('search/multi', {
         params: {
@@ -29,12 +33,6 @@ export function useGetSearch(props?: UseGetSearchApiProps) {
       })
 
       return data
-    },
-    // eslint-disable-next-line perfectionist/sort-objects
-    initialPageParam: 1,
-    // eslint-disable-next-line perfectionist/sort-objects
-    getNextPageParam: ({ page }) => {
-      return page + 1 <= maxPages ? page + 1 : undefined
     },
     queryKey: ['search', 'multi', params, LOCALE],
   })

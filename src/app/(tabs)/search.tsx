@@ -33,7 +33,7 @@ export default function Search() {
   const { containerStyle } = useSafeHeights(true)
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetTrending({
-    maxPages: 3,
+    maxPages: 5,
   })
 
   const {
