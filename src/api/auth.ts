@@ -3,6 +3,7 @@ import type { AxiosResponse } from 'axios'
 import { useRouter } from 'expo-router'
 
 import { queryClient } from '~/app/_layout'
+import { LOCALE } from '~/constants/locales'
 import { useAuth } from '~/contexts/Auth'
 
 import { api, apiV4 } from './api'
@@ -57,7 +58,7 @@ export function useCreateAccessToken(requestToken: string) {
 }
 
 export function useDeleteRequestToken() {
-  const { accessToken, accountId, logOut } = useAuth()
+  const { accessToken, accountId, logOut, sessionId } = useAuth()
 
   return useMutation({
     mutationFn: async () => {
@@ -72,7 +73,17 @@ export function useDeleteRequestToken() {
         if (data.success) {
           logOut()
           // Remove any user-related queries from the cache
-          queryClient.removeQueries({ queryKey: ['account', accountId] })
+          queryClient.removeQueries({
+            queryKey: ['account', accountId],
+          })
+          queryClient.removeQueries({ queryKey: ['account', sessionId, 'favorite', 'tv', LOCALE] })
+          queryClient.removeQueries({
+            queryKey: ['account', sessionId, 'favorite', 'movies', LOCALE],
+          })
+          queryClient.removeQueries({ queryKey: ['account', sessionId, 'watchlist', 'tv', LOCALE] })
+          queryClient.removeQueries({
+            queryKey: ['account', sessionId, 'watchlist', 'movies', LOCALE],
+          })
         }
 
         return data

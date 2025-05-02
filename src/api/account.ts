@@ -58,6 +58,7 @@ export function useGetFavorite(props: UseGetFavoritesProps) {
   const { accountId, sessionId } = useAuth()
 
   return useInfiniteQuery<UseGetFavorite[UseGetFavoritesProps['type']], Error>({
+    enabled: !!sessionId,
     getNextPageParam: ({ page }) => {
       return page + 1 <= maxPages ? page + 1 : undefined
     },
@@ -84,6 +85,7 @@ export function useGetWatchlist(props: UseGetFavoritesProps) {
   const { accountId, sessionId } = useAuth()
 
   return useInfiniteQuery<UseGetFavorite[UseGetFavoritesProps['type']], Error>({
+    enabled: !!sessionId,
     getNextPageParam: ({ page }) => {
       return page + 1 <= maxPages ? page + 1 : undefined
     },

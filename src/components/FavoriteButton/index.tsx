@@ -1,9 +1,11 @@
 import { useGetFavorite, useUpdateFavorite } from '~/api/account'
+import { useAuth } from '~/contexts/Auth'
 
 import { IconButton } from '../IconButton'
 
 export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const formattedType = type === 'movie' ? 'movies' : 'tv'
+  const { accountId, openLoginWebview } = useAuth()
   const { data } = useGetFavorite({ type: formattedType })
   const { mutate: updateFavorite } = useUpdateFavorite({ id, type: formattedType })
 
@@ -14,6 +16,11 @@ export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' 
       .filter(result => result.id === id).length > 0
 
   const handleUpdateFavorite = () => {
+    if (!accountId) {
+      openLoginWebview()
+      return
+    }
+
     if (isFavorite) {
       updateFavorite(false)
     } else {

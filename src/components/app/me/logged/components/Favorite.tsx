@@ -58,7 +58,7 @@ export function Favorite({ type }: { type: 'movies' | 'tv' }) {
     <>
       {(isLoading || !!results.length) && (
         <List<Item>
-          icon="heart-fill"
+          icon="heart"
           id={`favorite-${type}`}
           isLoading={isLoading}
           renderItem={renderItem}
@@ -68,7 +68,7 @@ export function Favorite({ type }: { type: 'movies' | 'tv' }) {
       )}
       {!isLoading && !results?.length && (
         <View style={globalStyles.centered}>
-          <ListTitle icon="heart-fill">{listTitle}</ListTitle>
+          <ListTitle icon="heart">{listTitle}</ListTitle>
           <View style={styles.empty}>
             <Text variant="lg">
               {type === 'movies' ? (
