@@ -1,12 +1,18 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 import type { AxiosResponse } from 'axios'
 
+import { queryClient } from '~/app/_layout'
 import { LOCALE } from '~/constants/locales'
 import { useAuth } from '~/contexts/Auth'
 
 import { api } from './api'
 import type { paths } from './types'
 
+export type FavoriteAndWatchlistBody = {
+  favorite: boolean
+  media_id: number
+  media_type: 'movie' | 'tv'
+}
 export type UseGetFavorite = {
   movies: UseGetFavoriteMovies
   tv: UseGetFavoriteTv
@@ -38,6 +44,14 @@ type UseGetWatchlistParams =
   paths['/3/account/{account_id}/watchlist/tv']['get']['parameters']['query']
 type UseGetWatchlistTv =
   paths['/3/account/{account_id}/watchlist/tv']['get']['responses']['200']['content']['application/json']
+type UseUpdateFavoriteResponse =
+  paths['/3/account/{account_id}/favorite']['post']['responses']['200']['content']['application/json'] & {
+    success: boolean
+  }
+type UseUpdateWatchlistResponse =
+  paths['/3/account/{account_id}/watchlist']['post']['responses']['200']['content']['application/json'] & {
+    success: boolean
+  }
 
 export function useGetFavorite(props: UseGetFavoritesProps) {
   const { maxPages = 30, type } = props || {}
@@ -88,6 +102,70 @@ export function useGetWatchlist(props: UseGetFavoritesProps) {
       return data
     },
     queryKey: ['account', sessionId, 'watchlist', type, LOCALE],
+  })
+}
+
+export function useUpdateFavorite({ id, type }: { id: number; type: 'movies' | 'tv' }) {
+  const { accountId, sessionId } = useAuth()
+  const formattedType = type === 'movies' ? 'movie' : 'tv'
+
+  return useMutation({
+    mutationFn: async (isFavorite: boolean) => {
+      try {
+        const { data }: AxiosResponse<UseUpdateFavoriteResponse> = await api.post(
+          `account/${accountId}/favorite`,
+          {
+            favorite: isFavorite,
+            media_id: id,
+            media_type: formattedType,
+          }
+        )
+        if (data.success) {
+          queryClient.invalidateQueries({
+            queryKey: ['account', sessionId, 'favorite', type, LOCALE],
+          })
+        }
+
+        return data
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('useUpdateFavorite', error.response)
+        throw error // Re-throw to let react-query handle the error state
+      }
+    },
+    mutationKey: ['account', sessionId, 'favorite', 'update', LOCALE],
+  })
+}
+
+export function useUpdateWatchlist({ id, type }: { id: number; type: 'movies' | 'tv' }) {
+  const { accountId, sessionId } = useAuth()
+  const formattedType = type === 'movies' ? 'movie' : 'tv'
+
+  return useMutation({
+    mutationFn: async (isWatchlisted: boolean) => {
+      try {
+        const { data }: AxiosResponse<UseUpdateWatchlistResponse> = await api.post(
+          `account/${accountId}/watchlist`,
+          {
+            media_id: id,
+            media_type: formattedType,
+            watchlist: isWatchlisted,
+          }
+        )
+        if (data.success) {
+          queryClient.invalidateQueries({
+            queryKey: ['account', sessionId, 'watchlist', type, LOCALE],
+          })
+        }
+
+        return data
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('useUpdateWatchlist', error.response)
+        throw error // Re-throw to let react-query handle the error state
+      }
+    },
+    mutationKey: ['account', sessionId, 'watchlist', 'update', LOCALE],
   })
 }
 

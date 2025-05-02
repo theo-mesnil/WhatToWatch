@@ -19,6 +19,7 @@ import {
   useGetTvSimilar,
   useGetTvVideos,
 } from '~/api/tv'
+import { Actions } from '~/components/Actions'
 import { EpisodeThumb } from '~/components/app/tv/EpisodeThumb'
 import { Badge } from '~/components/Badge'
 import { Button } from '~/components/Button'
@@ -35,6 +36,7 @@ import { ContentLayout } from '~/layouts//Content'
 import { personPath, tvPath } from '~/routes'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
+import { isUserFeatureEnabled } from '~/utils/flags'
 import { formatTime } from '~/utils/time'
 
 type CastItem = UseGetTvCreditsApiResponse['cast'][number]
@@ -159,6 +161,7 @@ export default function Tv() {
       subtitle={genres}
       title={!isLoadingLogo && name}
     >
+      {isUserFeatureEnabled && <Actions id={tvID} type="tv" />}
       {!!networkLink && (
         <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
       )}

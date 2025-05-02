@@ -14,7 +14,7 @@ type LoginButtonProps = {
 
 export const LoginButton = ({ onPress }: LoginButtonProps) => {
   return (
-    <Button isCustomChildren onPress={onPress} size="lg">
+    <Button isCustomChildren onPress={onPress} size="lg" withHaptic>
       <Text variant="h3">
         <FormattedMessage defaultMessage="Login with" id="+iFjzy" />
       </Text>

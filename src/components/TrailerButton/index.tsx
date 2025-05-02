@@ -22,6 +22,7 @@ export function TrailerButton({ id, platform, style }: TrailerButtonProps) {
       onPress={() => handlePress()}
       size="lg"
       style={style}
+      withHaptic
     >
       <Text variant="h3">
         <FormattedMessage defaultMessage="Watch the trailer" id="wLlKjy" />

@@ -24,6 +24,7 @@ export type ButtonProps = ViewProps & {
   onPress?: TouchableProps['onPress']
   size?: 'lg' | 'md'
   variant?: 'primary' | 'secondary'
+  withHaptic?: boolean
 }
 
 export const Button = React.forwardRef<never, ButtonProps>(
@@ -40,13 +41,17 @@ export const Button = React.forwardRef<never, ButtonProps>(
       style = {},
       testID,
       variant = 'primary',
+      withHaptic,
       ...rest
     },
     ref
   ) => {
     function handleOnPress(event) {
       if (onPress) {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+        if (withHaptic) {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+        }
+
         onPress(event)
       }
     }

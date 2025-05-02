@@ -51,7 +51,7 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
           {description}
         </Text>
         <Link asChild href={routeByType({ id, type })}>
-          <Button icon="arrow-right" size="lg" style={styles.cta} variant="secondary">
+          <Button icon="arrow-right" size="lg" style={styles.cta} variant="secondary" withHaptic>
             <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
           </Button>
         </Link>

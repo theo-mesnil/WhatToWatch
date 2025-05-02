@@ -57,6 +57,7 @@ export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
     <>
       {(isLoading || !!results.length) && (
         <List<Item>
+          icon="bookmark-fill"
           id={`watchlist-${type}`}
           isLoading={isLoading}
           renderItem={renderItem}
@@ -66,7 +67,7 @@ export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
       )}
       {!isLoading && !results?.length && (
         <View style={globalStyles.centered}>
-          <ListTitle>{listTitle}</ListTitle>
+          <ListTitle icon="bookmark-fill">{listTitle}</ListTitle>
           <View style={styles.empty}>
             <Text variant="lg">
               {type === 'movies' ? (
