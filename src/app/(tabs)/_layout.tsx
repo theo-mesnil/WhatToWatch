@@ -18,6 +18,7 @@ import { useSafeHeights } from '~/constants/useSafeHeights'
 import { useAuth } from '~/contexts/Auth'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
+import { isUserFeatureEnabled } from '~/utils/flags'
 
 export default function Layout() {
   const intl = useIntl()
@@ -96,6 +97,7 @@ export default function Layout() {
       <Tabs.Screen
         name="me"
         options={{
+          href: !isUserFeatureEnabled ? null : undefined,
           tabBarIcon: props =>
             tabBarIcon({
               ...props,
