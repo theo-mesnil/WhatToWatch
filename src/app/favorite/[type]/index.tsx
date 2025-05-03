@@ -19,14 +19,13 @@ import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetFavorite['movies']['results'][number]
+type MovieItem = UseGetFavorite['movie']['results'][number]
 type TVItem = UseGetFavorite['tv']['results'][number]
 
 export default function Watchlist() {
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
-  const params = useLocalSearchParams<{ type: 'movies' | 'tv' }>()
+  const params = useLocalSearchParams<{ type: 'movie' | 'tv' }>()
   const type = params?.type
-  const mediaType = type === 'movies' ? 'movie' : 'tv'
   const { containerStyle, headerSafeHeight } = useSafeHeights()
   const navigation = useNavigation()
 
@@ -45,7 +44,7 @@ export default function Watchlist() {
     const displayTitle = isMovie(item) ? item.title : item.name
 
     return (
-      <ThumbLink href={routeByType({ id: item?.id, type: mediaType })} isLoading={isLoading}>
+      <ThumbLink href={routeByType({ id: item?.id, type })} isLoading={isLoading}>
         <>
           <Thumb imageUrl={item?.poster_path} imageWidth="w300" type="tv" />
           <Text numberOfLines={3}>{displayTitle}</Text>
@@ -56,7 +55,7 @@ export default function Watchlist() {
 
   const HeaderComponent = React.useCallback(() => {
     const title =
-      type === 'movies' ? (
+      type === 'movie' ? (
         <FormattedMessage defaultMessage="My Favorites Movies" id="oXYUTN" />
       ) : (
         <FormattedMessage defaultMessage="My Favorites TV" id="vWAJia" />
@@ -82,7 +81,7 @@ export default function Watchlist() {
       {!isLoading && !results?.length && (
         <View style={[{ marginTop: headerSafeHeight }, globalStyles.centered]}>
           <Empty icon="heart">
-            {type === 'movies' ? (
+            {type === 'movie' ? (
               <FormattedMessage defaultMessage="No favorite movies found" id="LMqQH5" />
             ) : (
               <FormattedMessage defaultMessage="No favorite series found" id="elUgUG" />

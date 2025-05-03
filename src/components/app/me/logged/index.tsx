@@ -45,8 +45,8 @@ export function Logged() {
       </View>
       <Favorite type="tv" />
       <Watchlist type="tv" />
-      <Favorite type="movies" />
-      <Watchlist type="movies" />
+      <Favorite type="movie" />
+      <Watchlist type="movie" />
       <View style={globalStyles.centered}>
         <Button icon="arrow-right-on-rectangle" onPress={() => handleLogout()} size="lg" withHaptic>
           <FormattedMessage defaultMessage="Logout" id="C81/uG" />
