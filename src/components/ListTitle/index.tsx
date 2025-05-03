@@ -20,8 +20,10 @@ export type ListTitleProps = {
 export function ListTitle({ children, icon, style, titleHref }: ListTitleProps) {
   return (
     <View style={[style, styles.title, titleHref && styles.titleHref]}>
-      {icon && <Icon name={icon} size={20} />}
-      <Text variant="h2">{children}</Text>
+      <View style={styles.title}>
+        {icon && <Icon name={icon} size={20} />}
+        <Text variant="h2">{children}</Text>
+      </View>
       {titleHref && (
         <Link asChild href={titleHref}>
           <Touchable>

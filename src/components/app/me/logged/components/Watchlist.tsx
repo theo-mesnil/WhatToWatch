@@ -1,8 +1,9 @@
 import type { FlashListProps } from '@shopify/flash-list'
 import { FormattedMessage } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import { useGetWatchlist, type UseGetWatchlist } from '~/api/account'
+import { Empty } from '~/components/Empty'
 import { List } from '~/components/List'
 import { ListTitle } from '~/components/ListTitle'
 import { Text } from '~/components/Text'
@@ -10,7 +11,6 @@ import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
-import { theme } from '~/theme'
 
 type Item = MovieItem | TVItem
 // Define more specific types
@@ -18,7 +18,7 @@ type MovieItem = UseGetWatchlist['movies']['results'][number]
 type TVItem = UseGetWatchlist['tv']['results'][number]
 
 export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
-  const { data, isLoading } = useGetWatchlist({
+  const { data, hasNextPage, isLoading } = useGetWatchlist({
     maxPages: 1,
     type,
   })
@@ -63,30 +63,21 @@ export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
           renderItem={renderItem}
           results={results}
           title={listTitle}
+          titleHref={hasNextPage ? `/watchlist/${type}` : undefined}
         />
       )}
       {!isLoading && !results?.length && (
         <View style={globalStyles.centered}>
           <ListTitle icon="bookmark">{listTitle}</ListTitle>
-          <View style={styles.empty}>
-            <Text variant="lg">
-              {type === 'movies' ? (
-                <FormattedMessage defaultMessage="No movies on watchlist" id="EB9asy" />
-              ) : (
-                <FormattedMessage defaultMessage="No tv on watchlist" id="x2c3j1" />
-              )}
-            </Text>
-          </View>
+          <Empty icon="bookmark">
+            {type === 'movies' ? (
+              <FormattedMessage defaultMessage="No movies on watchlist" id="EB9asy" />
+            ) : (
+              <FormattedMessage defaultMessage="No tv on watchlist" id="x2c3j1" />
+            )}
+          </Empty>
         </View>
       )}
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  empty: {
-    backgroundColor: theme.colors.ahead,
-    borderRadius: theme.radii.md,
-    padding: theme.space.xl,
-  },
-})
