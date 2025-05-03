@@ -57,9 +57,9 @@ export default function Watchlist() {
   const HeaderComponent = React.useCallback(() => {
     const title =
       type === 'movies' ? (
-        <FormattedMessage defaultMessage="My Movies Watchlist" id="vAP/To" />
+        <FormattedMessage defaultMessage="My movies watchlist" id="h1EKCz" />
       ) : (
-        <FormattedMessage defaultMessage="My Tv Watchlist" id="inHmAw" />
+        <FormattedMessage defaultMessage="My series watchlist" id="f6OCCo" />
       )
 
     return <Header scrollY={scrollYPosition} title={title} withBackButton />

@@ -68,11 +68,11 @@ export default function Discover() {
             </Text>
           </View>
           <View style={styles.bullet}>
-            <Icon color="brand-500" name="user-circle-fill" size={30} />
+            <Icon color="brand-500" name="user-fill" size={30} />
             <Text variant="h2">
               <FormattedMessage
-                defaultMessage="Get recommandations based on your profile"
-                id="a8fdyL"
+                defaultMessage="Get Recommendations based on your profile"
+                id="ASO7Cw"
               />
             </Text>
           </View>

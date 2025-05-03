@@ -9,6 +9,7 @@ import { ListTitle } from '~/components/ListTitle'
 import { Text } from '~/components/Text'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
+import { watchlistPath } from '~/routes'
 import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
 
@@ -63,7 +64,7 @@ export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
           renderItem={renderItem}
           results={results}
           title={listTitle}
-          titleHref={hasNextPage ? `/watchlist/${type}` : undefined}
+          titleHref={hasNextPage ? watchlistPath({ type }) : undefined}
         />
       )}
       {!isLoading && !results?.length && (

@@ -20,6 +20,7 @@ import Tv from './Tv'
 import User from './User'
 import UserCircle from './UserCircle'
 import UserCircleFill from './UserCircleFill'
+import UserFill from './UserFill'
 import XMark from './XMark'
 
 export type IconName =
@@ -45,6 +46,7 @@ export type IconName =
   | 'user'
   | 'user-circle'
   | 'user-circle-fill'
+  | 'user-fill'
   | 'xmark'
 
 export const Icons = {
@@ -70,5 +72,6 @@ export const Icons = {
   user: User,
   'user-circle': UserCircle,
   'user-circle-fill': UserCircleFill,
+  'user-fill': UserFill,
   xmark: XMark,
 }

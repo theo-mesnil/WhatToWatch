@@ -5,8 +5,9 @@ import { queryClient } from '~/app/_layout'
 import { LOCALE } from '~/constants/locales'
 import { useAuth } from '~/contexts/Auth'
 
-import { api } from './api'
+import { api, apiV4 } from './api'
 import type { paths } from './types'
+import type { paths as pathsV4 } from './types-v4'
 
 export type FavoriteAndWatchlistBody = {
   favorite: boolean
@@ -20,6 +21,14 @@ export type UseGetFavorite = {
 export type UseGetFavoritesProps = {
   maxPages?: number
   type: 'movies' | 'tv'
+}
+export type UseGetRecommendations = {
+  movie: UseGetRecommendationsMovie
+  tv: UseGetRecommendationsTv
+}
+export type UseGetRecommendationsProps = {
+  maxPages?: number
+  type: 'movie' | 'tv'
 }
 export type UseGetUser =
   paths['/3/account/{account_id}']['get']['responses']['200']['content']['application/json']
@@ -38,6 +47,12 @@ type UseGetFavoriteParams =
   paths['/3/account/{account_id}/favorite/tv']['get']['parameters']['query']
 type UseGetFavoriteTv =
   paths['/3/account/{account_id}/favorite/tv']['get']['responses']['200']['content']['application/json']
+type UseGetRecommendationsMovie =
+  pathsV4['/4/account/{account_object_id}/movie/recommendations']['get']['responses']['200']['content']['application/json']
+type UseGetRecommendationsParams =
+  pathsV4['/4/account/{account_object_id}/movie/recommendations']['get']['parameters']['query']
+type UseGetRecommendationsTv =
+  pathsV4['/4/account/{account_object_id}/tv/recommendations']['get']['responses']['200']['content']['application/json']
 type UseGetWatchlistMovies =
   paths['/3/account/{account_id}/watchlist/movies']['get']['responses']['200']['content']['application/json']
 type UseGetWatchlistParams =
@@ -77,6 +92,31 @@ export function useGetFavorite(props: UseGetFavoritesProps) {
       return data
     },
     queryKey: ['account', sessionId, 'favorite', type, LOCALE],
+  })
+}
+
+export function useGetRecommendations(props: UseGetRecommendationsProps) {
+  const { maxPages = 30, type } = props || {}
+  const { accountId, sessionId } = useAuth()
+
+  return useInfiniteQuery<UseGetRecommendations[UseGetRecommendationsProps['type']], Error>({
+    enabled: !!sessionId,
+    getNextPageParam: ({ page }) => {
+      return page + 1 <= maxPages ? page + 1 : undefined
+    },
+    initialPageParam: 1,
+    queryFn: async ({ pageParam }) => {
+      const { data }: AxiosResponse<UseGetRecommendations[UseGetRecommendationsProps['type']]> =
+        await apiV4.get(`account/${accountId}/${type}/recommendations`, {
+          params: {
+            language: LOCALE,
+            page: pageParam,
+            session_id: sessionId,
+          } as UseGetRecommendationsParams,
+        })
+      return data
+    },
+    queryKey: ['account', sessionId, 'Recommendations', type, LOCALE],
   })
 }
 

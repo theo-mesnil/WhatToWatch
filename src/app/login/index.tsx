@@ -25,6 +25,7 @@ export default function Login() {
 
   return (
     <WebView
+      incognito={true}
       onNavigationStateChange={handleWebViewNavigationStateChange}
       source={{ uri: `https://www.themoviedb.org/auth/access?request_token=${requestToken}` }}
     />

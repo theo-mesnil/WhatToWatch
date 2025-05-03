@@ -59,3 +59,18 @@ export const videoPath = (params: { id: string }): Href => ({
   params,
   pathname: '/video/[id]',
 })
+
+export const watchlistPath = (params: { type: 'movies' | 'tv' }): Href => ({
+  params,
+  pathname: '/watchlist/[type]',
+})
+
+export const favoritePath = (params: { type: 'movies' | 'tv' }): Href => ({
+  params,
+  pathname: '/favorite/[type]',
+})
+
+export const recommendationsPath = (params: { type: 'movie' | 'tv' }): Href => ({
+  params,
+  pathname: '/recommendations/[type]',
+})

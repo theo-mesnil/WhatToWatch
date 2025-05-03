@@ -85,7 +85,7 @@ export default function Watchlist() {
             {type === 'movies' ? (
               <FormattedMessage defaultMessage="No favorite movies found" id="LMqQH5" />
             ) : (
-              <FormattedMessage defaultMessage="No favorite TV shows found" id="ubW84r" />
+              <FormattedMessage defaultMessage="No favorite series found" id="elUgUG" />
             )}
           </Empty>
         </View>

@@ -10,6 +10,7 @@ import { ListTitle } from '~/components/ListTitle'
 import { Text } from '~/components/Text'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
+import { favoritePath } from '~/routes'
 import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
 
@@ -62,7 +63,7 @@ export function Favorite({ type }: { type: 'movies' | 'tv' }) {
           renderItem={renderItem}
           results={results}
           title={listTitle}
-          titleHref={hasNextPage ? `/favorite/${type}` : undefined}
+          titleHref={hasNextPage ? favoritePath({ type }) : undefined}
         />
       )}
       {!isLoading && !results?.length && (
@@ -72,7 +73,7 @@ export function Favorite({ type }: { type: 'movies' | 'tv' }) {
             {type === 'movies' ? (
               <FormattedMessage defaultMessage="No favorite movies found" id="LMqQH5" />
             ) : (
-              <FormattedMessage defaultMessage="No favorite TV shows found" id="ubW84r" />
+              <FormattedMessage defaultMessage="No favorite series found" id="elUgUG" />
             )}
           </Empty>
         </View>

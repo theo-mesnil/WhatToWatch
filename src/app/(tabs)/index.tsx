@@ -9,6 +9,7 @@ import { Networks } from '~/components/app/index/Networks'
 import { Overview } from '~/components/app/index/Overview'
 import { PopularPerson } from '~/components/app/index/PopularPerson'
 import { PopularSeries } from '~/components/app/index/PopularSeries'
+import { Recommendations } from '~/components/app/index/Recommendations'
 import { Top10Movies } from '~/components/app/index/Top10Movies'
 import { Top10Series } from '~/components/app/index/Top10Series'
 import { TvCategories } from '~/components/app/index/TvCategories'
@@ -16,13 +17,16 @@ import { Upcoming } from '~/components/app/index/Upcoming'
 import { Header } from '~/components/Header'
 import { Logo } from '~/components/Logo'
 import { useSafeHeights } from '~/constants/useSafeHeights'
+import { useAuth } from '~/contexts/Auth'
 import { BasicLayout } from '~/layouts//Basic'
 import { theme } from '~/theme'
+import { isUserFeatureEnabled } from '~/utils/flags'
 
 export default function Discover() {
   const { containerStyle, headerHeight } = useSafeHeights()
   const navigation = useNavigation()
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
+  const { accountId } = useAuth()
 
   const HeaderComponent = React.useCallback(
     () => (
@@ -57,12 +61,14 @@ export default function Discover() {
       <Overview />
       <Networks />
       <Top10Series />
+      {accountId && isUserFeatureEnabled && <Recommendations type="movie" />}
       <InTheaters />
       <MovieCategories />
-      <Family />
+      {accountId && isUserFeatureEnabled && <Recommendations type="tv" />}
       <Top10Movies />
-      <PopularPerson />
       <TvCategories />
+      <Family />
+      <PopularPerson />
       <PopularSeries />
       <Upcoming />
     </BasicLayout>
