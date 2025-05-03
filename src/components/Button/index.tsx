@@ -1,10 +1,11 @@
+import * as Haptics from 'expo-haptics'
 import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { ViewProps } from 'react-native'
 
 import type { GradientProps } from '~/components/Gradient'
 import { Gradient } from '~/components/Gradient'
-import type { IconElement } from '~/components/Icon'
+import type { IconProps } from '~/components/Icon'
 import { Icon } from '~/components/Icon'
 import { Text } from '~/components/Text'
 import type { TouchableProps } from '~/components/Touchable'
@@ -16,13 +17,14 @@ export type ButtonProps = ViewProps & {
   backgroundColor?: Color
   children: React.ReactNode
   gradientColors?: GradientProps['colors']
-  icon?: IconElement
+  icon?: IconProps['name']
   isCustomChildren?: boolean
   isRounded?: boolean
   isTransparent?: boolean
   onPress?: TouchableProps['onPress']
   size?: 'lg' | 'md'
   variant?: 'primary' | 'secondary'
+  withHaptic?: boolean
 }
 
 export const Button = React.forwardRef<never, ButtonProps>(
@@ -39,12 +41,23 @@ export const Button = React.forwardRef<never, ButtonProps>(
       style = {},
       testID,
       variant = 'primary',
+      withHaptic,
       ...rest
     },
     ref
   ) => {
+    function handleOnPress(event) {
+      if (onPress) {
+        if (withHaptic) {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+        }
+
+        onPress(event)
+      }
+    }
+
     return (
-      <Touchable onPress={onPress} ref={ref} testID={testID}>
+      <Touchable onPress={handleOnPress} ref={ref} testID={testID}>
         <View
           style={[
             styles.wrapper,
@@ -71,7 +84,7 @@ export const Button = React.forwardRef<never, ButtonProps>(
               >
                 {children}
               </Text>
-              {icon && <Icon color="white" icon={icon} size={20} />}
+              {icon && <Icon color="white" name={icon} size={20} />}
             </>
           )}
         </View>

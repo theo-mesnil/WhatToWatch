@@ -1,37 +1,38 @@
-import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
+import type {
+  BottomTabBarButtonProps,
+  BottomTabNavigationOptions,
+} from '@react-navigation/bottom-tabs'
 import { BlurView } from 'expo-blur'
 import { Tabs } from 'expo-router'
 import * as React from 'react'
 import { useIntl } from 'react-intl'
+import { StyleSheet, View } from 'react-native'
 
-import type { IconElement } from '~/components/Icon'
-import {
-  EyeFillIcon,
-  EyeIcon,
-  FlashFillIcon,
-  FlashIcon,
-  Icon,
-  SearchFillIcon,
-  SearchIcon,
-} from '~/components/Icon'
+import { useUser } from '~/api/account'
+import { Avatar } from '~/components/Avatar'
+import type { IconProps } from '~/components/Icon'
+import { Icon } from '~/components/Icon'
+import { Touchable } from '~/components/Touchable'
 import { isAndroid, isIos } from '~/constants/screen'
 import { useSafeHeights } from '~/constants/useSafeHeights'
+import { useAuth } from '~/contexts/Auth'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
+import { isUserFeatureEnabled } from '~/utils/flags'
 
 export default function Layout() {
   const intl = useIntl()
   const { tabBarBottomHeight } = useSafeHeights()
+  const { accountId } = useAuth()
+  const tabBarIcon = useTabBarIcon()
 
   const screenOptions: BottomTabNavigationOptions = {
     headerTransparent: true,
     tabBarActiveTintColor: theme.colors['brand-500'],
     tabBarBackground: isIos ? BottomBarBackground : undefined,
+    tabBarButton: TabBarButton,
     tabBarInactiveTintColor: theme.colors.text,
-    tabBarLabelStyle: {
-      fontFamily: 'Poppins_400Regular',
-      fontSize: 12,
-    },
+    tabBarLabel: () => null,
     tabBarStyle: isAndroid
       ? {
           backgroundColor: theme.colors.ahead,
@@ -54,8 +55,8 @@ export default function Layout() {
           tabBarIcon: props =>
             tabBarIcon({
               ...props,
-              icon: FlashIcon,
-              iconFocused: FlashFillIcon,
+              icon: 'home',
+              iconFocused: 'home-fill',
             }),
           title: intl.formatMessage({
             defaultMessage: 'Discover',
@@ -69,8 +70,8 @@ export default function Layout() {
           tabBarIcon: props =>
             tabBarIcon({
               ...props,
-              icon: SearchIcon,
-              iconFocused: SearchFillIcon,
+              icon: 'magnifying-glass',
+              iconFocused: 'magnifying-glass-fill',
             }),
           title: intl.formatMessage({
             defaultMessage: 'Search',
@@ -84,12 +85,29 @@ export default function Layout() {
           tabBarIcon: props =>
             tabBarIcon({
               ...props,
-              icon: EyeIcon,
-              iconFocused: EyeFillIcon,
+              icon: 'eye',
+              iconFocused: 'eye-fill',
             }),
           title: intl.formatMessage({
             defaultMessage: 'Streaming',
             id: 'NCupKV',
+          }),
+        }}
+      />
+      <Tabs.Screen
+        name="me"
+        options={{
+          href: !isUserFeatureEnabled ? null : undefined,
+          tabBarIcon: props =>
+            tabBarIcon({
+              ...props,
+              icon: accountId ? 'user-circle' : 'user-circle',
+              iconFocused: accountId ? 'user-circle-fill' : 'user-circle-fill',
+              isUser: !!accountId,
+            }),
+          title: intl.formatMessage({
+            defaultMessage: 'Me',
+            id: 'TdbPNK',
           }),
         }}
       />
@@ -101,19 +119,53 @@ function BottomBarBackground() {
   return <BlurView intensity={150} style={globalStyles.absoluteFill} tint="dark" />
 }
 
-function tabBarIcon({
-  focused,
-  icon: IconComponent,
-  iconFocused: IconComponentFocused,
-}: {
-  focused: boolean
-  icon: IconElement
-  iconFocused: IconElement
-}) {
+function TabBarButton({ onPress, ...props }: BottomTabBarButtonProps) {
   return (
-    <Icon
-      color={focused ? 'brand-500' : 'text'}
-      icon={focused ? IconComponentFocused : IconComponent}
-    />
+    <Touchable endScale={0.85} onPress={onPress} style={styles.tabBarButton}>
+      {props.children}
+    </Touchable>
   )
 }
+
+function useTabBarIcon() {
+  const { data: user } = useUser()
+
+  function tabBarIcon({
+    focused,
+    icon,
+    iconFocused,
+    isUser,
+  }: {
+    focused: boolean
+    icon: IconProps['name']
+    iconFocused: IconProps['name']
+    isUser?: boolean
+  }) {
+    if (isUser) {
+      return (
+        <View style={[focused ? styles.focused : undefined]}>
+          <Avatar imageUrl={user?.avatar} name={user?.name} size={26} />
+        </View>
+      )
+    }
+
+    return (
+      <Icon color={focused ? 'brand-500' : 'text'} name={focused ? iconFocused : icon} size={28} />
+    )
+  }
+
+  return tabBarIcon
+}
+
+const styles = StyleSheet.create({
+  focused: {
+    borderColor: theme.colors['brand-500'],
+    borderRadius: 999,
+    borderWidth: 1,
+  },
+  tabBarButton: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+})

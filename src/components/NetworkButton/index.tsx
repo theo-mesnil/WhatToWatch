@@ -23,6 +23,7 @@ export function NetworkButton({ id, link, style }: NetworkButtonProps) {
       size="lg"
       style={style}
       testID={`network-${id}`}
+      withHaptic
     >
       <Text variant="h3">
         <FormattedMessage defaultMessage="Watch on" id="hFKSw/" />

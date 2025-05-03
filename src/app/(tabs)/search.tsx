@@ -10,7 +10,7 @@ import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
 import { GradientHeader } from '~/components/GradientHeader'
 import { Header } from '~/components/Header'
-import { Icon, SearchFillIcon } from '~/components/Icon'
+import { Icon } from '~/components/Icon'
 import { Text } from '~/components/Text'
 import { TextInput } from '~/components/TextInput'
 import { Thumb } from '~/components/Thumb'
@@ -33,7 +33,7 @@ export default function Search() {
   const { containerStyle } = useSafeHeights(true)
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetTrending({
-    maxPages: 3,
+    maxPages: 5,
   })
 
   const {
@@ -88,7 +88,7 @@ export default function Search() {
     <>
       {!isSearchLoading && !results.length ? (
         <View style={styles.noResults}>
-          <Icon color="brand-500" icon={SearchFillIcon} size={80} />
+          <Icon color="brand-500" name="magnifying-glass" size={80} />
           <Text style={styles.noResultsTitle} variant="h1">
             <FormattedMessage defaultMessage="Oh no! We have found nothing 🥺" id="hVXARm" />
           </Text>

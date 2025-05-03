@@ -17,8 +17,8 @@ import {
   useGetMovieSimilar,
   useGetMovieVideos,
 } from '~/api/movie'
+import { Actions } from '~/components/Actions'
 import { Badge } from '~/components/Badge'
-import { ClockFillIcon, StarFillIcon } from '~/components/Icon'
 import { Images } from '~/components/Images'
 import { List } from '~/components/List'
 import { NetworkButton } from '~/components/NetworkButton'
@@ -32,6 +32,7 @@ import { ContentLayout } from '~/layouts//Content'
 import { moviePath, personPath } from '~/routes'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
+import { isUserFeatureEnabled } from '~/utils/flags'
 import { formatTime } from '~/utils/time'
 
 type CastItem = UseGetMovieCreditsApiResponse['cast'][number]
@@ -111,12 +112,12 @@ export default function Movie() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge icon={ClockFillIcon} testID="runtime">
+              <Badge icon="clock-fill" testID="runtime">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge icon={StarFillIcon} testID="votes">
+              <Badge icon="star-fill" testID="votes">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
@@ -129,6 +130,7 @@ export default function Movie() {
       subtitle={genres}
       title={!isLoadingLogo && title}
     >
+      {isUserFeatureEnabled && <Actions id={movieID} type="movie" />}
       {!!networkLink && (
         <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
       )}

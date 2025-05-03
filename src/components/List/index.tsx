@@ -9,11 +9,14 @@ import { fakeData30 } from '~/constants/mocks'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 
+import type { IconProps } from '../Icon'
+
 type ListProps<ItemProps> = Pick<
   FlashListProps<ItemProps>,
   'ListHeaderComponent' | 'renderItem'
 > & {
   gap?: number
+  icon?: IconProps['name']
   /** uniq id for performance */
   id: string
   isLoading?: boolean
@@ -28,6 +31,7 @@ type ListProps<ItemProps> = Pick<
 
 export function List<ItemProps>({
   gap = theme.space.md,
+  icon,
   id,
   isLoading,
   ListHeaderComponent,
@@ -87,11 +91,11 @@ export function List<ItemProps>({
 
   const renderTitle = React.useMemo(
     () => (
-      <ListTitle style={globalStyles.centered} titleHref={titleHref}>
+      <ListTitle icon={icon} style={globalStyles.centered} titleHref={titleHref}>
         {title}
       </ListTitle>
     ),
-    [title, titleHref]
+    [title, titleHref, icon]
   )
 
   function renderSeparators() {

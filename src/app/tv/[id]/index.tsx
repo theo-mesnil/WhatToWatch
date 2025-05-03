@@ -19,10 +19,10 @@ import {
   useGetTvSimilar,
   useGetTvVideos,
 } from '~/api/tv'
+import { Actions } from '~/components/Actions'
 import { EpisodeThumb } from '~/components/app/tv/EpisodeThumb'
 import { Badge } from '~/components/Badge'
 import { Button } from '~/components/Button'
-import { ClockFillIcon, StarFillIcon } from '~/components/Icon'
 import { Images } from '~/components/Images'
 import { List } from '~/components/List'
 import { NetworkButton } from '~/components/NetworkButton'
@@ -36,6 +36,7 @@ import { ContentLayout } from '~/layouts//Content'
 import { personPath, tvPath } from '~/routes'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
+import { isUserFeatureEnabled } from '~/utils/flags'
 import { formatTime } from '~/utils/time'
 
 type CastItem = UseGetTvCreditsApiResponse['cast'][number]
@@ -142,12 +143,12 @@ export default function Tv() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge icon={ClockFillIcon} testID="runtime">
+              <Badge icon="clock-fill" testID="runtime">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge icon={StarFillIcon} testID="votes">
+              <Badge icon="star-fill" testID="votes">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
@@ -160,6 +161,7 @@ export default function Tv() {
       subtitle={genres}
       title={!isLoadingLogo && name}
     >
+      {isUserFeatureEnabled && <Actions id={tvID} type="tv" />}
       {!!networkLink && (
         <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
       )}

@@ -34,6 +34,6 @@ export function useGetSearch(props?: UseGetSearchApiProps) {
 
       return data
     },
-    queryKey: ['search', 'multi', params.query, LOCALE],
+    queryKey: ['search', 'multi', params?.query, LOCALE],
   })
 }

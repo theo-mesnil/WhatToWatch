@@ -32,7 +32,7 @@ export function useGetDiscoverMovie(props?: UseGetDiscoverMovieApiProps) {
 
       return data
     },
-    queryKey: ['discover', 'movie', params.with_genres, params.page, LOCALE],
+    queryKey: ['discover', 'movie', params, LOCALE],
   })
 }
 
@@ -49,6 +49,6 @@ export function useGetDiscoverTv(props?: UseGetDiscoverTvApiProps) {
 
       return data
     },
-    queryKey: ['discover', 'tv', params.with_genres, params.page, LOCALE],
+    queryKey: ['discover', 'tv', params, LOCALE],
   })
 }

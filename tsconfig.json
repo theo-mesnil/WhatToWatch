@@ -4,7 +4,9 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "types": ["node", "jest", "@testing-library/react-native"]
+    "types": ["node", "jest", "@testing-library/react-native"],
+    "noUnusedParameters": true,
+    "noUnusedLocals": true
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
   "exclude": ["src/api/types.d.ts"]

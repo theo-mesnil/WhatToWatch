@@ -3,13 +3,13 @@ import type { DimensionValue } from 'react-native'
 import { StyleSheet, View } from 'react-native'
 
 import { Gradient } from '~/components/Gradient'
-import type { IconElement } from '~/components/Icon'
+import type { IconProps } from '~/components/Icon'
 import { Icon } from '~/components/Icon'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 
 type NoCoverProps = {
-  icon: IconElement
+  icon: IconProps['name']
   opacity?: number
   size?: DimensionValue
   withGradient?: boolean
@@ -19,7 +19,7 @@ export function NoCover({ icon, opacity = 0.3, size = '60%', withGradient }: NoC
   return (
     <>
       <View style={[styles.wrapper, globalStyles.absoluteFill, { opacity }]}>
-        <Icon icon={icon} size={size} />
+        <Icon name={icon} size={size} />
       </View>
       {withGradient && <Gradient style={{ opacity }} />}
     </>
