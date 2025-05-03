@@ -65,7 +65,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     const getAuthFromStorage = async () => {
       try {
         const value = await AsyncStorage.getItem(authStorageKey)
-        if (!value.includes(null)) {
+        if (value !== null) {
           const auth = JSON.parse(value)
           setAccountId(auth.accountId)
           setAccessToken(auth.accessToken)
