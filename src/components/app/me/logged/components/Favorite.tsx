@@ -16,19 +16,18 @@ import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetFavorite['movies']['results'][number]
+type MovieItem = UseGetFavorite['movie']['results'][number]
 type TVItem = UseGetFavorite['tv']['results'][number]
 
-export function Favorite({ type }: { type: 'movies' | 'tv' }) {
+export function Favorite({ type }: { type: 'movie' | 'tv' }) {
   const { data, hasNextPage, isLoading } = useGetFavorite({
     maxPages: 1,
     type,
   })
 
   const results = data?.pages?.map(page => page.results).flat()
-  const mediaType = type === 'movies' ? 'movie' : 'tv'
   const listTitle =
-    type === 'movies' ? (
+    type === 'movie' ? (
       <FormattedMessage defaultMessage="My Favorites Movies" id="oXYUTN" />
     ) : (
       <FormattedMessage defaultMessage="My Favorites TV" id="vWAJia" />
@@ -44,7 +43,7 @@ export function Favorite({ type }: { type: 'movies' | 'tv' }) {
     const displayTitle = isMovie(item) ? item.title : item.name
 
     return (
-      <ThumbLink href={routeByType({ id: item?.id, type: mediaType })} isLoading={isLoading}>
+      <ThumbLink href={routeByType({ id: item?.id, type })} isLoading={isLoading}>
         <>
           <Thumb imageUrl={item?.poster_path} imageWidth="w300" type="tv" />
           <Text numberOfLines={3}>{displayTitle}</Text>
@@ -70,7 +69,7 @@ export function Favorite({ type }: { type: 'movies' | 'tv' }) {
         <View style={globalStyles.centered}>
           <ListTitle icon="heart">{listTitle}</ListTitle>
           <Empty icon="heart">
-            {type === 'movies' ? (
+            {type === 'movie' ? (
               <FormattedMessage defaultMessage="No favorite movies found" id="LMqQH5" />
             ) : (
               <FormattedMessage defaultMessage="No favorite series found" id="elUgUG" />

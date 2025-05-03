@@ -15,10 +15,10 @@ import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetWatchlist['movies']['results'][number]
+type MovieItem = UseGetWatchlist['movie']['results'][number]
 type TVItem = UseGetWatchlist['tv']['results'][number]
 
-export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
+export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
   const { data, hasNextPage, isLoading } = useGetWatchlist({
     maxPages: 1,
     type,
@@ -26,7 +26,7 @@ export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
 
   const results = data?.pages?.map(page => page.results).flat()
   const listTitle =
-    type === 'movies' ? (
+    type === 'movie' ? (
       <FormattedMessage defaultMessage="My Movies Watchlist" id="vAP/To" />
     ) : (
       <FormattedMessage defaultMessage="My Tv Watchlist" id="inHmAw" />
@@ -42,10 +42,7 @@ export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
     const displayTitle = isMovie(item) ? item.title : item.name
 
     return (
-      <ThumbLink
-        href={routeByType({ id: item?.id, type: type === 'movies' ? 'movie' : 'tv' })}
-        isLoading={isLoading}
-      >
+      <ThumbLink href={routeByType({ id: item?.id, type })} isLoading={isLoading}>
         <>
           <Thumb imageUrl={item?.poster_path} imageWidth="w300" type="tv" />
           <Text numberOfLines={3}>{displayTitle}</Text>
@@ -71,7 +68,7 @@ export function Watchlist({ type }: { type: 'movies' | 'tv' }) {
         <View style={globalStyles.centered}>
           <ListTitle icon="bookmark">{listTitle}</ListTitle>
           <Empty icon="bookmark">
-            {type === 'movies' ? (
+            {type === 'movie' ? (
               <FormattedMessage defaultMessage="No movies on watchlist" id="EB9asy" />
             ) : (
               <FormattedMessage defaultMessage="No tv on watchlist" id="x2c3j1" />

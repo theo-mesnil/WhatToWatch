@@ -4,10 +4,9 @@ import { useAuth } from '~/contexts/Auth'
 import { IconButton } from '../IconButton'
 
 export function WatchlistButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
-  const formattedType = type === 'movie' ? 'movies' : 'tv'
   const { accountId, openLoginWebview } = useAuth()
-  const { data } = useGetWatchlist({ type: formattedType })
-  const { mutate: updateWatchlist } = useUpdateWatchlist({ id, type: formattedType })
+  const { data } = useGetWatchlist({ type })
+  const { mutate: updateWatchlist } = useUpdateWatchlist({ id, type })
 
   const isWatchlisted =
     data?.pages

@@ -15,12 +15,12 @@ export type FavoriteAndWatchlistBody = {
   media_type: 'movie' | 'tv'
 }
 export type UseGetFavorite = {
-  movies: UseGetFavoriteMovies
+  movie: UseGetFavoriteMovie
   tv: UseGetFavoriteTv
 }
 export type UseGetFavoritesProps = {
   maxPages?: number
-  type: 'movies' | 'tv'
+  type: 'movie' | 'tv'
 }
 export type UseGetRecommendations = {
   movie: UseGetRecommendationsMovie
@@ -33,7 +33,7 @@ export type UseGetRecommendationsProps = {
 export type UseGetUser =
   paths['/3/account/{account_id}']['get']['responses']['200']['content']['application/json']
 export type UseGetWatchlist = {
-  movies: UseGetWatchlistMovies
+  movie: UseGetWatchlistMovie
   tv: UseGetWatchlistTv
 }
 export type UseGetWatchlistProps = {
@@ -41,24 +41,24 @@ export type UseGetWatchlistProps = {
   type: 'movies' | 'tv'
 }
 type FormatUser = { avatar: null | string; id: number; name: string }
-type UseGetFavoriteMovies =
-  paths['/3/account/{account_id}/favorite/movies']['get']['responses']['200']['content']['application/json']
+type UseGetFavoriteMovie =
+  pathsV4['/4/account/{account_object_id}/movie/favorites']['get']['responses']['200']['content']['application/json']
 type UseGetFavoriteParams =
-  paths['/3/account/{account_id}/favorite/tv']['get']['parameters']['query']
+  pathsV4['/4/account/{account_object_id}/movie/favorites']['get']['parameters']['query']
 type UseGetFavoriteTv =
-  paths['/3/account/{account_id}/favorite/tv']['get']['responses']['200']['content']['application/json']
+  pathsV4['/4/account/{account_object_id}/tv/favorites']['get']['responses']['200']['content']['application/json']
 type UseGetRecommendationsMovie =
   pathsV4['/4/account/{account_object_id}/movie/recommendations']['get']['responses']['200']['content']['application/json']
 type UseGetRecommendationsParams =
   pathsV4['/4/account/{account_object_id}/movie/recommendations']['get']['parameters']['query']
 type UseGetRecommendationsTv =
   pathsV4['/4/account/{account_object_id}/tv/recommendations']['get']['responses']['200']['content']['application/json']
-type UseGetWatchlistMovies =
-  paths['/3/account/{account_id}/watchlist/movies']['get']['responses']['200']['content']['application/json']
+type UseGetWatchlistMovie =
+  pathsV4['/4/account/{account_object_id}/movie/watchlist']['get']['responses']['200']['content']['application/json']
 type UseGetWatchlistParams =
-  paths['/3/account/{account_id}/watchlist/tv']['get']['parameters']['query']
+  pathsV4['/4/account/{account_object_id}/tv/watchlist']['get']['parameters']['query']
 type UseGetWatchlistTv =
-  paths['/3/account/{account_id}/watchlist/tv']['get']['responses']['200']['content']['application/json']
+  pathsV4['/4/account/{account_object_id}/tv/watchlist']['get']['responses']['200']['content']['application/json']
 type UseUpdateFavoriteResponse =
   paths['/3/account/{account_id}/favorite']['post']['responses']['200']['content']['application/json'] & {
     success: boolean
@@ -79,8 +79,8 @@ export function useGetFavorite(props: UseGetFavoritesProps) {
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetFavorite[UseGetFavoritesProps['type']]> = await api.get(
-        `account/${accountId}/favorite/${type}`,
+      const { data }: AxiosResponse<UseGetFavorite[UseGetFavoritesProps['type']]> = await apiV4.get(
+        `account/${accountId}/${type}/favorites`,
         {
           params: {
             language: LOCALE,
@@ -91,7 +91,7 @@ export function useGetFavorite(props: UseGetFavoritesProps) {
       )
       return data
     },
-    queryKey: ['account', sessionId, 'favorite', type, LOCALE],
+    queryKey: ['account', sessionId, 'favorites', type, LOCALE],
   })
 }
 
@@ -131,8 +131,8 @@ export function useGetWatchlist(props: UseGetFavoritesProps) {
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetFavorite[UseGetFavoritesProps['type']]> = await api.get(
-        `account/${accountId}/watchlist/${type}`,
+      const { data }: AxiosResponse<UseGetFavorite[UseGetFavoritesProps['type']]> = await apiV4.get(
+        `account/${accountId}/${type}/watchlist`,
         {
           params: {
             language: LOCALE,
@@ -147,24 +147,29 @@ export function useGetWatchlist(props: UseGetFavoritesProps) {
   })
 }
 
-export function useUpdateFavorite({ id, type }: { id: number; type: 'movies' | 'tv' }) {
-  const { accountId, sessionId } = useAuth()
-  const formattedType = type === 'movies' ? 'movie' : 'tv'
+export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 'tv' }) {
+  const { sessionId } = useAuth()
+  const { data: user } = useUser()
 
   return useMutation({
     mutationFn: async (isFavorite: boolean) => {
       try {
         const { data }: AxiosResponse<UseUpdateFavoriteResponse> = await api.post(
-          `account/${accountId}/favorite`,
+          `account/${user.id}/favorite`,
           {
             favorite: isFavorite,
             media_id: id,
-            media_type: formattedType,
+            media_type: type,
+          },
+          {
+            params: {
+              session_id: sessionId,
+            },
           }
         )
         if (data.success) {
           queryClient.invalidateQueries({
-            queryKey: ['account', sessionId, 'favorite', type, LOCALE],
+            queryKey: ['account', sessionId, 'favorites', type, LOCALE],
           })
         }
 
@@ -175,23 +180,27 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movies' | '
         throw error // Re-throw to let react-query handle the error state
       }
     },
-    mutationKey: ['account', sessionId, 'favorite', 'update', LOCALE],
   })
 }
 
-export function useUpdateWatchlist({ id, type }: { id: number; type: 'movies' | 'tv' }) {
-  const { accountId, sessionId } = useAuth()
-  const formattedType = type === 'movies' ? 'movie' : 'tv'
+export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | 'tv' }) {
+  const { sessionId } = useAuth()
+  const { data: user } = useUser()
 
   return useMutation({
     mutationFn: async (isWatchlisted: boolean) => {
       try {
         const { data }: AxiosResponse<UseUpdateWatchlistResponse> = await api.post(
-          `account/${accountId}/watchlist`,
+          `account/${user.id}/watchlist`,
           {
             media_id: id,
-            media_type: formattedType,
+            media_type: type,
             watchlist: isWatchlisted,
+          },
+          {
+            params: {
+              session_id: sessionId,
+            },
           }
         )
         if (data.success) {

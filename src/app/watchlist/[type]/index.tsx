@@ -19,14 +19,13 @@ import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetWatchlist['movies']['results'][number]
+type MovieItem = UseGetWatchlist['movie']['results'][number]
 type TVItem = UseGetWatchlist['tv']['results'][number]
 
 export default function Watchlist() {
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
-  const params = useLocalSearchParams<{ type: 'movies' | 'tv' }>()
+  const params = useLocalSearchParams<{ type: 'movie' | 'tv' }>()
   const type = params?.type
-  const mediaType = type === 'movies' ? 'movie' : 'tv'
   const { containerStyle, headerSafeHeight } = useSafeHeights()
   const navigation = useNavigation()
 
@@ -45,7 +44,7 @@ export default function Watchlist() {
     const displayTitle = isMovie(item) ? item.title : item.name
 
     return (
-      <ThumbLink href={routeByType({ id: item?.id, type: mediaType })} isLoading={isLoading}>
+      <ThumbLink href={routeByType({ id: item?.id, type })} isLoading={isLoading}>
         <>
           <Thumb imageUrl={item?.poster_path} imageWidth="w300" type="tv" />
           <Text numberOfLines={3}>{displayTitle}</Text>
@@ -56,7 +55,7 @@ export default function Watchlist() {
 
   const HeaderComponent = React.useCallback(() => {
     const title =
-      type === 'movies' ? (
+      type === 'movie' ? (
         <FormattedMessage defaultMessage="My movies watchlist" id="h1EKCz" />
       ) : (
         <FormattedMessage defaultMessage="My series watchlist" id="f6OCCo" />
@@ -82,7 +81,7 @@ export default function Watchlist() {
       {!isLoading && !results?.length && (
         <View style={[{ marginTop: headerSafeHeight }, globalStyles.centered]}>
           <Empty icon="bookmark">
-            {type === 'movies' ? (
+            {type === 'movie' ? (
               <FormattedMessage defaultMessage="No movies on watchlist" id="EB9asy" />
             ) : (
               <FormattedMessage defaultMessage="No tv on watchlist" id="x2c3j1" />

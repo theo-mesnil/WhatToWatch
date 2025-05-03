@@ -4,10 +4,9 @@ import { useAuth } from '~/contexts/Auth'
 import { IconButton } from '../IconButton'
 
 export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
-  const formattedType = type === 'movie' ? 'movies' : 'tv'
   const { accountId, openLoginWebview } = useAuth()
-  const { data } = useGetFavorite({ type: formattedType })
-  const { mutate: updateFavorite } = useUpdateFavorite({ id, type: formattedType })
+  const { data } = useGetFavorite({ type })
+  const { mutate: updateFavorite } = useUpdateFavorite({ id, type })
 
   const isFavorite =
     data?.pages
