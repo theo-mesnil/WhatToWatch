@@ -27,7 +27,7 @@ export const Text: React.FC<TextProps> = ({
       numberOfLines={numberOfLines}
       onPress={onPress}
       onTextLayout={onTextLayout}
-      style={[theme.texts[variant], style]}
+      style={[theme.texts[variant], style, { flexShrink: 1 }]}
       testID={testID}
     >
       {children}

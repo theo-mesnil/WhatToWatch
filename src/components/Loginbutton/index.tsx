@@ -14,7 +14,7 @@ type LoginButtonProps = {
 
 export const LoginButton = ({ onPress }: LoginButtonProps) => {
   return (
-    <Button isCustomChildren onPress={onPress} size="lg" withHaptic>
+    <Button isCustomChildren onPress={onPress} size="lg" style={styles.button} withHaptic>
       <Text variant="h3">
         <FormattedMessage defaultMessage="Login with" id="+iFjzy" />
       </Text>
@@ -26,6 +26,9 @@ export const LoginButton = ({ onPress }: LoginButtonProps) => {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    width: '100%',
+  },
   logo: {
     marginLeft: theme.space.sm,
   },
