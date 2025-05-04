@@ -22,76 +22,73 @@ export type ButtonProps = ViewProps & {
   isRounded?: boolean
   isTransparent?: boolean
   onPress?: TouchableProps['onPress']
+  ref?: TouchableProps['ref']
   size?: 'lg' | 'md'
   variant?: 'primary' | 'secondary'
   withHaptic?: boolean
 }
 
-export const Button = React.forwardRef<never, ButtonProps>(
-  (
-    {
-      children,
-      gradientColors,
-      icon,
-      isCustomChildren,
-      isRounded,
-      isTransparent,
-      onPress,
-      size = 'md',
-      style = {},
-      testID,
-      variant = 'primary',
-      withHaptic,
-      ...rest
-    },
-    ref
-  ) => {
-    function handleOnPress(event) {
-      if (onPress) {
-        if (withHaptic) {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-        }
-
-        onPress(event)
+export const Button = ({
+  children,
+  gradientColors,
+  icon,
+  isCustomChildren,
+  isRounded,
+  isTransparent,
+  onPress,
+  ref,
+  size = 'md',
+  style = {},
+  testID,
+  variant = 'primary',
+  withHaptic,
+  ...rest
+}: ButtonProps) => {
+  function handleOnPress(event) {
+    if (onPress) {
+      if (withHaptic) {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
       }
-    }
 
-    return (
-      <Touchable onPress={handleOnPress} ref={ref} testID={testID}>
-        <View
-          style={[
-            styles.wrapper,
-            styles[size],
-            styles[variant],
-            isTransparent && styles.transparent,
-            isRounded && { borderRadius: styles[size].height },
-            style,
-          ]}
-          {...rest}
-        >
-          {gradientColors && <Gradient angle={1} colors={gradientColors} />}
-          {isCustomChildren ? (
-            children
-          ) : (
-            <>
-              <Text
-                style={[
-                  { color: theme.colors.white },
-                  size === 'lg' && styles['text-lg'],
-                  gradientColors && styles.gradientColors,
-                ]}
-                variant={size}
-              >
-                {children}
-              </Text>
-              {icon && <Icon color="white" name={icon} size={20} />}
-            </>
-          )}
-        </View>
-      </Touchable>
-    )
+      onPress(event)
+    }
   }
-)
+
+  return (
+    <Touchable onPress={handleOnPress} ref={ref} testID={testID}>
+      <View
+        style={[
+          styles.wrapper,
+          styles[size],
+          styles[variant],
+          isTransparent && styles.transparent,
+          isRounded && { borderRadius: styles[size].height },
+          style,
+        ]}
+        {...rest}
+      >
+        {gradientColors && <Gradient angle={1} colors={gradientColors} />}
+        {isCustomChildren ? (
+          children
+        ) : (
+          <>
+            <Text
+              style={[
+                { color: theme.colors.white },
+                size === 'lg' && styles['text-lg'],
+                gradientColors && styles.gradientColors,
+              ]}
+              variant={size}
+            >
+              {children}
+            </Text>
+            {icon && <Icon color="white" name={icon} size={20} />}
+          </>
+        )}
+      </View>
+    </Touchable>
+  )
+}
 
 Button.displayName = 'Button'
 

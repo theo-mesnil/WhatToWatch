@@ -17,7 +17,7 @@ type HeaderProps = {
   title: React.ReactNode
 }
 
-export const Header: React.FC<HeaderProps> = ({ scrollY, showHeaderOnStart, title }) => {
+export const Header = ({ scrollY, showHeaderOnStart, title }: HeaderProps) => {
   const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights()
   const navigation = useNavigation()
 

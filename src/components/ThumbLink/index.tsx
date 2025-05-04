@@ -5,6 +5,9 @@ import * as React from 'react'
 import type { TouchableProps } from '~/components/Touchable'
 import { Touchable } from '~/components/Touchable'
 
+import type { ThumbProps } from '../Thumb'
+import { Thumb } from '../Thumb'
+
 export type ThumbLinkProps = Pick<TouchableProps, 'style'> & {
   children: React.ReactElement
   href: Href
@@ -13,7 +16,7 @@ export type ThumbLinkProps = Pick<TouchableProps, 'style'> & {
 
 export function ThumbLink({ children, href, isLoading, style }: ThumbLinkProps) {
   if (isLoading) {
-    return React.cloneElement(children, { isLoading, style })
+    return <Thumb {...(children.props as ThumbProps)} isLoading />
   }
 
   return (

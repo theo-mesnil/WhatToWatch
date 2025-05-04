@@ -13,7 +13,7 @@ export type IconProps = {
   size?: DimensionValue
 }
 
-export const Icon: React.FC<IconProps> = ({ color = 'white', name, size = 24 }) => {
+export const Icon = ({ color = 'white', name, size = 24 }: IconProps) => {
   const IconComponent = Icons[name]
 
   return (

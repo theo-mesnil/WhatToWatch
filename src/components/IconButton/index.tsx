@@ -13,26 +13,34 @@ export type IconButtonProps = ViewProps & {
   icon: IconProps['name']
   isActive?: boolean
   onPress: TouchableProps['onPress']
+  ref?: TouchableProps['ref']
 }
 
-export const IconButton = React.forwardRef<never, IconButtonProps>(
-  ({ children, icon, isActive, onPress, style = {}, testID, ...rest }, ref) => {
-    function handleOnPress(event) {
-      if (onPress) {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-        onPress(event)
-      }
+export const IconButton = ({
+  children,
+  icon,
+  isActive,
+  onPress,
+  ref,
+  style = {},
+  testID,
+  ...rest
+}: IconButtonProps) => {
+  function handleOnPress(event) {
+    if (onPress) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+      onPress(event)
     }
-
-    return (
-      <Touchable onPress={handleOnPress} ref={ref} testID={testID}>
-        <View style={[styles.wrapper, isActive && styles.active, style]} {...rest}>
-          {icon && <Icon color="white" name={icon} size={26} />}
-        </View>
-      </Touchable>
-    )
   }
-)
+
+  return (
+    <Touchable onPress={handleOnPress} ref={ref} testID={testID}>
+      <View style={[styles.wrapper, isActive && styles.active, style]} {...rest}>
+        {icon && <Icon color="white" name={icon} size={26} />}
+      </View>
+    </Touchable>
+  )
+}
 
 IconButton.displayName = 'IconButton'
 

@@ -19,14 +19,14 @@ type HeaderProps = {
   withBackButton?: boolean
 }
 
-export const Header: React.FC<HeaderProps> = ({
+export const Header = ({
   component,
   customTitle,
   hideOnStart,
   scrollY,
   title,
   withBackButton,
-}) => {
+}: HeaderProps) => {
   const navigation = useNavigation()
   const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights(!!component)
 

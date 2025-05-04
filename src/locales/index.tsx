@@ -6,7 +6,7 @@ import { LOCALE } from '~/constants/locales'
 import en from './en-US.json'
 import fr from './fr-FR.json'
 
-export function IntlMessages({ children }: { children: JSX.Element }) {
+export function IntlMessages({ children }: { children: React.ReactElement }) {
   const locales = { en, fr }
   const localeMessages = locales[LOCALE]
 

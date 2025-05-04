@@ -16,7 +16,6 @@ export function GenreThumb({ id, title }: GenreThumbProps) {
   return (
     <View style={styles.wrapper}>
       <Gradient angle={0.4} colors={gradientColors} />
-      {/* eslint-disable-next-line @typescript-eslint/no-require-imports */}
       <ImageBackground source={require('../../assets/thumb-gradient.png')} style={styles.content}>
         <Text style={[styles.title, { color: gradientColors?.[1] }]} variant="h1">
           {title}
