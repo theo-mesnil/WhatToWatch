@@ -23,7 +23,7 @@ type ListProps<ItemProps> = Pick<
   numberOfItems?: number
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   results?: any
-  title?: JSX.Element | string
+  title?: React.ReactElement | string
   titleHref?: Href
   /** remove resize from List render item */
   withoutSizing?: boolean

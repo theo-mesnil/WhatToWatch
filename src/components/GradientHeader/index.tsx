@@ -28,7 +28,6 @@ export function GradientHeader({
       ]}
     >
       <ImageBackground
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
         source={require('../../assets/thumb-gradient.png')}
         style={[globalStyles.absoluteFill, styles.imageBackground]}
       />

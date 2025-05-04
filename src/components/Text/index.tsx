@@ -11,7 +11,7 @@ export type TextProps = Pick<
   variant?: ThemeText
 }
 
-export const Text: React.FC<TextProps> = ({
+export const Text = ({
   children,
   ellipsizeMode,
   numberOfLines,
@@ -20,7 +20,7 @@ export const Text: React.FC<TextProps> = ({
   style,
   testID,
   variant = 'md',
-}) => {
+}: TextProps) => {
   return (
     <RNText
       ellipsizeMode={ellipsizeMode}
