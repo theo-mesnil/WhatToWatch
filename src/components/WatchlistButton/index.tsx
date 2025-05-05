@@ -1,18 +1,15 @@
-import { useGetWatchlist, useUpdateWatchlist } from '~/api/account'
+import { useUpdateWatchlist } from '~/api/account'
+import { useGetAccountState } from '~/api/account-states'
 import { useAuth } from '~/contexts/Auth'
 
 import { IconButton } from '../IconButton'
 
 export function WatchlistButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { accountId, openLoginWebview } = useAuth()
-  const { data } = useGetWatchlist({ type })
+  const { data } = useGetAccountState({ id, type })
   const { mutate: updateWatchlist } = useUpdateWatchlist({ id, type })
 
-  const isWatchlisted =
-    data?.pages
-      ?.map(page => page.results)
-      .flat()
-      .filter(result => result.id === id).length > 0
+  const isWatchlisted = data?.watchlist
 
   const handleUpdateWatchlist = () => {
     if (!accountId) {

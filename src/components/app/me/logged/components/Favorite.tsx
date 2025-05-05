@@ -20,10 +20,10 @@ type MovieItem = UseGetFavorite['movie']['results'][number]
 type TVItem = UseGetFavorite['tv']['results'][number]
 
 export function Favorite({ type }: { type: 'movie' | 'tv' }) {
-  const { data, hasNextPage, isLoading } = useGetFavorite({
-    maxPages: 1,
+  const { data, isLoading } = useGetFavorite({
     type,
   })
+  const hasMorePage = data?.pages?.[0]?.total_pages > 1
 
   const results = data?.pages?.map(page => page.results).flat()
   const listTitle =
@@ -62,7 +62,7 @@ export function Favorite({ type }: { type: 'movie' | 'tv' }) {
           renderItem={renderItem}
           results={results}
           title={listTitle}
-          titleHref={hasNextPage ? favoritePath({ type }) : undefined}
+          titleHref={hasMorePage ? favoritePath({ type }) : undefined}
         />
       )}
       {!isLoading && !results?.length && (

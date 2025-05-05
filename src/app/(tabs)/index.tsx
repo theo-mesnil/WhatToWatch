@@ -20,7 +20,6 @@ import { useSafeHeights } from '~/constants/useSafeHeights'
 import { useAuth } from '~/contexts/Auth'
 import { BasicLayout } from '~/layouts//Basic'
 import { theme } from '~/theme'
-import { isUserFeatureEnabled } from '~/utils/flags'
 
 export default function Discover() {
   const { containerStyle, headerHeight } = useSafeHeights()
@@ -61,10 +60,10 @@ export default function Discover() {
       <Overview />
       <Networks />
       <Top10Series />
-      {accountId && isUserFeatureEnabled && <Recommendations type="movie" />}
+      {accountId && <Recommendations type="movie" />}
       <InTheaters />
       <MovieCategories />
-      {accountId && isUserFeatureEnabled && <Recommendations type="tv" />}
+      {accountId && <Recommendations type="tv" />}
       <Top10Movies />
       <TvCategories />
       <Family />

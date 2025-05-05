@@ -32,7 +32,6 @@ import { ContentLayout } from '~/layouts//Content'
 import { moviePath, personPath } from '~/routes'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
-import { isUserFeatureEnabled } from '~/utils/flags'
 import { formatTime } from '~/utils/time'
 
 type CastItem = UseGetMovieCreditsApiResponse['cast'][number]
@@ -130,7 +129,7 @@ export default function Movie() {
       subtitle={genres}
       title={!isLoadingLogo && title}
     >
-      {isUserFeatureEnabled && <Actions id={movieID} type="movie" />}
+      <Actions id={movieID} type="movie" />
       {!!networkLink && (
         <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
       )}

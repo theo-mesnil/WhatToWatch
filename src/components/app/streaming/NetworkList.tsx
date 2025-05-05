@@ -21,7 +21,6 @@ type TvItem = UseGetDiscoverTvApiResponse['results'][number]
 export function NetworkList({ id }: NetworkListProps) {
   const network = networksList.filter(item => item.id === id)[0]
   const { data, isLoading } = useGetDiscoverTv({
-    maxPages: 1,
     params: {
       with_networks: id,
     },
