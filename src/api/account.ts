@@ -86,6 +86,7 @@ export function useGetFavorite(props: UseGetFavoritesProps) {
             language: LOCALE,
             page: pageParam,
             session_id: sessionId,
+            sort_by: 'created_at.desc',
           } as UseGetFavoriteParams,
         }
       )
@@ -138,6 +139,7 @@ export function useGetWatchlist(props: UseGetFavoritesProps) {
             language: LOCALE,
             page: pageParam,
             session_id: sessionId,
+            sort_by: 'created_at.desc',
           } as UseGetWatchlistParams,
         }
       )
@@ -168,6 +170,9 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
           }
         )
         if (data.success) {
+          queryClient.refetchQueries({
+            queryKey: ['account-states', sessionId, type, id, LOCALE],
+          })
           queryClient.invalidateQueries({
             queryKey: ['account', sessionId, 'favorites', type, LOCALE],
           })
@@ -204,6 +209,9 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
           }
         )
         if (data.success) {
+          queryClient.refetchQueries({
+            queryKey: ['account-states', sessionId, type, id, LOCALE],
+          })
           queryClient.invalidateQueries({
             queryKey: ['account', sessionId, 'watchlist', type, LOCALE],
           })

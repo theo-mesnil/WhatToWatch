@@ -1,18 +1,15 @@
-import { useGetFavorite, useUpdateFavorite } from '~/api/account'
+import { useUpdateFavorite } from '~/api/account'
+import { useGetAccountState } from '~/api/account-states'
 import { useAuth } from '~/contexts/Auth'
 
 import { IconButton } from '../IconButton'
 
 export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { accountId, openLoginWebview } = useAuth()
-  const { data } = useGetFavorite({ type })
+  const { data } = useGetAccountState({ id, type })
   const { mutate: updateFavorite } = useUpdateFavorite({ id, type })
 
-  const isFavorite =
-    data?.pages
-      ?.map(page => page.results)
-      .flat()
-      .filter(result => result.id === id).length > 0
+  const isFavorite = data?.favorite
 
   const handleUpdateFavorite = () => {
     if (!accountId) {

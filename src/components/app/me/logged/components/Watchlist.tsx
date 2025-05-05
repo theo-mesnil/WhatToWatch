@@ -19,10 +19,10 @@ type MovieItem = UseGetWatchlist['movie']['results'][number]
 type TVItem = UseGetWatchlist['tv']['results'][number]
 
 export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
-  const { data, hasNextPage, isLoading } = useGetWatchlist({
-    maxPages: 1,
+  const { data, isLoading } = useGetWatchlist({
     type,
   })
+  const hasMorePage = data?.pages?.[0]?.total_pages > 1
 
   const results = data?.pages?.map(page => page.results).flat()
   const listTitle =
@@ -61,7 +61,7 @@ export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
           renderItem={renderItem}
           results={results}
           title={listTitle}
-          titleHref={hasNextPage ? watchlistPath({ type }) : undefined}
+          titleHref={hasMorePage ? watchlistPath({ type }) : undefined}
         />
       )}
       {!isLoading && !results?.length && (

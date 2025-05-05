@@ -12,7 +12,6 @@ type Item = UseGetTrendingApiResponse['movie']['results'][number]
 
 export function Top10Movies() {
   const { data, isLoading } = useGetTrending({
-    maxPages: 1,
     type: 'movie',
   })
 
