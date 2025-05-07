@@ -8,7 +8,7 @@ export const BASE_API_URL_V4 = 'https://api.themoviedb.org/4/'
 const apiProps = {
   headers: {
     Accept: 'application/json',
-    Authorization: `Bearer ${process.env.EXPO_PUBLIC_THEMOVIEDB_API_KEY}`,
+    Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_KEY}`,
   },
   params: {
     language: LOCALE_I18N,

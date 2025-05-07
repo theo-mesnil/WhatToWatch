@@ -14,7 +14,7 @@ WhatToWatch is the simplest and fastest way to discover movies, series and actor
 
 1. Clone the repository
 2. Create your own api key from [themoviedb](https://developers.themoviedb.org/)
-3. Add `EXPO_PUBLIC_THEMOVIEDB_API_KEY` key on your EAS secrets
+3. Add `EXPO_PUBLIC_API_KEY` key on your Expo Environment Variables (in plain text to avoid crash on Android)
 4. create a `.env` (see the example file)
 5. Have fun 👌
 
