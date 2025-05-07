@@ -13,12 +13,13 @@ export type UseGetPerson = UseQueryResult<
     birthday?: string
     coverUrl?: string
     deathday?: string
-    department?: 'Acting' | 'Director' | 'Writing'
+    department?: Department
     name: string
     placeOfBirth?: string
   },
   Error
 >
+
 export type UseGetPersonApiProps = {
   id: number
 }
@@ -30,7 +31,6 @@ export type UseGetPersonImagesApiResponse =
   paths['/3/person/{person_id}/images']['get']['responses']['200']['content']['application/json']
 export type UseGetPersonMovieCreditsApiResponse =
   paths['/3/person/{person_id}/movie_credits']['get']['responses']['200']['content']['application/json']
-
 export type UseGetPersonPopularApiResponse =
   paths['/3/person/popular']['get']['responses']['200']['content']['application/json']
 
@@ -40,6 +40,8 @@ export type UseGetPersonTvCreditsApiResponse =
 export type UseGetPersonWithDepartmentApiProps = UseGetPersonApiProps & {
   isActing: boolean
 }
+
+type Department = 'Acting' | 'Director' | 'Writing'
 
 export function useGetPerson(props?: UseGetPersonApiProps): UseGetPerson {
   const { id } = props || {}
@@ -54,7 +56,7 @@ export function useGetPerson(props?: UseGetPersonApiProps): UseGetPerson {
         birthday: data.birthday,
         coverUrl: data.profile_path,
         deathday: data.deathday as string,
-        department: data.known_for_department,
+        department: data.known_for_department as Department,
         name: data.name,
         placeOfBirth: data.place_of_birth,
       }
