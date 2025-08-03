@@ -4,32 +4,33 @@ import expolint from 'eslint-config-expo/flat.js'
 import formatjs from 'eslint-plugin-formatjs'
 import perfectionist from 'eslint-plugin-perfectionist'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import { globalIgnores } from 'eslint/config'
 import { config, configs } from 'typescript-eslint'
 
 export default config(
   eslint.configs.recommended,
   configs.recommended,
-  expolint,
   eslintPluginPrettierRecommended,
+  ...expolint,
   perfectionist.configs['recommended-natural'],
-  globalIgnores([
-    '.expo/*',
-    'dist/*',
-    'android/*',
-    'ios/*',
-    'web-build/*',
-    'node_modules/*',
-    'coverage/*',
-    'src/locales/*',
-    'src/api/types.d.ts',
-    'src/api/type-v4.d.ts',
-    'expo-env.d.ts',
-  ]),
+  {
+    ignores: [
+      '.expo/*',
+      'dist/*',
+      'android/*',
+      'ios/*',
+      'web-build/*',
+      'node_modules/*',
+      'coverage/*',
+      'src/locales/*',
+      'src/api/types.d.ts',
+      'src/api/type-v4.d.ts',
+      'expo-env.d.ts',
+    ],
+  },
   {
     plugins: {
+      '@tanstack/query': pluginQuery,
       formatjs,
-      pluginQuery,
     },
     rules: {
       '@typescript-eslint/consistent-type-imports': [

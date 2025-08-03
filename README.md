@@ -22,3 +22,8 @@ WhatToWatch is the simplest and fastest way to discover movies, series and actor
 
 - Expo app : https://expo.io/@thehaut/WhatToWatch
 - Android : https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch
+
+## Figma
+
+I'm creating the next upgrade for the app design in Figma, check on:
+- https://www.figma.com/design/1O3ADQH6vKzlm2bIPr0soH/App?node-id=12-3&t=ejZbnfr8ClYeqaLL-1
