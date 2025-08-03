@@ -13,7 +13,7 @@ describe('<Person />', () => {
     render(<Person />)
 
     expect(screen.getByTestId('department')).toHaveTextContent('Acting')
-    expect(screen.getByTestId('birthday')).toHaveTextContent('Born on July 23, 1989 (35y)')
+    expect(screen.getByTestId('birthday')).toHaveTextContent('Born on July 23, 1989 (36y)')
     expect(screen.getByTestId('place-of-birth')).toHaveTextContent(
       'Hammersmith, London, England, UK'
     )
