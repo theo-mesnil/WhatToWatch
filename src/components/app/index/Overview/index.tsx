@@ -26,10 +26,12 @@ export function Overview() {
     .flat()
     .slice(0, 5)
 
-  const itemSize = Dimensions.get('window').width
-
   const onViewableItemsChanged = React.useCallback(
-    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    ({
+      viewableItems,
+    }: {
+      viewableItems: ViewToken<UseGetTrendingApiResponse['all']['results'][number]>[]
+    }) => {
       const active = viewableItems?.[0]?.index
 
       if (active || active === 0) {
@@ -46,7 +48,7 @@ export function Overview() {
     item: { backdrop_path, id, media_type, name, overview, title },
   }) => {
     return (
-      <View style={{ width: itemSize }}>
+      <View style={{ width: Dimensions.get('window').width }}>
         <Item
           description={overview}
           id={id}
@@ -111,7 +113,6 @@ export function Overview() {
       <AnimatedFlashList
         bounces={false}
         data={results}
-        estimatedItemSize={itemSize}
         horizontal
         keyExtractor={(item, index) =>
           isLoading ? `loading_${index}_overview` : `${index}_${item.id}_overview`

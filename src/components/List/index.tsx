@@ -111,7 +111,6 @@ export function List<ItemProps>({
           paddingHorizontal: theme.space.marginList,
         }}
         data={dataFormatted}
-        estimatedItemSize={itemSize}
         horizontal
         ItemSeparatorComponent={renderSeparators}
         keyExtractor={(_, index: number) =>

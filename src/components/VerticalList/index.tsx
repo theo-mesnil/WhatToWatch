@@ -80,12 +80,13 @@ export function VerticalList<ItemProps>({
     <AnimatedFlashList
       bounces={false}
       contentContainerStyle={{
-        ...contentContainerStyle,
+        ...(typeof contentContainerStyle === 'object' && contentContainerStyle
+          ? contentContainerStyle
+          : {}),
         paddingLeft: theme.space.marginList,
         paddingRight: theme.space.marginList - gap,
       }}
       data={dataFormatted}
-      estimatedItemSize={itemSize / (3 / 4)}
       keyExtractor={(_, index: number) => (isLoading ? `loading_${id}_${index}` : `${id}_${index}`)}
       ListHeaderComponent={renderListHeaderComponent}
       numColumns={numColumns}
