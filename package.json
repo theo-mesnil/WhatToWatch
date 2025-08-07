@@ -60,7 +60,7 @@
     "intl": "^1.2.5",
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
-    "react": "19.0.0",
+    "react": "19.1.1",
     "react-dom": "19.0.0",
     "react-intl": "^7.1.11",
     "react-is": "19.1.0",
