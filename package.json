@@ -33,7 +33,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@expo-google-fonts/poppins": "^0.3.1",
+    "@expo-google-fonts/poppins": "^0.4.1",
     "@expo/metro-runtime": "~6.1.2",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-masked-view/masked-view": "0.3.2",
