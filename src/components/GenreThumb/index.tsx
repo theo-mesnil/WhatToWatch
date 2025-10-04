@@ -1,5 +1,6 @@
 import { ImageBackground, StyleSheet, View } from 'react-native'
 
+import thumbGradientImage from '~/assets/thumb-gradient.png'
 import { Gradient } from '~/components/Gradient'
 import { Text } from '~/components/Text'
 import { theme } from '~/theme'
@@ -16,7 +17,7 @@ export function GenreThumb({ id, title }: GenreThumbProps) {
   return (
     <View style={styles.wrapper}>
       <Gradient angle={0.4} colors={gradientColors} />
-      <ImageBackground source={require('../../assets/thumb-gradient.png')} style={styles.content}>
+      <ImageBackground source={thumbGradientImage} style={styles.content}>
         <Text style={[styles.title, { color: gradientColors?.[1] }]} variant="h1">
           {title}
         </Text>

@@ -1,16 +1,19 @@
 import eslint from '@eslint/js'
 import pluginQuery from '@tanstack/eslint-plugin-query'
-import expolint from 'eslint-config-expo/flat.js'
+import expo from 'eslint-plugin-expo'
 import formatjs from 'eslint-plugin-formatjs'
 import perfectionist from 'eslint-plugin-perfectionist'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import { config, configs } from 'typescript-eslint'
+import reactHooks from 'eslint-plugin-react-hooks'
+import { defineConfig } from 'eslint/config'
+import globals from 'globals'
+import tslint from 'typescript-eslint'
 
-export default config(
+export default defineConfig([
   eslint.configs.recommended,
-  configs.recommended,
+  tslint.configs.recommended,
+  reactHooks.configs['recommended-latest'],
   eslintPluginPrettierRecommended,
-  ...expolint,
   perfectionist.configs['recommended-natural'],
   {
     ignores: [
@@ -28,8 +31,30 @@ export default config(
     ],
   },
   {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        __DEV__: 'readonly',
+        alert: false,
+        cancelAnimationFrame: false,
+        cancelIdleCallback: false,
+        clearImmediate: false,
+        ErrorUtils: false,
+        fetch: false,
+        FormData: false,
+        navigator: false,
+        process: false,
+        requestAnimationFrame: false,
+        requestIdleCallback: false,
+        setImmediate: false,
+        'shared-node-browser': true,
+        window: false,
+        XMLHttpRequest: false,
+      },
+    },
     plugins: {
       '@tanstack/query': pluginQuery,
+      expo,
       formatjs,
     },
     rules: {
@@ -63,5 +88,5 @@ export default config(
         },
       ],
     },
-  }
-)
+  },
+])

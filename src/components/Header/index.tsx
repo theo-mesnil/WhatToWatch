@@ -19,6 +19,8 @@ type HeaderProps = {
   withBackButton?: boolean
 }
 
+const AnimatedBlurView = Animated.createAnimatedComponent(BlurView)
+
 export const Header = ({
   component,
   customTitle,
@@ -29,8 +31,6 @@ export const Header = ({
 }: HeaderProps) => {
   const navigation = useNavigation()
   const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights(!!component)
-
-  const AnimatedBlurView = Animated.createAnimatedComponent(BlurView)
 
   return (
     <Animated.View

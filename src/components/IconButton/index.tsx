@@ -17,7 +17,6 @@ export type IconButtonProps = ViewProps & {
 }
 
 export const IconButton = ({
-  children,
   icon,
   isActive,
   onPress,
