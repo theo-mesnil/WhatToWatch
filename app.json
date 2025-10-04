@@ -48,7 +48,7 @@
     ],
     "scheme": "whattowatch",
     "slug": "WhatToWatch",
-    "version": "4.1.0",
+    "version": "4.2.0",
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/deb154a5-6b12-419a-a3c5-d704888f7df2"
