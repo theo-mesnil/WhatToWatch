@@ -17,11 +17,12 @@ type HeaderProps = {
   title: React.ReactNode
 }
 
+const AnimatedBlurView = Animated.createAnimatedComponent(BlurView)
+
 export const Header = ({ scrollY, showHeaderOnStart, title }: HeaderProps) => {
   const { headerHeight, headerSafeHeight, statusBarHeight } = useSafeHeights()
   const navigation = useNavigation()
 
-  const AnimatedBlurView = Animated.createAnimatedComponent(BlurView)
   const opacity = showHeaderOnStart ? 1 : 0
 
   return (
