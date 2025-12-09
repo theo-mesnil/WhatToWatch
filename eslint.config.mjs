@@ -12,7 +12,7 @@ import tslint from 'typescript-eslint'
 export default defineConfig([
   eslint.configs.recommended,
   tslint.configs.recommended,
-  reactHooks.configs['recommended-latest'],
+  reactHooks.configs.flat.recommended,
   eslintPluginPrettierRecommended,
   perfectionist.configs['recommended-natural'],
   {
