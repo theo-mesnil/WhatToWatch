@@ -79,7 +79,7 @@
     "@babel/runtime": "^7.28.4",
     "@eslint/js": "^9.39.1",
     "@formatjs/cli": "^6.7.4",
-    "@react-native/babel-preset": "^0.81.1",
+    "@react-native/babel-preset": "^0.82.1",
     "@svgr/cli": "^8.1.0",
     "@tanstack/eslint-plugin-query": "^5.91.2",
     "@testing-library/react-native": "^13.3.3",
