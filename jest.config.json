@@ -9,5 +9,9 @@
     "!**/expo-env.d.ts",
     "!**/.expo/**"
   ],
+  "transformIgnorePatterns": [
+    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@shopify/flash-list|react-intl|@formatjs/.*|intl-messageformat|tslib)"
+  ],
+  "setupFiles": ["./tests/streams-fix.js"],
   "setupFilesAfterEnv": ["./tests/setup.tsx"]
 }

@@ -78,11 +78,17 @@ export default defineConfig([
         'warn',
         {
           groups: [
-            ['builtin-type', 'builtin'],
-            ['external-type', 'external'],
-            ['internal-type', 'internal'],
-            ['parent-type', 'parent', 'sibling-type', 'sibling', 'index-type', 'index'],
-            'object',
+            ['type-builtin', 'value-builtin'],
+            ['type-external', 'value-external'],
+            ['type-internal', 'value-internal'],
+            [
+              'type-parent',
+              'value-parent',
+              'type-sibling',
+              'value-sibling',
+              'type-index',
+              'value-index',
+            ],
             'unknown',
           ],
         },
