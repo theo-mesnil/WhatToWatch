@@ -6,8 +6,7 @@
         "backgroundColor": "#7121d0"
       },
       "package": "com.theomesnil.WhatToWatch",
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch",
-      "edgeToEdgeEnabled": true
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch"
     },
     "assetBundlePatterns": ["**/*"],
     "description": "Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series, and where to watch them. This app is powered by the themoviedb (TMDb) database.",
@@ -32,7 +31,6 @@
     },
     "name": "WhatToWatch",
     "orientation": "portrait",
-    "newArchEnabled": true,
     "plugins": [
       "expo-font",
       "expo-localization",
@@ -48,7 +46,7 @@
     ],
     "scheme": "whattowatch",
     "slug": "WhatToWatch",
-    "version": "4.2.0",
+    "version": "4.3.0",
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/deb154a5-6b12-419a-a3c5-d704888f7df2"
