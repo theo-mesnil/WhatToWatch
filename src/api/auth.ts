@@ -1,5 +1,4 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import type { AxiosResponse } from 'axios'
 import { useRouter } from 'expo-router'
 
 import { queryClient } from '~/app/_layout'
@@ -30,19 +29,18 @@ export function useCreateAccessToken(requestToken: string) {
   return useQuery({
     enabled: !!requestToken,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseCreateAccessTokenApiResponse> = await apiV4.post(
-        'auth/access_token',
-        {
-          request_token: requestToken,
-        }
-      )
+      const { data } = await apiV4.post<UseCreateAccessTokenApiResponse>('auth/access_token', {
+        request_token: requestToken,
+      })
 
       if (data.success) {
         // Convert access token to a session
-        const { data: dataSession }: AxiosResponse<UseCreateSessionFromV4ApiResponse> =
-          await api.post('authentication/session/convert/4', {
+        const { data: dataSession } = await api.post<UseCreateSessionFromV4ApiResponse>(
+          'authentication/session/convert/4',
+          {
             access_token: data.access_token,
-          })
+          }
+        )
 
         if (dataSession.success) {
           user.logIn(data.account_id, data.access_token, dataSession.session_id)
@@ -63,12 +61,9 @@ export function useDeleteRequestToken() {
   return useMutation({
     mutationFn: async () => {
       try {
-        const { data }: AxiosResponse<UseDeleteAccessTokenApiResponse> = await apiV4.delete(
-          'auth/access_token',
-          {
-            data: { access_token: accessToken },
-          }
-        )
+        const { data } = await apiV4.delete<UseDeleteAccessTokenApiResponse>('auth/access_token', {
+          data: { access_token: accessToken },
+        })
 
         if (data.success) {
           logOut()
@@ -89,7 +84,7 @@ export function useDeleteRequestToken() {
         return data
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error('useDeleteRequestToken', error.response)
+        console.error('useDeleteRequestToken', error)
         throw error // Re-throw to let react-query handle the error state
       }
     },
@@ -100,8 +95,7 @@ export function useDeleteRequestToken() {
 export function useRequestToken() {
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseRequestTokenApiResponse> =
-        await apiV4.post('auth/request_token')
+      const { data } = await apiV4.post<UseRequestTokenApiResponse>('auth/request_token')
 
       return data
     },

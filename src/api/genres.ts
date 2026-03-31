@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import type { AxiosResponse } from 'axios'
 
 import { LOCALE } from '~/constants/locales'
 
@@ -14,8 +13,7 @@ export type UseGetGenreTvListApiResponse =
 export function useGetGenreMovieList() {
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetGenreMovieListApiResponse> =
-        await api.get('genre/movie/list')
+      const { data } = await api.get<UseGetGenreMovieListApiResponse>('genre/movie/list')
 
       return data?.genres
     },
@@ -26,7 +24,7 @@ export function useGetGenreMovieList() {
 export function useGetGenreTvList() {
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetGenreTvListApiResponse> = await api.get('genre/tv/list')
+      const { data } = await api.get<UseGetGenreTvListApiResponse>('genre/tv/list')
 
       return data?.genres
     },

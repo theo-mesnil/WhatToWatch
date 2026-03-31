@@ -28,7 +28,9 @@ export function useGetDiscoverMovie(props?: UseGetDiscoverMovieApiProps) {
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data } = await api.get('discover/movie', { params: { ...params, page: pageParam } })
+      const { data } = await api.get<UseGetDiscoverMovieApiResponse>('discover/movie', {
+        params: { ...params, page: pageParam },
+      })
 
       return data
     },
@@ -39,13 +41,15 @@ export function useGetDiscoverMovie(props?: UseGetDiscoverMovieApiProps) {
 export function useGetDiscoverTv(props?: UseGetDiscoverTvApiProps) {
   const { maxPages = 30, params } = props || {}
 
-  return useInfiniteQuery<UseGetDiscoverMovieApiResponse>({
+  return useInfiniteQuery<UseGetDiscoverTvApiResponse, Error>({
     getNextPageParam: ({ page }) => {
       return page + 1 <= maxPages ? page + 1 : undefined
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data } = await api.get('discover/tv', { params: { ...params, page: pageParam } })
+      const { data } = await api.get<UseGetDiscoverTvApiResponse>('discover/tv', {
+        params: { ...params, page: pageParam },
+      })
 
       return data
     },

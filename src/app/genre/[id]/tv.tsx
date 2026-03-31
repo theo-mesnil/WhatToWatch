@@ -53,7 +53,6 @@ export default function Tv() {
             <LargeThumb
               id={firstItem?.id}
               imageUrl={firstItem?.backdrop_path}
-              // @ts-expect-error wrong ts api from tmdb
               title={firstItem?.name}
               type="tv"
             />

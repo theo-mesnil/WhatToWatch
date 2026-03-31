@@ -1,5 +1,4 @@
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
-import type { AxiosResponse } from 'axios'
 
 import { queryClient } from '~/app/_layout'
 import { LOCALE } from '~/constants/locales'
@@ -79,7 +78,7 @@ export function useGetFavorite(props: UseGetFavoritesProps) {
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetFavorite[UseGetFavoritesProps['type']]> = await apiV4.get(
+      const { data } = await apiV4.get<UseGetFavorite[UseGetFavoritesProps['type']]>(
         `account/${accountId}/${type}/favorites`,
         {
           params: {
@@ -107,14 +106,16 @@ export function useGetRecommendations(props: UseGetRecommendationsProps) {
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetRecommendations[UseGetRecommendationsProps['type']]> =
-        await apiV4.get(`account/${accountId}/${type}/recommendations`, {
+      const { data } = await apiV4.get<UseGetRecommendations[UseGetRecommendationsProps['type']]>(
+        `account/${accountId}/${type}/recommendations`,
+        {
           params: {
             language: LOCALE,
             page: pageParam,
             session_id: sessionId,
           } as UseGetRecommendationsParams,
-        })
+        }
+      )
       return data
     },
     queryKey: ['account', sessionId, 'Recommendations', type, LOCALE],
@@ -132,7 +133,7 @@ export function useGetWatchlist(props: UseGetFavoritesProps) {
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetFavorite[UseGetFavoritesProps['type']]> = await apiV4.get(
+      const { data } = await apiV4.get<UseGetFavorite[UseGetFavoritesProps['type']]>(
         `account/${accountId}/${type}/watchlist`,
         {
           params: {
@@ -156,7 +157,7 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
   return useMutation({
     mutationFn: async (isFavorite: boolean) => {
       try {
-        const { data }: AxiosResponse<UseUpdateFavoriteResponse> = await api.post(
+        const { data } = await api.post<UseUpdateFavoriteResponse>(
           `account/${user.id}/favorite`,
           {
             favorite: isFavorite,
@@ -181,7 +182,7 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
         return data
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error('useUpdateFavorite', error.response)
+        console.error('useUpdateFavorite', error)
         throw error // Re-throw to let react-query handle the error state
       }
     },
@@ -195,7 +196,7 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
   return useMutation({
     mutationFn: async (isWatchlisted: boolean) => {
       try {
-        const { data }: AxiosResponse<UseUpdateWatchlistResponse> = await api.post(
+        const { data } = await api.post<UseUpdateWatchlistResponse>(
           `account/${user.id}/watchlist`,
           {
             media_id: id,
@@ -220,7 +221,7 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
         return data
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error('useUpdateWatchlist', error.response)
+        console.error('useUpdateWatchlist', error)
         throw error // Re-throw to let react-query handle the error state
       }
     },
@@ -235,7 +236,7 @@ export function useUser() {
     enabled: !!sessionId,
     queryFn: async () => {
       try {
-        const { data }: AxiosResponse<UseGetUser> = await api.get(`account`, {
+        const { data } = await api.get<UseGetUser>(`account`, {
           params: {
             session_id: sessionId,
           },
@@ -244,7 +245,7 @@ export function useUser() {
         return formatUser(data)
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error('useUser', error.response.data)
+        console.error('useUser', error)
         throw error
       }
     },
