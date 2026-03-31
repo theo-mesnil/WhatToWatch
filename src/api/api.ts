@@ -51,7 +51,7 @@ async function request<T>(
 ): Promise<{ data: T }> {
   const url = buildUrl(baseURL, path, params)
   const response = await fetch(url, {
-    body: body ? JSON.stringify(body) : undefined,
+    body: body !== undefined && body !== null ? JSON.stringify(body) : undefined,
     headers: defaultHeaders,
     method,
   })
@@ -67,7 +67,11 @@ async function request<T>(
     throw error
   }
 
-  const data: T = await response.json()
+  const contentType = response.headers.get('content-type')
+  const data: T =
+    response.status === 204 || !contentType?.includes('application/json')
+      ? (null as T)
+      : await response.json()
   return { data }
 }
 

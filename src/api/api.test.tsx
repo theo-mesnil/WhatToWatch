@@ -1,18 +1,28 @@
 import { api, apiV4, BASE_API_URL, BASE_API_URL_V4 } from '~/api/api'
 
 const mockFetch = jest.fn()
-global.fetch = mockFetch
+const originalFetch = global.fetch
+
+beforeAll(() => {
+  global.fetch = mockFetch
+})
 
 beforeEach(() => {
   mockFetch.mockReset()
+})
+
+afterAll(() => {
+  global.fetch = originalFetch
 })
 
 describe('api', () => {
   describe('get', () => {
     test('should call fetch with correct url and method', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({ id: 1, title: 'Test' }),
         ok: true,
+        status: 200,
       })
 
       const { data } = await api.get('movie/123')
@@ -31,8 +41,10 @@ describe('api', () => {
 
     test('should include default language param', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({}),
         ok: true,
+        status: 200,
       })
 
       await api.get('movie/123')
@@ -43,8 +55,10 @@ describe('api', () => {
 
     test('should merge custom params', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({}),
         ok: true,
+        status: 200,
       })
 
       await api.get('movie/123', { params: { page: 2, region: 'US' } })
@@ -56,8 +70,10 @@ describe('api', () => {
 
     test('should skip null and undefined params', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({}),
         ok: true,
+        status: 200,
       })
 
       await api.get('movie/123', { params: { page: null, region: undefined } })
@@ -71,8 +87,10 @@ describe('api', () => {
   describe('post', () => {
     test('should send JSON body', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({ success: true }),
         ok: true,
+        status: 200,
       })
 
       const body = { favorite: true, media_id: 1 }
@@ -90,8 +108,10 @@ describe('api', () => {
 
     test('should not send body when undefined', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({}),
         ok: true,
+        status: 200,
       })
 
       await api.post('auth/request_token')
@@ -105,10 +125,31 @@ describe('api', () => {
       )
     })
 
+    test('should serialize falsy body values', async () => {
+      mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ success: true }),
+        ok: true,
+        status: 200,
+      })
+
+      await api.post('endpoint', false)
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({
+          body: 'false',
+          method: 'POST',
+        })
+      )
+    })
+
     test('should include params', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({}),
         ok: true,
+        status: 200,
       })
 
       await api.post('account/1/favorite', {}, { params: { session_id: 'abc' } })
@@ -121,8 +162,10 @@ describe('api', () => {
   describe('delete', () => {
     test('should send DELETE request with body', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({ success: true }),
         ok: true,
+        status: 200,
       })
 
       const { data } = await api.delete('auth/access_token', {
@@ -178,11 +221,39 @@ describe('api', () => {
     })
   })
 
+  describe('no-content response', () => {
+    test('should return null for 204 responses', async () => {
+      mockFetch.mockResolvedValueOnce({
+        headers: new Headers(),
+        ok: true,
+        status: 204,
+      })
+
+      const { data } = await api.delete('some/resource')
+
+      expect(data).toBeNull()
+    })
+
+    test('should return null for non-JSON content type', async () => {
+      mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'text/plain' }),
+        ok: true,
+        status: 200,
+      })
+
+      const { data } = await api.get('some/endpoint')
+
+      expect(data).toBeNull()
+    })
+  })
+
   describe('apiV4', () => {
     test('should use v4 base URL', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({}),
         ok: true,
+        status: 200,
       })
 
       await apiV4.get('auth/request_token')
@@ -195,8 +266,10 @@ describe('api', () => {
   describe('url building', () => {
     test('should handle path with leading slash', async () => {
       mockFetch.mockResolvedValueOnce({
+        headers: new Headers({ 'content-type': 'application/json' }),
         json: async () => ({}),
         ok: true,
+        status: 200,
       })
 
       await api.get('/movie/123')
