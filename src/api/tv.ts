@@ -1,6 +1,5 @@
 import type { UseQueryResult } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
-import type { AxiosResponse } from 'axios'
 
 import { LOCALE } from '~/constants/locales'
 import type { NetworkId } from '~/types/content'
@@ -76,7 +75,7 @@ export function useGetTv(props?: UseGetTvApiProps): UseGetTv {
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvApiResponse> = await api.get(`tv/${id}`)
+      const { data } = await api.get<UseGetTvApiResponse>(`tv/${id}`)
 
       const startYear = data.first_air_date
         ? new Date(data.first_air_date).getFullYear()
@@ -125,9 +124,7 @@ export function useGetTvCredits(props?: UseGetTvEnabledApiProps) {
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvCreditsApiResponse> = await api.get(
-        `tv/${id}/aggregate_credits`
-      )
+      const { data } = await api.get<UseGetTvCreditsApiResponse>(`tv/${id}/aggregate_credits`)
 
       return {
         cast: data.cast.slice(0, 30),
@@ -145,7 +142,7 @@ export function useGetTvImages(props?: UseGetTvEnabledApiProps) {
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvImagesApiResponse> = await api.get(`tv/${id}/images`, {
+      const { data } = await api.get<UseGetTvImagesApiResponse>(`tv/${id}/images`, {
         params: {
           include_image_language: locales,
         },
@@ -163,9 +160,7 @@ export function useGetTvSeason(props?: UseGetTvWithSeasonApiProps) {
   return useQuery({
     enabled: !!id && !!seasonNumber,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvSeasonApiResponse> = await api.get(
-        `tv/${id}/season/${seasonNumber}`
-      )
+      const { data } = await api.get<UseGetTvSeasonApiResponse>(`tv/${id}/season/${seasonNumber}`)
 
       return data
     },
@@ -179,7 +174,7 @@ export function useGetTvSimilar(props?: UseGetTvEnabledApiProps) {
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvSimilarApiResponse> = await api.get(`tv/${id}/similar`)
+      const { data } = await api.get<UseGetTvSimilarApiResponse>(`tv/${id}/similar`)
 
       return data
     },
@@ -193,7 +188,7 @@ export function useGetTvVideos(props?: UseGetTvApiProps) {
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetTvVideosApiResponse> = await api.get(`tv/${id}/videos`)
+      const { data } = await api.get<UseGetTvVideosApiResponse>(`tv/${id}/videos`)
 
       return data
     },

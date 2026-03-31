@@ -1,6 +1,5 @@
 import type { UseQueryResult } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
-import type { AxiosResponse } from 'axios'
 
 import type { Locale } from '~/constants/locales'
 import { LOCALE } from '~/constants/locales'
@@ -33,14 +32,11 @@ export function useGetContentLogo(props?: useGetContentLogoProps): UseGetContent
   return useQuery({
     enabled: !!id && !!type,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetContentImagesApiResponse> = await api.get(
-        `/${type}/${id}/images`,
-        {
-          params: {
-            include_image_language: locales,
-          },
-        }
-      )
+      const { data } = await api.get<UseGetContentImagesApiResponse>(`/${type}/${id}/images`, {
+        params: {
+          include_image_language: locales,
+        },
+      })
 
       return formatImageToLogo(data, LOCALE)
     },

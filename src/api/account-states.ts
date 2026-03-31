@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import type { AxiosResponse } from 'axios'
 
 import { LOCALE } from '~/constants/locales'
 import { useAuth } from '~/contexts/Auth'
@@ -29,14 +28,16 @@ export function useGetAccountState(props: UseGetAccountStateProps) {
   return useQuery({
     enabled: !!sessionId,
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetAccountStates[UseGetAccountStateProps['type']]> =
-        await api.get(`/${type}/${id}/account_states`, {
+      const { data } = await api.get<UseGetAccountStates[UseGetAccountStateProps['type']]>(
+        `/${type}/${id}/account_states`,
+        {
           params: {
             language: LOCALE,
             page: pageParam,
             session_id: sessionId,
           } as UseGetAccountStateParams,
-        })
+        }
+      )
 
       return data
     },

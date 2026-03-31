@@ -1,5 +1,4 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import type { AxiosResponse } from 'axios'
 
 import { LOCALE } from '~/constants/locales'
 
@@ -29,14 +28,11 @@ export function useGetTrending(props?: UseGetTrendingApiProps) {
     },
     initialPageParam: 1,
     queryFn: async ({ pageParam }) => {
-      const { data }: AxiosResponse<UseGetTrendingApiResponse[Type]> = await api.get(
-        `trending/${type}/day`,
-        {
-          params: {
-            page: pageParam,
-          },
-        }
-      )
+      const { data } = await api.get<UseGetTrendingApiResponse[Type]>(`trending/${type}/day`, {
+        params: {
+          page: pageParam,
+        },
+      })
       return data
     },
     queryKey: ['trending', type, LOCALE],

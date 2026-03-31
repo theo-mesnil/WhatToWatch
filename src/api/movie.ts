@@ -1,6 +1,5 @@
 import type { UseQueryResult } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
-import type { AxiosResponse } from 'axios'
 
 import { LOCALE, REGION_CODE } from '~/constants/locales'
 import type { NetworkId } from '~/types/content'
@@ -59,7 +58,7 @@ export function useGetMovie(props?: UseGetMovieApiProps): UseGetMovie {
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieApiResponse> = await api.get(`movie/${id}`)
+      const { data } = await api.get<UseGetMovieApiResponse>(`movie/${id}`)
 
       const networkId = getNetworkFromUrl(data.homepage)
 
@@ -99,9 +98,7 @@ export function useGetMovieCredits(props?: UseGetMovieEnabledApiProps) {
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieCreditsApiResponse> = await api.get(
-        `movie/${id}/credits`
-      )
+      const { data } = await api.get<UseGetMovieCreditsApiResponse>(`movie/${id}/credits`)
 
       return {
         cast: data.cast.slice(0, 30),
@@ -119,14 +116,11 @@ export function useGetMovieImages(props?: UseGetMovieEnabledApiProps) {
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieImagesApiResponse> = await api.get(
-        `movie/${id}/images`,
-        {
-          params: {
-            include_image_language: locales,
-          },
-        }
-      )
+      const { data } = await api.get<UseGetMovieImagesApiResponse>(`movie/${id}/images`, {
+        params: {
+          include_image_language: locales,
+        },
+      })
 
       return data
     },
@@ -137,14 +131,11 @@ export function useGetMovieImages(props?: UseGetMovieEnabledApiProps) {
 export function useGetMovieNowPlaying() {
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieNowPlayingApiResponse> = await api.get(
-        `movie/now_playing`,
-        {
-          params: {
-            region: REGION_CODE,
-          },
-        }
-      )
+      const { data } = await api.get<UseGetMovieNowPlayingApiResponse>(`movie/now_playing`, {
+        params: {
+          region: REGION_CODE,
+        },
+      })
 
       return data
     },
@@ -158,9 +149,7 @@ export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
   return useQuery({
     enabled: !!id && enabled,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieSimilarApiResponse> = await api.get(
-        `movie/${id}/similar`
-      )
+      const { data } = await api.get<UseGetMovieSimilarApiResponse>(`movie/${id}/similar`)
 
       return data
     },
@@ -171,14 +160,11 @@ export function useGetMovieSimilar(props?: UseGetMovieEnabledApiProps) {
 export function useGetMovieUpcoming() {
   return useQuery({
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieUpcomingApiResponse> = await api.get(
-        `movie/upcoming`,
-        {
-          params: {
-            region: REGION_CODE,
-          },
-        }
-      )
+      const { data } = await api.get<UseGetMovieUpcomingApiResponse>(`movie/upcoming`, {
+        params: {
+          region: REGION_CODE,
+        },
+      })
 
       return data
     },
@@ -192,9 +178,7 @@ export function useGetMovieVideos(props?: UseGetMovieApiProps) {
   return useQuery({
     enabled: !!id,
     queryFn: async () => {
-      const { data }: AxiosResponse<UseGetMovieVideosApiResponse> = await api.get(
-        `movie/${id}/videos`
-      )
+      const { data } = await api.get<UseGetMovieVideosApiResponse>(`movie/${id}/videos`)
 
       return data
     },
