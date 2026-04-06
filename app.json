@@ -1,6 +1,7 @@
 {
   "expo": {
     "android": {
+      "version": "4.3.0",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#7121d0"
@@ -18,6 +19,7 @@
     "githubUrl": "https://github.com/theo-mesnil/WhatToWatch",
     "icon": "./src/assets/icon-light.png",
     "ios": {
+      "version": "1.0.0",
       "icon": {
         "light": "./src/assets/icon-light.png",
         "dark": "./src/assets/icon-dark.png",
@@ -46,7 +48,6 @@
     ],
     "scheme": "whattowatch",
     "slug": "WhatToWatch",
-    "version": "4.3.0",
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/deb154a5-6b12-419a-a3c5-d704888f7df2"
