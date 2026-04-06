@@ -24,7 +24,7 @@
         "tinted": "./src/assets/icon-tinted.png"
       },
       "supportsTablet": false,
-      "bundleIdentifier": "com.theomesnil.WhatToWatch",
+      "bundleIdentifier": "com.theomesnil.what-to-watch",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
