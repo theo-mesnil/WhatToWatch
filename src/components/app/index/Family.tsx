@@ -24,7 +24,7 @@ export function Family() {
       <TextThumb
         imageUrl={backdrop_path}
         overview={overview}
-        tag={<FormattedDate value={new Date(release_date ?? '')} />}
+        tag={release_date ? <FormattedDate value={new Date(release_date)} /> : undefined}
         title={title}
         type="movie"
       />
