@@ -17,12 +17,7 @@ export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' 
       return
     }
 
-    if (isFavorite) {
-      updateFavorite(false)
-    } else {
-      // Remove from favorites
-      updateFavorite(true)
-    }
+    updateFavorite(!isFavorite)
   }
 
   return (

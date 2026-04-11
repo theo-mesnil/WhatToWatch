@@ -1,6 +1,5 @@
 import type { FlashListProps } from '@shopify/flash-list'
 import { useNavigation } from 'expo-router'
-import debounce from 'lodash.debounce'
 import * as React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Animated, StyleSheet, View } from 'react-native'
@@ -27,6 +26,7 @@ type Item = NonNullable<UseGetTrendingApiResponse['all']['results']>[number]
 
 export default function Search() {
   const [querySearch, setQuerySearch] = React.useState<string>('')
+  const deferredQuery = React.useDeferredValue(querySearch)
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const navigation = useNavigation()
   const intl = useIntl()
@@ -42,7 +42,7 @@ export default function Search() {
     hasNextPage: hasSearchNextPage,
     isLoading: isSearchLoading,
   } = useGetSearch({
-    params: { query: querySearch },
+    params: { query: deferredQuery },
   })
 
   const results = querySearch
@@ -113,7 +113,7 @@ export default function Search() {
             <TextInput
               clearButtonMode="always"
               enterKeyHint="search"
-              onChangeText={debounce(setQuerySearch, 300)}
+              onChangeText={setQuerySearch}
               placeholder={intl.formatMessage({
                 defaultMessage: 'What would you like to watch?',
                 id: 'UhsiMg',
