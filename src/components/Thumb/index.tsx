@@ -34,7 +34,7 @@ export const Thumb = React.memo(
       <View style={[styles.wrapper, isRounded && styles.rounded]}>
         <ImageBackground
           source={{
-            uri: externalImageUrl || getImageUrl(imageUrl, imageWidth),
+            uri: externalImageUrl || (imageUrl ? getImageUrl(imageUrl, imageWidth) : undefined),
           }}
           style={[
             {

@@ -94,7 +94,7 @@ export const Header = ({
             </Button>
           </View>
         )}
-        <View style={[styles.middle, customTitle && styles.middleCustom]}>
+        <View style={[styles.middle, customTitle ? styles.middleCustom : undefined]}>
           {title && <Text variant="h1">{title}</Text>}
           {customTitle}
         </View>

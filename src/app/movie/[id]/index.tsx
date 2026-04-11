@@ -34,9 +34,9 @@ import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 import { formatTime } from '~/utils/time'
 
-type CastItem = UseGetMovieCreditsApiResponse['cast'][number]
-type MovieItem = UseGetMovieSimilarApiResponse['results'][number]
-type VideoItem = UseGetMovieVideosApiResponse['results'][number]
+type CastItem = NonNullable<UseGetMovieCreditsApiResponse['cast']>[number]
+type MovieItem = NonNullable<UseGetMovieSimilarApiResponse['results']>[number]
+type VideoItem = NonNullable<UseGetMovieVideosApiResponse['results']>[number]
 
 export default function Movie() {
   const params = useLocalSearchParams<{ id: string }>()
@@ -93,7 +93,7 @@ export default function Movie() {
 
   const renderItemVideo: FlashListProps<VideoItem>['renderItem'] = ({
     item: { key, name, site },
-  }) => <VideoThumb id={key} name={name} platform={site} type="movie" />
+  }) => <VideoThumb id={key ?? ''} name={name ?? ''} platform={site ?? ''} type="movie" />
 
   return (
     <ContentLayout
@@ -125,9 +125,9 @@ export default function Movie() {
       }
       imageUrl={coverUrl}
       isLoading={isLoading || isLoadingLogo}
-      logo={logo}
+      logo={logo ?? undefined}
       subtitle={genres}
-      title={!isLoadingLogo && title}
+      title={!isLoadingLogo ? title : undefined}
     >
       <Actions id={movieID} type="movie" />
       {!!networkLink && (
@@ -135,8 +135,8 @@ export default function Movie() {
       )}
       {!!trailer && (
         <TrailerButton
-          id={trailer.key}
-          platform={trailer.site}
+          id={trailer.key ?? ''}
+          platform={trailer.site ?? ''}
           style={[globalStyles.centered, styles.playButton]}
         />
       )}
@@ -176,7 +176,7 @@ export default function Movie() {
             />
           </View>
         )}
-        {(isLoadingSimilar || similar?.results.length > 0) && (
+        {(isLoadingSimilar || (similar?.results?.length ?? 0) > 0) && (
           <List<MovieItem>
             id="similar"
             isLoading={isLoadingSimilar}

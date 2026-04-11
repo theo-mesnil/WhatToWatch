@@ -11,12 +11,12 @@ import { routeByType } from '~/routes/utils'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetRecommendations['movie']['results'][number]
+type MovieItem = NonNullable<UseGetRecommendations['movie']['results']>[number]
 type RecommendationsProps = {
   type: 'movie' | 'tv'
 }
 
-type TVItem = UseGetRecommendations['tv']['results'][number]
+type TVItem = NonNullable<UseGetRecommendations['tv']['results']>[number]
 
 export function Recommendations({ type }: RecommendationsProps) {
   const { data, isLoading } = useGetRecommendations({

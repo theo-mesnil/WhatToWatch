@@ -16,14 +16,14 @@ import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetFavorite['movie']['results'][number]
-type TVItem = UseGetFavorite['tv']['results'][number]
+type MovieItem = NonNullable<UseGetFavorite['movie']['results']>[number]
+type TVItem = NonNullable<UseGetFavorite['tv']['results']>[number]
 
 export function Favorite({ type }: { type: 'movie' | 'tv' }) {
   const { data, isLoading } = useGetFavorite({
     type,
   })
-  const hasMorePage = data?.pages?.[0]?.total_pages > 1
+  const hasMorePage = (data?.pages?.[0]?.total_pages ?? 0) > 1
 
   const results = data?.pages?.map(page => page.results).flat()
   const listTitle =
@@ -54,7 +54,7 @@ export function Favorite({ type }: { type: 'movie' | 'tv' }) {
 
   return (
     <>
-      {(isLoading || !!results.length) && (
+      {(isLoading || !!results?.length) && (
         <List<Item>
           icon="heart"
           id={`favorite-${type}`}

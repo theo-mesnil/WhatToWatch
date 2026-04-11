@@ -22,7 +22,7 @@ export type UseDeleteAccessTokenApiResponse =
 export type UseRequestTokenApiResponse =
   pathsV4['/4/auth/request_token']['post']['responses']['200']['content']['application/json']
 
-export function useCreateAccessToken(requestToken: string) {
+export function useCreateAccessToken(requestToken: string | undefined) {
   const user = useAuth()
   const router = useRouter()
 
@@ -43,8 +43,15 @@ export function useCreateAccessToken(requestToken: string) {
         )
 
         if (dataSession.success) {
-          user.logIn(data.account_id, data.access_token, dataSession.session_id)
-          router.back()
+          const accountId = data.account_id
+          if (
+            typeof accountId === 'string' &&
+            typeof dataSession.session_id === 'string' &&
+            typeof data.access_token === 'string'
+          ) {
+            user.logIn(accountId, data.access_token, dataSession.session_id)
+            router.back()
+          }
         }
       }
 

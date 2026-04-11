@@ -39,7 +39,7 @@ export default function FullScreenImagesList({
 
   const renderItem = ({
     item: { aspect_ratio, file_path },
-  }: ListRenderItemInfo<Images[number]>) => (
+  }: ListRenderItemInfo<NonNullable<Images>[number]>) => (
     <View style={[{ width: CARD_WIDTH }, styles.thumb]}>
       <Thumb aspectRatio={aspect_ratio} imageUrl={file_path} imageWidth="w780" type={type} />
     </View>

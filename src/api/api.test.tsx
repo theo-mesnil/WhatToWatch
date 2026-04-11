@@ -195,9 +195,11 @@ describe('api', () => {
         await api.get('movie/999')
         fail('Should have thrown')
       } catch (error) {
-        expect(error.message).toBe('HTTP 404')
-        expect(error.status).toBe(404)
-        expect(error.response).toEqual({ data: { status_message: 'Not Found' } })
+        expect((error as { message: string }).message).toBe('HTTP 404')
+        expect((error as { status: number }).status).toBe(404)
+        expect((error as { response: unknown }).response).toEqual({
+          data: { status_message: 'Not Found' },
+        })
       }
     })
 
@@ -214,9 +216,9 @@ describe('api', () => {
         await api.get('movie/999')
         fail('Should have thrown')
       } catch (error) {
-        expect(error.message).toBe('HTTP 500')
-        expect(error.status).toBe(500)
-        expect(error.response).toEqual({ data: null })
+        expect((error as { message: string }).message).toBe('HTTP 500')
+        expect((error as { status: number }).status).toBe(500)
+        expect((error as { response: unknown }).response).toEqual({ data: null })
       }
     })
   })

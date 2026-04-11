@@ -1,0 +1,1008 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "The Movie Database (TMDB) API v4",
+    "description": "The TMDB v4 API provides user authentication and list management.\n\n## Authentication\nAll endpoints require a Bearer token in the `Authorization` header.\n- **Read operations**: use your API Read Access Token\n- **Write operations**: use a user-authorized access token\n\n## User Auth Flow\n1. `POST /4/auth/request_token` → get a `request_token`\n2. Redirect user to `https://www.themoviedb.org/auth/access?request_token={request_token}`\n3. `POST /4/auth/access_token` with the approved `request_token` → get `access_token` + `account_id`",
+    "version": "4.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.themoviedb.org",
+      "description": "TMDB API"
+    }
+  ],
+  "security": [{ "BearerAuth": [] }],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Use your API Read Access Token for read endpoints, or a user-authorized access token for write operations."
+      }
+    },
+    "schemas": {
+      "StatusResponse": {
+        "type": "object",
+        "properties": {
+          "status_code": { "type": "integer", "example": 1 },
+          "status_message": { "type": "string", "example": "Success." },
+          "success": { "type": "boolean", "example": true }
+        },
+        "required": ["status_code", "success"]
+      },
+      "MovieResult": {
+        "type": "object",
+        "properties": {
+          "adult": { "type": "boolean", "default": true, "example": false },
+          "backdrop_path": { "type": "string", "example": "/9sfVyE3sP2dkCwDyV7UlYP5TAAR.jpg" },
+          "genre_ids": { "type": "array", "items": { "type": "integer" } },
+          "id": { "type": "integer", "default": 0, "example": 823754 },
+          "media_type": { "type": "string", "example": "movie" },
+          "original_language": { "type": "string", "example": "en" },
+          "original_title": { "type": "string", "example": "Bo Burnham: Inside" },
+          "overview": { "type": "string" },
+          "popularity": { "type": "number", "default": 0, "example": 11.904 },
+          "poster_path": { "type": "string", "example": "/ku1UvTWYvhFQbSesOD6zteY7bXT.jpg" },
+          "release_date": { "type": "string", "example": "2021-07-22" },
+          "title": { "type": "string", "example": "Bo Burnham: Inside" },
+          "video": { "type": "boolean", "default": true, "example": false },
+          "vote_average": { "type": "number", "default": 0, "example": 8.178 },
+          "vote_count": { "type": "integer", "default": 0, "example": 352 }
+        },
+        "required": ["adult", "id", "popularity", "video", "vote_average", "vote_count"]
+      },
+      "RatedMovieResult": {
+        "allOf": [
+          { "$ref": "#/components/schemas/MovieResult" },
+          {
+            "type": "object",
+            "properties": {
+              "account_rating": {
+                "type": "object",
+                "properties": {
+                  "created_at": { "type": "string", "example": "2012-02-15T15:18:04.000Z" },
+                  "value": { "type": "number", "default": 0, "example": 8 }
+                },
+                "required": ["value"]
+              }
+            }
+          }
+        ]
+      },
+      "TVResult": {
+        "type": "object",
+        "properties": {
+          "adult": { "type": "boolean", "default": true, "example": false },
+          "backdrop_path": { "type": "string", "example": "/bsNm9z2TJfe0WO3RedPGWQ8mG1X.jpg" },
+          "first_air_date": { "type": "string", "example": "2008-01-20" },
+          "genre_ids": { "type": "array", "items": { "type": "integer" } },
+          "id": { "type": "integer", "default": 0, "example": 1396 },
+          "media_type": { "type": "string", "example": "tv" },
+          "name": { "type": "string", "example": "Breaking Bad" },
+          "origin_country": { "type": "array", "items": { "type": "string" } },
+          "original_language": { "type": "string", "example": "en" },
+          "original_name": { "type": "string", "example": "Breaking Bad" },
+          "overview": { "type": "string" },
+          "popularity": { "type": "number", "default": 0, "example": 255.118 },
+          "poster_path": { "type": "string", "example": "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg" },
+          "vote_average": { "type": "number", "default": 0, "example": 8.879 },
+          "vote_count": { "type": "integer", "default": 0, "example": 11625 }
+        },
+        "required": ["adult", "id", "popularity", "vote_average", "vote_count"]
+      },
+      "RatedTVResult": {
+        "allOf": [
+          { "$ref": "#/components/schemas/TVResult" },
+          {
+            "type": "object",
+            "properties": {
+              "account_rating": {
+                "type": "object",
+                "properties": {
+                  "created_at": { "type": "string", "example": "2013-10-10T21:03:56.499Z" },
+                  "value": { "type": "number", "default": 0, "example": 9 }
+                },
+                "required": ["value"]
+              }
+            }
+          }
+        ]
+      },
+      "AccountListSummary": {
+        "type": "object",
+        "properties": {
+          "account_object_id": { "type": "string", "example": "4bc8892a017a3c0f92000002" },
+          "adult": { "type": "integer", "default": 0, "example": 0 },
+          "average_rating": { "type": "number", "default": 0, "example": 7.90183 },
+          "created_at": { "type": "string", "example": "2019-08-27 15:13:15" },
+          "description": { "type": "string", "example": "" },
+          "featured": { "type": "integer", "default": 0, "example": 0 },
+          "id": { "type": "integer", "default": 0, "example": 120174 },
+          "iso_639_1": { "type": "string", "example": "en" },
+          "iso_3166_1": { "type": "string", "example": "US" },
+          "name": { "type": "string", "example": "Test Alpha Sort" },
+          "number_of_items": { "type": "integer", "default": 0, "example": 6 },
+          "public": { "type": "integer", "default": 0, "example": 0 },
+          "revenue": { "type": "string", "example": "586453267" },
+          "runtime": { "type": "integer", "default": 0, "example": 644 },
+          "sort_by": { "type": "integer", "default": 0, "example": 7 },
+          "updated_at": { "type": "string", "example": "2023-05-05 16:49:11" }
+        },
+        "required": [
+          "adult",
+          "average_rating",
+          "featured",
+          "id",
+          "number_of_items",
+          "public",
+          "runtime",
+          "sort_by"
+        ]
+      },
+      "ListDetails": {
+        "type": "object",
+        "properties": {
+          "average_rating": { "type": "number", "default": 0, "example": 6.7 },
+          "backdrop_path": { "type": "string", "example": "/kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg" },
+          "comments": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Map of `media_type:media_id` keys to comment values"
+          },
+          "created_by": {
+            "type": "object",
+            "properties": {
+              "avatar_path": { "type": "string", "example": "/xy44UvpbTgzs9kWmp4C3fEaCl5h.png" },
+              "gravatar_hash": { "type": "string", "example": "c9e9fc152ee756a900db85757c29815d" },
+              "id": { "type": "string", "example": "4bc8892a017a3c0f92000002" },
+              "name": { "type": "string", "example": "Travis Bell" },
+              "username": { "type": "string", "example": "travisbell" }
+            }
+          },
+          "description": {
+            "type": "string",
+            "example": "The idea behind this list is to collect the live action comic book movies from within the Marvel franchise."
+          },
+          "id": { "type": "integer", "default": 0, "example": 1 },
+          "iso_639_1": { "type": "string", "example": "en" },
+          "iso_3166_1": { "type": "string", "example": "US" },
+          "item_count": { "type": "integer", "default": 0, "example": 69 },
+          "name": { "type": "string", "example": "The Marvel Universe" },
+          "object_ids": { "type": "object" },
+          "page": { "type": "integer", "default": 0, "example": 1 },
+          "poster_path": { "type": "string", "example": "/coJVIUEOToAEGViuhclM7pXC75R.jpg" },
+          "public": { "type": "boolean", "default": true, "example": true },
+          "results": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MovieResult" }
+          },
+          "revenue": { "type": "integer", "default": 0, "example": 40672159319 },
+          "runtime": { "type": "integer", "default": 0, "example": 8070 },
+          "sort_by": { "type": "string", "example": "primary_release_date.desc" },
+          "total_pages": { "type": "integer", "default": 0, "example": 4 },
+          "total_results": { "type": "integer", "default": 0, "example": 69 }
+        },
+        "required": [
+          "average_rating",
+          "id",
+          "item_count",
+          "page",
+          "public",
+          "revenue",
+          "runtime",
+          "total_pages",
+          "total_results"
+        ]
+      },
+      "ItemOperationResult": {
+        "type": "object",
+        "properties": {
+          "media_id": { "type": "integer", "default": 0, "example": 550 },
+          "media_type": { "type": "string", "example": "movie" },
+          "success": { "type": "boolean", "default": true, "example": true }
+        },
+        "required": ["media_id", "success"]
+      },
+      "RAW_BODY": {
+        "type": "object",
+        "properties": {
+          "RAW_BODY": {
+            "type": "string",
+            "format": "json",
+            "description": "Raw JSON body"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "AccountObjectId": {
+        "name": "account_object_id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "example": "4bc8892a017a3c0f92000002"
+      },
+      "ListId": {
+        "name": "list_id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "integer" },
+        "example": 5854
+      },
+      "Page": {
+        "name": "page",
+        "in": "query",
+        "required": false,
+        "schema": { "type": "integer", "default": 1 }
+      },
+      "Language": {
+        "name": "language",
+        "in": "query",
+        "required": false,
+        "schema": { "type": "string", "default": "en-US" }
+      },
+      "SortByCreatedAt": {
+        "name": "sort_by",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": ["created_at.asc", "created_at.desc"]
+        }
+      }
+    }
+  },
+  "paths": {
+    "/4/auth/request_token": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Create Request Token",
+        "operationId": "auth-create-request-token",
+        "description": "Step 1 of the user auth flow. Returns a temporary `request_token`. Direct the user to `https://www.themoviedb.org/auth/access?request_token={request_token}` to approve it. Unused tokens expire after 15 minutes.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RAW_BODY" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "request_token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIfsISNiIaInR5cCI6IkpXVCJ9..."
+                    },
+                    "status_code": { "type": "integer", "default": 0, "example": 1 },
+                    "status_message": { "type": "string", "example": "Success." },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/auth/access_token": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Create Access Token",
+        "operationId": "auth-create-access-token",
+        "description": "Step 3 of the user auth flow. Exchanges an approved `request_token` for a permanent `access_token`. Also returns the user's v4 `account_id` (string).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RAW_BODY" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCIdIkpXVCJ9..."
+                    },
+                    "account_id": { "type": "string", "example": "4bc8892a017a3c0z92001001" },
+                    "status_code": { "type": "integer", "default": 0, "example": 1 },
+                    "status_message": { "type": "string", "example": "Success." },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Auth"],
+        "summary": "Logout",
+        "operationId": "auth-logout",
+        "description": "Log out of a session. Invalidates the user access token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RAW_BODY" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": { "type": "integer", "default": 0, "example": 13 },
+                    "status_message": {
+                      "type": "string",
+                      "example": "The item/record was deleted successfully."
+                    },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/lists": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Lists",
+        "operationId": "account-lists",
+        "description": "Get the custom lists that a user has created.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Page" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AccountListSummary" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 2 },
+                    "total_results": { "type": "integer", "default": 0, "example": 25 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/movie/favorites": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Favorite Movies",
+        "operationId": "account-favorite-movies",
+        "description": "Get a users list of favourite movies.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/SortByCreatedAt" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/MovieResult" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 4 },
+                    "total_results": { "type": "integer", "default": 0, "example": 80 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/movie/rated": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Rated Movies",
+        "operationId": "account-rated-movies",
+        "description": "Get a users rated movies.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/SortByCreatedAt" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/RatedMovieResult" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 47 },
+                    "total_results": { "type": "integer", "default": 0, "example": 940 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/movie/recommendations": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Recommended Movies",
+        "operationId": "account-movie-recommendations",
+        "description": "Get a users list of recommended movies.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/MovieResult" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 4 },
+                    "total_results": { "type": "integer", "default": 0, "example": 80 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/movie/watchlist": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Watchlist Movies",
+        "operationId": "account-movie-watchlist",
+        "description": "Get a users movie watchlist.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/SortByCreatedAt" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/MovieResult" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 4 },
+                    "total_results": { "type": "integer", "default": 0, "example": 80 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/tv/favorites": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Favorite TV Shows",
+        "operationId": "account-favorite-tv",
+        "description": "Get a users list of favourite TV shows.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/SortByCreatedAt" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/TVResult" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 4 },
+                    "total_results": { "type": "integer", "default": 0, "example": 68 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/tv/rated": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Rated TV Shows",
+        "operationId": "account-rated-tv",
+        "description": "Get a users rated TV shows.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/SortByCreatedAt" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/RatedTVResult" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 15 },
+                    "total_results": { "type": "integer", "default": 0, "example": 291 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/tv/recommendations": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Recommended TV Shows",
+        "operationId": "account-tv-recommendations",
+        "description": "Get a users list of recommended TV shows.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/TVResult" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 4 },
+                    "total_results": { "type": "integer", "default": 0, "example": 80 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/account/{account_object_id}/tv/watchlist": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Watchlist TV Shows",
+        "operationId": "account-tv-watchlist",
+        "description": "Get a users TV watchlist.",
+        "parameters": [
+          { "$ref": "#/components/parameters/AccountObjectId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" },
+          { "$ref": "#/components/parameters/SortByCreatedAt" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer", "default": 0, "example": 1 },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/TVResult" }
+                    },
+                    "total_pages": { "type": "integer", "default": 0, "example": 4 },
+                    "total_results": { "type": "integer", "default": 0, "example": 80 }
+                  },
+                  "required": ["page", "total_pages", "total_results"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/list": {
+      "post": {
+        "tags": ["Lists"],
+        "summary": "Create",
+        "operationId": "list-create",
+        "description": "Create a new list.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RAW_BODY" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer", "default": 0, "example": 5854 },
+                    "status_code": { "type": "integer", "default": 0, "example": 1 },
+                    "status_message": {
+                      "type": "string",
+                      "example": "The item/record was created successfully."
+                    },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["id", "status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/list/{list_id}": {
+      "get": {
+        "tags": ["Lists"],
+        "summary": "Details",
+        "operationId": "list-details",
+        "description": "Retrieve a list by id.",
+        "parameters": [
+          { "$ref": "#/components/parameters/ListId" },
+          { "$ref": "#/components/parameters/Language" },
+          { "$ref": "#/components/parameters/Page" }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ListDetails" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Lists"],
+        "summary": "Update",
+        "operationId": "list-update",
+        "description": "Update the details of a list.",
+        "parameters": [{ "$ref": "#/components/parameters/ListId" }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RAW_BODY" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": { "type": "integer", "default": 0, "example": 12 },
+                    "status_message": {
+                      "type": "string",
+                      "example": "The item/record was updated successfully."
+                    },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/{list_id}": {
+      "delete": {
+        "tags": ["Lists"],
+        "summary": "Delete",
+        "operationId": "list-delete",
+        "description": "Delete a list.",
+        "parameters": [{ "$ref": "#/components/parameters/ListId" }],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": { "type": "integer", "default": 0, "example": 13 },
+                    "status_message": {
+                      "type": "string",
+                      "example": "The item/record was deleted successfully."
+                    },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/list/{list_id}/items": {
+      "post": {
+        "tags": ["Lists"],
+        "summary": "Add Items",
+        "operationId": "list-add-items",
+        "description": "Add items to a list.",
+        "parameters": [{ "$ref": "#/components/parameters/ListId" }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RAW_BODY" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/ItemOperationResult" }
+                    },
+                    "status_code": { "type": "integer", "default": 0, "example": 1 },
+                    "status_message": { "type": "string", "example": "Success." },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Lists"],
+        "summary": "Update Items",
+        "operationId": "list-update-items",
+        "description": "Update an individual item on a list.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RAW_BODY" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/ItemOperationResult" }
+                    },
+                    "status_code": { "type": "integer", "default": 0, "example": 1 },
+                    "status_message": { "type": "string", "example": "Success." },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Lists"],
+        "summary": "Remove Items",
+        "operationId": "list-remove-items",
+        "description": "Remove items from a list.",
+        "parameters": [{ "$ref": "#/components/parameters/ListId" }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RAW_BODY" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/ItemOperationResult" }
+                    },
+                    "status_code": { "type": "integer", "default": 0, "example": 1 },
+                    "status_message": { "type": "string", "example": "Success." },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/list/{list_id}/clear": {
+      "get": {
+        "tags": ["Lists"],
+        "summary": "Clear",
+        "operationId": "list-clear",
+        "description": "Clear all of the items on a list.",
+        "parameters": [{ "$ref": "#/components/parameters/ListId" }],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer", "default": 0, "example": 10 },
+                    "items_deleted": { "type": "integer", "default": 0, "example": 1 },
+                    "status_code": { "type": "integer", "default": 0, "example": 1 },
+                    "status_message": { "type": "string", "example": "Success." },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["id", "items_deleted", "status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/4/list/{list_id}/item_status": {
+      "get": {
+        "tags": ["Lists"],
+        "summary": "Item Status",
+        "operationId": "list-item-status",
+        "description": "Check if an item is on a list.",
+        "parameters": [
+          { "$ref": "#/components/parameters/ListId" },
+          {
+            "name": "media_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "integer" },
+            "example": 99861
+          },
+          {
+            "name": "media_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["", "movie", "tv"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer", "default": 0, "example": 1 },
+                    "media_id": { "type": "integer", "default": 0, "example": 99861 },
+                    "media_type": { "type": "string", "example": "movie" },
+                    "status_code": { "type": "integer", "default": 0, "example": 1 },
+                    "status_message": { "type": "string", "example": "Success." },
+                    "success": { "type": "boolean", "default": true, "example": true }
+                  },
+                  "required": ["id", "media_id", "status_code", "success"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "User authentication flow — request token → approval → access token"
+    },
+    {
+      "name": "Account",
+      "description": "User-specific data — favorites, watchlist, ratings, recommendations"
+    },
+    { "name": "Lists", "description": "Create and manage custom lists of movies and TV shows" }
+  ]
+}

@@ -158,7 +158,7 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
     mutationFn: async (isFavorite: boolean) => {
       try {
         const { data } = await api.post<UseUpdateFavoriteResponse>(
-          `account/${user.id}/favorite`,
+          `account/${user!.id}/favorite`,
           {
             favorite: isFavorite,
             media_id: id,
@@ -197,7 +197,7 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
     mutationFn: async (isWatchlisted: boolean) => {
       try {
         const { data } = await api.post<UseUpdateWatchlistResponse>(
-          `account/${user.id}/watchlist`,
+          `account/${user!.id}/watchlist`,
           {
             media_id: id,
             media_type: type,
@@ -263,6 +263,6 @@ function formatUser(user: UseGetUser): FormatUser {
   return {
     avatar,
     id: user.id,
-    name: user.name || user.username,
+    name: user.name || user.username || '',
   }
 }

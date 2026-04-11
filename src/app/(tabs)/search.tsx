@@ -23,10 +23,10 @@ import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
 import type { HeaderOptions } from '~/types/navigation'
 
-type Item = UseGetTrendingApiResponse['all']['results'][number]
+type Item = NonNullable<UseGetTrendingApiResponse['all']['results']>[number]
 
 export default function Search() {
-  const [querySearch, setQuerySearch] = React.useState(null)
+  const [querySearch, setQuerySearch] = React.useState<string>('')
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const navigation = useNavigation()
   const intl = useIntl()
@@ -86,7 +86,7 @@ export default function Search() {
 
   const renderListHeaderComponent = querySearch ? (
     <>
-      {!isSearchLoading && !results.length ? (
+      {!isSearchLoading && !results?.length ? (
         <View style={styles.noResults}>
           <Icon color="brand-500" name="magnifying-glass" size={80} />
           <Text style={styles.noResultsTitle} variant="h1">

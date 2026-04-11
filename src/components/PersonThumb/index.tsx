@@ -6,8 +6,8 @@ import { theme } from '~/theme'
 
 export type PersonThumbProps = {
   character?: string
-  imageUrl: string
-  name: string
+  imageUrl?: string
+  name?: string
 }
 
 export function PersonThumb({ character, imageUrl, name }: PersonThumbProps) {

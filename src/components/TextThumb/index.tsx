@@ -6,10 +6,10 @@ import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
 
 export type TextThumbProps = {
-  imageUrl: string
+  imageUrl?: string
   overview?: string
   tag?: React.ReactElement
-  title: string
+  title?: string
   type: ContentType
 }
 

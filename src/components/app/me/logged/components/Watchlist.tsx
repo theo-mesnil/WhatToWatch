@@ -15,14 +15,14 @@ import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetWatchlist['movie']['results'][number]
-type TVItem = UseGetWatchlist['tv']['results'][number]
+type MovieItem = NonNullable<UseGetWatchlist['movie']['results']>[number]
+type TVItem = NonNullable<UseGetWatchlist['tv']['results']>[number]
 
 export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
   const { data, isLoading } = useGetWatchlist({
     type,
   })
-  const hasMorePage = data?.pages?.[0]?.total_pages > 1
+  const hasMorePage = (data?.pages?.[0]?.total_pages ?? 0) > 1
 
   const results = data?.pages?.map(page => page.results).flat()
   const listTitle =
@@ -53,7 +53,7 @@ export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
 
   return (
     <>
-      {(isLoading || !!results.length) && (
+      {(isLoading || !!results?.length) && (
         <List<Item>
           icon="bookmark"
           id={`watchlist-${type}`}

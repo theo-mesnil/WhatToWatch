@@ -6,11 +6,300 @@
 export type $defs = Record<string, never>
 export interface components {
   headers: never
-  parameters: never
+  parameters: {
+    /** @example 4bc8892a017a3c0f92000002 */
+    AccountObjectId: string
+    Language: string
+    /** @example 5854 */
+    ListId: number
+    Page: number
+    SortByCreatedAt: 'created_at.asc' | 'created_at.desc'
+  }
   pathItems: never
   requestBodies: never
   responses: never
-  schemas: never
+  schemas: {
+    AccountListSummary: {
+      /** @example 4bc8892a017a3c0f92000002 */
+      account_object_id?: string
+      /**
+       * @default 0
+       * @example 0
+       */
+      adult: number
+      /**
+       * @default 0
+       * @example 7.90183
+       */
+      average_rating: number
+      /** @example 2019-08-27 15:13:15 */
+      created_at?: string
+      /** @example  */
+      description?: string
+      /**
+       * @default 0
+       * @example 0
+       */
+      featured: number
+      /**
+       * @default 0
+       * @example 120174
+       */
+      id: number
+      /** @example en */
+      iso_639_1?: string
+      /** @example US */
+      iso_3166_1?: string
+      /** @example Test Alpha Sort */
+      name?: string
+      /**
+       * @default 0
+       * @example 6
+       */
+      number_of_items: number
+      /**
+       * @default 0
+       * @example 0
+       */
+      public: number
+      /** @example 586453267 */
+      revenue?: string
+      /**
+       * @default 0
+       * @example 644
+       */
+      runtime: number
+      /**
+       * @default 0
+       * @example 7
+       */
+      sort_by: number
+      /** @example 2023-05-05 16:49:11 */
+      updated_at?: string
+    }
+    ItemOperationResult: {
+      /**
+       * @default 0
+       * @example 550
+       */
+      media_id: number
+      /** @example movie */
+      media_type?: string
+      /**
+       * @default true
+       * @example true
+       */
+      success: boolean
+    }
+    ListDetails: {
+      /**
+       * @default 0
+       * @example 6.7
+       */
+      average_rating: number
+      /** @example /kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg */
+      backdrop_path?: string
+      /** @description Map of `media_type:media_id` keys to comment values */
+      comments?: {
+        [key: string]: unknown
+      }
+      created_by?: {
+        /** @example /xy44UvpbTgzs9kWmp4C3fEaCl5h.png */
+        avatar_path?: string
+        /** @example c9e9fc152ee756a900db85757c29815d */
+        gravatar_hash?: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        id?: string
+        /** @example Travis Bell */
+        name?: string
+        /** @example travisbell */
+        username?: string
+      }
+      /** @example The idea behind this list is to collect the live action comic book movies from within the Marvel franchise. */
+      description?: string
+      /**
+       * @default 0
+       * @example 1
+       */
+      id: number
+      /** @example en */
+      iso_639_1?: string
+      /** @example US */
+      iso_3166_1?: string
+      /**
+       * @default 0
+       * @example 69
+       */
+      item_count: number
+      /** @example The Marvel Universe */
+      name?: string
+      object_ids?: Record<string, never>
+      /**
+       * @default 0
+       * @example 1
+       */
+      page: number
+      /** @example /coJVIUEOToAEGViuhclM7pXC75R.jpg */
+      poster_path?: string
+      /**
+       * @default true
+       * @example true
+       */
+      public: boolean
+      results?: components['schemas']['MovieResult'][]
+      /**
+       * @default 0
+       * @example 40672159319
+       */
+      revenue: number
+      /**
+       * @default 0
+       * @example 8070
+       */
+      runtime: number
+      /** @example primary_release_date.desc */
+      sort_by?: string
+      /**
+       * @default 0
+       * @example 4
+       */
+      total_pages: number
+      /**
+       * @default 0
+       * @example 69
+       */
+      total_results: number
+    }
+    MovieResult: {
+      /**
+       * @default true
+       * @example false
+       */
+      adult: boolean
+      /** @example /9sfVyE3sP2dkCwDyV7UlYP5TAAR.jpg */
+      backdrop_path?: string
+      genre_ids?: number[]
+      /**
+       * @default 0
+       * @example 823754
+       */
+      id: number
+      /** @example movie */
+      media_type?: string
+      /** @example en */
+      original_language?: string
+      /** @example Bo Burnham: Inside */
+      original_title?: string
+      overview?: string
+      /**
+       * @default 0
+       * @example 11.904
+       */
+      popularity: number
+      /** @example /ku1UvTWYvhFQbSesOD6zteY7bXT.jpg */
+      poster_path?: string
+      /** @example 2021-07-22 */
+      release_date?: string
+      /** @example Bo Burnham: Inside */
+      title?: string
+      /**
+       * @default true
+       * @example false
+       */
+      video: boolean
+      /**
+       * @default 0
+       * @example 8.178
+       */
+      vote_average: number
+      /**
+       * @default 0
+       * @example 352
+       */
+      vote_count: number
+    }
+    RatedMovieResult: components['schemas']['MovieResult'] & {
+      account_rating?: {
+        /** @example 2012-02-15T15:18:04.000Z */
+        created_at?: string
+        /**
+         * @default 0
+         * @example 8
+         */
+        value: number
+      }
+    }
+    RatedTVResult: components['schemas']['TVResult'] & {
+      account_rating?: {
+        /** @example 2013-10-10T21:03:56.499Z */
+        created_at?: string
+        /**
+         * @default 0
+         * @example 9
+         */
+        value: number
+      }
+    }
+    RAW_BODY: {
+      /**
+       * Format: json
+       * @description Raw JSON body
+       */
+      RAW_BODY?: string
+    }
+    StatusResponse: {
+      /** @example 1 */
+      status_code: number
+      /** @example Success. */
+      status_message?: string
+      /** @example true */
+      success: boolean
+    }
+    TVResult: {
+      /**
+       * @default true
+       * @example false
+       */
+      adult: boolean
+      /** @example /bsNm9z2TJfe0WO3RedPGWQ8mG1X.jpg */
+      backdrop_path?: string
+      /** @example 2008-01-20 */
+      first_air_date?: string
+      genre_ids?: number[]
+      /**
+       * @default 0
+       * @example 1396
+       */
+      id: number
+      /** @example tv */
+      media_type?: string
+      /** @example Breaking Bad */
+      name?: string
+      origin_country?: string[]
+      /** @example en */
+      original_language?: string
+      /** @example Breaking Bad */
+      original_name?: string
+      overview?: string
+      /**
+       * @default 0
+       * @example 255.118
+       */
+      popularity: number
+      /** @example /ggFHVNu6YYI5L9pCfOacjizRGt.jpg */
+      poster_path?: string
+      /**
+       * @default 0
+       * @example 8.879
+       */
+      vote_average: number
+      /**
+       * @default 0
+       * @example 11625
+       */
+      vote_count: number
+    }
+  }
 }
 export interface operations {
   'account-favorite-movies': {
@@ -18,12 +307,13 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        language?: string
-        page?: number
-        sort_by?: 'created_at.asc' | 'created_at.desc'
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
+        sort_by?: components['parameters']['SortByCreatedAt']
       }
     }
     requestBody?: never
@@ -37,53 +327,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /se5Hxz7PArQZOG3Nx2bpfOhLhtV.jpg */
-              backdrop_path?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 9806
-               */
-              id: number
-              /** @example en */
-              original_language?: string
-              /** @example The Incredibles */
-              original_title?: string
-              /** @example Bob Parr has given up his superhero days to log in time as an insurance adjuster and raise his three children with his formerly heroic wife in suburbia. But when he receives a mysterious assignment, it's time to get back into costume. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 67.887
-               */
-              popularity: number
-              /** @example /2LqaLgk4Z226KkgPJuiOQ58wvrm.jpg */
-              poster_path?: string
-              /** @example 2004-10-27 */
-              release_date?: string
-              /** @example The Incredibles */
-              title?: string
-              /**
-               * @default true
-               * @example false
-               */
-              video: boolean
-              /**
-               * @default 0
-               * @example 7.702
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 16188
-               */
-              vote_count: number
-            }[]
+            results?: components['schemas']['MovieResult'][]
             /**
              * @default 0
              * @example 4
@@ -107,12 +351,13 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        language?: string
-        page?: number
-        sort_by?: 'created_at.asc' | 'created_at.desc'
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
+        sort_by?: components['parameters']['SortByCreatedAt']
       }
     }
     requestBody?: never
@@ -126,49 +371,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /bsNm9z2TJfe0WO3RedPGWQ8mG1X.jpg */
-              backdrop_path?: string
-              /** @example 2008-01-20 */
-              first_air_date?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 1396
-               */
-              id: number
-              /** @example Breaking Bad */
-              name?: string
-              origin_country?: string[]
-              /** @example en */
-              original_language?: string
-              /** @example Breaking Bad */
-              original_name?: string
-              /** @example When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 255.118
-               */
-              popularity: number
-              /** @example /ggFHVNu6YYI5L9pCfOacjizRGt.jpg */
-              poster_path?: string
-              /**
-               * @default 0
-               * @example 8.879
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 11625
-               */
-              vote_count: number
-            }[]
+            results?: components['schemas']['TVResult'][]
             /**
              * @default 0
              * @example 4
@@ -192,10 +395,11 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        page?: number
+        page?: components['parameters']['Page']
       }
     }
     requestBody?: never
@@ -209,64 +413,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              /** @example 4bc8892a017a3c0f92000002 */
-              account_object_id?: string
-              /**
-               * @default 0
-               * @example 0
-               */
-              adult: number
-              /**
-               * @default 0
-               * @example 7.90183
-               */
-              average_rating: number
-              /** @example 2019-08-27 15:13:15 */
-              created_at?: string
-              /** @example  */
-              description?: string
-              /**
-               * @default 0
-               * @example 0
-               */
-              featured: number
-              /**
-               * @default 0
-               * @example 120174
-               */
-              id: number
-              /** @example en */
-              iso_639_1?: string
-              /** @example US */
-              iso_3166_1?: string
-              /** @example Test Alpha Sort */
-              name?: string
-              /**
-               * @default 0
-               * @example 6
-               */
-              number_of_items: number
-              /**
-               * @default 0
-               * @example 0
-               */
-              public: number
-              /** @example 586453267 */
-              revenue?: string
-              /**
-               * @default 0
-               * @example 644
-               */
-              runtime: number
-              /**
-               * @default 0
-               * @example 7
-               */
-              sort_by: number
-              /** @example 2023-05-05 16:49:11 */
-              updated_at?: string
-            }[]
+            results?: components['schemas']['AccountListSummary'][]
             /**
              * @default 0
              * @example 2
@@ -290,11 +437,12 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        language?: string
-        page?: number
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
       }
     }
     requestBody?: never
@@ -308,55 +456,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /9sfVyE3sP2dkCwDyV7UlYP5TAAR.jpg */
-              backdrop_path?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 823754
-               */
-              id: number
-              /** @example movie */
-              media_type?: string
-              /** @example en */
-              original_language?: string
-              /** @example Bo Burnham: Inside */
-              original_title?: string
-              /** @example Stuck in COVID-19 lockdown, US comedian and musician Bo Burnham attempts to stay sane and happy by writing, shooting and performing a one-man comedy special. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 11.904
-               */
-              popularity: number
-              /** @example /ku1UvTWYvhFQbSesOD6zteY7bXT.jpg */
-              poster_path?: string
-              /** @example 2021-07-22 */
-              release_date?: string
-              /** @example Bo Burnham: Inside */
-              title?: string
-              /**
-               * @default true
-               * @example false
-               */
-              video: boolean
-              /**
-               * @default 0
-               * @example 8.178
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 352
-               */
-              vote_count: number
-            }[]
+            results?: components['schemas']['MovieResult'][]
             /**
              * @default 0
              * @example 4
@@ -380,12 +480,13 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        language?: string
-        page?: number
-        sort_by?: 'created_at.asc' | 'created_at.desc'
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
+        sort_by?: components['parameters']['SortByCreatedAt']
       }
     }
     requestBody?: never
@@ -399,55 +500,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /9sfVyE3sP2dkCwDyV7UlYP5TAAR.jpg */
-              backdrop_path?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 823754
-               */
-              id: number
-              /** @example movie */
-              media_type?: string
-              /** @example en */
-              original_language?: string
-              /** @example Bo Burnham: Inside */
-              original_title?: string
-              /** @example Stuck in COVID-19 lockdown, US comedian and musician Bo Burnham attempts to stay sane and happy by writing, shooting and performing a one-man comedy special. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 11.904
-               */
-              popularity: number
-              /** @example /ku1UvTWYvhFQbSesOD6zteY7bXT.jpg */
-              poster_path?: string
-              /** @example 2021-07-22 */
-              release_date?: string
-              /** @example Bo Burnham: Inside */
-              title?: string
-              /**
-               * @default true
-               * @example false
-               */
-              video: boolean
-              /**
-               * @default 0
-               * @example 8.178
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 352
-               */
-              vote_count: number
-            }[]
+            results?: components['schemas']['MovieResult'][]
             /**
              * @default 0
              * @example 4
@@ -471,12 +524,13 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        language?: string
-        page?: number
-        sort_by?: 'created_at.asc' | 'created_at.desc'
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
+        sort_by?: components['parameters']['SortByCreatedAt']
       }
     }
     requestBody?: never
@@ -490,62 +544,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              account_rating?: {
-                /** @example 2012-02-15T15:18:04.000Z */
-                created_at?: string
-                /**
-                 * @default 0
-                 * @example 8
-                 */
-                value: number
-              }
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /dUVbWINfRMGojGZRcO6GF1Z2nV8.jpg */
-              backdrop_path?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 120
-               */
-              id: number
-              /** @example en */
-              original_language?: string
-              /** @example The Lord of the Rings: The Fellowship of the Ring */
-              original_title?: string
-              /** @example Young hobbit Frodo Baggins, after inheriting a mysterious ring from his uncle Bilbo, must leave his home in order to keep it from falling into the hands of its evil creator. Along the way, a fellowship is formed to protect the ringbearer and make sure that the ring arrives at its final destination: Mt. Doom, the only place where it can be destroyed. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 79.298
-               */
-              popularity: number
-              /** @example /6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg */
-              poster_path?: string
-              /** @example 2001-12-18 */
-              release_date?: string
-              /** @example The Lord of the Rings: The Fellowship of the Ring */
-              title?: string
-              /**
-               * @default true
-               * @example false
-               */
-              video: boolean
-              /**
-               * @default 0
-               * @example 8.4
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 22626
-               */
-              vote_count: number
-            }[]
+            results?: components['schemas']['RatedMovieResult'][]
             /**
              * @default 0
              * @example 47
@@ -569,12 +568,13 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        language?: string
-        page?: number
-        sort_by?: 'created_at.asc' | 'created_at.desc'
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
+        sort_by?: components['parameters']['SortByCreatedAt']
       }
     }
     requestBody?: never
@@ -588,58 +588,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              account_rating?: {
-                /** @example 2013-10-10T21:03:56.499Z */
-                created_at?: string
-                /**
-                 * @default 0
-                 * @example 9
-                 */
-                value: number
-              }
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /2yZXtM2Kky1Sy0kachbDlwybl3y.jpg */
-              backdrop_path?: string
-              /** @example 2008-09-09 */
-              first_air_date?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 1705
-               */
-              id: number
-              /** @example Fringe */
-              name?: string
-              origin_country?: string[]
-              /** @example en */
-              original_language?: string
-              /** @example Fringe */
-              original_name?: string
-              /** @example FBI Special Agent Olivia Dunham, brilliant but formerly institutionalized scientist Walter Bishop and his scheming, reluctant son Peter uncover a deadly mystery involving a series of unbelievable events and realize they may be a part of a larger, more disturbing pattern that blurs the line between science fiction and technology. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 145.5
-               */
-              popularity: number
-              /** @example /sY9hg5dLJ93RJOyKEiu1nAtBRND.jpg */
-              poster_path?: string
-              /**
-               * @default 0
-               * @example 8.11
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 2053
-               */
-              vote_count: number
-            }[]
+            results?: components['schemas']['RatedTVResult'][]
             /**
              * @default 0
              * @example 15
@@ -663,11 +612,12 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        language?: string
-        page?: number
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
       }
     }
     requestBody?: never
@@ -681,51 +631,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /7bsHAsS1RDtslictkApeb7cedLL.jpg */
-              backdrop_path?: string
-              /** @example 2022-03-03 */
-              first_air_date?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 152483
-               */
-              id: number
-              /** @example tv */
-              media_type?: string
-              /** @example The Boys Presents: Diabolical */
-              name?: string
-              origin_country?: string[]
-              /** @example en */
-              original_language?: string
-              /** @example The Boys Presents: Diabolical */
-              original_name?: string
-              /** @example From some of the most unhinged and maniacal minds in Hollywood today comes this animated anthology series, a collection of irreverent and emotionally shocking animated short films. Each episode plunges elbow-deep into unseen crevices of The Boys Universe. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 24.596
-               */
-              popularity: number
-              /** @example /kZKfZWwFOAicgoKS2IO7oM1GuHZ.jpg */
-              poster_path?: string
-              /**
-               * @default 0
-               * @example 7.201
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 214
-               */
-              vote_count: number
-            }[]
+            results?: components['schemas']['TVResult'][]
             /**
              * @default 0
              * @example 4
@@ -749,12 +655,13 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        account_object_id: string
+        /** @example 4bc8892a017a3c0f92000002 */
+        account_object_id: components['parameters']['AccountObjectId']
       }
       query?: {
-        language?: string
-        page?: number
-        sort_by?: 'created_at.asc' | 'created_at.desc'
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
+        sort_by?: components['parameters']['SortByCreatedAt']
       }
     }
     requestBody?: never
@@ -768,51 +675,7 @@ export interface operations {
              * @example 1
              */
             page: number
-            results?: {
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /7bsHAsS1RDtslictkApeb7cedLL.jpg */
-              backdrop_path?: string
-              /** @example 2022-03-03 */
-              first_air_date?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 152483
-               */
-              id: number
-              /** @example tv */
-              media_type?: string
-              /** @example The Boys Presents: Diabolical */
-              name?: string
-              origin_country?: string[]
-              /** @example en */
-              original_language?: string
-              /** @example The Boys Presents: Diabolical */
-              original_name?: string
-              /** @example From some of the most unhinged and maniacal minds in Hollywood today comes this animated anthology series, a collection of irreverent and emotionally shocking animated short films. Each episode plunges elbow-deep into unseen crevices of The Boys Universe. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 24.596
-               */
-              popularity: number
-              /** @example /kZKfZWwFOAicgoKS2IO7oM1GuHZ.jpg */
-              poster_path?: string
-              /**
-               * @default 0
-               * @example 7.201
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 214
-               */
-              vote_count: number
-            }[]
+            results?: components['schemas']['TVResult'][]
             /**
              * @default 0
              * @example 4
@@ -840,10 +703,7 @@ export interface operations {
     }
     requestBody?: {
       content: {
-        'application/json': {
-          /** Format: json */
-          RAW_BODY: string
-        }
+        'application/json': components['schemas']['RAW_BODY']
       }
     }
     responses: {
@@ -851,7 +711,7 @@ export interface operations {
       200: {
         content: {
           'application/json': {
-            /** @example eyJhbGciOiJIUzI1NiIsInR5cCIdIkpXVCJ9.eyJuYmYiOjE0ODM1NzM4MzUsInZlcnNpb24iOjEsInN1YiI6IjRiYzg4OTJhMDE3YTNjMGY5MjAwMDAwMiIsImF1ZCI6IlNmODc4NTdiZTIwOWQzNTE5ODMzYjMwMGExM2QwZTEyIiwic2NvcGVzIjpbImFwaV9yZWFkIiwiYXBpX3dyaXRlIl0sImp0aSI6Ijg4In0.b76OiEs10gdp9oNOoGpBJ94nO9Zi17Y7SvAXJQW8nH2 */
+            /** @example eyJhbGciOiJIUzI1NiIsInR5cCIdIkpXVCJ9... */
             access_token?: string
             /** @example 4bc8892a017a3c0z92001001 */
             account_id?: string
@@ -884,10 +744,7 @@ export interface operations {
     }
     requestBody?: {
       content: {
-        'application/json': {
-          /** Format: json */
-          RAW_BODY: string
-        }
+        'application/json': components['schemas']['RAW_BODY']
       }
     }
     responses: {
@@ -895,7 +752,7 @@ export interface operations {
       200: {
         content: {
           'application/json': {
-            /** @example eyJhbGciOiJIfsISNiIaInR5cCI6IkpXVCJ9.eyJuYmYiOjE0NzIwNTQ1ODEsInZlcnNpb24iOjEsImV4zCI6MTQ3MjA1NTQ4MSwiYXXkIjoiM2Y4Nzg1N2JlMjA5ZDM1MTk4MzNiMzAwYTEzZDBlMqIiLCJzY29wZXMiOlsicGVuZGluZ19yZXF1ZXN0X3Rva2VuIl0sImp0aSI6Nd0.e0t83AUvwywXPBb-hSAY_J_y4TjcwA0w98GhCCQM1dA */
+            /** @example eyJhbGciOiJIfsISNiIaInR5cCI6IkpXVCJ9... */
             request_token?: string
             /**
              * @default 0
@@ -926,10 +783,7 @@ export interface operations {
     }
     requestBody?: {
       content: {
-        'application/json': {
-          /** Format: json */
-          RAW_BODY: string
-        }
+        'application/json': components['schemas']['RAW_BODY']
       }
     }
     responses: {
@@ -957,31 +811,19 @@ export interface operations {
       }
     }
   }
-  'getting-started': {
-    parameters: {
-      cookie?: never
-      header?: never
-      path?: never
-      query?: never
-    }
-    requestBody?: never
-    responses: never
-  }
   'list-add-items': {
     parameters: {
       cookie?: never
       header?: never
       path: {
-        list_id: number
+        /** @example 5854 */
+        list_id: components['parameters']['ListId']
       }
       query?: never
     }
     requestBody?: {
       content: {
-        'application/json': {
-          /** Format: json */
-          RAW_BODY: string
-        }
+        'application/json': components['schemas']['RAW_BODY']
       }
     }
     responses: {
@@ -989,20 +831,7 @@ export interface operations {
       200: {
         content: {
           'application/json': {
-            results?: {
-              /**
-               * @default 0
-               * @example 550
-               */
-              media_id: number
-              /** @example movie */
-              media_type?: string
-              /**
-               * @default true
-               * @example false
-               */
-              success: boolean
-            }[]
+            results?: components['schemas']['ItemOperationResult'][]
             /**
              * @default 0
              * @example 1
@@ -1028,7 +857,8 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        list_id: number
+        /** @example 5854 */
+        list_id: components['parameters']['ListId']
       }
       query?: never
     }
@@ -1077,10 +907,7 @@ export interface operations {
     }
     requestBody?: {
       content: {
-        'application/json': {
-          /** Format: json */
-          RAW_BODY: string
-        }
+        'application/json': components['schemas']['RAW_BODY']
       }
     }
     responses: {
@@ -1118,7 +945,8 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        list_id: number
+        /** @example 5854 */
+        list_id: components['parameters']['ListId']
       }
       query?: never
     }
@@ -1153,11 +981,12 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        list_id: number
+        /** @example 5854 */
+        list_id: components['parameters']['ListId']
       }
       query?: {
-        language?: string
-        page?: number
+        language?: components['parameters']['Language']
+        page?: components['parameters']['Page']
       }
     }
     requestBody?: never
@@ -1165,151 +994,7 @@ export interface operations {
       /** @description 200 */
       200: {
         content: {
-          'application/json': {
-            /**
-             * @default 0
-             * @example 6.7
-             */
-            average_rating: number
-            /** @example /kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg */
-            backdrop_path?: string
-            comments?: {
-              'movie:284054'?: unknown
-              'movie:299534'?: unknown
-              'movie:299536'?: unknown
-              'movie:299537'?: unknown
-              'movie:363088'?: unknown
-              'movie:429617'?: unknown
-              'movie:447365'?: unknown
-              'movie:453395'?: unknown
-              'movie:497698'?: unknown
-              'movie:505642'?: unknown
-              'movie:524434'?: unknown
-              'movie:533535'?: unknown
-              'movie:566525'?: unknown
-              'movie:609681'?: unknown
-              'movie:616037'?: unknown
-              'movie:617127'?: unknown
-              'movie:634649'?: unknown
-              'movie:640146'?: unknown
-              'movie:822119'?: unknown
-              'movie:986056'?: unknown
-            }
-            created_by?: {
-              /** @example /xy44UvpbTgzs9kWmp4C3fEaCl5h.png */
-              avatar_path?: string
-              /** @example c9e9fc152ee756a900db85757c29815d */
-              gravatar_hash?: string
-              /** @example 4bc8892a017a3c0f92000002 */
-              id?: string
-              /** @example Travis Bell */
-              name?: string
-              /** @example travisbell */
-              username?: string
-            }
-            /** @example The idea behind this list is to collect the live action comic book movies from within the Marvel franchise. */
-            description?: string
-            /**
-             * @default 0
-             * @example 1
-             */
-            id: number
-            /** @example en */
-            iso_639_1?: string
-            /** @example US */
-            iso_3166_1?: string
-            /**
-             * @default 0
-             * @example 69
-             */
-            item_count: number
-            /** @example The Marvel Universe */
-            name?: string
-            object_ids?: Record<string, never>
-            /**
-             * @default 0
-             * @example 1
-             */
-            page: number
-            /** @example /coJVIUEOToAEGViuhclM7pXC75R.jpg */
-            poster_path?: string
-            /**
-             * @default true
-             * @example true
-             */
-            public: boolean
-            results?: {
-              /**
-               * @default true
-               * @example false
-               */
-              adult: boolean
-              /** @example /hFtJz4TvoiJJcw2ZOMdhK22aU9P.jpg */
-              backdrop_path?: string
-              genre_ids?: number[]
-              /**
-               * @default 0
-               * @example 617127
-               */
-              id: number
-              /** @example movie */
-              media_type?: string
-              /** @example en */
-              original_language?: string
-              /** @example Blade */
-              original_title?: string
-              /** @example A film set in the Marvel Cinematic Universe (MCU) based on the Marvel Comics character of the same name. */
-              overview?: string
-              /**
-               * @default 0
-               * @example 20.856
-               */
-              popularity: number
-              /** @example /fKqA4rgVJwrM7Gb3tQ9TGHnu8Tr.jpg */
-              poster_path?: string
-              /** @example 2025-02-12 */
-              release_date?: string
-              /** @example Blade */
-              title?: string
-              /**
-               * @default true
-               * @example false
-               */
-              video: boolean
-              /**
-               * @default 0
-               * @example 0
-               */
-              vote_average: number
-              /**
-               * @default 0
-               * @example 0
-               */
-              vote_count: number
-            }[]
-            /**
-             * @default 0
-             * @example 40672159319
-             */
-            revenue: number
-            /**
-             * @default 0
-             * @example 8070
-             */
-            runtime: number
-            /** @example primary_release_date.desc */
-            sort_by?: string
-            /**
-             * @default 0
-             * @example 4
-             */
-            total_pages: number
-            /**
-             * @default 0
-             * @example 69
-             */
-            total_results: number
-          }
+          'application/json': components['schemas']['ListDetails']
         }
         headers: {
           [name: string]: unknown
@@ -1322,9 +1007,11 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        list_id: number
+        /** @example 5854 */
+        list_id: components['parameters']['ListId']
       }
       query: {
+        /** @example 99861 */
         media_id: number
         media_type: '' | 'movie' | 'tv'
       }
@@ -1372,16 +1059,14 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        list_id: number
+        /** @example 5854 */
+        list_id: components['parameters']['ListId']
       }
       query?: never
     }
     requestBody?: {
       content: {
-        'application/json': {
-          /** Format: json */
-          RAW_BODY: string
-        }
+        'application/json': components['schemas']['RAW_BODY']
       }
     }
     responses: {
@@ -1389,20 +1074,7 @@ export interface operations {
       200: {
         content: {
           'application/json': {
-            results?: {
-              /**
-               * @default 0
-               * @example 194662
-               */
-              media_id: number
-              /** @example movie */
-              media_type?: string
-              /**
-               * @default true
-               * @example true
-               */
-              success: boolean
-            }[]
+            results?: components['schemas']['ItemOperationResult'][]
             /**
              * @default 0
              * @example 1
@@ -1428,16 +1100,14 @@ export interface operations {
       cookie?: never
       header?: never
       path: {
-        list_id: number
+        /** @example 5854 */
+        list_id: components['parameters']['ListId']
       }
       query?: never
     }
     requestBody?: {
       content: {
-        'application/json': {
-          /** Format: json */
-          RAW_BODY: string
-        }
+        'application/json': components['schemas']['RAW_BODY']
       }
     }
     responses: {
@@ -1474,10 +1144,7 @@ export interface operations {
     }
     requestBody?: {
       content: {
-        'application/json': {
-          /** Format: json */
-          RAW_BODY: string
-        }
+        'application/json': components['schemas']['RAW_BODY']
       }
     }
     responses: {
@@ -1485,20 +1152,7 @@ export interface operations {
       200: {
         content: {
           'application/json': {
-            results?: {
-              /**
-               * @default 0
-               * @example 194662
-               */
-              media_id: number
-              /** @example movie */
-              media_type?: string
-              /**
-               * @default true
-               * @example true
-               */
-              success: boolean
-            }[]
+            results?: components['schemas']['ItemOperationResult'][]
             /**
              * @default 0
              * @example 1
@@ -1521,23 +1175,6 @@ export interface operations {
   }
 }
 export interface paths {
-  '/': {
-    delete?: never
-    get?: never
-    head?: never
-    options?: never
-    parameters: {
-      cookie?: never
-      header?: never
-      path?: never
-      query?: never
-    }
-    patch?: never
-    /** Getting Started */
-    post: operations['getting-started']
-    put?: never
-    trace?: never
-  }
   '/4/account/{account_object_id}/lists': {
     delete?: never
     /**
@@ -1721,7 +1358,7 @@ export interface paths {
   '/4/auth/access_token': {
     /**
      * Logout
-     * @description Log out of a session.
+     * @description Log out of a session. Invalidates the user access token.
      */
     delete: operations['auth-logout']
     get?: never
@@ -1734,7 +1371,10 @@ export interface paths {
       query?: never
     }
     patch?: never
-    /** Create Access Token */
+    /**
+     * Create Access Token
+     * @description Step 3 of the user auth flow. Exchanges an approved `request_token` for a permanent `access_token`. Also returns the user's v4 `account_id` (string).
+     */
     post: operations['auth-create-access-token']
     put?: never
     trace?: never
@@ -1751,7 +1391,10 @@ export interface paths {
       query?: never
     }
     patch?: never
-    /** Create Request Token */
+    /**
+     * Create Request Token
+     * @description Step 1 of the user auth flow. Returns a temporary `request_token`. Direct the user to `https://www.themoviedb.org/auth/access?request_token={request_token}` to approve it. Unused tokens expire after 15 minutes.
+     */
     post: operations['auth-create-request-token']
     put?: never
     trace?: never
@@ -1843,7 +1486,7 @@ export interface paths {
   '/4/list/{list_id}/items': {
     /**
      * Remove Items
-     * @description Remove items from a list
+     * @description Remove items from a list.
      */
     delete: operations['list-remove-items']
     get?: never
@@ -1863,7 +1506,7 @@ export interface paths {
     post: operations['list-add-items']
     /**
      * Update Items
-     * @description Update an individual item on a list
+     * @description Update an individual item on a list.
      */
     put: operations['list-update-items']
     trace?: never

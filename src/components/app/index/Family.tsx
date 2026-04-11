@@ -8,7 +8,7 @@ import { TextThumb } from '~/components/TextThumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { genreMoviePath, moviePath } from '~/routes'
 
-type Item = UseGetDiscoverMovieApiResponse['results'][number]
+type Item = NonNullable<UseGetDiscoverMovieApiResponse['results']>[number]
 
 export function Family() {
   const { data, isLoading } = useGetDiscoverMovie({
@@ -24,7 +24,7 @@ export function Family() {
       <TextThumb
         imageUrl={backdrop_path}
         overview={overview}
-        tag={<FormattedDate value={new Date(release_date)} />}
+        tag={<FormattedDate value={new Date(release_date ?? '')} />}
         title={title}
         type="movie"
       />

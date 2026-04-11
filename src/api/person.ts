@@ -56,7 +56,7 @@ export function useGetPerson(props?: UseGetPersonApiProps): UseGetPerson {
         coverUrl: data.profile_path,
         deathday: data.deathday as string,
         department: data.known_for_department as Department,
-        name: data.name,
+        name: data.name ?? '',
         placeOfBirth: data.place_of_birth,
       }
     },

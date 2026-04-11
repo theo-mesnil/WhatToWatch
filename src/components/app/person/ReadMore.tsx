@@ -14,7 +14,7 @@ export type ReadMoreProps = {
 export function ReadMore({ children }: ReadMoreProps) {
   const [showMoreButton, setShowMoreButton] = useState(false)
   const [isExpanded, setIsExpended] = useState(false)
-  const [numLines, setNumLines] = useState(undefined)
+  const [numLines, setNumLines] = useState<number | undefined>(undefined)
 
   const toggleTextShown = () => {
     setNumLines(isExpanded ? maxLines : undefined)

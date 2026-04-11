@@ -142,7 +142,7 @@ function useTabBarIcon() {
     if (isUser) {
       return (
         <View style={[focused ? styles.focused : undefined]}>
-          <Avatar imageUrl={user?.avatar} name={user?.name} size={26} />
+          <Avatar imageUrl={user?.avatar ?? undefined} name={user?.name} size={26} />
         </View>
       )
     }

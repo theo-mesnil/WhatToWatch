@@ -57,7 +57,7 @@ export default function PersonTv() {
     <BasicLayout contentContainerStyle={containerStyle} getScrollYPosition={getScrollYPosition}>
       {!isLoadingTv && (
         <View style={styles.items}>
-          {tv.map((item, index) => (
+          {tv?.map((item, index) => (
             <ThumbLink
               href={tvPath({ id: item.id })}
               isLoading={isLoading}
@@ -67,7 +67,9 @@ export default function PersonTv() {
                 date={item.first_air_date}
                 overview={item.overview}
                 posterUrl={item.poster_path}
-                subtitle={item.character || item.job}
+                subtitle={
+                  'character' in item ? item.character : 'job' in item ? item.job : undefined
+                }
                 title={item.name}
                 type="tv"
               />

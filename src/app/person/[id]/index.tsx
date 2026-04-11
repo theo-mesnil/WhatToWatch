@@ -25,8 +25,8 @@ import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 
-type CastItem = UseGetPersonCreditsApiResponse['cast'][number]
-type ImageItem = UseGetPersonImagesApiResponse['profiles'][number]
+type CastItem = NonNullable<UseGetPersonCreditsApiResponse['cast']>[number]
+type ImageItem = NonNullable<UseGetPersonImagesApiResponse['profiles']>[number]
 
 export default function Person() {
   const params = useLocalSearchParams<{ id: string }>()
@@ -122,7 +122,7 @@ export default function Person() {
                 {
                   intervalToDuration({
                     end: new Date(deathday),
-                    start: new Date(birthday),
+                    start: new Date(birthday ?? ''),
                   }).years
                 }
                 <FormattedMessage defaultMessage="y" id="EhtHdK" />)
@@ -156,7 +156,7 @@ export default function Person() {
             <ReadMore>{biography}</ReadMore>
           </View>
         )}
-        {(isLoadingCredits || credits?.length > 0) && (
+        {(isLoadingCredits || (credits?.length ?? 0) > 0) && (
           <List<CastItem>
             id="similar"
             isLoading={isLoadingCredits}
@@ -188,7 +188,7 @@ export default function Person() {
             )}
           </View>
         )}
-        {(isLoadingImages || images?.length > 0) && (
+        {(isLoadingImages || (images?.length ?? 0) > 0) && (
           <List<ImageItem>
             id="similar"
             isLoading={isLoadingImages}

@@ -25,7 +25,7 @@ export const IconButton = ({
   testID,
   ...rest
 }: IconButtonProps) => {
-  function handleOnPress(event) {
+  function handleOnPress(event: Parameters<NonNullable<typeof onPress>>[0]) {
     if (onPress) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
       onPress(event)

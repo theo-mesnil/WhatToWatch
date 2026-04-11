@@ -8,7 +8,7 @@ import { genresColor } from '~/utils/genres'
 
 export type GenreThumbProps = {
   id: number
-  title: string
+  title?: string
 }
 
 export function GenreThumb({ id, title }: GenreThumbProps) {

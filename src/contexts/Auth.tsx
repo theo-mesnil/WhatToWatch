@@ -33,7 +33,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [sessionId, setSessionId] = useState<null | string>(null)
   const router = useRouter()
 
-  const storeAuthState = async (newState: { accessToken; accountId; sessionId }) => {
+  const storeAuthState = async (newState: {
+    accessToken: null | string
+    accountId: null | string
+    sessionId: null | string
+  }) => {
     try {
       const jsonValue = JSON.stringify(newState)
       await AsyncStorage.setItem(authStorageKey, jsonValue)

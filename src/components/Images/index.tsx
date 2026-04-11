@@ -20,14 +20,14 @@ export type ImagesProps = {
 }
 
 export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps) {
-  if (isLoading || (backdrops?.length > 0 && posters?.length > 0)) {
+  if (isLoading || ((backdrops?.length ?? 0) > 0 && (posters?.length ?? 0) > 0)) {
     return (
       <View>
         <ListTitle>
           <FormattedMessage defaultMessage="Images" id="Fip4H8" />
         </ListTitle>
         <View style={styles.images}>
-          {backdrops?.length > 0 && (
+          {(backdrops?.length ?? 0) > 0 && (
             <View style={styles.backdrops}>
               <ThumbLink
                 href={
@@ -54,7 +54,7 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
               </ThumbLink>
             </View>
           )}
-          {posters?.length > 0 && (
+          {(posters?.length ?? 0) > 0 && (
             <View style={styles.posters}>
               <ThumbLink
                 href={

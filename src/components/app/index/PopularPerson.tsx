@@ -8,7 +8,7 @@ import { PersonThumb } from '~/components/PersonThumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { personPath } from '~/routes'
 
-type Item = UseGetPersonPopularApiResponse['results'][number]
+type Item = NonNullable<UseGetPersonPopularApiResponse['results']>[number]
 
 export function PopularPerson() {
   const { data, isLoading } = useGetPersonPopular()

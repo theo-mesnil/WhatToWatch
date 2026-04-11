@@ -92,7 +92,7 @@ export function List<ItemProps>({
   const renderTitle = React.useMemo(
     () => (
       <ListTitle icon={icon} style={globalStyles.centered} titleHref={titleHref}>
-        {title}
+        {title ?? ''}
       </ListTitle>
     ),
     [title, titleHref, icon]

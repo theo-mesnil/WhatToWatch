@@ -55,6 +55,8 @@ export function VerticalList<ItemProps>({
           </View>
         )
       }
+
+      return null
     },
     [itemSize, renderItem, gap]
   )

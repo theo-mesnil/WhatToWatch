@@ -40,7 +40,7 @@ export function Logged() {
   return (
     <View style={styles.wrapper}>
       <View style={styles.user}>
-        <Avatar imageUrl={user?.avatar} name={user?.name} size={80} />
+        <Avatar imageUrl={user?.avatar ?? undefined} name={user?.name} size={80} />
         <Text variant="h1">{user?.name}</Text>
       </View>
       <Favorite type="tv" />

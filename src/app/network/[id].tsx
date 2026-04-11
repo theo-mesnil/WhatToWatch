@@ -19,7 +19,7 @@ import { theme } from '~/theme'
 import type { NetworkId } from '~/types/content'
 import { getNetworkColor } from '~/utils/networks'
 
-type Item = UseGetDiscoverTvApiResponse['results'][number]
+type Item = NonNullable<UseGetDiscoverTvApiResponse['results']>[number]
 
 export default function Network() {
   const params = useLocalSearchParams<{ id: string }>()
@@ -34,7 +34,7 @@ export default function Network() {
     },
   })
 
-  const firstItem = !isLoading && data?.pages[0].results[0]
+  const firstItem = !isLoading ? data?.pages?.[0]?.results?.[0] : undefined
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({ item: { id, poster_path } }) => (
     <ThumbLink href={tvPath({ id })} isLoading={isLoading}>
@@ -77,14 +77,18 @@ export default function Network() {
         id="network"
         isLoading={isLoading}
         ListHeaderComponent={
-          <ThumbLink href={tvPath({ id: firstItem?.id })} isLoading={isLoading}>
-            <LargeThumb
-              id={firstItem?.id}
-              imageUrl={firstItem?.backdrop_path}
-              title={firstItem?.name}
-              type="tv"
-            />
-          </ThumbLink>
+          firstItem ? (
+            <ThumbLink href={tvPath({ id: firstItem.id })} isLoading={isLoading}>
+              <LargeThumb
+                id={firstItem.id}
+                imageUrl={firstItem.backdrop_path}
+                title={firstItem.name}
+                type="tv"
+              />
+            </ThumbLink>
+          ) : (
+            <LargeThumb isLoading type="tv" />
+          )
         }
         onEndReached={loadMore}
         renderItem={renderItem}

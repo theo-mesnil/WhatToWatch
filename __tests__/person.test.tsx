@@ -7,8 +7,14 @@ import { mockQuery, render, screen } from '../tests/render'
 describe('<Person />', () => {
   test('should render correctly', () => {
     jest.spyOn(person, 'useGetPerson').mockReturnValue(mockQuery(MOCK_PERSON))
-    jest.spyOn(person, 'useGetPersonMovieCredits').mockReturnValue(mockQuery(MOCK_PERSON_MOVIES))
-    jest.spyOn(person, 'useGetPersonTvCredits').mockReturnValue(mockQuery(MOCK_PERSON_TV))
+    jest
+      .spyOn(person, 'useGetPersonMovieCredits')
+      .mockReturnValue(
+        mockQuery(MOCK_PERSON_MOVIES) as ReturnType<typeof person.useGetPersonMovieCredits>
+      )
+    jest
+      .spyOn(person, 'useGetPersonTvCredits')
+      .mockReturnValue(mockQuery(MOCK_PERSON_TV) as ReturnType<typeof person.useGetPersonTvCredits>)
 
     render(<Person />)
 
@@ -28,7 +34,7 @@ describe('<Person />', () => {
   test('should render correctly with deathday', () => {
     jest
       .spyOn(person, 'useGetPerson')
-      .mockReturnValue(mockQuery({ ...MOCK_PERSON, deathday: '2024-07-23' }))
+      .mockReturnValue(mockQuery({ ...MOCK_PERSON, deathday: '2024-07-23' } as typeof MOCK_PERSON))
 
     render(<Person />)
 

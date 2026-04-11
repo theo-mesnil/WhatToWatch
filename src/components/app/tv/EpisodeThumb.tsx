@@ -8,8 +8,8 @@ import { formatTime } from '~/utils/time'
 
 export type EpisodeThumbProps = {
   airDate?: string
-  imageUrl: string
-  name: string
+  imageUrl?: string
+  name?: string
   number: number
   overview?: string
   runtime?: number

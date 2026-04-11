@@ -16,7 +16,7 @@ type NetworkListProps = {
   id: NetworkId
 }
 
-type TvItem = UseGetDiscoverTvApiResponse['results'][number]
+type TvItem = NonNullable<UseGetDiscoverTvApiResponse['results']>[number]
 
 export function NetworkList({ id }: NetworkListProps) {
   const network = networksList.filter(item => item.id === id)[0]
