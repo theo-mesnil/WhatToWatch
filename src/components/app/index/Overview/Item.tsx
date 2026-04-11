@@ -1,6 +1,7 @@
+import { Image } from 'expo-image'
 import { Link } from 'expo-router'
 import { FormattedMessage } from 'react-intl'
-import { Image, ImageBackground, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { useGetContentLogo } from '~/api/logo'
 import { Button } from '~/components/Button'
@@ -28,17 +29,12 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
 
   return (
     <View style={styles.wrapper}>
-      <ImageBackground
-        source={{
-          uri: getImageUrl(imageUrl, 'w1280'),
-        }}
-        style={globalStyles.absoluteFill}
-      />
+      <Image source={getImageUrl(imageUrl, 'w1280')} style={globalStyles.absoluteFill} />
       <View style={styles.content}>
         <Gradient colors={['transparent', theme.colors.behind]} />
         {!isLoadingLogo && logo && (
           <Image
-            src={getImageUrl(logo.url, 'w500')}
+            source={getImageUrl(logo.url, 'w500')}
             style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
           />
         )}

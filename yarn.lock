@@ -4130,7 +4130,7 @@ expo-haptics@~55.0.11:
   resolved "https://registry.yarnpkg.com/expo-haptics/-/expo-haptics-55.0.11.tgz#edba71d19632884f3de10a6f6b2d815ca48dd203"
   integrity sha512-cvayByobLtoS5Yt2JFqcBPH+1mnLHkz+Rr+H1EOCZDdTVo5T6aaAHMOZrbRBZBhxrUevAPxfz0bfyhVZj3XHzA==
 
-expo-image@^55.0.8:
+expo-image@^55.0.8, expo-image@~55.0.8:
   version "55.0.8"
   resolved "https://registry.yarnpkg.com/expo-image/-/expo-image-55.0.8.tgz#0b23054041508e70948bd4ab5d3f6bdd71c53989"
   integrity sha512-fNdvdYVcGn3g1x6o5AXHKzk4xX8U6rg2W9vFdE1pQO80kWCNReh003ypqSrGy4dD+zA8FtZjrNF3oMDGnPpIGQ==
