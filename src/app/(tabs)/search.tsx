@@ -105,34 +105,31 @@ export default function Search() {
     </Text>
   )
 
-  const HeaderComponent = React.useCallback(
-    ({ options: { title } }: HeaderOptions) => {
-      return (
-        <Header
-          component={
-            <TextInput
-              clearButtonMode="always"
-              enterKeyHint="search"
-              onChangeText={setQuerySearch}
-              placeholder={intl.formatMessage({
-                defaultMessage: 'What would you like to watch?',
-                id: 'UhsiMg',
-              })}
-            />
-          }
-          scrollY={scrollYPosition}
-          title={title}
-        />
-      )
-    },
-    [intl, scrollYPosition]
-  )
+  const HeaderComponent = ({ options: { title } }: HeaderOptions) => {
+    return (
+      <Header
+        component={
+          <TextInput
+            clearButtonMode="always"
+            enterKeyHint="search"
+            onChangeText={setQuerySearch}
+            placeholder={intl.formatMessage({
+              defaultMessage: 'What would you like to watch?',
+              id: 'UhsiMg',
+            })}
+          />
+        }
+        scrollY={scrollYPosition}
+        title={title}
+      />
+    )
+  }
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout isView>

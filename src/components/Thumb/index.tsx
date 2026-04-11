@@ -19,43 +19,39 @@ export type ThumbProps = {
   type: ContentType
 }
 
-export const Thumb = React.memo(
-  ({
-    aspectRatio = 2 / 3,
-    externalImageUrl,
-    height,
-    imageUrl,
-    imageWidth,
-    isLoading,
-    isRounded,
-    type,
-  }: ThumbProps) => {
-    return (
-      <View style={[styles.wrapper, isRounded && styles.rounded]}>
-        <ImageBackground
-          source={{
-            uri: externalImageUrl || (imageUrl ? getImageUrl(imageUrl, imageWidth) : undefined),
-          }}
-          style={[
-            {
-              aspectRatio,
-              height: height as number,
-            },
-            styles.image,
-          ]}
-        >
-          {isLoading ? (
-            <Loader style={styles.loading} />
-          ) : (
-            <>{!imageUrl && !externalImageUrl && <NoCover icon={getIconType(type)} />}</>
-          )}
-        </ImageBackground>
-      </View>
-    )
-  }
-)
-
-Thumb.displayName = 'Thumb'
+export function Thumb({
+  aspectRatio = 2 / 3,
+  externalImageUrl,
+  height,
+  imageUrl,
+  imageWidth,
+  isLoading,
+  isRounded,
+  type,
+}: ThumbProps) {
+  return (
+    <View style={[styles.wrapper, isRounded && styles.rounded]}>
+      <ImageBackground
+        source={{
+          uri: externalImageUrl || (imageUrl ? getImageUrl(imageUrl, imageWidth) : undefined),
+        }}
+        style={[
+          {
+            aspectRatio,
+            height: height as number,
+          },
+          styles.image,
+        ]}
+      >
+        {isLoading ? (
+          <Loader style={styles.loading} />
+        ) : (
+          <>{!imageUrl && !externalImageUrl && <NoCover icon={getIconType(type)} />}</>
+        )}
+      </ImageBackground>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   image: {

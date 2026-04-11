@@ -25,16 +25,15 @@ export default function GenreLayout({ children, scrollYPosition }: GenreLayoutPr
     genreMovie?.filter(genre => genre.id === genreID)?.[0] ||
     genreTv?.filter(genre => genre.id === genreID)?.[0]
 
-  const HeaderComponent = React.useCallback(
-    () => <Header scrollY={scrollYPosition} title={title?.name} withBackButton />,
-    [scrollYPosition, title?.name]
+  const HeaderComponent = () => (
+    <Header scrollY={scrollYPosition} title={title?.name} withBackButton />
   )
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout isView>

@@ -16,16 +16,15 @@ export default function Networks() {
   const { containerStyle } = useSafeHeights()
   const navigation = useNavigation()
 
-  const HeaderComponent = React.useCallback(
-    ({ options: { title } }: HeaderOptions) => <Header scrollY={scrollYPosition} title={title} />,
-    [scrollYPosition]
+  const HeaderComponent = ({ options: { title } }: HeaderOptions) => (
+    <Header scrollY={scrollYPosition} title={title} />
   )
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout contentContainerStyle={containerStyle} getScrollYPosition={getScrollYPosition}>

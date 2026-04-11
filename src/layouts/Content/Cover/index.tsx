@@ -20,7 +20,7 @@ export type CoverProps = {
   title?: string
 }
 
-export const Cover = React.memo(({ imageUrl, isLoading, logo, title }: CoverProps) => {
+export function Cover({ imageUrl, isLoading, logo, title }: CoverProps) {
   return (
     <View style={styles.wrapper}>
       <ImageBackground
@@ -49,9 +49,7 @@ export const Cover = React.memo(({ imageUrl, isLoading, logo, title }: CoverProp
       </View>
     </View>
   )
-})
-
-Cover.displayName = 'Cover'
+}
 
 const styles = StyleSheet.create({
   content: {
