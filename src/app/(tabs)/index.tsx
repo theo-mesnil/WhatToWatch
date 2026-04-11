@@ -27,30 +27,27 @@ export default function Discover() {
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const { accountId } = useAuth()
 
-  const HeaderComponent = React.useCallback(
-    () => (
-      <Header
-        customTitle={
-          <View
-            style={{
-              height: headerHeight - 10,
-            }}
-          >
-            <Logo />
-          </View>
-        }
-        hideOnStart
-        scrollY={scrollYPosition}
-      />
-    ),
-    [headerHeight, scrollYPosition]
+  const HeaderComponent = () => (
+    <Header
+      customTitle={
+        <View
+          style={{
+            height: headerHeight - 10,
+          }}
+        >
+          <Logo />
+        </View>
+      }
+      hideOnStart
+      scrollY={scrollYPosition}
+    />
   )
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout

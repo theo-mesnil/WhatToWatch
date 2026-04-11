@@ -31,27 +31,24 @@ export default function PersonMovies() {
 
   const name = data?.name
 
-  const HeaderComponent = React.useCallback(
-    () => (
-      <Header
-        scrollY={scrollYPosition}
-        showHeaderOnStart
-        title={
-          <>
-            {name}
-            <FormattedMessage defaultMessage="'s movies" id="uM+ly3" />
-          </>
-        }
-      />
-    ),
-    [name, scrollYPosition]
+  const HeaderComponent = () => (
+    <Header
+      scrollY={scrollYPosition}
+      showHeaderOnStart
+      title={
+        <>
+          {name}
+          <FormattedMessage defaultMessage="'s movies" id="uM+ly3" />
+        </>
+      }
+    />
   )
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout contentContainerStyle={containerStyle} getScrollYPosition={getScrollYPosition}>

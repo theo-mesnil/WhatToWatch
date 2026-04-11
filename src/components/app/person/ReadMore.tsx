@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import type { NativeSyntheticEvent, TextLayoutEventData } from 'react-native'
 import { StyleSheet, View } from 'react-native'
 
@@ -21,15 +21,12 @@ export function ReadMore({ children }: ReadMoreProps) {
     setIsExpended(!isExpanded)
   }
 
-  const onTextLayout = useCallback(
-    (e: NativeSyntheticEvent<TextLayoutEventData>) => {
-      if (e.nativeEvent.lines.length > maxLines && !isExpanded) {
-        setShowMoreButton(true)
-        setNumLines(maxLines)
-      }
-    },
-    [isExpanded]
-  )
+  const onTextLayout = (e: NativeSyntheticEvent<TextLayoutEventData>) => {
+    if (e.nativeEvent.lines.length > maxLines && !isExpanded) {
+      setShowMoreButton(true)
+      setNumLines(maxLines)
+    }
+  }
 
   return (
     <View>

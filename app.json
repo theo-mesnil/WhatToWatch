@@ -56,6 +56,7 @@
       "favicon": "./src/assets/favicon.png"
     },
     "experiments": {
+      "reactCompiler": true,
       "typedRoutes": true
     },
     "runtimeVersion": {

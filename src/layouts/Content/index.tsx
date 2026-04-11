@@ -35,16 +35,13 @@ export function ContentLayout({
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const navigation = useNavigation()
 
-  const HeaderComponent = React.useCallback(
-    () => <Header scrollY={scrollYPosition} title={title} />,
-    [scrollYPosition, title]
-  )
+  const HeaderComponent = () => <Header scrollY={scrollYPosition} title={title} />
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout

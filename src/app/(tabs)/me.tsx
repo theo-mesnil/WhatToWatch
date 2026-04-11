@@ -21,22 +21,19 @@ export default function Discover() {
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const { accountId, openLoginWebview } = useAuth()
 
-  const HeaderComponent = React.useCallback(
-    () => (
-      <Header
-        hideOnStart={!!accountId}
-        scrollY={scrollYPosition}
-        title={<FormattedMessage defaultMessage="Profile" id="itPgxd" />}
-      />
-    ),
-    [scrollYPosition, accountId]
+  const HeaderComponent = () => (
+    <Header
+      hideOnStart={!!accountId}
+      scrollY={scrollYPosition}
+      title={<FormattedMessage defaultMessage="Profile" id="itPgxd" />}
+    />
   )
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout

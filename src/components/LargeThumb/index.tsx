@@ -21,42 +21,46 @@ export type LargeThumbProps = {
   type: ContentType
 }
 
-export const LargeThumb = React.memo(
-  ({ id, imageUrl, imageWidth = 'w780', isLoading, style, title, type }: LargeThumbProps) => {
-    const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
-      id: id ?? 0,
-      type,
-    })
+export function LargeThumb({
+  id,
+  imageUrl,
+  imageWidth = 'w780',
+  isLoading,
+  style,
+  title,
+  type,
+}: LargeThumbProps) {
+  const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
+    id: id ?? 0,
+    type,
+  })
 
-    return (
-      <View style={[styles.wrapper, style]}>
-        <Thumb
-          aspectRatio={16 / 12}
-          imageUrl={imageUrl}
-          imageWidth={imageWidth}
-          isLoading={isLoading}
-          type={type}
-        />
-        <View style={[globalStyles.absoluteFill, styles.content]}>
-          <Gradient colors={['transparent', theme.colors.behind]} style={styles.gradient} />
-          {!isLoadingLogo && logo && (
-            <Image
-              src={getImageUrl(logo.url, 'w500')}
-              style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
-            />
-          )}
-          {!isLoadingLogo && !logo && title && (
-            <Text numberOfLines={2} style={styles.title} variant="h0">
-              {title}
-            </Text>
-          )}
-        </View>
+  return (
+    <View style={[styles.wrapper, style]}>
+      <Thumb
+        aspectRatio={16 / 12}
+        imageUrl={imageUrl}
+        imageWidth={imageWidth}
+        isLoading={isLoading}
+        type={type}
+      />
+      <View style={[globalStyles.absoluteFill, styles.content]}>
+        <Gradient colors={['transparent', theme.colors.behind]} style={styles.gradient} />
+        {!isLoadingLogo && logo && (
+          <Image
+            src={getImageUrl(logo.url, 'w500')}
+            style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
+          />
+        )}
+        {!isLoadingLogo && !logo && title && (
+          <Text numberOfLines={2} style={styles.title} variant="h0">
+            {title}
+          </Text>
+        )}
       </View>
-    )
-  }
-)
-
-LargeThumb.displayName = 'LargeThumb'
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   content: {

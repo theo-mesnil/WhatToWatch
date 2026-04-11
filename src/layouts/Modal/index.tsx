@@ -16,27 +16,24 @@ export default function ModalLayout({ children }: ModalLayoutProps) {
   const navigation = useNavigation()
   const { statusBarHeight } = useSafeHeights()
 
-  const HeaderComponent = React.useCallback(
-    () => (
-      <View style={[styles.header, isAndroid && { paddingTop: statusBarHeight }]}>
-        <Button
-          isCustomChildren
-          onPress={() => navigation.goBack()}
-          style={styles.closeButton}
-          testID="header-close-button"
-        >
-          <Icon name="xmark" />
-        </Button>
-      </View>
-    ),
-    [navigation, statusBarHeight]
+  const HeaderComponent = () => (
+    <View style={[styles.header, isAndroid && { paddingTop: statusBarHeight }]}>
+      <Button
+        isCustomChildren
+        onPress={() => navigation.goBack()}
+        style={styles.closeButton}
+        testID="header-close-button"
+      >
+        <Icon name="xmark" />
+      </Button>
+    </View>
   )
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return <View style={styles.wrapper}>{children}</View>
 }
