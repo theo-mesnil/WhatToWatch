@@ -17,12 +17,7 @@ export function WatchlistButton({ id, type }: { id: number; type: 'movie' | 'tv'
       return
     }
 
-    if (isWatchlisted) {
-      updateWatchlist(false)
-    } else {
-      // Remove from favorites
-      updateWatchlist(true)
-    }
+    updateWatchlist(!isWatchlisted)
   }
 
   return (

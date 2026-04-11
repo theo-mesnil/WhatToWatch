@@ -153,6 +153,7 @@ export function useGetWatchlist(props: UseGetFavoritesProps) {
 export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { sessionId } = useAuth()
   const { data: user } = useUser()
+  const queryKey = ['account-states', sessionId, type, id, LOCALE]
 
   return useMutation({
     mutationFn: async (isFavorite: boolean) => {
@@ -171,9 +172,6 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
           }
         )
         if (data.success) {
-          queryClient.refetchQueries({
-            queryKey: ['account-states', sessionId, type, id, LOCALE],
-          })
           queryClient.invalidateQueries({
             queryKey: ['account', sessionId, 'favorites', type, LOCALE],
           })
@@ -186,12 +184,30 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
         throw error // Re-throw to let react-query handle the error state
       }
     },
+    onError: (_err, _variables, context: undefined | { previous?: unknown }) => {
+      if (context?.previous) {
+        queryClient.setQueryData(queryKey, context.previous)
+      }
+    },
+    onMutate: async isFavorite => {
+      await queryClient.cancelQueries({ queryKey })
+      const previous = queryClient.getQueryData(queryKey)
+      queryClient.setQueryData(queryKey, (old: Record<string, unknown>) => ({
+        ...old,
+        favorite: isFavorite,
+      }))
+      return { previous }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
+    },
   })
 }
 
 export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { sessionId } = useAuth()
   const { data: user } = useUser()
+  const queryKey = ['account-states', sessionId, type, id, LOCALE]
 
   return useMutation({
     mutationFn: async (isWatchlisted: boolean) => {
@@ -210,9 +226,6 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
           }
         )
         if (data.success) {
-          queryClient.refetchQueries({
-            queryKey: ['account-states', sessionId, type, id, LOCALE],
-          })
           queryClient.invalidateQueries({
             queryKey: ['account', sessionId, 'watchlist', type, LOCALE],
           })
@@ -226,6 +239,23 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
       }
     },
     mutationKey: ['account', sessionId, 'watchlist', 'update', LOCALE],
+    onError: (_err, _variables, context: undefined | { previous?: unknown }) => {
+      if (context?.previous) {
+        queryClient.setQueryData(queryKey, context.previous)
+      }
+    },
+    onMutate: async isWatchlisted => {
+      await queryClient.cancelQueries({ queryKey })
+      const previous = queryClient.getQueryData(queryKey)
+      queryClient.setQueryData(queryKey, (old: Record<string, unknown>) => ({
+        ...old,
+        watchlist: isWatchlisted,
+      }))
+      return { previous }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
+    },
   })
 }
 

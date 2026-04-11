@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useRouter } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import type { PropsWithChildren } from 'react'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, use, useEffect, useState } from 'react'
 
 type AuthState = {
   accessToken: null | string
@@ -117,5 +117,5 @@ export function AuthProvider({ children }: PropsWithChildren) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return use(AuthContext)
 }
