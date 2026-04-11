@@ -117,16 +117,18 @@ export default function Person() {
             <Badge testID="deathday">
               <FormattedMessage defaultMessage="Died on" id="jMuk1E" />{' '}
               <FormattedDate day="numeric" month="long" value={new Date(deathday)} year="numeric" />
-              <>
-                {' ('}
-                {
-                  intervalToDuration({
-                    end: new Date(deathday),
-                    start: new Date(birthday ?? ''),
-                  }).years
-                }
-                <FormattedMessage defaultMessage="y" id="EhtHdK" />)
-              </>
+              {!!birthday && (
+                <>
+                  {' ('}
+                  {
+                    intervalToDuration({
+                      end: new Date(deathday),
+                      start: new Date(birthday),
+                    }).years
+                  }
+                  <FormattedMessage defaultMessage="y" id="EhtHdK" />)
+                </>
+              )}
             </Badge>
           )}
           {!!placeOfBirth && <Badge testID="place-of-birth">{placeOfBirth}</Badge>}

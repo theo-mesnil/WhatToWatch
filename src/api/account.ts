@@ -157,8 +157,9 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
   return useMutation({
     mutationFn: async (isFavorite: boolean) => {
       try {
+        if (!user) throw new Error('User not available')
         const { data } = await api.post<UseUpdateFavoriteResponse>(
-          `account/${user!.id}/favorite`,
+          `account/${user.id}/favorite`,
           {
             favorite: isFavorite,
             media_id: id,
@@ -196,8 +197,9 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
   return useMutation({
     mutationFn: async (isWatchlisted: boolean) => {
       try {
+        if (!user) throw new Error('User not available')
         const { data } = await api.post<UseUpdateWatchlistResponse>(
-          `account/${user!.id}/watchlist`,
+          `account/${user.id}/watchlist`,
           {
             media_id: id,
             media_type: type,
