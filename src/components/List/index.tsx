@@ -46,33 +46,27 @@ export function List<ItemProps>({
 
   const screenWidth = Dimensions.get('window').width
 
-  const itemSize = React.useMemo(
-    () =>
-      screenWidth / numberOfItems -
-      gap -
-      theme.space.marginList / numberOfItems -
-      theme.space.lg / numberOfItems,
-    [screenWidth, numberOfItems, gap]
-  )
+  const itemSize =
+    screenWidth / numberOfItems -
+    gap -
+    theme.space.marginList / numberOfItems -
+    theme.space.lg / numberOfItems
 
-  const internalRenderItem = React.useCallback(
-    (props: ListRenderItemInfo<ItemProps>) => {
-      if (renderItem) {
-        return (
-          <View
-            style={{
-              width: withoutSizing ? undefined : itemSize,
-            }}
-          >
-            {renderItem(props)}
-          </View>
-        )
-      }
+  const internalRenderItem = (props: ListRenderItemInfo<ItemProps>) => {
+    if (renderItem) {
+      return (
+        <View
+          style={{
+            width: withoutSizing ? undefined : itemSize,
+          }}
+        >
+          {renderItem(props)}
+        </View>
+      )
+    }
 
-      return null
-    },
-    [itemSize, renderItem, withoutSizing]
-  )
+    return null
+  }
 
   function renderListHeaderComponent() {
     if (ListHeaderComponent) {
@@ -89,13 +83,10 @@ export function List<ItemProps>({
     }
   }
 
-  const renderTitle = React.useMemo(
-    () => (
-      <ListTitle icon={icon} style={globalStyles.centered} titleHref={titleHref}>
-        {title ?? ''}
-      </ListTitle>
-    ),
-    [title, titleHref, icon]
+  const renderTitle = (
+    <ListTitle icon={icon} style={globalStyles.centered} titleHref={titleHref}>
+      {title ?? ''}
+    </ListTitle>
   )
 
   function renderSeparators() {

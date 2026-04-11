@@ -1,5 +1,6 @@
+import { Image } from 'expo-image'
 import * as React from 'react'
-import { ImageBackground, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { Loader } from '~/components/Loader'
 import { NoCover } from '~/components/NoCover'
@@ -19,45 +20,49 @@ export type ThumbProps = {
   type: ContentType
 }
 
-export const Thumb = React.memo(
-  ({
-    aspectRatio = 2 / 3,
-    externalImageUrl,
-    height,
-    imageUrl,
-    imageWidth,
-    isLoading,
-    isRounded,
-    type,
-  }: ThumbProps) => {
-    return (
-      <View style={[styles.wrapper, isRounded && styles.rounded]}>
-        <ImageBackground
-          source={{
-            uri: externalImageUrl || (imageUrl ? getImageUrl(imageUrl, imageWidth) : undefined),
-          }}
-          style={[
-            {
-              aspectRatio,
-              height: height as number,
-            },
-            styles.image,
-          ]}
-        >
-          {isLoading ? (
-            <Loader style={styles.loading} />
-          ) : (
-            <>{!imageUrl && !externalImageUrl && <NoCover icon={getIconType(type)} />}</>
-          )}
-        </ImageBackground>
+export function Thumb({
+  aspectRatio = 2 / 3,
+  externalImageUrl,
+  height,
+  imageUrl,
+  imageWidth,
+  isLoading,
+  isRounded,
+  type,
+}: ThumbProps) {
+  return (
+    <View style={[styles.wrapper, isRounded && styles.rounded]}>
+      <View
+        style={[
+          {
+            aspectRatio,
+            height: height as number,
+          },
+          styles.image,
+        ]}
+      >
+        <Image
+          source={externalImageUrl || (imageUrl ? getImageUrl(imageUrl, imageWidth) : undefined)}
+          style={styles.absoluteImage}
+        />
+        {isLoading ? (
+          <Loader style={styles.loading} />
+        ) : (
+          <>{!imageUrl && !externalImageUrl && <NoCover icon={getIconType(type)} />}</>
+        )}
       </View>
-    )
-  }
-)
-
-Thumb.displayName = 'Thumb'
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
+  absoluteImage: {
+    height: '100%',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+  },
   image: {
     backgroundColor: theme.colors.ahead,
   },

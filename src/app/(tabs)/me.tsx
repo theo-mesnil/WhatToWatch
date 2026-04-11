@@ -19,24 +19,21 @@ export default function Discover() {
   const { containerStyle, headerHeight } = useSafeHeights()
   const navigation = useNavigation()
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
-  const { accountId, openLoginWebview } = useAuth()
+  const { accountId, openLogin } = useAuth()
 
-  const HeaderComponent = React.useCallback(
-    () => (
-      <Header
-        hideOnStart={!!accountId}
-        scrollY={scrollYPosition}
-        title={<FormattedMessage defaultMessage="Profile" id="itPgxd" />}
-      />
-    ),
-    [scrollYPosition, accountId]
+  const HeaderComponent = () => (
+    <Header
+      hideOnStart={!!accountId}
+      scrollY={scrollYPosition}
+      title={<FormattedMessage defaultMessage="Profile" id="itPgxd" />}
+    />
   )
 
   React.useEffect(() => {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout
@@ -83,7 +80,7 @@ export default function Discover() {
                 id="TKM0PN"
               />
             </Text>
-            <LoginButton onPress={openLoginWebview} />
+            <LoginButton onPress={() => openLogin()} />
           </View>
         </View>
       )}

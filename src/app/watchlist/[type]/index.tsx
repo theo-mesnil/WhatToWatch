@@ -53,7 +53,7 @@ export default function Watchlist() {
     )
   }
 
-  const HeaderComponent = React.useCallback(() => {
+  const HeaderComponent = () => {
     const title =
       type === 'movie' ? (
         <FormattedMessage defaultMessage="My movies watchlist" id="h1EKCz" />
@@ -62,7 +62,7 @@ export default function Watchlist() {
       )
 
     return <Header scrollY={scrollYPosition} title={title} withBackButton />
-  }, [scrollYPosition, type])
+  }
 
   const loadMore = () => {
     if (hasNextPage) {
@@ -74,7 +74,7 @@ export default function Watchlist() {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout isView>

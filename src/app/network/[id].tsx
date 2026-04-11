@@ -42,15 +42,12 @@ export default function Network() {
     </ThumbLink>
   )
 
-  const HeaderComponent = React.useCallback(
-    () => (
-      <Header
-        customTitle={<NetworkLogo id={networkID} width={100} />}
-        scrollY={scrollYPosition}
-        withBackButton
-      />
-    ),
-    [networkID, scrollYPosition]
+  const HeaderComponent = () => (
+    <Header
+      customTitle={<NetworkLogo id={networkID} width={100} />}
+      scrollY={scrollYPosition}
+      withBackButton
+    />
   )
 
   const loadMore = () => {
@@ -63,7 +60,7 @@ export default function Network() {
     navigation.setOptions({
       header: HeaderComponent,
     })
-  }, [HeaderComponent, navigation])
+  })
 
   return (
     <BasicLayout isView>

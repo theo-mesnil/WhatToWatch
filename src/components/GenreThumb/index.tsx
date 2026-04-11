@@ -1,4 +1,5 @@
-import { ImageBackground, StyleSheet, View } from 'react-native'
+import { Image } from 'expo-image'
+import { StyleSheet, View } from 'react-native'
 
 import thumbGradientImage from '~/assets/thumb-gradient.png'
 import { Gradient } from '~/components/Gradient'
@@ -17,19 +18,27 @@ export function GenreThumb({ id, title }: GenreThumbProps) {
   return (
     <View style={styles.wrapper}>
       <Gradient angle={0.4} colors={gradientColors} />
-      <ImageBackground source={thumbGradientImage} style={styles.content}>
+      <View style={styles.content}>
+        <Image source={thumbGradientImage} style={styles.absoluteImage} />
         <Text style={[styles.title, { color: gradientColors?.[1] }]} variant="h1">
           {title}
         </Text>
         <Text style={[styles.title, styles.whiteTitle]} variant="h1">
           {title}
         </Text>
-      </ImageBackground>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  absoluteImage: {
+    height: '100%',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+  },
   content: {
     aspectRatio: 16 / 9,
     justifyContent: 'flex-end',

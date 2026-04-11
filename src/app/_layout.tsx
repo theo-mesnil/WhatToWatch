@@ -63,12 +63,6 @@ export default function Layout() {
                   presentation: 'modal',
                 }}
               />
-              <Stack.Screen
-                name="login/index"
-                options={{
-                  presentation: 'modal',
-                }}
-              />
             </Stack>
           </View>
         </QueryClientProvider>
