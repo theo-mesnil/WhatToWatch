@@ -48,7 +48,8 @@
         }
       ],
       "expo-secure-store",
-      "expo-image"
+      "expo-image",
+      "expo-web-browser"
     ],
     "scheme": "whattowatch",
     "slug": "WhatToWatch",

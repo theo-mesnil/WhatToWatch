@@ -4286,6 +4286,11 @@ expo-updates@~55.0.18:
     ignore "^5.3.1"
     resolve-from "^5.0.0"
 
+expo-web-browser@^55.0.14:
+  version "55.0.14"
+  resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-55.0.14.tgz#ce58dcf8103123fd4e812d6909e390255ee6373b"
+  integrity sha512-bTDkBSQBnrlnYcM7Aak72AOvJuvdgA3M8p//Lazrm0Nfa77T9cRXzQ6KhLrB08V39n1+00d1dvuTWznJslkmdg==
+
 expo@~55.0.11:
   version "55.0.11"
   resolved "https://registry.yarnpkg.com/expo/-/expo-55.0.11.tgz#a9099e109b00c6580de8f851617cd34dd371509a"
@@ -6686,10 +6691,10 @@ react-native-web@^0.21.0:
     postcss-value-parser "^4.2.0"
     styleq "^0.1.3"
 
-react-native-webview@13.16.0:
-  version "13.16.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-13.16.0.tgz#c995148f944a7eaf12389f0e6d5c6f5e6a775686"
-  integrity sha512-Nh13xKZWW35C0dbOskD7OX01nQQavOzHbCw9XoZmar4eXCo7AvrYJ0jlUfRVVIJzqINxHlpECYLdmAdFsl9xDA==
+react-native-webview@^13.16.1:
+  version "13.16.1"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-13.16.1.tgz#d5a6483fcb823eac704bd2a3d82c263771c6ede3"
+  integrity sha512-If0eHhoEdOYDcHsX+xBFwHMbWBGK1BvGDQDQdVkwtSIXiq1uiqjkpWVP2uQ1as94J0CzvFE9PUNDuhiX0Z6ubw==
   dependencies:
     escape-string-regexp "^4.0.0"
     invariant "2.2.4"
