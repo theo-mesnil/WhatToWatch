@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useRouter } from 'expo-router'
+import * as SecureStore from 'expo-secure-store'
 import * as SplashScreen from 'expo-splash-screen'
 import type { PropsWithChildren } from 'react'
 import { createContext, use, useEffect, useState } from 'react'
@@ -40,7 +40,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   }) => {
     try {
       const jsonValue = JSON.stringify(newState)
-      await AsyncStorage.setItem(authStorageKey, jsonValue)
+      await SecureStore.setItemAsync(authStorageKey, jsonValue)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log('Error saving', error)
@@ -62,13 +62,13 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setAccountId(null)
     setAccessToken(null)
     setSessionId(null)
-    storeAuthState({ accessToken: null, accountId: null, sessionId: null })
+    SecureStore.deleteItemAsync(authStorageKey)
   }
 
   useEffect(() => {
     const getAuthFromStorage = async () => {
       try {
-        const value = await AsyncStorage.getItem(authStorageKey)
+        const value = await SecureStore.getItemAsync(authStorageKey)
         if (value !== null) {
           const auth = JSON.parse(value)
           setAccountId(auth.accountId)
