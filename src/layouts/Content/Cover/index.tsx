@@ -1,5 +1,6 @@
+import { Image } from 'expo-image'
 import * as React from 'react'
-import { Image, ImageBackground, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { Gradient } from '~/components/Gradient'
 import { Loader } from '~/components/Loader'
@@ -23,20 +24,19 @@ export type CoverProps = {
 export function Cover({ imageUrl, isLoading, logo, title }: CoverProps) {
   return (
     <View style={styles.wrapper}>
-      <ImageBackground
-        source={{
-          uri: imageUrl ? getImageUrl(imageUrl, 'w1280') : undefined,
-        }}
-        style={styles.image}
-        testID="cover-image"
-      >
+      <View style={styles.image}>
+        <Image
+          source={imageUrl ? getImageUrl(imageUrl, 'w1280') : undefined}
+          style={styles.absoluteImage}
+          testID="cover-image"
+        />
         {isLoading && <Loader style={styles.loading} />}
-      </ImageBackground>
+      </View>
       <Gradient colors={['transparent', theme.colors.behind]} style={styles.gradient} />
       <View style={styles.content}>
         {logo && (
           <Image
-            src={getImageUrl(logo.url, 'w500')}
+            source={getImageUrl(logo.url, 'w500')}
             style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
             testID="cover-logo"
           />
@@ -52,6 +52,13 @@ export function Cover({ imageUrl, isLoading, logo, title }: CoverProps) {
 }
 
 const styles = StyleSheet.create({
+  absoluteImage: {
+    height: '100%',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+  },
   content: {
     alignItems: 'center',
     height: '100%',

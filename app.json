@@ -9,7 +9,9 @@
       "package": "com.theomesnil.WhatToWatch",
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "description": "Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series, and where to watch them. This app is powered by the themoviedb (TMDb) database.",
     "extra": {
       "eas": {
@@ -44,7 +46,10 @@
           "image": "./src/assets/splash-icon.png",
           "imageWidth": 200
         }
-      ]
+      ],
+      "expo-secure-store",
+      "expo-image",
+      "expo-web-browser"
     ],
     "scheme": "whattowatch",
     "slug": "WhatToWatch",

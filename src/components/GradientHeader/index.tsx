@@ -1,4 +1,5 @@
-import { Animated, ImageBackground, StyleSheet } from 'react-native'
+import { Image } from 'expo-image'
+import { Animated, StyleSheet } from 'react-native'
 
 import thumbGradientImage from '~/assets/thumb-gradient.png'
 import type { GradientProps } from '~/components/Gradient'
@@ -28,7 +29,7 @@ export function GradientHeader({
         globalStyles.absoluteFill,
       ]}
     >
-      <ImageBackground
+      <Image
         source={thumbGradientImage}
         style={[globalStyles.absoluteFill, styles.imageBackground]}
       />

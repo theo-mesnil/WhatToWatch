@@ -1,4 +1,5 @@
-import { Image, StyleSheet, View } from 'react-native'
+import { Image } from 'expo-image'
+import { StyleSheet, View } from 'react-native'
 
 import { theme } from '~/theme'
 
@@ -14,9 +15,7 @@ export function Avatar({ imageUrl, name, size = 40 }: AvatarProps) {
   const fontSize = size * 0.35
 
   if (imageUrl) {
-    return (
-      <Image source={{ uri: imageUrl }} style={[styles.wrapper, { height: size, width: size }]} />
-    )
+    return <Image source={imageUrl} style={[styles.wrapper, { height: size, width: size }]} />
   }
 
   return (
