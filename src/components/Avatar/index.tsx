@@ -6,7 +6,7 @@ import { Text } from '../Text'
 
 type AvatarProps = {
   imageUrl?: string
-  name: string
+  name?: string
   size?: number
 }
 

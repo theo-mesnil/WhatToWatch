@@ -8,7 +8,7 @@ import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { moviePath } from '~/routes'
 
-type Item = UseGetMovieNowPlayingApiResponse['results'][number]
+type Item = NonNullable<UseGetMovieNowPlayingApiResponse['results']>[number]
 
 export function InTheaters() {
   const { data, isLoading } = useGetMovieNowPlaying()

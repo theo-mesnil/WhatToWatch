@@ -31,7 +31,7 @@ const customRender = (ui: React.ReactElement, options?: unknown[]) =>
 
 export * from '@testing-library/react-native'
 
-export function mockQuery<T>(data: T): UseQueryResult<T> {
+export function mockQuery<T>(data: T): UseQueryResult<null | T, Error> {
   return {
     data,
     dataUpdatedAt: 1000000,
@@ -55,11 +55,10 @@ export function mockQuery<T>(data: T): UseQueryResult<T> {
     isRefetching: false,
     isStale: false,
     isSuccess: true,
-    // @ts-expect-error (mocking a function)
     promise: jest.fn(() => Promise.resolve({ data })),
     refetch: jest.fn(),
     status: 'success',
-  }
+  } as unknown as UseQueryResult<null | T, Error>
 }
 
 export { customRender as render }

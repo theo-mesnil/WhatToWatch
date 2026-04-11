@@ -44,7 +44,7 @@ export const Button = ({
   withHaptic,
   ...rest
 }: ButtonProps) => {
-  function handleOnPress(event) {
+  function handleOnPress(event: Parameters<NonNullable<typeof onPress>>[0]) {
     if (onPress) {
       if (withHaptic) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)

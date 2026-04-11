@@ -8,7 +8,7 @@ import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { moviePath } from '~/routes'
 
-type Item = UseGetMovieUpcomingApiResponse['results'][number]
+type Item = NonNullable<UseGetMovieUpcomingApiResponse['results']>[number]
 
 export function Upcoming() {
   const { data, isLoading } = useGetMovieUpcoming()

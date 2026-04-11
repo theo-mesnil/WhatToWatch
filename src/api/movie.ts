@@ -60,32 +60,33 @@ export function useGetMovie(props?: UseGetMovieApiProps): UseGetMovie {
     queryFn: async () => {
       const { data } = await api.get<UseGetMovieApiResponse>(`movie/${id}`)
 
-      const networkId = getNetworkFromUrl(data.homepage)
+      const networkId = getNetworkFromUrl(data.homepage ?? '')
 
       return {
         coverUrl: data.backdrop_path,
-        genres: data.genres
-          ?.slice(0, 2)
-          .map(genre => genre.name)
-          .flat()
-          .join(' - '),
+        genres:
+          data.genres
+            ?.slice(0, 2)
+            .map(genre => genre.name)
+            .flat()
+            .join(' - ') ?? '',
         networkLink: networkId
           ? {
               id: networkId as NetworkId,
-              link: data.homepage,
+              link: data.homepage ?? '',
             }
           : undefined,
-        overview: data.overview,
+        overview: data.overview ?? '',
         rating: data.vote_average
           ? {
               count: data.vote_count,
               votes: Math.round(data.vote_average * 10) / 10,
             }
           : undefined,
-        releaseDate: data.release_date,
+        releaseDate: data.release_date ?? '',
         runtime: data.runtime,
-        tagline: data.tagline,
-        title: data.title,
+        tagline: data.tagline ?? '',
+        title: data.title ?? '',
       }
     },
     queryKey: ['movie', id, LOCALE],
@@ -101,7 +102,7 @@ export function useGetMovieCredits(props?: UseGetMovieEnabledApiProps) {
       const { data } = await api.get<UseGetMovieCreditsApiResponse>(`movie/${id}/credits`)
 
       return {
-        cast: data.cast.slice(0, 30),
+        cast: (data.cast ?? []).slice(0, 30),
       }
     },
     queryKey: ['movie', id, 'credits', LOCALE],

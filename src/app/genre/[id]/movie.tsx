@@ -13,7 +13,7 @@ import { useSafeHeights } from '~/constants/useSafeHeights'
 import GenreLayout from '~/layouts//Genre'
 import { moviePath } from '~/routes'
 
-type Item = UseGetDiscoverMovieApiResponse['results'][number]
+type Item = NonNullable<UseGetDiscoverMovieApiResponse['results']>[number]
 
 export default function Movie() {
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
@@ -27,7 +27,7 @@ export default function Movie() {
     },
   })
 
-  const firstItem = !isLoading && data?.pages[0].results[0]
+  const firstItem = !isLoading ? data?.pages[0]?.results?.[0] : undefined
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({ item: { id, poster_path } }) => (
     <ThumbLink href={moviePath({ id })} isLoading={isLoading}>
@@ -49,14 +49,18 @@ export default function Movie() {
         id="genre"
         isLoading={isLoading}
         ListHeaderComponent={
-          <ThumbLink href={moviePath({ id: firstItem?.id })} isLoading={isLoading}>
-            <LargeThumb
-              id={firstItem?.id}
-              imageUrl={firstItem?.backdrop_path}
-              title={firstItem?.title}
-              type="movie"
-            />
-          </ThumbLink>
+          firstItem ? (
+            <ThumbLink href={moviePath({ id: firstItem.id })} isLoading={isLoading}>
+              <LargeThumb
+                id={firstItem.id}
+                imageUrl={firstItem.backdrop_path}
+                title={firstItem.title}
+                type="movie"
+              />
+            </ThumbLink>
+          ) : (
+            <LargeThumb isLoading type="movie" />
+          )
         }
         onEndReached={loadMore}
         renderItem={renderItem}

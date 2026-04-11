@@ -46,8 +46,8 @@ export function useGetContentLogo(props?: useGetContentLogoProps): UseGetContent
 
 function formatImageToLogo(data: UseGetContentImagesApiResponse, locale: Locale) {
   const logo =
-    data.logos.filter(logo => logo.iso_639_1 === locale)?.[0] ||
-    data.logos.filter(logo => logo.iso_639_1 === 'en')?.[0]
+    (data.logos ?? []).filter(logo => logo.iso_639_1 === locale)?.[0] ||
+    (data.logos ?? []).filter(logo => logo.iso_639_1 === 'en')?.[0]
 
   const logoUrl = logo?.file_path
   const logoAspectRatio = logo?.aspect_ratio

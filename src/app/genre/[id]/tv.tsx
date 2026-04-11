@@ -13,7 +13,7 @@ import { useSafeHeights } from '~/constants/useSafeHeights'
 import GenreLayout from '~/layouts//Genre'
 import { tvPath } from '~/routes'
 
-type Item = UseGetDiscoverTvApiResponse['results'][number]
+type Item = NonNullable<UseGetDiscoverTvApiResponse['results']>[number]
 
 export default function Tv() {
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
@@ -27,7 +27,7 @@ export default function Tv() {
     },
   })
 
-  const firstItem = !isLoading && data?.pages[0].results[0]
+  const firstItem = !isLoading ? data?.pages?.[0]?.results?.[0] : undefined
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({ item: { id, poster_path } }) => (
     <ThumbLink href={tvPath({ id })} isLoading={isLoading}>
@@ -49,14 +49,18 @@ export default function Tv() {
         id="genre"
         isLoading={isLoading}
         ListHeaderComponent={
-          <ThumbLink href={tvPath({ id: firstItem?.id })} isLoading={isLoading}>
-            <LargeThumb
-              id={firstItem?.id}
-              imageUrl={firstItem?.backdrop_path}
-              title={firstItem?.name}
-              type="tv"
-            />
-          </ThumbLink>
+          firstItem ? (
+            <ThumbLink href={tvPath({ id: firstItem.id })} isLoading={isLoading}>
+              <LargeThumb
+                id={firstItem.id}
+                imageUrl={firstItem.backdrop_path}
+                title={firstItem.name}
+                type="tv"
+              />
+            </ThumbLink>
+          ) : (
+            <LargeThumb isLoading type="tv" />
+          )
         }
         onEndReached={loadMore}
         renderItem={renderItem}

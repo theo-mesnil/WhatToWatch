@@ -30,7 +30,7 @@ export function Overview() {
     ({
       viewableItems,
     }: {
-      viewableItems: ViewToken<UseGetTrendingApiResponse['all']['results'][number]>[]
+      viewableItems: ViewToken<NonNullable<UseGetTrendingApiResponse['all']['results']>[number]>[]
     }) => {
       const active = viewableItems?.[0]?.index
 
@@ -42,18 +42,15 @@ export function Overview() {
   )
 
   const renderItem: FlashListProps<
-    UseGetTrendingApiResponse['all']['results'][number]
-  >['renderItem'] = ({
-    // @ts-expect-error (name is for tv type)
-    item: { backdrop_path, id, media_type, name, overview, title },
-  }) => {
+    NonNullable<UseGetTrendingApiResponse['all']['results']>[number] & { name?: string }
+  >['renderItem'] = ({ item: { backdrop_path, id, media_type, name, overview, title } }) => {
     return (
       <View style={{ width: Dimensions.get('window').width }}>
         <Item
           description={overview}
           id={id}
-          imageUrl={backdrop_path}
-          title={title || name}
+          imageUrl={backdrop_path ?? ''}
+          title={title ?? name ?? ''}
           type={media_type as ContentType}
         />
       </View>

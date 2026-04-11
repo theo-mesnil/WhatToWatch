@@ -24,7 +24,7 @@ export type UseGetTv = UseQueryResult<
       votes: number
     }
     runtime: number
-    seasons: {
+    seasons?: {
       air_date?: string
       episode_count: number
       id: number
@@ -82,21 +82,22 @@ export function useGetTv(props?: UseGetTvApiProps): UseGetTv {
         : undefined
       const endYear = data.last_air_date ? new Date(data.last_air_date).getFullYear() : undefined
 
-      const networkId = getNetworkFromUrl(data.homepage)
+      const networkId = getNetworkFromUrl(data.homepage ?? '')
 
       return {
         coverUrl: data.backdrop_path,
         endYear: startYear === endYear ? undefined : endYear,
-        genres: data.genres
-          ?.slice(0, 2)
-          .map(genre => genre.name)
-          .flat()
-          .join(' - '),
-        name: data.name,
+        genres:
+          data.genres
+            ?.slice(0, 2)
+            .map(genre => genre.name)
+            .flat()
+            .join(' - ') ?? '',
+        name: data.name ?? '',
         networkLink: networkId
           ? {
               id: networkId as NetworkId,
-              link: data.homepage,
+              link: data.homepage ?? '',
             }
           : undefined,
         overview: data.overview,
@@ -107,8 +108,8 @@ export function useGetTv(props?: UseGetTvApiProps): UseGetTv {
             }
           : undefined,
         runtime:
-          data.episode_run_time.reduce((partialSum, a) => partialSum + a, 0) /
-          data.episode_run_time.length,
+          (data.episode_run_time ?? []).reduce((partialSum, a) => partialSum + a, 0) /
+          ((data.episode_run_time ?? []).length || 1),
         seasons: data.seasons,
         startYear,
         tagline: data.tagline,
@@ -127,7 +128,7 @@ export function useGetTvCredits(props?: UseGetTvEnabledApiProps) {
       const { data } = await api.get<UseGetTvCreditsApiResponse>(`tv/${id}/aggregate_credits`)
 
       return {
-        cast: data.cast.slice(0, 30),
+        cast: (data.cast ?? []).slice(0, 30),
       }
     },
     queryKey: ['tv', id, 'credits', LOCALE],

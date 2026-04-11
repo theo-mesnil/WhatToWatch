@@ -17,7 +17,7 @@ export type CoverProps = {
     aspectRatio: number
     url: string
   }
-  title: string
+  title?: string
 }
 
 export const Cover = React.memo(({ imageUrl, isLoading, logo, title }: CoverProps) => {
@@ -25,7 +25,7 @@ export const Cover = React.memo(({ imageUrl, isLoading, logo, title }: CoverProp
     <View style={styles.wrapper}>
       <ImageBackground
         source={{
-          uri: getImageUrl(imageUrl, 'w1280'),
+          uri: imageUrl ? getImageUrl(imageUrl, 'w1280') : undefined,
         }}
         style={styles.image}
         testID="cover-image"

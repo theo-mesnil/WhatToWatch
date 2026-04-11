@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: theme.colors.white,
     borderRadius: theme.radii.sm,
-    color: theme.colors['default-900'],
     height: 50,
     padding: theme.space.lg,
     ...theme.texts.lg,
+    color: theme.colors['default-900'],
   },
 })

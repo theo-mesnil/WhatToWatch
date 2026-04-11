@@ -9,7 +9,7 @@ import { TextThumb } from '~/components/TextThumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { tvPath } from '~/routes'
 
-type Item = UseGetDiscoverTvApiResponse['results'][number]
+type Item = NonNullable<UseGetDiscoverTvApiResponse['results']>[number]
 
 export function PopularSeries() {
   const { data, isLoading } = useGetDiscoverTv({

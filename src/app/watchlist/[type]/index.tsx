@@ -19,8 +19,8 @@ import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
-type MovieItem = UseGetWatchlist['movie']['results'][number]
-type TVItem = UseGetWatchlist['tv']['results'][number]
+type MovieItem = NonNullable<UseGetWatchlist['movie']['results']>[number]
+type TVItem = NonNullable<UseGetWatchlist['tv']['results']>[number]
 
 export default function Watchlist() {
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))

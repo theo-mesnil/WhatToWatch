@@ -8,7 +8,7 @@ import { List } from '~/components/List'
 import { ThumbLink } from '~/components/ThumbLink'
 import { genreMoviePath } from '~/routes'
 
-type Item = UseGetGenreMovieListApiResponse['genres'][number]
+type Item = NonNullable<UseGetGenreMovieListApiResponse['genres']>[number]
 
 export function MovieCategories() {
   const { data, isLoading } = useGetGenreMovieList()

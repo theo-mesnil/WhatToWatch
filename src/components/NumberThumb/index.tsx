@@ -6,7 +6,7 @@ import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
 
 export type NumberThumbProps = {
-  imageUrl: string
+  imageUrl?: string
   number: number
   type: ContentType
 }

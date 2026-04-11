@@ -24,7 +24,7 @@ export type LargeThumbProps = {
 export const LargeThumb = React.memo(
   ({ id, imageUrl, imageWidth = 'w780', isLoading, style, title, type }: LargeThumbProps) => {
     const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
-      id,
+      id: id ?? 0,
       type,
     })
 

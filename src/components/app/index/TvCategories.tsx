@@ -8,7 +8,7 @@ import { List } from '~/components/List'
 import { ThumbLink } from '~/components/ThumbLink'
 import { genreTvPath } from '~/routes'
 
-type Item = UseGetGenreTvListApiResponse['genres'][number]
+type Item = NonNullable<UseGetGenreTvListApiResponse['genres']>[number]
 
 export function TvCategories() {
   const { data, isLoading } = useGetGenreTvList()

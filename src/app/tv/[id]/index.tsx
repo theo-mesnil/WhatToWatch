@@ -38,10 +38,10 @@ import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 import { formatTime } from '~/utils/time'
 
-type CastItem = UseGetTvCreditsApiResponse['cast'][number]
-type SeasonItem = UseGetTvApiResponse['seasons'][number]
-type TvItem = UseGetTvSimilarApiResponse['results'][number]
-type VideoItem = UseGetTvVideosApiResponse['results'][number]
+type CastItem = NonNullable<UseGetTvCreditsApiResponse['cast']>[number]
+type SeasonItem = NonNullable<UseGetTvApiResponse['seasons']>[number]
+type TvItem = NonNullable<UseGetTvSimilarApiResponse['results']>[number]
+type VideoItem = NonNullable<UseGetTvVideosApiResponse['results']>[number]
 
 export default function Tv() {
   const [selectedSeason, setSelectedSeason] = React.useState<number>(1)
@@ -121,7 +121,7 @@ export default function Tv() {
 
   const renderItemVideo: FlashListProps<VideoItem>['renderItem'] = ({
     item: { key, name, site },
-  }) => <VideoThumb id={key} name={name} platform={site} type="tv" />
+  }) => <VideoThumb id={key ?? ''} name={name ?? ''} platform={site ?? ''} type="tv" />
 
   return (
     <ContentLayout
@@ -156,9 +156,9 @@ export default function Tv() {
       }
       imageUrl={coverUrl}
       isLoading={isLoading || isLoadingLogo}
-      logo={logo}
+      logo={logo ?? undefined}
       subtitle={genres}
-      title={!isLoadingLogo && name}
+      title={!isLoadingLogo ? name : undefined}
     >
       <Actions id={tvID} type="tv" />
       {!!networkLink && (
@@ -166,8 +166,8 @@ export default function Tv() {
       )}
       {!!trailer && (
         <TrailerButton
-          id={trailer.key}
-          platform={trailer.site}
+          id={trailer.key ?? ''}
+          platform={trailer.site ?? ''}
           style={[globalStyles.centered, styles.playButton]}
         />
       )}
@@ -208,14 +208,14 @@ export default function Tv() {
                     defaultMessage="{count} episodes on season {seasonNumber}"
                     id="mYKY3z"
                     values={{
-                      count: season.episodes.length,
-                      seasonNumber: season.season_number,
+                      count: season?.episodes?.length ?? 0,
+                      seasonNumber: season?.season_number ?? 0,
                     }}
                   />
                   {seasonAirDate && ` • ${new Date(seasonAirDate).getFullYear()}`}
                 </Text>
                 <View style={styles.episodesList}>
-                  {season.episodes.map((episode, index) => (
+                  {season?.episodes?.map((episode, index) => (
                     <EpisodeThumb
                       airDate={episode.air_date}
                       imageUrl={episode.still_path}
@@ -261,7 +261,7 @@ export default function Tv() {
             />
           </View>
         )}
-        {(isLoadingSimilar || similar?.results.length > 0) && (
+        {(isLoadingSimilar || (similar?.results?.length ?? 0) > 0) && (
           <List<TvItem>
             id="similar"
             isLoading={isLoadingSimilar}

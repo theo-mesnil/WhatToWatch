@@ -57,7 +57,7 @@ export default function PersonMovies() {
     <BasicLayout contentContainerStyle={containerStyle} getScrollYPosition={getScrollYPosition}>
       {!isLoadingMovies && (
         <View style={styles.items}>
-          {movies.map((movie, index) => (
+          {movies?.map((movie, index) => (
             <ThumbLink
               href={moviePath({ id: movie.id })}
               isLoading={isLoading}
@@ -67,7 +67,9 @@ export default function PersonMovies() {
                 date={movie.release_date}
                 overview={movie.overview}
                 posterUrl={movie.poster_path}
-                subtitle={movie.character || movie.job}
+                subtitle={
+                  'character' in movie ? movie.character : 'job' in movie ? movie.job : undefined
+                }
                 title={movie.title}
                 type="movie"
               />

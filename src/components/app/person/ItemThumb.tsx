@@ -10,9 +10,9 @@ export type ItemThumbProps = {
   date?: string
   isLoading?: boolean
   overview?: string
-  posterUrl: string
+  posterUrl?: string
   subtitle?: string
-  title: string
+  title?: string
   type: ContentType
 }
 

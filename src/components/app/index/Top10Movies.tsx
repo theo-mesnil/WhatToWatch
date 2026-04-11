@@ -8,7 +8,7 @@ import { NumberThumb } from '~/components/NumberThumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { moviePath } from '~/routes'
 
-type Item = UseGetTrendingApiResponse['movie']['results'][number]
+type Item = NonNullable<UseGetTrendingApiResponse['movie']['results']>[number]
 
 export function Top10Movies() {
   const { data, isLoading } = useGetTrending({
