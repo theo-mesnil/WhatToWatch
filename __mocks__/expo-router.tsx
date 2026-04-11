@@ -7,4 +7,6 @@ const Link = ({ children }: { children: React.ReactNode }) => {
 const useNavigation = jest.fn().mockReturnValue({ setOptions: jest.fn() })
 const useLocalSearchParams = jest.fn().mockReturnValue({ id: '1' })
 
-export { Link, useLocalSearchParams, useNavigation }
+const usePathname = jest.fn().mockReturnValue('/')
+
+export { Link, useLocalSearchParams, useNavigation, usePathname }

@@ -19,7 +19,7 @@ export default function Discover() {
   const { containerStyle, headerHeight } = useSafeHeights()
   const navigation = useNavigation()
   const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
-  const { accountId, openLoginWebview } = useAuth()
+  const { accountId, openLogin } = useAuth()
 
   const HeaderComponent = () => (
     <Header
@@ -80,7 +80,7 @@ export default function Discover() {
                 id="TKM0PN"
               />
             </Text>
-            <LoginButton onPress={openLoginWebview} />
+            <LoginButton onPress={() => openLogin()} />
           </View>
         </View>
       )}

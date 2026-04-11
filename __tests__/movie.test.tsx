@@ -19,13 +19,12 @@ describe('<Movie />', () => {
     expect(screen.queryByTestId('network-1234')).toBeFalsy()
     expect(screen.queryByTestId('subtitle')).toHaveTextContent('Adventure - Fantasy')
     expect(screen.queryByTestId('cover-title')).toBeFalsy()
-    expect(screen.queryByTestId('cover-image')).toHaveProp('source', {
-      uri: 'https://image.tmdb.org/t/p/w1280/hziiv14OpD73u9gAak4XDDfBKa2.jpg',
-    })
-    expect(screen.queryByTestId('cover-logo')).toHaveProp(
-      'src',
-      'https://image.tmdb.org/t/p/w500url-logo.png'
-    )
+    expect(screen.queryByTestId('cover-image')).toHaveProp('source', [
+      { uri: 'https://image.tmdb.org/t/p/w1280/hziiv14OpD73u9gAak4XDDfBKa2.jpg' },
+    ])
+    expect(screen.queryByTestId('cover-logo')).toHaveProp('source', [
+      { uri: 'https://image.tmdb.org/t/p/w500url-logo.png' },
+    ])
   })
 
   test('should render correctly with network', () => {

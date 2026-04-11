@@ -2,7 +2,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Alert, StyleSheet, View } from 'react-native'
 
 import { useUser } from '~/api/account'
-import { useDeleteRequestToken } from '~/api/auth'
+import { useDeleteRequestToken } from '~/api/logout'
 import { Avatar } from '~/components/Avatar'
 import { Button } from '~/components/Button'
 import { Text } from '~/components/Text'

@@ -1,6 +1,7 @@
+import { Image } from 'expo-image'
 import * as React from 'react'
 import type { ViewProps } from 'react-native'
-import { Image, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { useGetContentLogo } from '~/api/logo'
 import { Gradient } from '~/components/Gradient'
@@ -48,7 +49,7 @@ export function LargeThumb({
         <Gradient colors={['transparent', theme.colors.behind]} style={styles.gradient} />
         {!isLoadingLogo && logo && (
           <Image
-            src={getImageUrl(logo.url, 'w500')}
+            source={getImageUrl(logo.url, 'w500')}
             style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
           />
         )}

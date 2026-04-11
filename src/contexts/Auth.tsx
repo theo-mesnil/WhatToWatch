@@ -1,8 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useRouter } from 'expo-router'
+import * as SecureStore from 'expo-secure-store'
 import * as SplashScreen from 'expo-splash-screen'
+import * as WebBrowser from 'expo-web-browser'
 import type { PropsWithChildren } from 'react'
 import { createContext, use, useEffect, useState } from 'react'
+
+import { fetchAccessToken, fetchRequestToken } from '~/api/auth'
+
+const REDIRECT_URI = 'whattowatch://auth'
 
 type AuthState = {
   accessToken: null | string
@@ -10,11 +14,12 @@ type AuthState = {
   isReady: boolean
   logIn: (accountId: string, accessToken: string, sessionId: string) => void
   logOut: () => void
-  openLoginWebview: () => void
+  openLogin: (returnPath?: string) => Promise<boolean>
   sessionId: null | string
 }
 
 const authStorageKey = 'auth-key'
+const authReturnPathKey = 'auth-return-path'
 
 export const AuthContext = createContext<AuthState>({
   accessToken: null,
@@ -22,7 +27,7 @@ export const AuthContext = createContext<AuthState>({
   isReady: false,
   logIn: () => {},
   logOut: () => {},
-  openLoginWebview: () => {},
+  openLogin: () => Promise.resolve(false),
   sessionId: null,
 })
 
@@ -31,7 +36,13 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [accountId, setAccountId] = useState<null | string>(null)
   const [accessToken, setAccessToken] = useState<null | string>(null)
   const [sessionId, setSessionId] = useState<null | string>(null)
-  const router = useRouter()
+
+  useEffect(() => {
+    WebBrowser.warmUpAsync()
+    return () => {
+      WebBrowser.coolDownAsync()
+    }
+  }, [])
 
   const storeAuthState = async (newState: {
     accessToken: null | string
@@ -40,15 +51,41 @@ export function AuthProvider({ children }: PropsWithChildren) {
   }) => {
     try {
       const jsonValue = JSON.stringify(newState)
-      await AsyncStorage.setItem(authStorageKey, jsonValue)
+      await SecureStore.setItemAsync(authStorageKey, jsonValue)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log('Error saving', error)
     }
   }
 
-  const openLoginWebview = () => {
-    router.push('/login')
+  const openLogin = async (returnPath?: string): Promise<boolean> => {
+    try {
+      if (returnPath) {
+        await SecureStore.setItemAsync(authReturnPathKey, returnPath)
+      }
+
+      const tokenData = await fetchRequestToken(REDIRECT_URI)
+      if (!tokenData.request_token) return false
+
+      const result = await WebBrowser.openAuthSessionAsync(
+        `https://www.themoviedb.org/auth/access?request_token=${tokenData.request_token}`,
+        REDIRECT_URI,
+        { preferEphemeralSession: true }
+      )
+
+      if (result.type === 'success') {
+        const credentials = await fetchAccessToken(tokenData.request_token)
+        logIn(credentials.accountId, credentials.accessToken, credentials.sessionId)
+        SecureStore.deleteItemAsync(authReturnPathKey)
+        return true
+      }
+
+      return false
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Login error', error)
+      return false
+    }
   }
 
   const logIn = (accountId: string, accessToken: string, sessionId: string) => {
@@ -62,13 +99,13 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setAccountId(null)
     setAccessToken(null)
     setSessionId(null)
-    storeAuthState({ accessToken: null, accountId: null, sessionId: null })
+    SecureStore.deleteItemAsync(authStorageKey)
   }
 
   useEffect(() => {
     const getAuthFromStorage = async () => {
       try {
-        const value = await AsyncStorage.getItem(authStorageKey)
+        const value = await SecureStore.getItemAsync(authStorageKey)
         if (value !== null) {
           const auth = JSON.parse(value)
           setAccountId(auth.accountId)
@@ -107,7 +144,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
         isReady,
         logIn,
         logOut,
-        openLoginWebview,
+        openLogin,
         sessionId,
       }}
     >

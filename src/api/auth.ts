@@ -1,112 +1,42 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { useRouter } from 'expo-router'
-
-import { queryClient } from '~/app/_layout'
-import { LOCALE } from '~/constants/locales'
-import { useAuth } from '~/contexts/Auth'
-
 import { api, apiV4 } from './api'
 import type { paths } from './types'
 import type { paths as pathsV4 } from './types-v4'
-
-export type CreateAccessTokenParams = pathsV4['/4/auth/access_token']['post']['parameters']
 
 export type UseCreateAccessTokenApiResponse =
   pathsV4['/4/auth/access_token']['post']['responses']['200']['content']['application/json']
 export type UseCreateSessionFromV4ApiResponse =
   paths['/3/authentication/session/convert/4']['post']['responses']['200']['content']['application/json']
 
-export type UseDeleteAccessTokenApiResponse =
-  pathsV4['/4/auth/access_token']['delete']['responses']['200']['content']['application/json']
-
 export type UseRequestTokenApiResponse =
   pathsV4['/4/auth/request_token']['post']['responses']['200']['content']['application/json']
 
-export function useCreateAccessToken(requestToken: string | undefined) {
-  const user = useAuth()
-  const router = useRouter()
-
-  return useQuery({
-    enabled: !!requestToken,
-    queryFn: async () => {
-      const { data } = await apiV4.post<UseCreateAccessTokenApiResponse>('auth/access_token', {
-        request_token: requestToken,
-      })
-
-      if (data.success) {
-        // Convert access token to a session
-        const { data: dataSession } = await api.post<UseCreateSessionFromV4ApiResponse>(
-          'authentication/session/convert/4',
-          {
-            access_token: data.access_token,
-          }
-        )
-
-        if (dataSession.success) {
-          const accountId = data.account_id
-          if (
-            typeof accountId === 'string' &&
-            typeof dataSession.session_id === 'string' &&
-            typeof data.access_token === 'string'
-          ) {
-            user.logIn(accountId, data.access_token, dataSession.session_id)
-            router.back()
-          }
-        }
-      }
-
-      return data
-    },
-    queryKey: ['auth', 'access_token'],
-    staleTime: 0,
+export async function fetchAccessToken(requestToken: string) {
+  const { data } = await apiV4.post<UseCreateAccessTokenApiResponse>('auth/access_token', {
+    request_token: requestToken,
   })
+
+  if (!data.success) throw new Error('Failed to create access token')
+
+  const { data: dataSession } = await api.post<UseCreateSessionFromV4ApiResponse>(
+    'authentication/session/convert/4',
+    {
+      access_token: data.access_token,
+    }
+  )
+
+  if (!dataSession.success) throw new Error('Failed to create session')
+
+  return {
+    accessToken: data.access_token as string,
+    accountId: data.account_id as string,
+    sessionId: dataSession.session_id as string,
+  }
 }
 
-export function useDeleteRequestToken() {
-  const { accessToken, accountId, logOut, sessionId } = useAuth()
-
-  return useMutation({
-    mutationFn: async () => {
-      try {
-        const { data } = await apiV4.delete<UseDeleteAccessTokenApiResponse>('auth/access_token', {
-          data: { access_token: accessToken },
-        })
-
-        if (data.success) {
-          logOut()
-          // Remove any user-related queries from the cache
-          queryClient.removeQueries({
-            queryKey: ['account', accountId],
-          })
-          queryClient.removeQueries({ queryKey: ['account', sessionId, 'favorite', 'tv', LOCALE] })
-          queryClient.removeQueries({
-            queryKey: ['account', sessionId, 'favorite', 'movies', LOCALE],
-          })
-          queryClient.removeQueries({ queryKey: ['account', sessionId, 'watchlist', 'tv', LOCALE] })
-          queryClient.removeQueries({
-            queryKey: ['account', sessionId, 'watchlist', 'movies', LOCALE],
-          })
-        }
-
-        return data
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('useDeleteRequestToken', error)
-        throw error // Re-throw to let react-query handle the error state
-      }
-    },
-    mutationKey: ['auth', 'request_token'],
+export async function fetchRequestToken(redirectTo: string) {
+  const { data } = await apiV4.post<UseRequestTokenApiResponse>('auth/request_token', {
+    redirect_to: redirectTo,
   })
-}
 
-export function useRequestToken() {
-  return useQuery({
-    queryFn: async () => {
-      const { data } = await apiV4.post<UseRequestTokenApiResponse>('auth/request_token')
-
-      return data
-    },
-    queryKey: ['auth', 'request_token'],
-    staleTime: 0,
-  })
+  return data
 }

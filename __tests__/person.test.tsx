@@ -26,9 +26,9 @@ describe('<Person />', () => {
     expect(screen.getByTestId('movies')).toHaveTextContent('1 movie')
     expect(screen.getByTestId('series')).toHaveTextContent('1 serie')
     expect(screen.queryByTestId('cover-title')).toHaveTextContent('Daniel Radcliffe')
-    expect(screen.queryByTestId('cover-image')).toHaveProp('source', {
-      uri: 'https://image.tmdb.org/t/p/w1280/iPg0J9UzAlPj1fLEJNllpW9IhGe.jpg',
-    })
+    expect(screen.queryByTestId('cover-image')).toHaveProp('source', [
+      { uri: 'https://image.tmdb.org/t/p/w1280/iPg0J9UzAlPj1fLEJNllpW9IhGe.jpg' },
+    ])
   })
 
   test('should render correctly with deathday', () => {
