@@ -2,7 +2,7 @@ import { useLocalSearchParams } from 'expo-router'
 
 import { useGetTvImages } from '~/api/tv'
 import FullScreenImagesList from '~/components/FullScreenImagesList'
-import ModalLayout from '~/layouts//Modal'
+import { ModalLayout } from '~/layouts/modal'
 
 export default function TvImages() {
   const params = useLocalSearchParams<{

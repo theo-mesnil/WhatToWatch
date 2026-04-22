@@ -19,7 +19,7 @@ import { Badge } from '~/components/Badge'
 import { List } from '~/components/List'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
-import { ContentLayout } from '~/layouts//Content'
+import { ContentLayout } from '~/layouts/content'
 import { personImagePath, personMoviesPath, personTvPath } from '~/routes'
 import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
@@ -148,7 +148,7 @@ export default function Person() {
       }
       imageUrl={coverUrl}
       isLoading={isLoading || isLoadingMovies || isLoadingTv}
-      title={name}
+      title={name || ''}
     >
       <View style={styles.content}>
         {!!biography && (

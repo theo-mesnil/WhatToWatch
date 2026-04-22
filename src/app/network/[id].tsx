@@ -1,32 +1,23 @@
 import type { FlashListProps } from '@shopify/flash-list'
-import { useLocalSearchParams, useNavigation } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
-import { Animated } from 'react-native'
 
 import type { UseGetDiscoverTvApiResponse } from '~/api/discover'
 import { useGetDiscoverTv } from '~/api/discover'
-import { GradientHeader } from '~/components/GradientHeader'
-import { Header } from '~/components/Header'
 import { LargeThumb } from '~/components/LargeThumb'
-import { NetworkLogo } from '~/components/NetworkLogo'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { VerticalList } from '~/components/VerticalList'
-import { useSafeHeights } from '~/constants/useSafeHeights'
-import { BasicLayout } from '~/layouts//Basic'
+import { BasicLayout } from '~/layouts/basic'
 import { tvPath } from '~/routes'
-import { theme } from '~/theme'
 import type { NetworkId } from '~/types/content'
-import { getNetworkColor } from '~/utils/networks'
+import { getNetworkName } from '~/utils/networks'
 
 type Item = NonNullable<UseGetDiscoverTvApiResponse['results']>[number]
 
 export default function Network() {
   const params = useLocalSearchParams<{ id: string }>()
   const networkID = Number(params?.id) as NetworkId
-  const navigation = useNavigation()
-  const { containerStyle } = useSafeHeights()
-  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTv({
     params: {
@@ -42,35 +33,19 @@ export default function Network() {
     </ThumbLink>
   )
 
-  const HeaderComponent = () => (
-    <Header
-      customTitle={<NetworkLogo id={networkID} width={100} />}
-      scrollY={scrollYPosition}
-      withBackButton
-    />
-  )
-
   const loadMore = () => {
     if (hasNextPage) {
       fetchNextPage()
     }
   }
 
-  React.useEffect(() => {
-    navigation.setOptions({
-      header: HeaderComponent,
-    })
-  })
-
   return (
-    <BasicLayout isView>
-      <GradientHeader
+    <BasicLayout title={getNetworkName(networkID)}>
+      {/* <GradientHeader
         colors={[...getNetworkColor(networkID), theme.colors.behind]}
         scrollY={scrollYPosition}
-      />
+      /> */}
       <VerticalList<Item>
-        contentContainerStyle={containerStyle}
-        getScrollYPosition={getScrollYPosition}
         id="network"
         isLoading={isLoading}
         ListHeaderComponent={

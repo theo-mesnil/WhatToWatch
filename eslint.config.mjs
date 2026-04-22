@@ -28,6 +28,7 @@ export default defineConfig([
       'src/api/types.d.ts',
       'src/api/type-v4.d.ts',
       'expo-env.d.ts',
+      'src/uniwind-types.d.ts',
     ],
   },
   {

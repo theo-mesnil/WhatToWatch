@@ -1,21 +1,18 @@
 import type { FlashListProps } from '@shopify/flash-list'
-import { useLocalSearchParams, useNavigation } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { Animated, View } from 'react-native'
+import { View } from 'react-native'
 
 import type { UseGetFavorite } from '~/api/account'
 import { useGetFavorite } from '~/api/account'
 import { Empty } from '~/components/Empty'
-import { Header } from '~/components/Header'
 import { Text } from '~/components/Text'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { VerticalList } from '~/components/VerticalList'
-import { useSafeHeights } from '~/constants/useSafeHeights'
-import { BasicLayout } from '~/layouts/Basic'
+import { BasicLayout } from '~/layouts/basic'
 import { routeByType } from '~/routes/utils'
-import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
@@ -23,11 +20,8 @@ type MovieItem = NonNullable<UseGetFavorite['movie']['results']>[number]
 type TVItem = NonNullable<UseGetFavorite['tv']['results']>[number]
 
 export default function Watchlist() {
-  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const params = useLocalSearchParams<{ type: 'movie' | 'tv' }>()
   const type = params?.type
-  const { containerStyle, headerSafeHeight } = useSafeHeights()
-  const navigation = useNavigation()
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetFavorite({
     type,
@@ -53,33 +47,23 @@ export default function Watchlist() {
     )
   }
 
-  const HeaderComponent = () => {
-    const title =
-      type === 'movie' ? (
-        <FormattedMessage defaultMessage="My Favorites Movies" id="oXYUTN" />
-      ) : (
-        <FormattedMessage defaultMessage="My Favorites TV" id="vWAJia" />
-      )
-
-    return <Header scrollY={scrollYPosition} title={title} withBackButton />
-  }
-
   const loadMore = () => {
     if (hasNextPage) {
       fetchNextPage()
     }
   }
 
-  React.useEffect(() => {
-    navigation.setOptions({
-      header: HeaderComponent,
-    })
-  })
+  const title =
+    type === 'movie' ? (
+      <FormattedMessage defaultMessage="My Favorites Movies" id="oXYUTN" />
+    ) : (
+      <FormattedMessage defaultMessage="My Favorites TV" id="vWAJia" />
+    )
 
   return (
-    <BasicLayout isView>
+    <BasicLayout title={title}>
       {!isLoading && !results?.length && (
-        <View style={[{ marginTop: headerSafeHeight }, globalStyles.centered]}>
+        <View className="flex-1 items-center justify-center">
           <Empty icon="heart">
             {type === 'movie' ? (
               <FormattedMessage defaultMessage="No favorite movies found" id="LMqQH5" />
@@ -90,8 +74,6 @@ export default function Watchlist() {
         </View>
       )}
       <VerticalList<Item>
-        contentContainerStyle={containerStyle}
-        getScrollYPosition={getScrollYPosition}
         id="favorite"
         isLoading={isLoading}
         onEndReached={loadMore}
