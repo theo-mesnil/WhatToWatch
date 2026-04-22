@@ -10,13 +10,11 @@ export type LoaderProps = ViewProps & {
   colors?: GradientProps['colors']
 }
 
-export function Loader({
-  colors = [theme.colors['default-700'], theme.colors['default-900']],
-  style,
-  ...rest
-}: LoaderProps) {
+export function Loader({ colors, style, ...rest }: LoaderProps) {
   const startValue = 0.1
   const [fadeAnim] = React.useState(new Animated.Value(startValue))
+
+  const formattedColor = colors || [theme.colors['default-700'], theme.colors['default-900']]
 
   React.useEffect(() => {
     Animated.loop(
@@ -45,7 +43,7 @@ export function Loader({
           styles.content,
         ]}
       >
-        <Gradient angle={-0.4} colors={colors} />
+        <Gradient angle={-0.4} colors={formattedColor} />
       </Animated.View>
     </View>
   )

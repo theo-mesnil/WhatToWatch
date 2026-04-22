@@ -10,10 +10,11 @@
     "!**/.expo/**"
   ],
   "transformIgnorePatterns": [
-    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@shopify/flash-list|react-intl|@formatjs/.*|intl-messageformat|tslib)"
+    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@shopify/flash-list|react-intl|@formatjs/.*|intl-messageformat|tslib|uniwind)"
   ],
   "setupFilesAfterEnv": ["./tests/setup.tsx"],
   "moduleNameMapper": {
-    "^~/(.*)$": "<rootDir>/src/$1"
+    "^~/(.*)$": "<rootDir>/src/$1",
+    "\\.css$": "<rootDir>/__mocks__/fileMock.ts"
   }
 }

@@ -1,36 +1,28 @@
 import type { FlashListProps } from '@shopify/flash-list'
-import { useNavigation } from 'expo-router'
 import * as React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Animated, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { useGetSearch } from '~/api/search'
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
-import { GradientHeader } from '~/components/GradientHeader'
-import { Header } from '~/components/Header'
 import { Icon } from '~/components/Icon'
 import { Text } from '~/components/Text'
 import { TextInput } from '~/components/TextInput'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { VerticalList } from '~/components/VerticalList'
-import { useSafeHeights } from '~/constants/useSafeHeights'
-import { BasicLayout } from '~/layouts//Basic'
+import { TabsLayout } from '~/layouts/tabs'
 import { routeByType } from '~/routes/utils'
 import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
-import type { HeaderOptions } from '~/types/navigation'
 
 type Item = NonNullable<UseGetTrendingApiResponse['all']['results']>[number]
 
 export default function Search() {
   const [querySearch, setQuerySearch] = React.useState<string>('')
   const deferredQuery = React.useDeferredValue(querySearch)
-  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
-  const navigation = useNavigation()
   const intl = useIntl()
-  const { containerStyle } = useSafeHeights(true)
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetTrending({
     maxPages: 5,
@@ -105,38 +97,18 @@ export default function Search() {
     </Text>
   )
 
-  const HeaderComponent = ({ options: { title } }: HeaderOptions) => {
-    return (
-      <Header
-        component={
-          <TextInput
-            clearButtonMode="always"
-            enterKeyHint="search"
-            onChangeText={setQuerySearch}
-            placeholder={intl.formatMessage({
-              defaultMessage: 'What would you like to watch?',
-              id: 'UhsiMg',
-            })}
-          />
-        }
-        scrollY={scrollYPosition}
-        title={title}
-      />
-    )
-  }
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      header: HeaderComponent,
-    })
-  })
-
   return (
-    <BasicLayout isView>
-      <GradientHeader scrollY={scrollYPosition} />
+    <TabsLayout title={intl.formatMessage({ defaultMessage: 'Search', id: 'xmcVZ0' })}>
+      <TextInput
+        clearButtonMode="always"
+        enterKeyHint="search"
+        onChangeText={setQuerySearch}
+        placeholder={intl.formatMessage({
+          defaultMessage: 'What would you like to watch?',
+          id: 'UhsiMg',
+        })}
+      />
       <VerticalList<Item>
-        contentContainerStyle={containerStyle}
-        getScrollYPosition={getScrollYPosition}
         id="search-trending"
         isLoading={isLoading || isSearchLoading}
         ListHeaderComponent={renderListHeaderComponent}
@@ -144,7 +116,7 @@ export default function Search() {
         renderItem={renderItem}
         results={results}
       />
-    </BasicLayout>
+    </TabsLayout>
   )
 }
 

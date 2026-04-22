@@ -2,7 +2,7 @@ import { useLocalSearchParams } from 'expo-router'
 import { Dimensions, View } from 'react-native'
 import YoutubePlayer from 'react-native-youtube-iframe'
 
-import ModalLayout from '~/layouts//Modal'
+import { ModalLayout } from '~/layouts/modal'
 import { theme } from '~/theme'
 
 const gap = theme.space.sm

@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+@import 'uniwind';
+
+@layer theme {
+  :root {
+    @variant dark {
+      /** Backgrounds */
+      --color-background: oklch(0.1353 0.0666 304.987);
+      --color-foreground: oklch(0.1765 0.0765 304.987);
+      --color-background-gradient: oklch(0.1353 0.0666 304.987);
+      /** Text */
+      --color-text-base: var(--color-neutral-100);
+      --color-text-medium: var(--color-neutral-300);
+      --color-text-minimal: var(--color-neutral-400);
+      /** Borders */
+      --color-border-default: var(--color-neutral-700);
+      /** NativeTabs */
+      --native-tabs-color: var(--color-neutral-100);
+      --native-tabs-icon-color: var(--color-neutral-100);
+      --native-tabs-tint-color: var(--color-violet-500);
+      --native-tabs-ripple-color: var(--color-neutral-900);
+      --native-tabs-indicator-color: var(--color-black);
+      /** Skeleton */
+      --skeleton-gradient-start: var(--color-neutral-900);
+      --skeleton-gradient-end: var(--color-neutral-600);
+    }
+
+    @variant light {
+      /** Backgrounds */
+      --color-background: var(--color-purple-100);
+      --color-foreground: var(--color-purple-50);
+      --color-background-gradient: var(--color-white);
+      /** Text */
+      --color-text-base: var(--color-black);
+      --color-text-medium: var(--color-neutral-500);
+      --color-text-minimal: var(--color-neutral-400);
+      /** Borders */
+      --color-border-default: var(--color-neutral-200);
+      /** NativeTabs */
+      --native-tabs-color: var(--color-black);
+      --native-tabs-icon-color: var(--color-neutral-700);
+      --native-tabs-tint-color: var(--color-purple-500);
+      --native-tabs-ripple-color: var(--color-purple-50);
+      --native-tabs-indicator-color: var(--color-white);
+      /** Skeleton */
+      --skeleton-gradient-start: var(--color-neutral-100);
+      --skeleton-gradient-end: var(--color-neutral-300);
+    }
+  }
+}
+
+@theme {
+  --font-normal: 'Poppins_400Regular';
+  --font-medium: 'Poppins_400Regular';
+  --font-semibold: 'Poppins_600SemiBold';
+  --font-bold: 'Poppins_600SemiBold';
+
+  /* Spacing for margin on screens */
+  --spacing-screen: 14px;
+  /* Spacing for tablet landscape */
+  --spacing-screen-lg: 200px;
+  /* Cover on content screen */
+  --spacing-cover: 450px;
+  --spacing-cover-top: 150px;
+  --spacing-cover-without-top: 300px;
+}

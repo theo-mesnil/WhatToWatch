@@ -22,6 +22,9 @@ jest.mock('expo-secure-store', () => ({
   setItemAsync: jest.fn(),
 }))
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+jest.mock('react-native-worklets', () => require('react-native-worklets/src/mock'))
+
 afterEach(() => {
   jest.restoreAllMocks()
   jest.clearAllTimers() // Clear any pending timers

@@ -33,6 +33,7 @@
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.4.1",
     "@expo/metro-runtime": "~55.0.9",
+    "@expo/ui": "~55.0.11",
     "@react-native-masked-view/masked-view": "0.3.2",
     "@shopify/flash-list": "2.0.2",
     "@tanstack/react-query": "^5.96.2",
@@ -41,7 +42,9 @@
     "expo-blur": "~55.0.12",
     "expo-constants": "~55.0.11",
     "expo-dev-client": "~55.0.22",
+    "expo-device": "~55.0.15",
     "expo-font": "~55.0.6",
+    "expo-glass-effect": "~55.0.10",
     "expo-haptics": "~55.0.11",
     "expo-image": "~55.0.8",
     "expo-linear-gradient": "~55.0.11",
@@ -51,6 +54,7 @@
     "expo-secure-store": "~55.0.13",
     "expo-splash-screen": "~55.0.15",
     "expo-status-bar": "~55.0.5",
+    "expo-system-ui": "~55.0.15",
     "expo-updates": "~55.0.18",
     "expo-web-browser": "~55.0.14",
     "intl": "^1.2.5",
@@ -61,12 +65,16 @@
     "react-native": "0.83.4",
     "react-native-gesture-handler": "~2.30.0",
     "react-native-linear-gradient": "^2.8.3",
+    "react-native-reanimated": "4.2.1",
     "react-native-safe-area-context": "~5.6.2",
     "react-native-screens": "~4.23.0",
     "react-native-svg": "15.15.3",
     "react-native-web": "^0.21.0",
     "react-native-webview": "^13.16.1",
-    "react-native-youtube-iframe": "^2.3.0"
+    "react-native-worklets": "0.7.2",
+    "react-native-youtube-iframe": "^2.3.0",
+    "tailwindcss": "^4.2.2",
+    "uniwind": "^1.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",

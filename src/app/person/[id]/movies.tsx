@@ -1,23 +1,17 @@
-import { useLocalSearchParams, useNavigation } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
-import { FormattedMessage } from 'react-intl'
-import { Animated, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { useGetPerson, useGetPersonMovieCredits } from '~/api/person'
 import { ItemThumb } from '~/components/app/person/ItemThumb'
 import { ThumbLink } from '~/components/ThumbLink'
-import { useSafeHeights } from '~/constants/useSafeHeights'
-import { BasicLayout } from '~/layouts//Basic'
-import { Header } from '~/layouts//Content/Header'
+import { BasicLayout } from '~/layouts/basic'
 import { moviePath } from '~/routes'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 
 export default function PersonMovies() {
-  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
-  const navigation = useNavigation()
   const params = useLocalSearchParams<{ id: string }>()
-  const { containerStyle } = useSafeHeights()
   const personID = Number(params?.id)
 
   const { data, isLoading } = useGetPerson({ id: personID })
@@ -31,27 +25,8 @@ export default function PersonMovies() {
 
   const name = data?.name
 
-  const HeaderComponent = () => (
-    <Header
-      scrollY={scrollYPosition}
-      showHeaderOnStart
-      title={
-        <>
-          {name}
-          <FormattedMessage defaultMessage="'s movies" id="uM+ly3" />
-        </>
-      }
-    />
-  )
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      header: HeaderComponent,
-    })
-  })
-
   return (
-    <BasicLayout contentContainerStyle={containerStyle} getScrollYPosition={getScrollYPosition}>
+    <BasicLayout title={name || ''}>
       {!isLoadingMovies && (
         <View style={styles.items}>
           {movies?.map((movie, index) => (

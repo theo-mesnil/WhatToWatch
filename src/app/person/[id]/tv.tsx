@@ -1,23 +1,18 @@
-import { useLocalSearchParams, useNavigation } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { Animated, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { useGetPerson, useGetPersonTvCredits } from '~/api/person'
 import { ItemThumb } from '~/components/app/person/ItemThumb'
 import { ThumbLink } from '~/components/ThumbLink'
-import { useSafeHeights } from '~/constants/useSafeHeights'
-import { BasicLayout } from '~/layouts//Basic'
-import { Header } from '~/layouts//Content/Header'
+import { BasicLayout } from '~/layouts/basic'
 import { tvPath } from '~/routes'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 
 export default function PersonTv() {
-  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
-  const navigation = useNavigation()
   const params = useLocalSearchParams<{ id: string }>()
-  const { containerStyle } = useSafeHeights()
   const personID = Number(params?.id)
 
   const { data, isLoading } = useGetPerson({ id: personID })
@@ -31,27 +26,15 @@ export default function PersonTv() {
 
   const name = data?.name
 
-  const HeaderComponent = () => (
-    <Header
-      scrollY={scrollYPosition}
-      showHeaderOnStart
+  return (
+    <BasicLayout
       title={
         <>
           {name}
           <FormattedMessage defaultMessage="'s series" id="NfdtQ8" />
         </>
       }
-    />
-  )
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      header: HeaderComponent,
-    })
-  })
-
-  return (
-    <BasicLayout contentContainerStyle={containerStyle} getScrollYPosition={getScrollYPosition}>
+    >
       {!isLoadingTv && (
         <View style={styles.items}>
           {tv?.map((item, index) => (

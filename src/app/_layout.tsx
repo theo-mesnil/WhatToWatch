@@ -6,11 +6,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import * as React from 'react'
-import { StatusBar, StyleSheet, View } from 'react-native'
+import { SafeAreaListener } from 'react-native-safe-area-context'
+import { Uniwind } from 'uniwind'
 
+import { StatusBar } from '~/components/new/status-bar'
 import { AuthProvider } from '~/contexts/Auth'
+
+import '../global.css'
+import { ThemeProvider } from '~/contexts/theme'
 import { IntlMessages } from '~/locales'
-import { theme } from '~/theme'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -27,53 +31,58 @@ export default function Layout() {
     Poppins_600SemiBold,
   })
 
-  // Prevent rendering until the font has loaded or an error was returned
   if (!fontsLoaded) {
     return null
   }
 
   return (
-    <AuthProvider>
-      <StatusBar animated backgroundColor="transparent" barStyle="light-content" translucent />
-      <IntlMessages>
-        <QueryClientProvider client={queryClient}>
-          <View style={styles.wrapper}>
-            <Stack screenOptions={{ header: () => null }}>
-              <Stack.Screen
-                name="movie/[id]/images/[type]"
-                options={{
-                  presentation: 'modal',
-                }}
-              />
-              <Stack.Screen
-                name="tv/[id]/images/[type]"
-                options={{
-                  presentation: 'modal',
-                }}
-              />
-              <Stack.Screen
-                name="person/[id]/images/[start]"
-                options={{
-                  presentation: 'modal',
-                }}
-              />
-              <Stack.Screen
-                name="video/[id]"
-                options={{
-                  presentation: 'modal',
-                }}
-              />
-            </Stack>
-          </View>
-        </QueryClientProvider>
-      </IntlMessages>
-    </AuthProvider>
+    <SafeAreaListener
+      onChange={({ insets }) => {
+        Uniwind.updateInsets(insets)
+      }}
+    >
+      <AuthProvider>
+        <ThemeProvider>
+          <IntlMessages>
+            <QueryClientProvider client={queryClient}>
+              <StatusBar />
+              <Stack screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="(tabs)" />
+                <Stack.Screen
+                  name="me/index"
+                  options={{
+                    presentation: 'modal',
+                  }}
+                />
+                <Stack.Screen
+                  name="movie/[id]/images/[type]"
+                  options={{
+                    presentation: 'modal',
+                  }}
+                />
+                <Stack.Screen
+                  name="tv/[id]/images/[type]"
+                  options={{
+                    presentation: 'modal',
+                  }}
+                />
+                <Stack.Screen
+                  name="person/[id]/images/[start]"
+                  options={{
+                    presentation: 'modal',
+                  }}
+                />
+                <Stack.Screen
+                  name="video/[id]"
+                  options={{
+                    presentation: 'modal',
+                  }}
+                />
+              </Stack>
+            </QueryClientProvider>
+          </IntlMessages>
+        </ThemeProvider>
+      </AuthProvider>
+    </SafeAreaListener>
   )
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: theme.colors.behind,
-    flex: 1,
-  },
-})

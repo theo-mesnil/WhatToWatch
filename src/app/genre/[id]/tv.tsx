@@ -1,32 +1,32 @@
 import type { FlashListProps } from '@shopify/flash-list'
 import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
-import { Animated } from 'react-native'
+import { FormattedMessage } from 'react-intl'
 
 import type { UseGetDiscoverTvApiResponse } from '~/api/discover'
 import { useGetDiscoverTv } from '~/api/discover'
+import { useGetGenreTvList } from '~/api/genres'
 import { LargeThumb } from '~/components/LargeThumb'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { VerticalList } from '~/components/VerticalList'
-import { useSafeHeights } from '~/constants/useSafeHeights'
-import GenreLayout from '~/layouts//Genre'
+import { GenreLayout } from '~/layouts/genre'
 import { tvPath } from '~/routes'
 
 type Item = NonNullable<UseGetDiscoverTvApiResponse['results']>[number]
 
 export default function Tv() {
-  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const params = useLocalSearchParams<{ id: string }>()
   const genreID = Number(params?.id)
-  const { containerStyle } = useSafeHeights()
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetDiscoverTv({
     params: {
       with_genres: `${genreID}`,
     },
   })
+  const { data: genreTv } = useGetGenreTvList()
 
+  const title = genreTv?.filter(genre => genre.id === genreID)?.[0]?.name
   const firstItem = !isLoading ? data?.pages?.[0]?.results?.[0] : undefined
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({ item: { id, poster_path } }) => (
@@ -42,10 +42,14 @@ export default function Tv() {
   }
 
   return (
-    <GenreLayout scrollYPosition={scrollYPosition}>
+    <GenreLayout
+      title={
+        title ? (
+          <FormattedMessage defaultMessage="{title} - Series" id="eSb1/p" values={{ title }} />
+        ) : undefined
+      }
+    >
       <VerticalList<Item>
-        contentContainerStyle={containerStyle}
-        getScrollYPosition={getScrollYPosition}
         id="genre"
         isLoading={isLoading}
         ListHeaderComponent={
