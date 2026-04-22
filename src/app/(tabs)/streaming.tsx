@@ -1,39 +1,22 @@
-import { useNavigation } from 'expo-router'
 import * as React from 'react'
-import { Animated, View } from 'react-native'
+import { useIntl } from 'react-intl'
+import { View } from 'react-native'
 
 import { NetworkList } from '~/components/app/streaming/NetworkList'
-import { GradientHeader } from '~/components/GradientHeader'
-import { Header } from '~/components/Header'
 import { networksList } from '~/constants/networks'
-import { useSafeHeights } from '~/constants/useSafeHeights'
-import { BasicLayout } from '~/layouts//Basic'
+import { TabsLayout } from '~/layouts/tabs'
 import { theme } from '~/theme'
-import type { HeaderOptions } from '~/types/navigation'
 
 export default function Networks() {
-  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
-  const { containerStyle } = useSafeHeights()
-  const navigation = useNavigation()
-
-  const HeaderComponent = ({ options: { title } }: HeaderOptions) => (
-    <Header scrollY={scrollYPosition} title={title} />
-  )
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      header: HeaderComponent,
-    })
-  })
+  const intl = useIntl()
 
   return (
-    <BasicLayout contentContainerStyle={containerStyle} getScrollYPosition={getScrollYPosition}>
-      <GradientHeader scrollY={scrollYPosition} />
+    <TabsLayout title={intl.formatMessage({ defaultMessage: 'Streaming', id: 'NCupKV' })}>
       <View style={{ gap: theme.space.lg }}>
         {networksList.map(network => (
           <NetworkList id={network.id} key={network.slug} />
         ))}
       </View>
-    </BasicLayout>
+    </TabsLayout>
   )
 }

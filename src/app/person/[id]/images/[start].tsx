@@ -2,7 +2,7 @@ import { useLocalSearchParams } from 'expo-router'
 
 import { useGetPersonImages } from '~/api/person'
 import FullScreenImagesList from '~/components/FullScreenImagesList'
-import ModalLayout from '~/layouts//Modal'
+import { ModalLayout } from '~/layouts/modal'
 
 export default function MovieImages() {
   const params = useLocalSearchParams<{

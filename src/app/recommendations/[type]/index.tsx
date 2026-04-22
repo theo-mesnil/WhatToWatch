@@ -1,17 +1,14 @@
 import type { FlashListProps } from '@shopify/flash-list'
-import { useLocalSearchParams, useNavigation } from 'expo-router'
+import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { Animated } from 'react-native'
 
 import type { UseGetRecommendations } from '~/api/account'
 import { useGetRecommendations } from '~/api/account'
-import { Header } from '~/components/Header'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { VerticalList } from '~/components/VerticalList'
-import { useSafeHeights } from '~/constants/useSafeHeights'
-import { BasicLayout } from '~/layouts/Basic'
+import { BasicLayout } from '~/layouts/basic'
 import { routeByType } from '~/routes/utils'
 
 type Item = MovieItem | TVItem
@@ -20,11 +17,8 @@ type MovieItem = NonNullable<UseGetRecommendations['movie']['results']>[number]
 type TVItem = NonNullable<UseGetRecommendations['tv']['results']>[number]
 
 export default function Watchlist() {
-  const [scrollYPosition, getScrollYPosition] = React.useState(new Animated.Value(0))
   const params = useLocalSearchParams<{ type: 'movie' | 'tv' }>()
   const type = params?.type
-  const { containerStyle } = useSafeHeights()
-  const navigation = useNavigation()
 
   const { data, fetchNextPage, hasNextPage, isLoading } = useGetRecommendations({
     type,
@@ -39,34 +33,22 @@ export default function Watchlist() {
     )
   }
 
-  const HeaderComponent = () => {
-    const title =
-      type === 'movie' ? (
-        <FormattedMessage defaultMessage="Movies for you" id="u+53eO" />
-      ) : (
-        <FormattedMessage defaultMessage="Series for you" id="OoZY78" />
-      )
-
-    return <Header scrollY={scrollYPosition} title={title} withBackButton />
-  }
-
   const loadMore = () => {
     if (hasNextPage) {
       fetchNextPage()
     }
   }
 
-  React.useEffect(() => {
-    navigation.setOptions({
-      header: HeaderComponent,
-    })
-  })
+  const title =
+    type === 'movie' ? (
+      <FormattedMessage defaultMessage="Movies for you" id="u+53eO" />
+    ) : (
+      <FormattedMessage defaultMessage="Series for you" id="OoZY78" />
+    )
 
   return (
-    <BasicLayout isView>
+    <BasicLayout title={title}>
       <VerticalList<Item>
-        contentContainerStyle={containerStyle}
-        getScrollYPosition={getScrollYPosition}
         id="recommendations"
         isLoading={isLoading}
         onEndReached={loadMore}
