@@ -7,7 +7,7 @@ import type { GradientProps } from '~/components/Gradient'
 import { Gradient } from '~/components/Gradient'
 import type { IconProps } from '~/components/Icon'
 import { Icon } from '~/components/Icon'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import type { TouchableProps } from '~/components/Touchable'
 import { Touchable } from '~/components/Touchable'
 import type { Color } from '~/theme'
@@ -73,11 +73,8 @@ export const Button = ({
         ) : (
           <>
             <Text
-              style={[
-                { color: theme.colors.white },
-                size === 'lg' && styles['text-lg'],
-                gradientColors && styles.gradientColors,
-              ]}
+              bold={size === 'lg'}
+              style={[gradientColors && styles.gradientColors]}
               variant={size}
             >
               {children}
@@ -107,9 +104,6 @@ const styles = StyleSheet.create({
   },
   secondary: {
     backgroundColor: theme.colors['brand-700'],
-  },
-  'text-lg': {
-    fontWeight: 'bold',
   },
   transparent: {
     backgroundColor: 'transparent',

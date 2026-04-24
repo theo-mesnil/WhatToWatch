@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import type { ButtonProps } from '~/components/Button'
 import { Button } from '~/components/Button'
 import { Icon } from '~/components/Icon'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { theme } from '~/theme'
 import { getVideo } from '~/utils/videos'
 

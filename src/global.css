@@ -10,7 +10,7 @@
       --color-background-gradient: oklch(0.1353 0.0666 304.987);
       /** Text */
       --color-text-base: var(--color-neutral-100);
-      --color-text-medium: var(--color-neutral-300);
+      --color-text-maximal: var(--color-white);
       --color-text-minimal: var(--color-neutral-400);
       /** Borders */
       --color-border-default: var(--color-neutral-700);
@@ -31,8 +31,8 @@
       --color-foreground: var(--color-purple-50);
       --color-background-gradient: var(--color-white);
       /** Text */
-      --color-text-base: var(--color-black);
-      --color-text-medium: var(--color-neutral-500);
+      --color-text-base: var(--color-neutral-700);
+      --color-text-maximal: var(--color-black);
       --color-text-minimal: var(--color-neutral-400);
       /** Borders */
       --color-border-default: var(--color-neutral-200);

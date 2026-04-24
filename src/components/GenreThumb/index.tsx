@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 
 import thumbGradientImage from '~/assets/thumb-gradient.png'
 import { Gradient } from '~/components/Gradient'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { theme } from '~/theme'
 import { genresColor } from '~/utils/genres'
 
@@ -20,10 +20,14 @@ export function GenreThumb({ id, title }: GenreThumbProps) {
       <Gradient angle={0.4} colors={gradientColors} />
       <View style={styles.content}>
         <Image source={thumbGradientImage} style={styles.absoluteImage} />
-        <Text style={[styles.title, { color: gradientColors?.[1] }]} variant="h1">
+        <Text
+          className="bottom-3 absolute left-3"
+          style={{ color: gradientColors?.[1] }}
+          variant="h1"
+        >
           {title}
         </Text>
-        <Text style={[styles.title, styles.whiteTitle]} variant="h1">
+        <Text className="bottom-3 absolute left-3 opacity-30 z-1" variant="h1">
           {title}
         </Text>
       </View>
@@ -44,12 +48,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: theme.space.md,
   },
-  title: {
-    bottom: theme.space.md,
-    left: theme.space.md,
-    position: 'absolute',
-  },
-  whiteTitle: { opacity: 0.3, zIndex: 1 },
   wrapper: {
     aspectRatio: 16 / 9,
     borderRadius: theme.radii.md,

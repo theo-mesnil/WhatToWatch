@@ -1,7 +1,7 @@
 import { FormattedDate } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { Thumb } from '~/components/Thumb'
 import { theme } from '~/theme'
 import { formatTime } from '~/utils/time'
@@ -30,10 +30,10 @@ export function EpisodeThumb({
           <Thumb aspectRatio={16 / 9} imageUrl={imageUrl} type="tv" />
         </View>
         <View style={styles.infos}>
-          <Text style={styles.name} variant="lg">
+          <Text className="text-text-maximal" variant="lg">
             {number}. {name}
           </Text>
-          <View style={styles.runtime}>
+          <View className="flex-row">
             {runtime && <Text>{formatTime(runtime)}</Text>}
             {airDate && (
               <Text>
@@ -57,12 +57,6 @@ const styles = StyleSheet.create({
     marginLeft: theme.space.md,
   },
   main: {
-    flexDirection: 'row',
-  },
-  name: {
-    color: theme.colors.white,
-  },
-  runtime: {
     flexDirection: 'row',
   },
   thumb: {

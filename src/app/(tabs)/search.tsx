@@ -7,7 +7,7 @@ import { useGetSearch } from '~/api/search'
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
 import { Icon } from '~/components/Icon'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { TextInput } from '~/components/TextInput'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
@@ -81,7 +81,7 @@ export default function Search() {
       {!isSearchLoading && !results?.length ? (
         <View style={styles.noResults}>
           <Icon color="brand-500" name="magnifying-glass" size={80} />
-          <Text style={styles.noResultsTitle} variant="h1">
+          <Text className="mt-2 max-w-62.5 text-center" variant="h1">
             <FormattedMessage defaultMessage="Oh no! We have found nothing 🥺" id="hVXARm" />
           </Text>
         </View>
@@ -127,10 +127,5 @@ const styles = StyleSheet.create({
   noResults: {
     alignItems: 'center',
     marginTop: theme.space.xl,
-  },
-  noResultsTitle: {
-    marginTop: theme.space.md,
-    maxWidth: 250,
-    textAlign: 'center',
   },
 })

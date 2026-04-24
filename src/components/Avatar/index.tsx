@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 
 import { theme } from '~/theme'
 
-import { Text } from '../Text'
+import { Text } from '../new/text'
 
 type AvatarProps = {
   imageUrl?: string
@@ -28,7 +28,7 @@ export function Avatar({ imageUrl, name, size = 40 }: AvatarProps) {
         },
       ]}
     >
-      <Text style={[styles.initials, { fontSize }]} variant="h1">
+      <Text className="text-text-maximal" style={{ fontSize }} variant="h1">
         {name
           ?.split(' ')
           .map(word => word.charAt(0).toUpperCase())
@@ -40,9 +40,6 @@ export function Avatar({ imageUrl, name, size = 40 }: AvatarProps) {
 }
 
 const styles = StyleSheet.create({
-  initials: {
-    color: theme.colors.white,
-  },
   wrapper: {
     alignItems: 'center',
     backgroundColor: theme.colors['brand-200'],

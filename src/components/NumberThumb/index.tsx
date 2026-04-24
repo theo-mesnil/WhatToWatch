@@ -1,8 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { Thumb } from '~/components/Thumb'
-import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
 
 export type NumberThumbProps = {
@@ -15,7 +14,7 @@ export function NumberThumb({ imageUrl, number, type }: NumberThumbProps) {
   return (
     <View style={styles.wrapper}>
       <View style={styles.numberWrapper}>
-        <Text style={styles.number} variant="h0">
+        <Text className="flex-row text-violet-500 text-8xl leading-28 -tracking-[15]" variant="h0">
           {number}
         </Text>
       </View>
@@ -29,13 +28,6 @@ export function NumberThumb({ imageUrl, number, type }: NumberThumbProps) {
 const styles = StyleSheet.create({
   firstNumber: {
     marginLeft: 37,
-  },
-  number: {
-    color: theme.colors['brand-500'],
-    flexDirection: 'row',
-    fontSize: 100,
-    letterSpacing: -15,
-    lineHeight: 100,
   },
   numberWrapper: {
     bottom: -20,

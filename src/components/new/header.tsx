@@ -124,7 +124,9 @@ export const Header = ({
           style={smallHeaderStyle}
         >
           {title && (
-            <Text className="text-base font-semibold text-ellipsis line-clamp-1">{title}</Text>
+            <Text bold numberOfLines={1} variant="lg">
+              {title}
+            </Text>
           )}
           {!showSmallTitleOnStart && (
             <AnimatedBlurView

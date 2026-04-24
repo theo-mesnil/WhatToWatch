@@ -4,7 +4,7 @@ import { theme } from '~/theme'
 
 import type { IconProps } from '../Icon'
 import { Icon } from '../Icon'
-import { Text } from '../Text'
+import { Text } from '../new/text'
 
 type EmptyProps = {
   children: React.ReactNode

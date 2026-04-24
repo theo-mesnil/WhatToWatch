@@ -2,7 +2,7 @@ import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { Icon, type IconProps } from '~/components/Icon'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { theme } from '~/theme'
 
 export type BadgeProps = {
@@ -15,15 +15,12 @@ export function Badge({ children, icon, testID }: BadgeProps) {
   return (
     <View style={styles.wrapper} testID={testID}>
       {icon && <Icon name={icon} size={13} />}
-      <Text style={styles.text}>{children}</Text>
+      <Text className="text-text-maximal">{children}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: theme.colors.white,
-  },
   wrapper: {
     alignItems: 'center',
     backgroundColor: theme.colors['default-700'],

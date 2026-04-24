@@ -22,8 +22,8 @@ import { Badge } from '~/components/Badge'
 import { Images } from '~/components/Images'
 import { List } from '~/components/List'
 import { NetworkButton } from '~/components/NetworkButton'
+import { Text } from '~/components/new/text'
 import { PersonThumb } from '~/components/PersonThumb'
-import { Text } from '~/components/Text'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { TrailerButton } from '~/components/TrailerButton'
@@ -142,7 +142,7 @@ export default function Movie() {
       )}
       <View style={styles.content}>
         {(!!overview || !!tagline) && (
-          <Text style={styles.tagline} variant="lg">
+          <Text className="px-screen mt-3 text-text-maximal" variant="lg">
             {overview || tagline}
           </Text>
         )}
@@ -196,10 +196,5 @@ const styles = StyleSheet.create({
   },
   playButton: {
     marginTop: theme.space.sm,
-  },
-  tagline: {
-    color: theme.colors.white,
-    marginTop: theme.space.md,
-    paddingHorizontal: theme.space.marginList,
   },
 })

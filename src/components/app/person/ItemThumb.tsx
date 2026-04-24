@@ -1,7 +1,7 @@
 import { FormattedDate } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { Thumb } from '~/components/Thumb'
 import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
@@ -26,7 +26,7 @@ export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: 
         <View style={styles.infos}>
           <Text variant="h3">{title}</Text>
           {subtitle && (
-            <Text style={styles.subtitle} variant="h3">
+            <Text className="text-text-maximal" variant="h3">
               {subtitle}
             </Text>
           )}
@@ -55,9 +55,6 @@ const styles = StyleSheet.create({
   },
   overview: {
     marginTop: theme.space.md,
-  },
-  subtitle: {
-    color: theme.colors.text,
   },
   thumb: {
     width: 100,

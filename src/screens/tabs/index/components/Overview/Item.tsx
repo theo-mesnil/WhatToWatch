@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native'
 import { useGetContentLogo } from '~/api/logo'
 import { Button } from '~/components/Button'
 import { Gradient } from '~/components/Gradient'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
@@ -39,11 +39,11 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
           />
         )}
         {!isLoadingLogo && !logo && (
-          <Text style={styles.title} variant="h0">
+          <Text className="text-center" variant="h0">
             {title}
           </Text>
         )}
-        <Text numberOfLines={3} style={styles.subtitle}>
+        <Text className="text-center mt-1.5 text-text-maximal" numberOfLines={3}>
           {description}
         </Text>
         <Link asChild href={routeByType({ id, type })}>
@@ -70,14 +70,6 @@ const styles = StyleSheet.create({
   logo: {
     maxHeight: 150,
     width: 250,
-  },
-  subtitle: {
-    color: theme.colors.white,
-    marginTop: theme.space.sm,
-    textAlign: 'center',
-  },
-  title: {
-    textAlign: 'center',
   },
   wrapper: {
     height: 600,

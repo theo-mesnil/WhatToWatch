@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 
 import { Gradient } from '~/components/Gradient'
 import { Icon } from '~/components/Icon'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { theme } from '~/theme'
 
 export type CreditNumberThumbProps = {
@@ -20,10 +20,10 @@ export function CreditNumberThumb({ number, title, type }: CreditNumberThumbProp
           <Icon color="default-900" name={type === 'movie' ? 'film' : 'tv'} size={80} />
         </View>
         <View>
-          <Text style={styles.number} variant="h0">
+          <Text className="-mt-1.5" variant="h0">
             {number}
           </Text>
-          <Text style={styles.title} variant="h2">
+          <Text className="uppercase" variant="h2">
             {title}
           </Text>
         </View>
@@ -44,9 +44,6 @@ const styles = StyleSheet.create({
   },
   number: {
     marginBottom: -theme.space.xs,
-  },
-  title: {
-    textTransform: 'capitalize',
   },
   wrapper: {
     borderRadius: theme.radii.md,

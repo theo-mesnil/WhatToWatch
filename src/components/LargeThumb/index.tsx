@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native'
 
 import { useGetContentLogo } from '~/api/logo'
 import { Gradient } from '~/components/Gradient'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { Thumb } from '~/components/Thumb'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
@@ -54,7 +54,7 @@ export function LargeThumb({
           />
         )}
         {!isLoadingLogo && !logo && title && (
-          <Text numberOfLines={2} style={styles.title} variant="h0">
+          <Text className="pb-2 mx-4 text-center" numberOfLines={2} variant="h0">
             {title}
           </Text>
         )}
@@ -82,11 +82,6 @@ const styles = StyleSheet.create({
     marginBottom: theme.space.lg,
     maxHeight: 100,
     width: 250,
-  },
-  title: {
-    paddingBottom: theme.space.sm,
-    paddingHorizontal: theme.space.lg,
-    textAlign: 'center',
   },
   wrapper: {
     borderRadius: theme.radii.xxl,

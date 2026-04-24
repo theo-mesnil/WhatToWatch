@@ -26,8 +26,8 @@ import { Button } from '~/components/Button'
 import { Images } from '~/components/Images'
 import { List } from '~/components/List'
 import { NetworkButton } from '~/components/NetworkButton'
+import { Text } from '~/components/new/text'
 import { PersonThumb } from '~/components/PersonThumb'
-import { Text } from '~/components/Text'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { TrailerButton } from '~/components/TrailerButton'
@@ -172,7 +172,7 @@ export default function Tv() {
         />
       )}
       {(!!overview || !!tagline) && (
-        <Text style={styles.tagline} variant="lg">
+        <Text className="px-screen mt-3 text-text-maximal" variant="lg">
           {overview || tagline}
         </Text>
       )}
@@ -296,10 +296,5 @@ const styles = StyleSheet.create({
   seasonLoading: {
     height: 700,
     marginTop: theme.space.xl,
-  },
-  tagline: {
-    color: theme.colors.white,
-    marginTop: theme.space.md,
-    paddingHorizontal: theme.space.marginList,
   },
 })

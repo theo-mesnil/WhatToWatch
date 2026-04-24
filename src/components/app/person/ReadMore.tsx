@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import type { NativeSyntheticEvent, TextLayoutEventData } from 'react-native'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
-import { Text } from '~/components/Text'
-import { theme } from '~/theme'
+import { Text } from '~/components/new/text'
 
 const maxLines = 8
 
@@ -34,14 +33,10 @@ export function ReadMore({ children }: ReadMoreProps) {
         {children}
       </Text>
       {showMoreButton && (
-        <Text onPress={toggleTextShown} style={styles.button}>
+        <Text className="mt-2 text-text-maximal" onPress={toggleTextShown}>
           {isExpanded ? 'Read Less' : 'Read More'}
         </Text>
       )}
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  button: { color: theme.colors.white, marginTop: theme.space.sm },
-})

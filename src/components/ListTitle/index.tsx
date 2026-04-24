@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native'
 
 import type { IconProps } from '~/components/Icon'
 import { Icon } from '~/components/Icon'
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { Touchable } from '~/components/Touchable'
 import { theme } from '~/theme'
 
@@ -28,7 +28,7 @@ export function ListTitle({ children, icon, style, titleHref }: ListTitleProps) 
         <Link asChild href={titleHref}>
           <Touchable>
             <View style={styles.moreWrapper}>
-              <Text style={styles.moreText} variant="lg">
+              <Text className="text-violet-200" variant="lg">
                 <FormattedMessage defaultMessage="More" id="I5NMJ8" />
               </Text>
               <Icon color="brand-100" name="arrow-right" size={20} />
@@ -41,9 +41,6 @@ export function ListTitle({ children, icon, style, titleHref }: ListTitleProps) 
 }
 
 const styles = StyleSheet.create({
-  moreText: {
-    color: theme.colors['brand-100'],
-  },
   moreWrapper: {
     alignItems: 'center',
     flexDirection: 'row',

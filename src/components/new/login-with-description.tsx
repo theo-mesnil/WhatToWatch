@@ -5,7 +5,7 @@ import { useAuth } from '~/contexts/Auth'
 
 import { Icon } from '../Icon'
 import { LoginButton } from '../Loginbutton'
-import { Text } from '../Text/index'
+import { Text } from '../new/text'
 
 export const LoginWithDescription = () => {
   const { openLogin } = useAuth()

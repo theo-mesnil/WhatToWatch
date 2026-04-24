@@ -5,7 +5,7 @@ import { theme } from '~/theme'
 
 import type { ButtonProps } from '../Button'
 import { Button } from '../Button'
-import { Text } from '../Text'
+import { Text } from '../new/text'
 import { TMDBLogo } from '../TMDBLogo'
 
 type LoginButtonProps = {

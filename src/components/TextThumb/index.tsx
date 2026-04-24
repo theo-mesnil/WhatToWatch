@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 
-import { Text } from '~/components/Text'
+import { Text } from '~/components/new/text'
 import { Thumb } from '~/components/Thumb'
 import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
@@ -17,7 +17,7 @@ export function TextThumb({ imageUrl, overview, tag, title, type }: TextThumbPro
   return (
     <View style={styles.wrapper}>
       <Thumb aspectRatio={16 / 9} imageUrl={imageUrl} imageWidth="w500" type={type} />
-      {tag && <Text style={styles.tag}>{tag}</Text>}
+      {tag && <Text className="uppercase">{tag}</Text>}
       <Text numberOfLines={1} variant="h3">
         {title}
       </Text>
@@ -27,8 +27,5 @@ export function TextThumb({ imageUrl, overview, tag, title, type }: TextThumbPro
 }
 
 const styles = StyleSheet.create({
-  tag: {
-    textTransform: 'uppercase',
-  },
   wrapper: { gap: theme.space.xs },
 })
