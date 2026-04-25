@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import { Icon } from '~/components/new/icon'
 import type { IconProps } from '~/components/new/icon'
 import { Text } from '~/components/new/text'
-import { theme } from '~/theme'
 
 export type BadgeProps = {
   children: React.ReactNode
@@ -14,21 +13,12 @@ export type BadgeProps = {
 
 export function Badge({ children, icon, testID }: BadgeProps) {
   return (
-    <View style={styles.wrapper} testID={testID}>
+    <View
+      className="items-center bg-neutral-700 rounded-xs flex-row gap-0.5 px-1.5 py-1"
+      testID={testID}
+    >
       {icon && <Icon name={icon} size={13} />}
       <Text className="text-text-maximal">{children}</Text>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    alignItems: 'center',
-    backgroundColor: theme.colors['default-700'],
-    borderRadius: theme.radii.xs,
-    flexDirection: 'row',
-    gap: 2,
-    paddingHorizontal: theme.space.xs,
-    paddingVertical: theme.space.xxs,
-  },
-})

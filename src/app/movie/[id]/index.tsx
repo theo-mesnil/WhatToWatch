@@ -17,16 +17,16 @@ import {
   useGetMovieSimilar,
   useGetMovieVideos,
 } from '~/api/movie'
-import { Badge } from '~/components/Badge'
 import { Images } from '~/components/Images'
 import { List } from '~/components/List'
 import { Actions } from '~/components/new/actions'
+import { Badge } from '~/components/new/badge'
 import { NetworkButton } from '~/components/new/network-button'
 import { Text } from '~/components/new/text'
+import { TrailerButton } from '~/components/new/trailer-button'
 import { PersonThumb } from '~/components/PersonThumb'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
-import { TrailerButton } from '~/components/TrailerButton'
 import { VideoThumb } from '~/components/VideoThumb'
 import { ContentLayout } from '~/layouts/content'
 import { moviePath, personPath } from '~/routes'

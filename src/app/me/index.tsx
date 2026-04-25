@@ -4,7 +4,7 @@ import { Alert, StyleSheet, View } from 'react-native'
 
 import { useUser } from '~/api/account'
 import { useDeleteRequestToken } from '~/api/logout'
-import { Avatar } from '~/components/Avatar'
+import { Avatar } from '~/components/new/avatar'
 import { Button } from '~/components/new/button'
 import { LoginWithDescription } from '~/components/new/login-with-description'
 import { Text } from '~/components/new/text'

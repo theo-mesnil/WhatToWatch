@@ -6,7 +6,7 @@ import { View } from 'react-native'
 
 import type { UseGetFavorite } from '~/api/account'
 import { useGetFavorite } from '~/api/account'
-import { Empty } from '~/components/Empty'
+import { Empty } from '~/components/new/empty'
 import { Text } from '~/components/new/text'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'

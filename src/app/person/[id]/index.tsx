@@ -15,7 +15,7 @@ import {
 } from '~/api/person'
 import { CreditNumberThumb } from '~/components/app/person/CreditNumberThumb'
 import { ReadMore } from '~/components/app/person/ReadMore'
-import { Badge } from '~/components/Badge'
+import { Badge } from '~/components/new/badge'
 import { List } from '~/components/List'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
