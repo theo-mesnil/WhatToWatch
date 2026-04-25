@@ -1,4 +1,4 @@
-import type { IconProps } from '~/components/Icon'
+import type { IconProps } from '~/components/icon'
 import type { ContentType } from '~/types/content'
 
 export function getIconType(type: ContentType): IconProps['name'] {
@@ -6,7 +6,7 @@ export function getIconType(type: ContentType): IconProps['name'] {
     case 'movie':
       return 'film'
     case 'person':
-      return 'user'
+      return 'person'
     case 'tv':
       return 'tv'
     default:

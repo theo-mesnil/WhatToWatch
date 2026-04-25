@@ -17,17 +17,17 @@ import {
   useGetMovieSimilar,
   useGetMovieVideos,
 } from '~/api/movie'
-import { Actions } from '~/components/Actions'
-import { Badge } from '~/components/Badge'
-import { Images } from '~/components/Images'
-import { List } from '~/components/List'
-import { NetworkButton } from '~/components/NetworkButton'
-import { PersonThumb } from '~/components/PersonThumb'
-import { Text } from '~/components/Text'
-import { Thumb } from '~/components/Thumb'
-import { ThumbLink } from '~/components/ThumbLink'
-import { TrailerButton } from '~/components/TrailerButton'
-import { VideoThumb } from '~/components/VideoThumb'
+import { Actions } from '~/components/actions'
+import { Badge } from '~/components/badge'
+import { Images } from '~/components/images'
+import { List } from '~/components/list'
+import { NetworkButton } from '~/components/network-button'
+import { PersonThumb } from '~/components/person-thumb'
+import { Text } from '~/components/text'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
+import { TrailerButton } from '~/components/trailer-button'
+import { VideoThumb } from '~/components/video-thumb'
 import { ContentLayout } from '~/layouts/content'
 import { moviePath, personPath } from '~/routes'
 import { globalStyles } from '~/styles'
@@ -111,12 +111,12 @@ export default function Movie() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge icon="clock-fill" testID="runtime">
+              <Badge icon="time" testID="runtime">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge icon="star-fill" testID="votes">
+              <Badge icon="star" testID="votes">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
@@ -131,18 +131,18 @@ export default function Movie() {
     >
       <Actions id={movieID} type="movie" />
       {!!networkLink && (
-        <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
+        <NetworkButton className="mx-screen" id={networkLink.id} link={networkLink.link} />
       )}
       {!!trailer && (
         <TrailerButton
+          className="items-center justify-center mt-2"
           id={trailer.key ?? ''}
           platform={trailer.site ?? ''}
-          style={[globalStyles.centered, styles.playButton]}
         />
       )}
       <View style={styles.content}>
         {(!!overview || !!tagline) && (
-          <Text style={styles.tagline} variant="lg">
+          <Text className="px-screen mt-3 text-text-maximal" variant="lg">
             {overview || tagline}
           </Text>
         )}
@@ -193,13 +193,5 @@ export default function Movie() {
 const styles = StyleSheet.create({
   content: {
     gap: theme.space.xl,
-  },
-  playButton: {
-    marginTop: theme.space.sm,
-  },
-  tagline: {
-    color: theme.colors.white,
-    marginTop: theme.space.md,
-    paddingHorizontal: theme.space.marginList,
   },
 })

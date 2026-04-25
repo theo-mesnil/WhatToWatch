@@ -6,12 +6,12 @@ import { StyleSheet, View } from 'react-native'
 import { useGetSearch } from '~/api/search'
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
-import { Icon } from '~/components/Icon'
-import { Text } from '~/components/Text'
-import { TextInput } from '~/components/TextInput'
-import { Thumb } from '~/components/Thumb'
-import { ThumbLink } from '~/components/ThumbLink'
-import { VerticalList } from '~/components/VerticalList'
+import { Icon } from '~/components/icon'
+import { Text } from '~/components/text'
+import { TextInput } from '~/components/text-input'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
+import { VerticalList } from '~/components/vertical-list'
 import { TabsLayout } from '~/layouts/tabs'
 import { routeByType } from '~/routes/utils'
 import { theme } from '~/theme'
@@ -80,8 +80,8 @@ export default function Search() {
     <>
       {!isSearchLoading && !results?.length ? (
         <View style={styles.noResults}>
-          <Icon color="brand-500" name="magnifying-glass" size={80} />
-          <Text style={styles.noResultsTitle} variant="h1">
+          <Icon className="text-violet-500" name="search-sharp" size={80} />
+          <Text className="mt-2 max-w-62.5 text-center" variant="h1">
             <FormattedMessage defaultMessage="Oh no! We have found nothing 🥺" id="hVXARm" />
           </Text>
         </View>
@@ -127,10 +127,5 @@ const styles = StyleSheet.create({
   noResults: {
     alignItems: 'center',
     marginTop: theme.space.xl,
-  },
-  noResultsTitle: {
-    marginTop: theme.space.md,
-    maxWidth: 250,
-    textAlign: 'center',
   },
 })

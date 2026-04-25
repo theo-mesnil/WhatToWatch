@@ -19,21 +19,21 @@ import {
   useGetTvSimilar,
   useGetTvVideos,
 } from '~/api/tv'
-import { Actions } from '~/components/Actions'
-import { EpisodeThumb } from '~/components/app/tv/EpisodeThumb'
-import { Badge } from '~/components/Badge'
-import { Button } from '~/components/Button'
-import { Images } from '~/components/Images'
-import { List } from '~/components/List'
-import { NetworkButton } from '~/components/NetworkButton'
-import { PersonThumb } from '~/components/PersonThumb'
-import { Text } from '~/components/Text'
-import { Thumb } from '~/components/Thumb'
-import { ThumbLink } from '~/components/ThumbLink'
-import { TrailerButton } from '~/components/TrailerButton'
-import { VideoThumb } from '~/components/VideoThumb'
+import { Actions } from '~/components/actions'
+import { Badge } from '~/components/badge'
+import { Button } from '~/components/button'
+import { Images } from '~/components/images'
+import { List } from '~/components/list'
+import { NetworkButton } from '~/components/network-button'
+import { PersonThumb } from '~/components/person-thumb'
+import { Text } from '~/components/text'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
+import { TrailerButton } from '~/components/trailer-button'
+import { VideoThumb } from '~/components/video-thumb'
 import { ContentLayout } from '~/layouts/content'
 import { personPath, tvPath } from '~/routes'
+import { EpisodeThumb } from '~/screens/tv/EpisodeThumb'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 import { formatTime } from '~/utils/time'
@@ -94,7 +94,6 @@ export default function Tv() {
     item: { season_number },
   }) => (
     <Button
-      isRounded
       onPress={() => setSelectedSeason(season_number)}
       size="lg"
       variant={selectedSeason === season_number ? 'secondary' : 'primary'}
@@ -142,12 +141,12 @@ export default function Tv() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge icon="clock-fill" testID="runtime">
+              <Badge icon="time" testID="runtime">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge icon="star-fill" testID="votes">
+              <Badge icon="star" testID="votes">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
@@ -162,17 +161,17 @@ export default function Tv() {
     >
       <Actions id={tvID} type="tv" />
       {!!networkLink && (
-        <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
+        <NetworkButton className="mx-screen" id={networkLink.id} link={networkLink.link} />
       )}
       {!!trailer && (
         <TrailerButton
+          className="items-center justify-center mt-2"
           id={trailer.key ?? ''}
           platform={trailer.site ?? ''}
-          style={[globalStyles.centered, styles.playButton]}
         />
       )}
       {(!!overview || !!tagline) && (
-        <Text style={styles.tagline} variant="lg">
+        <Text className="px-screen mt-3 text-text-maximal" variant="lg">
           {overview || tagline}
         </Text>
       )}
@@ -290,16 +289,8 @@ const styles = StyleSheet.create({
     gap: theme.space.xl,
     marginTop: theme.space.lg,
   },
-  playButton: {
-    marginTop: theme.space.sm,
-  },
   seasonLoading: {
     height: 700,
     marginTop: theme.space.xl,
-  },
-  tagline: {
-    color: theme.colors.white,
-    marginTop: theme.space.md,
-    paddingHorizontal: theme.space.marginList,
   },
 })

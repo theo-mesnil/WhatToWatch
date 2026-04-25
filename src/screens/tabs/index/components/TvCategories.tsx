@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl'
 
 import type { UseGetGenreTvListApiResponse } from '~/api/genres'
 import { useGetGenreTvList } from '~/api/genres'
-import { GenreThumb } from '~/components/GenreThumb'
-import { List } from '~/components/List'
-import { ThumbLink } from '~/components/ThumbLink'
+import { GenreThumb } from '~/components/genre-thumb'
+import { List } from '~/components/list'
+import { ThumbLink } from '~/components/thumb-link'
 import { genreTvPath } from '~/routes'
 
 type Item = NonNullable<UseGetGenreTvListApiResponse['genres']>[number]

@@ -3,8 +3,8 @@ import React from 'react'
 import { View } from 'react-native'
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated'
 
-import { Button } from '~/components/new/button'
-import { Header } from '~/components/new/header'
+import { Button } from '~/components/button'
+import { Header } from '~/components/header'
 import { isIpad } from '~/utils/get-device-info'
 
 type GenreLayoutrops = {

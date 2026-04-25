@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl'
 
 import type { UseGetMovieUpcomingApiResponse } from '~/api/movie'
 import { useGetMovieUpcoming } from '~/api/movie'
-import { List } from '~/components/List'
-import { Thumb } from '~/components/Thumb'
-import { ThumbLink } from '~/components/ThumbLink'
+import { List } from '~/components/list'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
 import { moviePath } from '~/routes'
 
 type Item = NonNullable<UseGetMovieUpcomingApiResponse['results']>[number]

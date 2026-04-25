@@ -4,10 +4,10 @@ import * as React from 'react'
 
 import type { UseGetDiscoverTvApiResponse } from '~/api/discover'
 import { useGetDiscoverTv } from '~/api/discover'
-import { LargeThumb } from '~/components/LargeThumb'
-import { Thumb } from '~/components/Thumb'
-import { ThumbLink } from '~/components/ThumbLink'
-import { VerticalList } from '~/components/VerticalList'
+import { LargeThumb } from '~/components/large-thumb'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
+import { VerticalList } from '~/components/vertical-list'
 import { BasicLayout } from '~/layouts/basic'
 import { tvPath } from '~/routes'
 import type { NetworkId } from '~/types/content'
@@ -41,10 +41,6 @@ export default function Network() {
 
   return (
     <BasicLayout title={getNetworkName(networkID)}>
-      {/* <GradientHeader
-        colors={[...getNetworkColor(networkID), theme.colors.behind]}
-        scrollY={scrollYPosition}
-      /> */}
       <VerticalList<Item>
         id="network"
         isLoading={isLoading}
