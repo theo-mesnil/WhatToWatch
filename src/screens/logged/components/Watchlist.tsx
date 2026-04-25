@@ -1,0 +1,81 @@
+import type { FlashListProps } from '@shopify/flash-list'
+import { FormattedMessage } from 'react-intl'
+import { View } from 'react-native'
+
+import { useGetWatchlist, type UseGetWatchlist } from '~/api/account'
+import { Empty } from '~/components/empty'
+import { List } from '~/components/list'
+import { ListTitle } from '~/components/list-title'
+import { Text } from '~/components/text'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
+import { watchlistPath } from '~/routes'
+import { routeByType } from '~/routes/utils'
+import { globalStyles } from '~/styles'
+
+type Item = MovieItem | TVItem
+// Define more specific types
+type MovieItem = NonNullable<UseGetWatchlist['movie']['results']>[number]
+type TVItem = NonNullable<UseGetWatchlist['tv']['results']>[number]
+
+export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
+  const { data, isLoading } = useGetWatchlist({
+    type,
+  })
+  const hasMorePage = (data?.pages?.[0]?.total_pages ?? 0) > 1
+
+  const results = data?.pages?.map(page => page.results).flat()
+  const listTitle =
+    type === 'movie' ? (
+      <FormattedMessage defaultMessage="My Movies Watchlist" id="vAP/To" />
+    ) : (
+      <FormattedMessage defaultMessage="My Tv Watchlist" id="inHmAw" />
+    )
+
+  // Type guard to check if item is a movie
+  const isMovie = (item: Item): item is MovieItem => {
+    return item !== null && typeof item === 'object' && 'title' in item
+  }
+
+  const renderItem: FlashListProps<Item>['renderItem'] = ({ item }) => {
+    // Get the display title based on what's available
+    const displayTitle = isMovie(item) ? item.title : item.name
+
+    return (
+      <ThumbLink href={routeByType({ id: item?.id, type })} isLoading={isLoading}>
+        <>
+          <Thumb imageUrl={item?.poster_path} imageWidth="w300" type="tv" />
+          <Text numberOfLines={3}>{displayTitle}</Text>
+        </>
+      </ThumbLink>
+    )
+  }
+
+  return (
+    <>
+      {(isLoading || !!results?.length) && (
+        <List<Item>
+          icon="bookmark"
+          id={`watchlist-${type}`}
+          isLoading={isLoading}
+          renderItem={renderItem}
+          results={results}
+          title={listTitle}
+          titleHref={hasMorePage ? watchlistPath({ type }) : undefined}
+        />
+      )}
+      {!isLoading && !results?.length && (
+        <View style={globalStyles.centered}>
+          <ListTitle icon="bookmark">{listTitle}</ListTitle>
+          <Empty icon="bookmark">
+            {type === 'movie' ? (
+              <FormattedMessage defaultMessage="No movies on watchlist" id="EB9asy" />
+            ) : (
+              <FormattedMessage defaultMessage="No tv on watchlist" id="x2c3j1" />
+            )}
+          </Empty>
+        </View>
+      )}
+    </>
+  )
+}

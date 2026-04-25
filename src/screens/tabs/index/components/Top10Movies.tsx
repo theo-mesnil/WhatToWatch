@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl'
 
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
-import { List } from '~/components/List'
-import { NumberThumb } from '~/components/NumberThumb'
-import { ThumbLink } from '~/components/ThumbLink'
+import { List } from '~/components/list'
+import { NumberThumb } from '~/components/number-thumb'
+import { ThumbLink } from '~/components/thumb-link'
 import { moviePath } from '~/routes'
 
 type Item = NonNullable<UseGetTrendingApiResponse['movie']['results']>[number]

@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 
-import { Logged } from '~/components/app/me/logged'
-import { LoginWithDescription } from '~/components/new/login-with-description'
+import { LoginWithDescription } from '~/components/login-with-description'
 import { useAuth } from '~/contexts/Auth'
 import { TabsLayout } from '~/layouts/tabs'
+import { Logged } from '~/screens/logged'
 
 export default function Discover() {
   const intl = useIntl()

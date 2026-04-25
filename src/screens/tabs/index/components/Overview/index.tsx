@@ -6,7 +6,7 @@ import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
-import { Loader } from '~/components/Loader'
+import { Loader } from '~/components/loader'
 import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
 

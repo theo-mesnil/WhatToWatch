@@ -3,9 +3,9 @@ import { FormattedDate, FormattedMessage } from 'react-intl'
 
 import type { UseGetDiscoverMovieApiResponse } from '~/api/discover'
 import { useGetDiscoverMovie } from '~/api/discover'
-import { List } from '~/components/List'
-import { TextThumb } from '~/components/TextThumb'
-import { ThumbLink } from '~/components/ThumbLink'
+import { List } from '~/components/list'
+import { TextThumb } from '~/components/text-thumb'
+import { ThumbLink } from '~/components/thumb-link'
 import { genreMoviePath, moviePath } from '~/routes'
 
 type Item = NonNullable<UseGetDiscoverMovieApiResponse['results']>[number]

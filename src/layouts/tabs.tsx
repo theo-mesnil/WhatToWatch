@@ -9,10 +9,10 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 
-import { Button } from '~/components/new/button'
-import { Header } from '~/components/new/header'
-import { Title } from '~/components/new/title'
-import { UserButton } from '~/components/new/user-button'
+import { Button } from '~/components/button'
+import { Header } from '~/components/header'
+import { Text } from '~/components/text'
+import { UserButton } from '~/components/user-button'
 import { useAuth } from '~/contexts/Auth'
 import { isIpad } from '~/utils/get-device-info'
 
@@ -60,7 +60,7 @@ export const TabsLayout = ({ children, title }: TabsLayoutrops) => {
         showsVerticalScrollIndicator={false}
       >
         <Animated.View className="mx-screen pt-15 lg:mx-screen-lg" style={largeTitleStyle}>
-          <Title variant="lg">{title}</Title>
+          <Text variant="h1">{title}</Text>
         </Animated.View>
         {children}
       </Animated.ScrollView>

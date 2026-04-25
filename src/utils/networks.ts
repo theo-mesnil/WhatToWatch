@@ -92,3 +92,28 @@ export function getNetworkName(id: NetworkId) {
       return null
   }
 }
+
+export const getNetworkBackgroundClassName = (networkId: NetworkId) => {
+  switch (networkId) {
+    case NETWORK_APPLE_TV_PLUS_ID:
+      return 'bg-network-apple-tv-plus'
+    case NETWORK_DISNEY_PLUS_ID:
+      return 'bg-network-disney-plus'
+    case NETWORK_FOX_ID:
+      return 'bg-network-fox'
+    case NETWORK_HBO_ID:
+      return 'bg-network-hbo'
+    case NETWORK_HULU_ID:
+      return 'bg-network-hulu'
+    case NETWORK_NETFLIX_ID:
+      return 'bg-network-netflix'
+    case NETWORK_PARAMOUNT_PLUS:
+      return 'bg-network-paramount-plus'
+    case NETWORK_PRIME_VIDEO:
+      return 'bg-network-amazon-prime-video'
+    case NETWORK_SHOWTIME_ID:
+      return 'bg-network-showtime'
+    default:
+      return undefined
+  }
+}
