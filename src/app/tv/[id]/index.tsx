@@ -19,13 +19,13 @@ import {
   useGetTvSimilar,
   useGetTvVideos,
 } from '~/api/tv'
-import { Actions } from '~/components/Actions'
 import { EpisodeThumb } from '~/components/app/tv/EpisodeThumb'
 import { Badge } from '~/components/Badge'
-import { Button } from '~/components/Button'
 import { Images } from '~/components/Images'
 import { List } from '~/components/List'
-import { NetworkButton } from '~/components/NetworkButton'
+import { Actions } from '~/components/new/actions'
+import { Button } from '~/components/new/button'
+import { NetworkButton } from '~/components/new/network-button'
 import { Text } from '~/components/new/text'
 import { PersonThumb } from '~/components/PersonThumb'
 import { Thumb } from '~/components/Thumb'
@@ -94,7 +94,6 @@ export default function Tv() {
     item: { season_number },
   }) => (
     <Button
-      isRounded
       onPress={() => setSelectedSeason(season_number)}
       size="lg"
       variant={selectedSeason === season_number ? 'secondary' : 'primary'}
@@ -142,12 +141,12 @@ export default function Tv() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge icon="clock-fill" testID="runtime">
+              <Badge icon="time" testID="runtime">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge icon="star-fill" testID="votes">
+              <Badge icon="star" testID="votes">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
@@ -162,13 +161,13 @@ export default function Tv() {
     >
       <Actions id={tvID} type="tv" />
       {!!networkLink && (
-        <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
+        <NetworkButton className="mx-screen" id={networkLink.id} link={networkLink.link} />
       )}
       {!!trailer && (
         <TrailerButton
+          className="items-center justify-center mt-2"
           id={trailer.key ?? ''}
           platform={trailer.site ?? ''}
-          style={[globalStyles.centered, styles.playButton]}
         />
       )}
       {(!!overview || !!tagline) && (
@@ -289,9 +288,6 @@ const styles = StyleSheet.create({
   episodesList: {
     gap: theme.space.xl,
     marginTop: theme.space.lg,
-  },
-  playButton: {
-    marginTop: theme.space.sm,
   },
   seasonLoading: {
     height: 700,

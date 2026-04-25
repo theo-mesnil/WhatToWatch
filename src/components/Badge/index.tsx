@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-import { Icon, type IconProps } from '~/components/Icon'
+import { Icon } from '~/components/new/icon'
+import type { IconProps } from '~/components/new/icon'
 import { Text } from '~/components/new/text'
 import { theme } from '~/theme'
 

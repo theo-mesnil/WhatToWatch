@@ -5,11 +5,10 @@ import * as React from 'react'
 import { Dimensions, View } from 'react-native'
 
 import { ListTitle } from '~/components/ListTitle'
+import type { IconProps } from '~/components/new/icon'
 import { fakeData30 } from '~/constants/mocks'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
-
-import type { IconProps } from '../Icon'
 
 type ListProps<ItemProps> = Pick<
   FlashListProps<ItemProps>,

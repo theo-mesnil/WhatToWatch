@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native'
 import { useGetSearch } from '~/api/search'
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
-import { Icon } from '~/components/Icon'
+import { Icon } from '~/components/new/icon'
 import { Text } from '~/components/new/text'
 import { TextInput } from '~/components/TextInput'
 import { Thumb } from '~/components/Thumb'
@@ -80,7 +80,7 @@ export default function Search() {
     <>
       {!isSearchLoading && !results?.length ? (
         <View style={styles.noResults}>
-          <Icon color="brand-500" name="magnifying-glass" size={80} />
+          <Icon className="text-violet-500" name="search-sharp" size={80} />
           <Text className="mt-2 max-w-62.5 text-center" variant="h1">
             <FormattedMessage defaultMessage="Oh no! We have found nothing 🥺" id="hVXARm" />
           </Text>

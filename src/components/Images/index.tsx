@@ -3,8 +3,8 @@ import { FormattedMessage } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
 import type { UseGetMovieImagesApiResponse } from '~/api/movie'
-import { Button } from '~/components/Button'
 import { ListTitle } from '~/components/ListTitle'
+import { Button } from '~/components/new/button'
 import { Thumb } from '~/components/Thumb'
 import { ThumbLink } from '~/components/ThumbLink'
 import { movieImagesPath, tvImagesPath } from '~/routes'
@@ -46,7 +46,7 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                     type="movie"
                   />
                   <View style={[globalStyles.absoluteFill, styles.content]}>
-                    <Button size="lg" style={styles.button} variant="secondary">
+                    <Button size="lg" variant="secondary">
                       <FormattedMessage defaultMessage="Backdrops" id="eBDmdm" />
                     </Button>
                   </View>
@@ -73,7 +73,7 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                     type="movie"
                   />
                   <View style={[globalStyles.absoluteFill, styles.content]}>
-                    <Button size="lg" style={styles.button} variant="secondary">
+                    <Button size="lg" variant="secondary">
                       <FormattedMessage defaultMessage="Posters" id="4NCdJM" />
                     </Button>
                   </View>
@@ -93,11 +93,6 @@ const styles = StyleSheet.create({
   backdrops: {
     height: '100%',
     width: '60%',
-  },
-  button: {
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    width: '100%',
   },
   content: {
     justifyContent: 'flex-end',

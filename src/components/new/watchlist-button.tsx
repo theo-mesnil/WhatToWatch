@@ -3,9 +3,8 @@ import { useEffect, useRef } from 'react'
 
 import { useUpdateWatchlist, useUser } from '~/api/account'
 import { useGetAccountState } from '~/api/account-states'
+import { Button } from '~/components/new/button'
 import { useAuth } from '~/contexts/Auth'
-
-import { IconButton } from '../IconButton'
 
 export function WatchlistButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { accountId, openLogin } = useAuth()
@@ -41,10 +40,11 @@ export function WatchlistButton({ id, type }: { id: number; type: 'movie' | 'tv'
   }
 
   return (
-    <IconButton
-      icon={isWatchlisted ? 'bookmark-fill' : 'bookmark'}
-      isActive={isWatchlisted}
+    <Button
+      icon={isWatchlisted ? 'bookmark' : 'bookmark-outline'}
       onPress={handleUpdateWatchlist}
+      size="xl"
+      variant={isWatchlisted ? 'secondary' : 'primary'}
     />
   )
 }

@@ -33,7 +33,7 @@ export function Recommendations({ type }: RecommendationsProps) {
 
   return (
     <List<Item>
-      icon="user"
+      icon="person"
       id={`recommendations-${type}`}
       isLoading={isLoading}
       renderItem={renderItem}

@@ -1,23 +1,23 @@
 import * as React from 'react'
-import type { PressableProps as RNPressableProps, View, ViewStyle } from 'react-native'
+import type { PressableProps as RNPressableProps, View } from 'react-native'
 import { Pressable as RNPressable } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 
 export type PressableProps = RNPressableProps & {
   children?: React.ReactNode
+  className?: string
   endScale?: number
   ref?: React.Ref<View>
   startScale?: number
-  style?: ViewStyle
   withoutScale?: boolean
 }
 
 export const Pressable = ({
+  className,
   endScale = 0.95,
   onPress,
   ref,
   startScale = 1,
-  style,
   withoutScale,
   ...rest
 }: PressableProps) => {
@@ -36,7 +36,7 @@ export const Pressable = ({
   }
 
   return (
-    <Animated.View style={[style, animatedStyle]}>
+    <Animated.View className={className} style={animatedStyle}>
       <RNPressable
         onPress={onPress}
         onPressIn={onPressIn}

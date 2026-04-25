@@ -1,4 +1,3 @@
-import Ionicons from '@expo/vector-icons/Ionicons'
 import { GlassView, isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import type { ImageProps } from 'expo-image'
@@ -6,61 +5,75 @@ import { Image } from 'expo-image'
 import type { GestureResponderEvent } from 'react-native'
 import { useResolveClassNames } from 'uniwind'
 
+import { Icon, type IconProps } from '~/components/new/icon'
 import { Pressable } from '~/components/new/presseable'
 import { Text } from '~/components/new/text'
+import { getNetworkBackgroundClassName } from '~/constants/networks'
+import type { NetworkId } from '~/types/content'
 
 export type ButtonProps = {
   children?: React.ReactNode
-  icon?: keyof typeof Ionicons.glyphMap
+  className?: string
+  customRightElement?: React.ReactNode
+  icon?: IconProps['name']
   image?: ImageProps['source']
   isLoading?: boolean
-  label?: string
+  networkId?: NetworkId
   onPress?: (event?: GestureResponderEvent) => void
-  size?: 'lg' | 'md'
+  size?: 'lg' | 'md' | 'xl'
+  testID?: string
+  variant?: 'primary' | 'secondary'
   withHaptic?: boolean
 }
 
 export const Button = ({
   children,
+  className = '',
+  customRightElement,
   icon,
   image,
-  label,
+  networkId,
   onPress,
   size = 'md',
+  testID,
+  variant = 'primary',
   withHaptic,
 }: ButtonProps) => {
   const hasLiquidGlass = isLiquidGlassAvailable()
-
+  const backgroundNetworkColor = networkId ? getNetworkBackgroundClassName(networkId) : ''
   /**
    * styles conditions
    */
-  const isRounded = !label && (icon || image)
+  const isRounded = !children && (icon || image)
   const sizes = isRounded
     ? {
         lg: 'size-10 rounded-full',
         md: 'size-8 rounded-full',
+        xl: 'size-12 rounded-full',
       }
     : {
         lg: 'px-2 h-10 rounded-full',
         md: 'px-3 h-8 rounded-lg',
+        xl: 'px-4 h-12 rounded-full',
       }
   const iconSizes = {
     lg: 'size-5',
     md: 'size-3',
+    xl: 'size-6',
   }
   const imageSizes = {
     lg: 'size-9',
     md: 'size-7',
+    xl: 'size-11',
   }
 
   /**
    * resolves styles
    */
   const wrapperStyles = useResolveClassNames(
-    `items-center justify-center ${sizes[size]} ${!hasLiquidGlass && 'bg-white'}`
+    `flex-row gap-2 items-center justify-center ${sizes[size]} ${!hasLiquidGlass && 'bg-white'} ${variant === 'secondary' && 'bg-violet-600'} ${backgroundNetworkColor} ${className}`
   )
   const imageStyle = useResolveClassNames(`rounded-full ${imageSizes[size]}`)
-  const iconStyles = useResolveClassNames('text-text-base')
   const iconSizeStyle = useResolveClassNames(iconSizes[size]).width
 
   function handleOnPress(event: GestureResponderEvent) {
@@ -74,11 +87,12 @@ export const Button = ({
   }
 
   return (
-    <Pressable onPress={handleOnPress} withoutScale={hasLiquidGlass}>
+    <Pressable onPress={handleOnPress} testID={testID} withoutScale={hasLiquidGlass}>
       <GlassView glassEffectStyle="clear" isInteractive={true} style={wrapperStyles}>
-        {icon && <Ionicons name={icon} size={Number(iconSizeStyle)} style={iconStyles} />}
         {image && <Image source={image} style={imageStyle} />}
         {children && <Text>{children}</Text>}
+        {icon && <Icon name={icon} size={Number(iconSizeStyle)} />}
+        {customRightElement}
       </GlassView>
     </Pressable>
   )

@@ -63,4 +63,15 @@
   --spacing-cover: 450px;
   --spacing-cover-top: 150px;
   --spacing-cover-without-top: 300px;
+
+  /** Networks colors */
+  --color-network-apple-tv-plus: #323232;
+  --color-network-disney-plus: #049faa;
+  --color-network-fox: #0086db;
+  --color-network-hbo: #7b2abf;
+  --color-network-hulu: #1ee783;
+  --color-network-netflix: #e50914;
+  --color-network-paramount-plus: #0064ff;
+  --color-network-amazon-prime-video: #1c97fe;
+  --color-network-showtime: #ff1928;
 }

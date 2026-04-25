@@ -1,6 +1,15 @@
 import type { DimensionValue } from 'react-native'
 import { View } from 'react-native'
 
+import AppleTvPlus from '~/assets/networks-logos/apple-tv-plus'
+import DisneyPlus from '~/assets/networks-logos/disney-plus'
+import Fox from '~/assets/networks-logos/fox'
+import HBO from '~/assets/networks-logos/hbo'
+import Hulu from '~/assets/networks-logos/hulu'
+import Netflix from '~/assets/networks-logos/netflix'
+import ParamountPlus from '~/assets/networks-logos/paramount-plus'
+import PrimeVideo from '~/assets/networks-logos/prime-video'
+import Showtime from '~/assets/networks-logos/showtime'
 import {
   NETWORK_APPLE_TV_PLUS_ID,
   NETWORK_DISNEY_PLUS_ID,
@@ -14,16 +23,6 @@ import {
 } from '~/constants/networks'
 import { theme } from '~/theme'
 import type { NetworkId } from '~/types/content'
-
-import AppleTvPlus from './logos/AppleTvPlus'
-import DisneyPlus from './logos/DisneyPlus'
-import Fox from './logos/Fox'
-import HBO from './logos/Hbo'
-import Hulu from './logos/Hulu'
-import Netflix from './logos/Netflix'
-import ParamountPlus from './logos/ParamountPlus'
-import PrimeVideo from './logos/PrimeVideo'
-import Showtime from './logos/Showtime'
 
 export type NetworkLogoProps = {
   color?: string

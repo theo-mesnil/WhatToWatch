@@ -17,11 +17,11 @@ import {
   useGetMovieSimilar,
   useGetMovieVideos,
 } from '~/api/movie'
-import { Actions } from '~/components/Actions'
 import { Badge } from '~/components/Badge'
 import { Images } from '~/components/Images'
 import { List } from '~/components/List'
-import { NetworkButton } from '~/components/NetworkButton'
+import { Actions } from '~/components/new/actions'
+import { NetworkButton } from '~/components/new/network-button'
 import { Text } from '~/components/new/text'
 import { PersonThumb } from '~/components/PersonThumb'
 import { Thumb } from '~/components/Thumb'
@@ -111,12 +111,12 @@ export default function Movie() {
               </Badge>
             )}
             {!!runtime && (
-              <Badge icon="clock-fill" testID="runtime">
+              <Badge icon="time" testID="runtime">
                 {formatTime(runtime)}
               </Badge>
             )}
             {!!rating && (
-              <Badge icon="star-fill" testID="votes">
+              <Badge icon="star" testID="votes">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
@@ -131,13 +131,13 @@ export default function Movie() {
     >
       <Actions id={movieID} type="movie" />
       {!!networkLink && (
-        <NetworkButton id={networkLink.id} link={networkLink.link} style={globalStyles.centered} />
+        <NetworkButton className="mx-screen" id={networkLink.id} link={networkLink.link} />
       )}
       {!!trailer && (
         <TrailerButton
+          className="items-center justify-center mt-2"
           id={trailer.key ?? ''}
           platform={trailer.site ?? ''}
-          style={[globalStyles.centered, styles.playButton]}
         />
       )}
       <View style={styles.content}>
@@ -193,8 +193,5 @@ export default function Movie() {
 const styles = StyleSheet.create({
   content: {
     gap: theme.space.xl,
-  },
-  playButton: {
-    marginTop: theme.space.sm,
   },
 })

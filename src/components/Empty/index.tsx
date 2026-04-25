@@ -1,10 +1,9 @@
 import { StyleSheet, View } from 'react-native'
 
+import type { IconProps } from '~/components/new/icon'
+import { Icon } from '~/components/new/icon'
+import { Text } from '~/components/new/text'
 import { theme } from '~/theme'
-
-import type { IconProps } from '../Icon'
-import { Icon } from '../Icon'
-import { Text } from '../new/text'
 
 type EmptyProps = {
   children: React.ReactNode
@@ -14,7 +13,7 @@ type EmptyProps = {
 export function Empty({ children, icon }: EmptyProps) {
   return (
     <View style={styles.empty}>
-      <Icon color="brand-500" name={icon} size={40} />
+      <Icon className="text-violet-500" name={icon} size={40} />
       <Text variant="lg">{children}</Text>
     </View>
   )

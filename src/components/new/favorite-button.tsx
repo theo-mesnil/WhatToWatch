@@ -3,9 +3,8 @@ import { useEffect, useRef } from 'react'
 
 import { useUpdateFavorite, useUser } from '~/api/account'
 import { useGetAccountState } from '~/api/account-states'
+import { Button } from '~/components/new/button'
 import { useAuth } from '~/contexts/Auth'
-
-import { IconButton } from '../IconButton'
 
 export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { accountId, openLogin } = useAuth()
@@ -41,10 +40,11 @@ export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' 
   }
 
   return (
-    <IconButton
-      icon={isFavorite ? 'heart-fill' : 'heart'}
-      isActive={isFavorite}
+    <Button
+      icon={isFavorite ? 'heart' : 'heart-outline'}
       onPress={handleUpdateFavorite}
+      size="xl"
+      variant={isFavorite ? 'secondary' : 'primary'}
     />
   )
 }

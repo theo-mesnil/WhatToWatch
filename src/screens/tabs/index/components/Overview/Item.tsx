@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
 import { useGetContentLogo } from '~/api/logo'
-import { Button } from '~/components/Button'
 import { Gradient } from '~/components/Gradient'
+import { Button } from '~/components/new/button'
 import { Text } from '~/components/new/text'
 import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
@@ -47,7 +47,7 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
           {description}
         </Text>
         <Link asChild href={routeByType({ id, type })}>
-          <Button icon="arrow-right" size="lg" style={styles.cta} variant="secondary" withHaptic>
+          <Button className="mt-4" icon="arrow-forward" networkId={213} size="lg" withHaptic>
             <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
           </Button>
         </Link>
@@ -63,9 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingBottom: 40,
     paddingHorizontal: theme.space.xxl,
-  },
-  cta: {
-    marginTop: theme.space.lg,
   },
   logo: {
     maxHeight: 150,

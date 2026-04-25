@@ -1,11 +1,10 @@
 import { FormattedMessage } from 'react-intl'
 import { View } from 'react-native'
 
+import { Icon } from '~/components/new/icon'
+import { LoginButton } from '~/components/new/login-button'
+import { Text } from '~/components/new/text'
 import { useAuth } from '~/contexts/Auth'
-
-import { Icon } from '../Icon'
-import { LoginButton } from '../Loginbutton'
-import { Text } from '../new/text'
 
 export const LoginWithDescription = () => {
   const { openLogin } = useAuth()
@@ -13,19 +12,19 @@ export const LoginWithDescription = () => {
   return (
     <View>
       <View className="items-center flex-row gap-2">
-        <Icon color="brand-500" name="heart-fill" size={30} />
+        <Icon className="text-violet-500" name="heart" size={30} />
         <Text variant="h2">
           <FormattedMessage defaultMessage="Manage your favourite films and series" id="K0XQE7" />
         </Text>
       </View>
       <View className="items-center flex-row gap-2">
-        <Icon color="brand-500" name="bookmark-fill" size={30} />
+        <Icon className="text-violet-500" name="bookmark" size={30} />
         <Text variant="h2">
           <FormattedMessage defaultMessage="Add movies and series on your watchlist" id="OQEcON" />
         </Text>
       </View>
       <View className="items-center flex-row gap-2">
-        <Icon color="brand-500" name="user-fill" size={30} />
+        <Icon className="text-violet-500" name="person" size={30} />
         <Text variant="h2">
           <FormattedMessage
             defaultMessage="Get Recommendations based on your profile"
