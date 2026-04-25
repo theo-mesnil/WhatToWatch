@@ -2,7 +2,7 @@ import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 
 import { queryClient } from '~/app/_layout'
 import { LOCALE } from '~/constants/locales'
-import { useAuth } from '~/contexts/Auth'
+import { useAuth } from '~/contexts/auth'
 
 import { api, apiV4 } from './api'
 import type { paths } from './types'

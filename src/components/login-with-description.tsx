@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { Icon } from '~/components/icon'
 import { LoginButton } from '~/components/login-button'
 import { Text } from '~/components/text'
-import { useAuth } from '~/contexts/Auth'
+import { useAuth } from '~/contexts/auth'
 
 export const LoginWithDescription = () => {
   const { openLogin } = useAuth()

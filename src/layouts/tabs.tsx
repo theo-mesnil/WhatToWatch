@@ -13,7 +13,7 @@ import { Button } from '~/components/button'
 import { Header } from '~/components/header'
 import { Text } from '~/components/text'
 import { UserButton } from '~/components/user-button'
-import { useAuth } from '~/contexts/Auth'
+import { useAuth } from '~/contexts/auth'
 import { isIpad } from '~/utils/get-device-info'
 
 type TabsLayoutrops = {

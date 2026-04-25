@@ -1,5 +1,5 @@
-import { Favorite } from './components/Favorite'
-import { Watchlist } from './components/Watchlist'
+import { Favorite } from './components/favorite'
+import { Watchlist } from './components/watchlist'
 
 export function Logged() {
   return (

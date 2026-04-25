@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useUpdateFavorite, useUser } from '~/api/account'
 import { useGetAccountState } from '~/api/account-states'
 import { Button } from '~/components/button'
-import { useAuth } from '~/contexts/Auth'
+import { useAuth } from '~/contexts/auth'
 
 export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { accountId, openLogin } = useAuth()

@@ -27,8 +27,8 @@
 
     @variant light {
       /** Backgrounds */
-      --color-background: var(--color-purple-100);
-      --color-foreground: var(--color-purple-50);
+      --color-background: var(--color-violet-100);
+      --color-foreground: var(--color-violet-50);
       --color-background-gradient: var(--color-white);
       /** Text */
       --color-text-base: var(--color-neutral-700);
@@ -39,8 +39,8 @@
       /** NativeTabs */
       --native-tabs-color: var(--color-black);
       --native-tabs-icon-color: var(--color-neutral-700);
-      --native-tabs-tint-color: var(--color-purple-500);
-      --native-tabs-ripple-color: var(--color-purple-50);
+      --native-tabs-tint-color: var(--color-violet-500);
+      --native-tabs-ripple-color: var(--color-violet-50);
       --native-tabs-indicator-color: var(--color-white);
       /** Skeleton */
       --skeleton-gradient-start: var(--color-neutral-100);

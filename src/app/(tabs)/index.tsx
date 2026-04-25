@@ -1,1 +1,1 @@
-export { default } from '~/screens/tabs/index'
+export { default } from '~/screens/(tabs)/index/index'

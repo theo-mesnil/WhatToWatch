@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import { queryClient } from '~/app/_layout'
 import { LOCALE } from '~/constants/locales'
-import { useAuth } from '~/contexts/Auth'
+import { useAuth } from '~/contexts/auth'
 
 import { apiV4 } from './api'
 import type { paths as pathsV4 } from './types-v4'
