@@ -3,10 +3,10 @@ import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { useGetPerson, useGetPersonMovieCredits } from '~/api/person'
-import { ItemThumb } from '~/components/app/person/ItemThumb'
-import { ThumbLink } from '~/components/ThumbLink'
+import { ThumbLink } from '~/components/thumb-link'
 import { BasicLayout } from '~/layouts/basic'
 import { moviePath } from '~/routes'
+import { ItemThumb } from '~/screens/person/ItemThumb'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 

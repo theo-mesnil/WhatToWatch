@@ -4,9 +4,8 @@ import { FormattedMessage } from 'react-intl'
 import { StyleSheet, View } from 'react-native'
 
 import { useGetContentLogo } from '~/api/logo'
-import { Gradient } from '~/components/Gradient'
-import { Button } from '~/components/new/button'
-import { Text } from '~/components/new/text'
+import { Button } from '~/components/button'
+import { Text } from '~/components/text'
 import { routeByType } from '~/routes/utils'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
@@ -31,7 +30,7 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
     <View style={styles.wrapper}>
       <Image source={getImageUrl(imageUrl, 'w1280')} style={globalStyles.absoluteFill} />
       <View style={styles.content}>
-        <Gradient colors={['transparent', theme.colors.behind]} />
+        <View className="absolute inset-0 bg-linear-180 from-transparent to-foreground" />
         {!isLoadingLogo && logo && (
           <Image
             source={getImageUrl(logo.url, 'w500')}

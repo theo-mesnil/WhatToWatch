@@ -1,4 +1,4 @@
-import type { IconProps } from '~/components/new/icon'
+import type { IconProps } from '~/components/icon'
 import type { ContentType } from '~/types/content'
 
 export function getIconType(type: ContentType): IconProps['name'] {

@@ -74,4 +74,33 @@
   --color-network-paramount-plus: #0064ff;
   --color-network-amazon-prime-video: #1c97fe;
   --color-network-showtime: #ff1928;
+
+  /** Genres colors */
+  --color-genre-adventure: #00b109;
+  --color-genre-fantasy: #bea501;
+  --color-genre-animation: #d3ab35;
+  --color-genre-drama: #b68198;
+  --color-genre-horror: #ef263f;
+  --color-genre-action: #8b4cbf;
+  --color-genre-comedy: #03a8e1;
+  --color-genre-history: #fe5300;
+  --color-genre-western: #ff5409;
+  --color-genre-thriller: #32835b;
+  --color-genre-crime: #e40027;
+  --color-genre-documentary: #1bbf93;
+  --color-genre-sci-fi: #6ead8f;
+  --color-genre-mystery: #b96d52;
+  --color-genre-music: #69ce00;
+  --color-genre-romance: #e84294;
+  --color-genre-family: #3255fe;
+  --color-genre-war: #d6c027;
+  --color-genre-action-adventure: #03a8e1;
+  --color-genre-kids: #69ce00;
+  --color-genre-news: #758f9a;
+  --color-genre-reality: #7657b7;
+  --color-genre-sci-fi-fantasy: #988401;
+  --color-genre-soap: #e84294;
+  --color-genre-talk: #006cd3;
+  --color-genre-war-politics: #d6c027;
+  --color-genre-tv-movie: #006cd3;
 }

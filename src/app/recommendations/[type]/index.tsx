@@ -5,9 +5,9 @@ import { FormattedMessage } from 'react-intl'
 
 import type { UseGetRecommendations } from '~/api/account'
 import { useGetRecommendations } from '~/api/account'
-import { Thumb } from '~/components/Thumb'
-import { ThumbLink } from '~/components/ThumbLink'
-import { VerticalList } from '~/components/VerticalList'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
+import { VerticalList } from '~/components/vertical-list'
 import { BasicLayout } from '~/layouts/basic'
 import { routeByType } from '~/routes/utils'
 

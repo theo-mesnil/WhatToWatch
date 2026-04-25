@@ -13,15 +13,15 @@ import {
   useGetPersonMovieCredits,
   useGetPersonTvCredits,
 } from '~/api/person'
-import { CreditNumberThumb } from '~/components/app/person/CreditNumberThumb'
-import { ReadMore } from '~/components/app/person/ReadMore'
-import { Badge } from '~/components/new/badge'
-import { List } from '~/components/List'
-import { Thumb } from '~/components/Thumb'
-import { ThumbLink } from '~/components/ThumbLink'
+import { Badge } from '~/components/badge'
+import { List } from '~/components/list'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
 import { ContentLayout } from '~/layouts/content'
 import { personImagePath, personMoviesPath, personTvPath } from '~/routes'
 import { routeByType } from '~/routes/utils'
+import { CreditNumberThumb } from '~/screens/person/CreditNumberThumb'
+import { ReadMore } from '~/screens/person/ReadMore'
 import { globalStyles } from '~/styles'
 import { theme } from '~/theme'
 
@@ -169,7 +169,7 @@ export default function Person() {
         {(!!numberOfMovies || !!numberOfTvShows) && (
           <View style={[globalStyles.centered, styles.creditNumbers]}>
             {!!numberOfMovies && (
-              <ThumbLink href={personMoviesPath({ id: personID })} style={styles.creditNumber}>
+              <ThumbLink className="flex-1" href={personMoviesPath({ id: personID })}>
                 <CreditNumberThumb
                   number={numberOfMovies}
                   title={<FormattedMessage defaultMessage="movies" id="2xXGzb" />}
@@ -178,7 +178,7 @@ export default function Person() {
               </ThumbLink>
             )}
             {!!numberOfTvShows && (
-              <ThumbLink href={personTvPath({ id: personID })} style={styles.creditNumber}>
+              <ThumbLink className="flex-1" href={personTvPath({ id: personID })}>
                 <CreditNumberThumb
                   number={numberOfTvShows}
                   title={<FormattedMessage defaultMessage="series" id="INk7fF" />}

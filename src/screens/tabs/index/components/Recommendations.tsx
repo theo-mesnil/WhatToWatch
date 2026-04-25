@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl'
 
 import type { UseGetRecommendations } from '~/api/account'
 import { useGetRecommendations } from '~/api/account'
-import { List } from '~/components/List'
-import { Thumb } from '~/components/Thumb'
-import { ThumbLink } from '~/components/ThumbLink'
+import { List } from '~/components/list'
+import { Thumb } from '~/components/thumb'
+import { ThumbLink } from '~/components/thumb-link'
 import { recommendationsPath } from '~/routes'
 import { routeByType } from '~/routes/utils'
 

@@ -1,8 +1,8 @@
 import type { FlashListProps } from '@shopify/flash-list'
 
-import { List } from '~/components/List'
-import { NetworkThumb } from '~/components/new/network-thumb'
-import { ThumbLink } from '~/components/ThumbLink'
+import { List } from '~/components/list'
+import { NetworkThumb } from '~/components/network-thumb'
+import { ThumbLink } from '~/components/thumb-link'
 import type { NetworksList } from '~/constants/networks'
 import { networksList } from '~/constants/networks'
 import { networkPath } from '~/routes'

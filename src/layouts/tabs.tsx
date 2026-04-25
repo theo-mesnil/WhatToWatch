@@ -9,10 +9,10 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 
-import { Button } from '~/components/new/button'
-import { Header } from '~/components/new/header'
-import { Text } from '~/components/new/text'
-import { UserButton } from '~/components/new/user-button'
+import { Button } from '~/components/button'
+import { Header } from '~/components/header'
+import { Text } from '~/components/text'
+import { UserButton } from '~/components/user-button'
 import { useAuth } from '~/contexts/Auth'
 import { isIpad } from '~/utils/get-device-info'
 

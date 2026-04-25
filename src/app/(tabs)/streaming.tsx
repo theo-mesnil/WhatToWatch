@@ -2,9 +2,9 @@ import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { View } from 'react-native'
 
-import { NetworkList } from '~/components/app/streaming/NetworkList'
 import { networksList } from '~/constants/networks'
 import { TabsLayout } from '~/layouts/tabs'
+import { NetworkList } from '~/screens/streaming/NetworkList'
 import { theme } from '~/theme'
 
 export default function Networks() {

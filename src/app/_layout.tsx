@@ -9,7 +9,7 @@ import * as React from 'react'
 import { SafeAreaListener } from 'react-native-safe-area-context'
 import { Uniwind } from 'uniwind'
 
-import { StatusBar } from '~/components/new/status-bar'
+import { StatusBar } from '~/components/status-bar'
 import { AuthProvider } from '~/contexts/Auth'
 
 import '../global.css'

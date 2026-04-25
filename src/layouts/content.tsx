@@ -3,13 +3,12 @@ import { router } from 'expo-router'
 import React from 'react'
 import { View } from 'react-native'
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated'
-import { useCSSVariable, withUniwind } from 'uniwind'
+import { withUniwind } from 'uniwind'
 
-import { Gradient } from '~/components/Gradient'
-import { Loader } from '~/components/Loader'
-import { Button } from '~/components/new/button'
-import { Header } from '~/components/new/header'
-import { Text } from '~/components/new/text'
+import { Button } from '~/components/button'
+import { Header } from '~/components/header'
+import { Loader } from '~/components/loader'
+import { Text } from '~/components/text'
 import { isIpad } from '~/utils/get-device-info'
 import { getImageUrl } from '~/utils/images'
 
@@ -38,7 +37,6 @@ export const ContentLayout = ({
   title,
 }: ContentLayoutProps) => {
   const scrollY = useSharedValue(0)
-  const backgroundColor = useCSSVariable('--color-background') as string
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: event => {
@@ -69,10 +67,7 @@ export const ContentLayout = ({
             />
             {isLoading && <Loader className="w-full" />}
           </View>
-          <Gradient
-            className="absolute w-full mt-cover-top h-cover-without-top"
-            colors={['transparent', backgroundColor]}
-          />
+          <View className="absolute w-full mt-cover-top h-cover-without-top bg-linear-180 from-transparent to-background" />
           <View className="items-center h-full justify-end mx-6">
             {logo && (
               <UniwindImage
