@@ -2,12 +2,12 @@ import { api, apiV4 } from './api'
 import type { paths } from './types'
 import type { paths as pathsV4 } from './types-v4'
 
-export type UseCreateAccessTokenApiResponse =
+type UseCreateAccessTokenApiResponse =
   pathsV4['/4/auth/access_token']['post']['responses']['200']['content']['application/json']
-export type UseCreateSessionFromV4ApiResponse =
+type UseCreateSessionFromV4ApiResponse =
   paths['/3/authentication/session/convert/4']['post']['responses']['200']['content']['application/json']
 
-export type UseRequestTokenApiResponse =
+type UseRequestTokenApiResponse =
   pathsV4['/4/auth/request_token']['post']['responses']['200']['content']['application/json']
 
 export async function fetchAccessToken(requestToken: string) {

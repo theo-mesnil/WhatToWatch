@@ -11,31 +11,6 @@ import {
 } from '~/constants/networks'
 import type { NetworkId } from '~/types/content'
 
-export function getNetworkColor(id?: NetworkId): [string, string] {
-  switch (id) {
-    case NETWORK_APPLE_TV_PLUS_ID:
-      return ['#323232', '#181818']
-    case NETWORK_DISNEY_PLUS_ID:
-      return ['#049FAA', '#025f66']
-    case NETWORK_FOX_ID:
-      return ['#0086BD', '#00435e']
-    case NETWORK_HBO_ID:
-      return ['#7B2ABF', '#441769']
-    case NETWORK_HULU_ID:
-      return ['#1EE783', '#0d7641']
-    case NETWORK_NETFLIX_ID:
-      return ['#E50914', '#b70710']
-    case NETWORK_PARAMOUNT_PLUS:
-      return ['#0064ff', '#0037c5']
-    case NETWORK_PRIME_VIDEO:
-      return ['#1C97FE', '#014d8c']
-    case NETWORK_SHOWTIME_ID:
-      return ['#FF1928', '#c4000d']
-    default:
-      return ['#323232', '#181818']
-  }
-}
-
 export function getNetworkFromUrl(url: string) {
   let network
 

@@ -5,7 +5,7 @@ import { Thumb } from '~/components/thumb'
 import { Touchable } from '~/components/touchable'
 import { getVideo } from '~/utils/videos'
 
-export type VideoThumbProps = {
+type VideoThumbProps = {
   id: string
   name: string
   platform: string

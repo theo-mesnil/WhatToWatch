@@ -8,7 +8,7 @@ import { Touchable } from '~/components/touchable'
 import type { ThumbProps } from './thumb'
 import { Thumb } from './thumb'
 
-export type ThumbLinkProps = Pick<TouchableProps, 'className'> & {
+type ThumbLinkProps = Pick<TouchableProps, 'className'> & {
   children: React.ReactElement
   href: Href
   isLoading?: boolean

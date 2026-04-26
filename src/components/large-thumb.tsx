@@ -11,7 +11,7 @@ import { getImageUrl } from '~/utils/images'
 
 const UniwindImage = withUniwind(Image)
 
-export type LargeThumbProps = {
+type LargeThumbProps = {
   className?: string
   id?: number
   imageUrl?: string
@@ -45,7 +45,7 @@ export function LargeThumb({
         type={type}
       />
       <View className="absolute inset-0 items-center justify-end">
-        <View className="absolute inset-0 bg-linear-180 from-transparent to-behinde" />
+        <View className="absolute inset-0 bg-linear-180 from-transparent to-background" />
         {!isLoadingLogo && logo && (
           <UniwindImage
             className="mb-4 max-h-25 w-62.5"
@@ -54,7 +54,7 @@ export function LargeThumb({
           />
         )}
         {!isLoadingLogo && !logo && title && (
-          <Text className="pb-2 mx-4 text-center" numberOfLines={2} variant="h0">
+          <Text className="pb-2 mx-screen text-center" numberOfLines={2} variant="h0">
             {title}
           </Text>
         )}

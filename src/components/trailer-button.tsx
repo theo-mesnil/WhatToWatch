@@ -4,7 +4,7 @@ import type { ButtonProps } from '~/components/button'
 import { Button } from '~/components/button'
 import { getVideo } from '~/utils/videos'
 
-export type TrailerButtonProps = Pick<ButtonProps, 'className'> & {
+type TrailerButtonProps = Pick<ButtonProps, 'className'> & {
   id: string
   platform: string
 }

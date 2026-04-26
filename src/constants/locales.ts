@@ -1,7 +1,7 @@
 import { getLocales } from 'expo-localization'
 
 export type Locale = 'en' | 'fr'
-export type LocaleI18n = 'en-US' | 'fr-FR'
+type LocaleI18n = 'en-US' | 'fr-FR'
 
 const LANGUAGE_CODE = getLocales()[0].languageCode
 export const REGION_CODE = getLocales()[0].regionCode

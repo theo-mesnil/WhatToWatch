@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
 
-export type PersonThumbProps = {
+type PersonThumbProps = {
   character?: string
   imageUrl?: string
   name?: string

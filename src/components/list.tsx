@@ -69,7 +69,7 @@ export function List<ItemProps>({
   }
 
   const renderTitle = (
-    <ListTitle className="mx-4" icon={icon} titleHref={titleHref}>
+    <ListTitle className="mx-screen" icon={icon} titleHref={titleHref}>
       {title ?? ''}
     </ListTitle>
   )

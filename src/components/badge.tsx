@@ -5,7 +5,7 @@ import { Icon } from '~/components/icon'
 import type { IconProps } from '~/components/icon'
 import { Text } from '~/components/text'
 
-export type BadgeProps = {
+type BadgeProps = {
   children: React.ReactNode
   icon?: IconProps['name']
   testID?: string

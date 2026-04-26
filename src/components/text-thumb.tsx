@@ -4,7 +4,7 @@ import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
 import type { ContentType } from '~/types/content'
 
-export type TextThumbProps = {
+type TextThumbProps = {
   imageUrl?: string
   overview?: string
   tag?: React.ReactElement

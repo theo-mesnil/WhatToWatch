@@ -5,7 +5,7 @@ import { NetworkLogo } from '~/components/network-logo'
 import type { NetworkId } from '~/types/content'
 import { getNetworkBackgroundClassName } from '~/utils/networks'
 
-export type NetworkThumbProps = {
+type NetworkThumbProps = {
   aspectRatio?: number
   id: NetworkId
   variant?: 'colored' | 'minimalist'

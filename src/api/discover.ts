@@ -5,19 +5,19 @@ import { LOCALE } from '~/constants/locales'
 import { api } from './api'
 import type { paths } from './types'
 
-export type UseGetDiscoverMovieApiProps = {
+export type UseGetDiscoverMovieApiResponse =
+  paths['/3/discover/movie']['get']['responses']['200']['content']['application/json']
+export type UseGetDiscoverTvApiResponse =
+  paths['/3/discover/tv']['get']['responses']['200']['content']['application/json']
+
+type UseGetDiscoverMovieApiProps = {
   maxPages?: number
   params?: paths['/3/discover/movie']['get']['parameters']['query']
 }
-export type UseGetDiscoverMovieApiResponse =
-  paths['/3/discover/movie']['get']['responses']['200']['content']['application/json']
-
-export type UseGetDiscoverTvApiProps = {
+type UseGetDiscoverTvApiProps = {
   maxPages?: number
   params?: paths['/3/discover/tv']['get']['parameters']['query']
 }
-export type UseGetDiscoverTvApiResponse =
-  paths['/3/discover/tv']['get']['responses']['200']['content']['application/json']
 
 export function useGetDiscoverMovie(props?: UseGetDiscoverMovieApiProps) {
   const { maxPages = 30, params } = props || {}

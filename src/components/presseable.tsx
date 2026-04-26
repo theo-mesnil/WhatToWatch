@@ -3,7 +3,7 @@ import type { PressableProps as RNPressableProps, View } from 'react-native'
 import { Pressable as RNPressable } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 
-export type PressableProps = RNPressableProps & {
+type PressableProps = RNPressableProps & {
   children?: React.ReactNode
   className?: string
   endScale?: number

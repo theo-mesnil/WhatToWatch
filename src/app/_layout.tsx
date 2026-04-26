@@ -10,7 +10,7 @@ import { SafeAreaListener } from 'react-native-safe-area-context'
 import { Uniwind } from 'uniwind'
 
 import { StatusBar } from '~/components/status-bar'
-import { AuthProvider } from '~/contexts/Auth'
+import { AuthProvider } from '~/contexts/auth'
 
 import '../global.css'
 import { ThemeProvider } from '~/contexts/theme'

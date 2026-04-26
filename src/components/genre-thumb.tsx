@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Text } from '~/components/text'
 import { getGenreBackgroundClassName } from '~/utils/genres'
 
-export type GenreThumbProps = {
+type GenreThumbProps = {
   id: number
   title?: string
 }
