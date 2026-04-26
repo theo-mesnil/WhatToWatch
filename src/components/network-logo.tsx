@@ -24,7 +24,7 @@ import {
 } from '~/constants/networks'
 import type { NetworkId } from '~/types/content'
 
-export type NetworkLogoProps = {
+type NetworkLogoProps = {
   color?: string
   height?: DimensionValue
   id: NetworkId

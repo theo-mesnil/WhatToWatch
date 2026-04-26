@@ -1,7 +1,7 @@
 import type { TextProps as RNTextProps } from 'react-native'
 import { Text as RNText } from 'react-native'
 
-export type TextProps = RNTextProps & {
+type TextProps = RNTextProps & {
   bold?: boolean
   variant?: 'h0' | 'h1' | 'h2' | 'h3' | 'lg' | 'md'
 }

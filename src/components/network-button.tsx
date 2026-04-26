@@ -7,7 +7,7 @@ import { NetworkLogo } from '~/components/network-logo'
 import type { NetworkId } from '~/types/content'
 import { getNetworkBackgroundClassName } from '~/utils/networks'
 
-export type NetworkButtonProps = Pick<ButtonProps, 'className'> & {
+type NetworkButtonProps = Pick<ButtonProps, 'className'> & {
   id: NetworkId
   link: string
 }

@@ -5,7 +5,7 @@ import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
 import { formatTime } from '~/utils/time'
 
-export type EpisodeThumbProps = {
+type EpisodeThumbProps = {
   airDate?: string
   imageUrl?: string
   name?: string

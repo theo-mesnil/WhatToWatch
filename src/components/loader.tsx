@@ -12,7 +12,7 @@ import Animated, {
 const sharedOpacity = makeMutable(0.1)
 let mountCount = 0
 
-export type LoaderProps = {
+type LoaderProps = {
   className?: string
 }
 

@@ -5,7 +5,7 @@ import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
 import type { ContentType } from '~/types/content'
 
-export type ItemThumbProps = {
+type ItemThumbProps = {
   date?: string
   isLoading?: boolean
   overview?: string

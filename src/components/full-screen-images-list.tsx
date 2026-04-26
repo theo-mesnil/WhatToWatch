@@ -9,7 +9,7 @@ import type { UseGetTvImagesApiResponse } from '~/api/tv'
 import { Thumb } from '~/components/thumb'
 import type { ContentType } from '~/types/content'
 
-export type FullScreenImagesProps = {
+type FullScreenImagesProps = {
   images: Images
   isLoading?: boolean
   startAt?: number

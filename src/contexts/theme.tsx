@@ -4,7 +4,7 @@ import { createContext, use, useEffect, useState } from 'react'
 import { useColorScheme } from 'react-native'
 import { Uniwind } from 'uniwind'
 
-export type Theme = 'dark' | 'light' | 'system'
+type Theme = 'dark' | 'light' | 'system'
 
 const THEME_STORAGE_KEY = 'theme'
 

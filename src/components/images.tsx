@@ -9,7 +9,7 @@ import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
 import { movieImagesPath, tvImagesPath } from '~/routes'
 
-export type ImagesProps = {
+type ImagesProps = {
   backdrops?: UseGetMovieImagesApiResponse['backdrops']
   id: number
   isLoading: boolean

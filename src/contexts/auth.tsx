@@ -21,7 +21,7 @@ type AuthState = {
 const authStorageKey = 'auth-key'
 const authReturnPathKey = 'auth-return-path'
 
-export const AuthContext = createContext<AuthState>({
+const AuthContext = createContext<AuthState>({
   accessToken: null,
   accountId: null,
   isReady: false,

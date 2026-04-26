@@ -6,7 +6,7 @@ import { Text } from '~/components/text'
 
 const maxLines = 8
 
-export type ReadMoreProps = {
+type ReadMoreProps = {
   children: string
 }
 

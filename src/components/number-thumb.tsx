@@ -4,7 +4,7 @@ import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
 import type { ContentType } from '~/types/content'
 
-export type NumberThumbProps = {
+type NumberThumbProps = {
   imageUrl?: string
   number: number
   type: ContentType

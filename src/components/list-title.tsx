@@ -8,7 +8,7 @@ import { Icon } from '~/components/icon'
 import { Text } from '~/components/text'
 import { Touchable } from '~/components/touchable'
 
-export type ListTitleProps = {
+type ListTitleProps = {
   children: React.ReactElement | string
   className?: string
   icon?: IconProps['name']

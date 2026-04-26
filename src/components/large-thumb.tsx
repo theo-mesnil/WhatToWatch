@@ -11,7 +11,7 @@ import { getImageUrl } from '~/utils/images'
 
 const UniwindImage = withUniwind(Image)
 
-export type LargeThumbProps = {
+type LargeThumbProps = {
   className?: string
   id?: number
   imageUrl?: string

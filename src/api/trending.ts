@@ -5,18 +5,18 @@ import { LOCALE } from '~/constants/locales'
 import { api } from './api'
 import type { paths } from './types'
 
-export type Type = 'all' | 'movie' | 'person' | 'tv'
-
-export type UseGetTrendingApiProps = {
-  maxPages?: number
-  type?: Type
-}
-
 export type UseGetTrendingApiResponse = {
   all: paths['/3/trending/all/{time_window}']['get']['responses']['200']['content']['application/json']
   movie: paths['/3/trending/movie/{time_window}']['get']['responses']['200']['content']['application/json']
   person: paths['/3/trending/person/{time_window}']['get']['responses']['200']['content']['application/json']
   tv: paths['/3/trending/tv/{time_window}']['get']['responses']['200']['content']['application/json']
+}
+
+type Type = 'all' | 'movie' | 'person' | 'tv'
+
+type UseGetTrendingApiProps = {
+  maxPages?: number
+  type?: Type
 }
 
 export function useGetTrending(props?: UseGetTrendingApiProps) {

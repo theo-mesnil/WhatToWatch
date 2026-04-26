@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Icon } from '~/components/icon'
 import { Text } from '~/components/text'
 
-export type CreditNumberThumbProps = {
+type CreditNumberThumbProps = {
   number: number
   title: React.ReactElement
   type: 'movie' | 'tv'

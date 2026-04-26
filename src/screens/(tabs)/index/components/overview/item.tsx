@@ -13,7 +13,7 @@ import { getImageUrl } from '~/utils/images'
 
 const UniwindImage = withUniwind(Image)
 
-export type ItemProps = {
+type ItemProps = {
   description?: string
   id: number
   imageUrl: string

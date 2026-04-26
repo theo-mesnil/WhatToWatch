@@ -7,7 +7,7 @@ import { useAuth } from '~/contexts/auth'
 import { apiV4 } from './api'
 import type { paths as pathsV4 } from './types-v4'
 
-export type UseDeleteAccessTokenApiResponse =
+type UseDeleteAccessTokenApiResponse =
   pathsV4['/4/auth/access_token']['delete']['responses']['200']['content']['application/json']
 
 export function useDeleteRequestToken() {
