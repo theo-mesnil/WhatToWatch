@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import type { UseGetMovieImagesApiResponse } from '~/api/movie'
 import { Button } from '~/components/button'
@@ -8,8 +8,6 @@ import { ListTitle } from '~/components/list-title'
 import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
 import { movieImagesPath, tvImagesPath } from '~/routes'
-import { globalStyles } from '~/styles'
-import { theme } from '~/theme'
 
 export type ImagesProps = {
   backdrops?: UseGetMovieImagesApiResponse['backdrops']
@@ -26,9 +24,9 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
         <ListTitle>
           <FormattedMessage defaultMessage="Images" id="Fip4H8" />
         </ListTitle>
-        <View style={styles.images}>
+        <View className="aspect-video flex-row gap-4">
           {(backdrops?.length ?? 0) > 0 && (
-            <View style={styles.backdrops}>
+            <View className="h-full w-3/5">
               <ThumbLink
                 href={
                   type === 'movie'
@@ -45,7 +43,7 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                     isLoading={isLoading}
                     type="movie"
                   />
-                  <View style={[globalStyles.absoluteFill, styles.content]}>
+                  <View className="absolute inset-0 justify-end">
                     <Button size="lg" variant="secondary">
                       <FormattedMessage defaultMessage="Backdrops" id="eBDmdm" />
                     </Button>
@@ -55,7 +53,7 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
             </View>
           )}
           {(posters?.length ?? 0) > 0 && (
-            <View style={styles.posters}>
+            <View className="flex-1 h-full">
               <ThumbLink
                 href={
                   type === 'movie'
@@ -72,7 +70,7 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                     isLoading={isLoading}
                     type="movie"
                   />
-                  <View style={[globalStyles.absoluteFill, styles.content]}>
+                  <View className="absolute inset-0 justify-end">
                     <Button size="lg" variant="secondary">
                       <FormattedMessage defaultMessage="Posters" id="4NCdJM" />
                     </Button>
@@ -88,22 +86,3 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
 
   return null
 }
-
-const styles = StyleSheet.create({
-  backdrops: {
-    height: '100%',
-    width: '60%',
-  },
-  content: {
-    justifyContent: 'flex-end',
-  },
-  images: {
-    aspectRatio: 16 / 9,
-    flexDirection: 'row',
-    gap: theme.space.lg,
-  },
-  posters: {
-    flex: 1,
-    height: '100%',
-  },
-})

@@ -11,7 +11,6 @@ import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
 import { watchlistPath } from '~/routes'
 import { routeByType } from '~/routes/utils'
-import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
@@ -65,7 +64,7 @@ export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
         />
       )}
       {!isLoading && !results?.length && (
-        <View style={globalStyles.centered}>
+        <View className="mx-4">
           <ListTitle icon="bookmark">{listTitle}</ListTitle>
           <Empty icon="bookmark">
             {type === 'movie' ? (

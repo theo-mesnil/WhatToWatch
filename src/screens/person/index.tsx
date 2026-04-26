@@ -3,7 +3,7 @@ import { intervalToDuration } from 'date-fns'
 import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedDate, FormattedMessage } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import type { UseGetPersonCreditsApiResponse, UseGetPersonImagesApiResponse } from '~/api/person'
 import {
@@ -22,8 +22,6 @@ import { personImagePath, personMoviesPath, personTvPath } from '~/routes'
 import { routeByType } from '~/routes/utils'
 import { CreditNumberThumb } from '~/screens/person/components/credit-number-thumb'
 import { ReadMore } from '~/screens/person/components/read-more'
-import { globalStyles } from '~/styles'
-import { theme } from '~/theme'
 
 type CastItem = NonNullable<UseGetPersonCreditsApiResponse['cast']>[number]
 type ImageItem = NonNullable<UseGetPersonImagesApiResponse['profiles']>[number]
@@ -150,9 +148,9 @@ export default function Person() {
       isLoading={isLoading || isLoadingMovies || isLoadingTv}
       title={name || ''}
     >
-      <View style={styles.content}>
+      <View className="gap-6 mb-6">
         {!!biography && (
-          <View style={globalStyles.centered}>
+          <View className="mx-screen">
             <ReadMore>{biography}</ReadMore>
           </View>
         )}
@@ -167,7 +165,7 @@ export default function Person() {
           />
         )}
         {(!!numberOfMovies || !!numberOfTvShows) && (
-          <View style={[globalStyles.centered, styles.creditNumbers]}>
+          <View className="mx-screen flex-row gap-4">
             {!!numberOfMovies && (
               <ThumbLink className="flex-1" href={personMoviesPath({ id: personID })}>
                 <CreditNumberThumb
@@ -201,14 +199,3 @@ export default function Person() {
     </ContentLayout>
   )
 }
-
-const styles = StyleSheet.create({
-  content: {
-    gap: theme.space.xl,
-    marginBottom: theme.space.xl,
-  },
-  creditNumber: {
-    flex: 1,
-  },
-  creditNumbers: { flexDirection: 'row', gap: theme.space.lg },
-})

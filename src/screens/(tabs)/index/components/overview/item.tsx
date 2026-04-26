@@ -1,16 +1,17 @@
 import { Image } from 'expo-image'
 import { Link } from 'expo-router'
 import { FormattedMessage } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
+import { withUniwind } from 'uniwind'
 
 import { useGetContentLogo } from '~/api/logo'
 import { Button } from '~/components/button'
 import { Text } from '~/components/text'
 import { routeByType } from '~/routes/utils'
-import { globalStyles } from '~/styles'
-import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
 import { getImageUrl } from '~/utils/images'
+
+const UniwindImage = withUniwind(Image)
 
 export type ItemProps = {
   description?: string
@@ -27,14 +28,15 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
   })
 
   return (
-    <View style={styles.wrapper}>
-      <Image source={getImageUrl(imageUrl, 'w1280')} style={globalStyles.absoluteFill} />
-      <View style={styles.content}>
+    <View className="h-150 justify-end">
+      <UniwindImage className="absolute inset-0" source={getImageUrl(imageUrl, 'w1280')} />
+      <View className="items-center h-100 justify-end pb-10 px-8">
         <View className="absolute inset-0 bg-linear-180 from-transparent to-foreground" />
         {!isLoadingLogo && logo && (
-          <Image
+          <UniwindImage
+            className="max-h-cover-top w-62.5"
             source={getImageUrl(logo.url, 'w500')}
-            style={[styles.logo, { aspectRatio: logo.aspectRatio }]}
+            style={{ aspectRatio: logo.aspectRatio }}
           />
         )}
         {!isLoadingLogo && !logo && (
@@ -54,21 +56,3 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  content: {
-    alignItems: 'center',
-    height: 400,
-    justifyContent: 'flex-end',
-    paddingBottom: 40,
-    paddingHorizontal: theme.space.xxl,
-  },
-  logo: {
-    maxHeight: 150,
-    width: 250,
-  },
-  wrapper: {
-    height: 600,
-    justifyContent: 'flex-end',
-  },
-})

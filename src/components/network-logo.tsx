@@ -1,5 +1,6 @@
 import type { DimensionValue } from 'react-native'
 import { View } from 'react-native'
+import { useCSSVariable } from 'uniwind'
 
 import AppleTvPlus from '~/assets/networks-logos/apple-tv-plus'
 import DisneyPlus from '~/assets/networks-logos/disney-plus'
@@ -21,7 +22,6 @@ import {
   NETWORK_PRIME_VIDEO,
   NETWORK_SHOWTIME_ID,
 } from '~/constants/networks'
-import { theme } from '~/theme'
 import type { NetworkId } from '~/types/content'
 
 export type NetworkLogoProps = {
@@ -31,7 +31,9 @@ export type NetworkLogoProps = {
   width?: DimensionValue
 }
 
-export function NetworkLogo({ color = theme.colors.white, height, id, width }: NetworkLogoProps) {
+export function NetworkLogo({ height, id, width }: NetworkLogoProps) {
+  const color = useCSSVariable('--color-text-maximal')?.toString()
+
   return (
     <View
       style={{

@@ -12,7 +12,6 @@ import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
 import { favoritePath } from '~/routes'
 import { routeByType } from '~/routes/utils'
-import { globalStyles } from '~/styles'
 
 type Item = MovieItem | TVItem
 // Define more specific types
@@ -66,7 +65,7 @@ export function Favorite({ type }: { type: 'movie' | 'tv' }) {
         />
       )}
       {!isLoading && !results?.length && (
-        <View style={globalStyles.centered}>
+        <View className="mx-4">
           <ListTitle icon="heart">{listTitle}</ListTitle>
           <Empty icon="heart">
             {type === 'movie' ? (

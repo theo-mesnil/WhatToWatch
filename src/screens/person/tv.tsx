@@ -1,15 +1,13 @@
 import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import { useGetPerson, useGetPersonTvCredits } from '~/api/person'
 import { ThumbLink } from '~/components/thumb-link'
 import { BasicLayout } from '~/layouts/basic'
 import { tvPath } from '~/routes'
 import { ItemThumb } from '~/screens/person/components/item-thumb'
-import { globalStyles } from '~/styles'
-import { theme } from '~/theme'
 
 export default function PersonTv() {
   const params = useLocalSearchParams<{ id: string }>()
@@ -36,7 +34,7 @@ export default function PersonTv() {
       }
     >
       {!isLoadingTv && (
-        <View style={styles.items}>
+        <View className="gap-3 mx-screen">
           {tv?.map((item, index) => (
             <ThumbLink
               href={tvPath({ id: item.id })}
@@ -60,10 +58,3 @@ export default function PersonTv() {
     </BasicLayout>
   )
 }
-
-const styles = StyleSheet.create({
-  items: {
-    gap: theme.space.md,
-    ...globalStyles.centered,
-  },
-})

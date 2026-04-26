@@ -54,7 +54,7 @@ export function LargeThumb({
           />
         )}
         {!isLoadingLogo && !logo && title && (
-          <Text className="pb-2 mx-4 text-center" numberOfLines={2} variant="h0">
+          <Text className="pb-2 mx-screen text-center" numberOfLines={2} variant="h0">
             {title}
           </Text>
         )}

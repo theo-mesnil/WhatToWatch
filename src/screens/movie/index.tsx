@@ -2,7 +2,7 @@ import type { FlashListProps } from '@shopify/flash-list'
 import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedDate, FormattedMessage } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import { useGetContentLogo } from '~/api/logo'
 import type {
@@ -30,8 +30,6 @@ import { TrailerButton } from '~/components/trailer-button'
 import { VideoThumb } from '~/components/video-thumb'
 import { ContentLayout } from '~/layouts/content'
 import { moviePath, personPath } from '~/routes'
-import { globalStyles } from '~/styles'
-import { theme } from '~/theme'
 import { formatTime } from '~/utils/time'
 
 type CastItem = NonNullable<UseGetMovieCreditsApiResponse['cast']>[number]
@@ -140,7 +138,7 @@ export default function Movie() {
           platform={trailer.site ?? ''}
         />
       )}
-      <View style={styles.content}>
+      <View className="gap-6">
         {(!!overview || !!tagline) && (
           <Text className="px-screen mt-3 text-text-maximal" variant="lg">
             {overview || tagline}
@@ -166,7 +164,7 @@ export default function Movie() {
           />
         )}
         {(isLoadingImages || !!images) && (
-          <View style={globalStyles.centered}>
+          <View className="mx-screen">
             <Images
               backdrops={images?.backdrops}
               id={movieID}
@@ -189,9 +187,3 @@ export default function Movie() {
     </ContentLayout>
   )
 }
-
-const styles = StyleSheet.create({
-  content: {
-    gap: theme.space.xl,
-  },
-})

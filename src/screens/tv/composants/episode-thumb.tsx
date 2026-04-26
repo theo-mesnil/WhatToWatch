@@ -1,9 +1,8 @@
 import { FormattedDate } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
-import { theme } from '~/theme'
 import { formatTime } from '~/utils/time'
 
 export type EpisodeThumbProps = {
@@ -24,12 +23,12 @@ export function EpisodeThumb({
   runtime,
 }: EpisodeThumbProps) {
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.main}>
-        <View style={styles.thumb}>
+    <View className="gap-1.5">
+      <View className="flex-row">
+        <View className="w-[150px]">
           <Thumb aspectRatio={16 / 9} imageUrl={imageUrl} type="tv" />
         </View>
-        <View style={styles.infos}>
+        <View className="shrink justify-center ml-3 gap-2">
           <Text className="text-text-maximal" variant="lg">
             {number}. {name}
           </Text>
@@ -48,21 +47,3 @@ export function EpisodeThumb({
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  infos: {
-    flexShrink: 1,
-    gap: theme.space.sm,
-    justifyContent: 'center',
-    marginLeft: theme.space.md,
-  },
-  main: {
-    flexDirection: 'row',
-  },
-  thumb: {
-    width: 150,
-  },
-  wrapper: {
-    gap: theme.space.xs,
-  },
-})

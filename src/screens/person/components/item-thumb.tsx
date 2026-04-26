@@ -1,9 +1,8 @@
 import { FormattedDate } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
-import { theme } from '~/theme'
 import type { ContentType } from '~/types/content'
 
 export type ItemThumbProps = {
@@ -18,12 +17,12 @@ export type ItemThumbProps = {
 
 export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: ItemThumbProps) {
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.thumb}>
+    <View className="flex-row gap-3">
+      <View className="w-25">
         <Thumb imageUrl={posterUrl} type={type} />
       </View>
-      <View style={styles.content}>
-        <View style={styles.infos}>
+      <View className="flex-1">
+        <View className="gap-1">
           <Text variant="h3">{title}</Text>
           {subtitle && (
             <Text className="text-text-maximal" variant="h3">
@@ -37,7 +36,7 @@ export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: 
           )}
         </View>
         {overview && (
-          <Text numberOfLines={4} style={styles.overview}>
+          <Text className="mt-3" numberOfLines={4}>
             {overview}
           </Text>
         )}
@@ -45,22 +44,3 @@ export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: 
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-  },
-  infos: {
-    gap: theme.space.xxs,
-  },
-  overview: {
-    marginTop: theme.space.md,
-  },
-  thumb: {
-    width: 100,
-  },
-  wrapper: {
-    flexDirection: 'row',
-    gap: theme.space.md,
-  },
-})

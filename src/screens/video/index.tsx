@@ -3,9 +3,8 @@ import { Dimensions, View } from 'react-native'
 import YoutubePlayer from 'react-native-youtube-iframe'
 
 import { ModalLayout } from '~/layouts/modal'
-import { theme } from '~/theme'
 
-const gap = theme.space.sm
+const gap = 8
 const width = Dimensions.get('window').width - gap
 const ratio = width / 16
 const height = ratio * 9

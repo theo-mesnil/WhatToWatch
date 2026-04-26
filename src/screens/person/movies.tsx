@@ -1,14 +1,12 @@
 import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import { useGetPerson, useGetPersonMovieCredits } from '~/api/person'
 import { ThumbLink } from '~/components/thumb-link'
 import { BasicLayout } from '~/layouts/basic'
 import { moviePath } from '~/routes'
 import { ItemThumb } from '~/screens/person/components/item-thumb'
-import { globalStyles } from '~/styles'
-import { theme } from '~/theme'
 
 export default function PersonMovies() {
   const params = useLocalSearchParams<{ id: string }>()
@@ -28,7 +26,7 @@ export default function PersonMovies() {
   return (
     <BasicLayout title={name || ''}>
       {!isLoadingMovies && (
-        <View style={styles.items}>
+        <View className="gap-3 mx-screen">
           {movies?.map((movie, index) => (
             <ThumbLink
               href={moviePath({ id: movie.id })}
@@ -52,10 +50,3 @@ export default function PersonMovies() {
     </BasicLayout>
   )
 }
-
-const styles = StyleSheet.create({
-  items: {
-    gap: theme.space.md,
-    ...globalStyles.centered,
-  },
-})

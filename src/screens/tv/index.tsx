@@ -2,7 +2,7 @@ import type { FlashListProps } from '@shopify/flash-list'
 import { useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
 import { useGetContentLogo } from '~/api/logo'
 import type {
@@ -34,8 +34,6 @@ import { VideoThumb } from '~/components/video-thumb'
 import { ContentLayout } from '~/layouts/content'
 import { personPath, tvPath } from '~/routes'
 import { EpisodeThumb } from '~/screens/tv/composants/episode-thumb'
-import { globalStyles } from '~/styles'
-import { theme } from '~/theme'
 import { formatTime } from '~/utils/time'
 
 type CastItem = NonNullable<UseGetTvCreditsApiResponse['cast']>[number]
@@ -175,30 +173,25 @@ export default function Tv() {
           {overview || tagline}
         </Text>
       )}
-      <View style={styles.content}>
+      <View className="gap-6 mt-8">
         {!!seasonsLength && (
           <View>
             <List<SeasonItem>
-              gap={theme.space.sm}
+              gap={8}
               id="seasons-buttons"
               renderItem={renderItemSeason}
               results={seasonsLength > 1 ? seasons : null}
               withoutSizing
             />
             {isLoadingSeason && (
-              <View style={styles.seasonLoading}>
+              <View className="h-175 mt-6">
                 <Text variant="h1">
                   <FormattedMessage defaultMessage="Episodes" id="oIih5v" />
                 </Text>
               </View>
             )}
             {!isLoadingSeason && (
-              <View
-                style={[
-                  styles.episodesContent,
-                  seasonsLength > 1 && styles.episodesContentMultipleSeasons,
-                ]}
-              >
+              <View className={`px-4 ${seasonsLength > 1 ? 'mt-6' : ''}`}>
                 <Text variant="h1">
                   <FormattedMessage defaultMessage="Episodes" id="oIih5v" />
                 </Text>
@@ -213,7 +206,7 @@ export default function Tv() {
                   />
                   {seasonAirDate && ` • ${new Date(seasonAirDate).getFullYear()}`}
                 </Text>
-                <View style={styles.episodesList}>
+                <View className="gap-6 mt-4">
                   {season?.episodes?.map((episode, index) => (
                     <EpisodeThumb
                       airDate={episode.air_date}
@@ -250,7 +243,7 @@ export default function Tv() {
           />
         )}
         {(isLoadingImages || !!images) && (
-          <View style={globalStyles.centered}>
+          <View className="mx-screen">
             <Images
               backdrops={images?.backdrops}
               id={tvID}
@@ -273,24 +266,3 @@ export default function Tv() {
     </ContentLayout>
   )
 }
-
-const styles = StyleSheet.create({
-  content: {
-    gap: theme.space.xl,
-    marginTop: theme.space.xxl,
-  },
-  episodesContent: {
-    paddingHorizontal: theme.space.marginList,
-  },
-  episodesContentMultipleSeasons: {
-    marginTop: theme.space.xl,
-  },
-  episodesList: {
-    gap: theme.space.xl,
-    marginTop: theme.space.lg,
-  },
-  seasonLoading: {
-    height: 700,
-    marginTop: theme.space.xl,
-  },
-})
