@@ -28,7 +28,8 @@
     "test": "jest --watchAll --coverage=false",
     "translate:extract": "yarn formatjs extract 'src/**/*.ts*' --ignore='**/*.d.ts' --out-file src/locales/temp.json --flatten --format simple",
     "translate": "yarn translate:extract && node ./scripts/translation.js",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "knip": "knip"
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.4.1",
@@ -86,7 +87,7 @@
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "29.5.14",
     "@types/lodash.merge": "^4.6.9",
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.6.0",
     "@types/react": "~19.2.10",
     "baseline-browser-mapping": "^2.10.21",
     "eslint": "^9.37.0",
@@ -99,8 +100,9 @@
     "husky": "^9.1.7",
     "jest": "~29.7.0",
     "jest-expo": "~55.0.16",
+    "knip": "^6.7.0",
     "prettier": "^3.8.3",
-    "typescript": "~5.9.2",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.58.0"
   },
   "private": true
