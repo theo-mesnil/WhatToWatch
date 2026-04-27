@@ -23,7 +23,16 @@ SplashScreen.setOptions({
   fade: true,
 })
 
-export const queryClient = new QueryClient()
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: 30 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      retry: 2,
+      staleTime: 5 * 60 * 1000,
+    },
+  },
+})
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
