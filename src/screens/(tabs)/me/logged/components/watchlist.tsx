@@ -64,7 +64,7 @@ export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
         />
       )}
       {!isLoading && !results?.length && (
-        <View className="mx-4">
+        <View className="mx-screen">
           <ListTitle icon="bookmark">{listTitle}</ListTitle>
           <Empty icon="bookmark">
             {type === 'movie' ? (

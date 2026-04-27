@@ -65,7 +65,7 @@ export function Favorite({ type }: { type: 'movie' | 'tv' }) {
         />
       )}
       {!isLoading && !results?.length && (
-        <View className="mx-4">
+        <View className="mx-screen">
           <ListTitle icon="heart">{listTitle}</ListTitle>
           <Empty icon="heart">
             {type === 'movie' ? (
