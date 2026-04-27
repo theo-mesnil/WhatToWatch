@@ -58,6 +58,20 @@ export function AuthProvider({ children }: PropsWithChildren) {
     }
   }
 
+  const logIn = (accountId: string, accessToken: string, sessionId: string) => {
+    setAccountId(accountId)
+    setAccessToken(accessToken)
+    setSessionId(sessionId)
+    storeAuthState({ accessToken, accountId, sessionId })
+  }
+
+  const logOut = () => {
+    setAccountId(null)
+    setAccessToken(null)
+    setSessionId(null)
+    SecureStore.deleteItemAsync(authStorageKey)
+  }
+
   const openLogin = async (returnPath?: string): Promise<boolean> => {
     try {
       if (returnPath) {
@@ -86,20 +100,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
       console.error('Login error', error)
       return false
     }
-  }
-
-  const logIn = (accountId: string, accessToken: string, sessionId: string) => {
-    setAccountId(accountId)
-    setAccessToken(accessToken)
-    setSessionId(sessionId)
-    storeAuthState({ accessToken, accountId, sessionId })
-  }
-
-  const logOut = () => {
-    setAccountId(null)
-    setAccessToken(null)
-    setSessionId(null)
-    SecureStore.deleteItemAsync(authStorageKey)
   }
 
   useEffect(() => {

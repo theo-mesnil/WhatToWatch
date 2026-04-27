@@ -94,8 +94,7 @@ export function Overview() {
     prevWidthAnimated.start()
     widthAnimated.reset()
     widthAnimated.start()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSlide])
+  }, [activeSlide, prevWidthAnimated, widthAnimated])
 
   if (isLoading) {
     return (

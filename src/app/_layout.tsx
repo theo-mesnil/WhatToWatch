@@ -36,53 +36,55 @@ export default function Layout() {
   }
 
   return (
-    <SafeAreaListener
-      onChange={({ insets }) => {
-        Uniwind.updateInsets(insets)
-      }}
-    >
-      <AuthProvider>
-        <ThemeProvider>
-          <IntlMessages>
-            <QueryClientProvider client={queryClient}>
-              <StatusBar />
-              <Stack screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="(tabs)" />
-                <Stack.Screen
-                  name="me/index"
-                  options={{
-                    presentation: 'modal',
-                  }}
-                />
-                <Stack.Screen
-                  name="movie/[id]/images/[type]"
-                  options={{
-                    presentation: 'modal',
-                  }}
-                />
-                <Stack.Screen
-                  name="tv/[id]/images/[type]"
-                  options={{
-                    presentation: 'modal',
-                  }}
-                />
-                <Stack.Screen
-                  name="person/[id]/images/[start]"
-                  options={{
-                    presentation: 'modal',
-                  }}
-                />
-                <Stack.Screen
-                  name="video/[id]"
-                  options={{
-                    presentation: 'modal',
-                  }}
-                />
-              </Stack>
-            </QueryClientProvider>
-          </IntlMessages>
-        </ThemeProvider>
-      </AuthProvider>
-    </SafeAreaListener>
+    <React.StrictMode>
+      <SafeAreaListener
+        onChange={({ insets }) => {
+          Uniwind.updateInsets(insets)
+        }}
+      >
+        <AuthProvider>
+          <ThemeProvider>
+            <IntlMessages>
+              <QueryClientProvider client={queryClient}>
+                <StatusBar />
+                <Stack screenOptions={{ headerShown: false }}>
+                  <Stack.Screen name="(tabs)" />
+                  <Stack.Screen
+                    name="me/index"
+                    options={{
+                      presentation: 'modal',
+                    }}
+                  />
+                  <Stack.Screen
+                    name="movie/[id]/images/[type]"
+                    options={{
+                      presentation: 'modal',
+                    }}
+                  />
+                  <Stack.Screen
+                    name="tv/[id]/images/[type]"
+                    options={{
+                      presentation: 'modal',
+                    }}
+                  />
+                  <Stack.Screen
+                    name="person/[id]/images/[start]"
+                    options={{
+                      presentation: 'modal',
+                    }}
+                  />
+                  <Stack.Screen
+                    name="video/[id]"
+                    options={{
+                      presentation: 'modal',
+                    }}
+                  />
+                </Stack>
+              </QueryClientProvider>
+            </IntlMessages>
+          </ThemeProvider>
+        </AuthProvider>
+      </SafeAreaListener>
+    </React.StrictMode>
   )
 }
