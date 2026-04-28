@@ -1,5 +1,7 @@
 import { usePathname } from 'expo-router'
 import { useEffect, useRef } from 'react'
+import { useIntl } from 'react-intl'
+import { AccessibilityInfo } from 'react-native'
 
 import { useUpdateWatchlist, useUser } from '~/api/account'
 import { useGetAccountState } from '~/api/account-states'
@@ -7,6 +9,7 @@ import { Button } from '~/components/button'
 import { useAuth } from '~/contexts/auth'
 
 export function WatchlistButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
+  const intl = useIntl()
   const { accountId, openLogin } = useAuth()
   const pathname = usePathname()
   const { data } = useGetAccountState({ id, type })
@@ -36,11 +39,26 @@ export function WatchlistButton({ id, type }: { id: number; type: 'movie' | 'tv'
       return
     }
 
-    updateWatchlist(!isWatchlisted)
+    const newState = !isWatchlisted
+    updateWatchlist(newState, {
+      onSuccess: () => {
+        AccessibilityInfo.announceForAccessibility(
+          newState
+            ? intl.formatMessage({ defaultMessage: 'Added to watchlist', id: 'H2GZxx' })
+            : intl.formatMessage({ defaultMessage: 'Removed from watchlist', id: 'IaqouO' })
+        )
+      },
+    })
   }
+
+  const accessibilityLabel = isWatchlisted
+    ? intl.formatMessage({ defaultMessage: 'Remove from watchlist', id: 'X5hQXG' })
+    : intl.formatMessage({ defaultMessage: 'Add to watchlist', id: '1tj5VZ' })
 
   return (
     <Button
+      accessibilityLabel={accessibilityLabel}
+      accessibilityState={{ selected: !!isWatchlisted }}
       icon={isWatchlisted ? 'bookmark' : 'bookmark-outline'}
       onPress={handleUpdateWatchlist}
       size="xl"

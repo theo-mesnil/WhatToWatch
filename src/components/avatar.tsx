@@ -22,12 +22,26 @@ export function Avatar({ imageUrl, name, size = 40 }: AvatarProps) {
   }
 
   if (imageUrl) {
-    return <UniwindExpoImage className={avatarStyles} source={imageUrl} style={styles} />
+    return (
+      <UniwindExpoImage
+        cachePolicy="memory-disk"
+        className={avatarStyles}
+        contentFit="cover"
+        source={imageUrl}
+        style={styles}
+        transition={150}
+      />
+    )
   }
 
   return (
     <View className={avatarStyles} style={styles}>
-      <Text className="text-text-maximal" style={{ fontSize }} variant="h1">
+      <Text
+        allowFontScaling={false}
+        className="text-text-maximal"
+        style={{ fontSize }}
+        variant="h1"
+      >
         {name
           ?.split(' ')
           .map(word => word.charAt(0).toUpperCase())

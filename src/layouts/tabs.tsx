@@ -1,5 +1,6 @@
 import { router } from 'expo-router'
 import React from 'react'
+import { useIntl } from 'react-intl'
 import { View } from 'react-native'
 import Animated, {
   Extrapolation,
@@ -22,6 +23,7 @@ type TabsLayoutrops = {
 }
 
 export const TabsLayout = ({ children, title }: TabsLayoutrops) => {
+  const intl = useIntl()
   const scrollY = useSharedValue(0)
   const { accountId } = useAuth()
 
@@ -46,7 +48,15 @@ export const TabsLayout = ({ children, title }: TabsLayoutrops) => {
           <>
             {accountId && <UserButton />}
             {!accountId && (
-              <Button icon="person" onPress={() => router.navigate('/me')} size="lg" />
+              <Button
+                accessibilityLabel={intl.formatMessage({
+                  defaultMessage: 'My profile',
+                  id: 'BEX6A7',
+                })}
+                icon="person"
+                onPress={() => router.navigate('/me')}
+                size="lg"
+              />
             )}
           </>
         }

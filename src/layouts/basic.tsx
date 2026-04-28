@@ -1,5 +1,6 @@
 import { router } from 'expo-router'
 import React from 'react'
+import { useIntl } from 'react-intl'
 import { View } from 'react-native'
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated'
 
@@ -13,6 +14,7 @@ type BasicLayoutrops = {
 }
 
 export const BasicLayout = ({ children, title }: BasicLayoutrops) => {
+  const intl = useIntl()
   const scrollY = useSharedValue(0)
 
   const onScroll = useAnimatedScrollHandler({
@@ -24,7 +26,14 @@ export const BasicLayout = ({ children, title }: BasicLayoutrops) => {
   return (
     <View className="flex-1 bg-background">
       <Header
-        leftActions={<Button icon="arrow-back" onPress={() => router.back()} size="lg" />}
+        leftActions={
+          <Button
+            accessibilityLabel={intl.formatMessage({ defaultMessage: 'Go back', id: 'orvpWh' })}
+            icon="arrow-back"
+            onPress={() => router.back()}
+            size="lg"
+          />
+        }
         scrollY={scrollY}
         showSmallTitleOnStart
         title={isIpad ? '' : title}

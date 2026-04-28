@@ -6,7 +6,14 @@ type TextProps = RNTextProps & {
   variant?: 'h0' | 'h1' | 'h2' | 'h3' | 'lg' | 'md'
 }
 
-export const Text = ({ bold, children, className = '', variant = 'md', ...rest }: TextProps) => {
+export const Text = ({
+  bold,
+  children,
+  className = '',
+  maxFontSizeMultiplier = 1.6,
+  variant = 'md',
+  ...rest
+}: TextProps) => {
   const variantClass = {
     h0: 'text-4xl font-bold text-white',
     h1: 'text-2xl font-bold text-white',
@@ -17,7 +24,11 @@ export const Text = ({ bold, children, className = '', variant = 'md', ...rest }
   }[variant]
 
   return (
-    <RNText className={`${variantClass} ${bold ? 'font-bold' : ''} ${className}`} {...rest}>
+    <RNText
+      className={`${variantClass} ${bold ? 'font-bold' : ''} ${className}`}
+      maxFontSizeMultiplier={maxFontSizeMultiplier}
+      {...rest}
+    >
       {children}
     </RNText>
   )
