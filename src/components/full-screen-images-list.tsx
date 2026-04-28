@@ -36,17 +36,24 @@ export default function FullScreenImagesList({
   const hasOneImage = images?.length === 1
   const cardWidth = hasOneImage ? width - CARD_LIST_INSET * 2 : width * 0.8
 
-  const renderItem = ({
-    item: { aspect_ratio, file_path },
-  }: ListRenderItemInfo<NonNullable<Images>[number]>) => (
-    <View className="self-center justify-center" style={{ width: cardWidth }}>
-      <Thumb aspectRatio={aspect_ratio} imageUrl={file_path} imageWidth="w780" type={type} />
-    </View>
+  const renderItem = React.useCallback(
+    ({ item: { aspect_ratio, file_path } }: ListRenderItemInfo<NonNullable<Images>[number]>) => (
+      <View className="self-center justify-center" style={{ width: cardWidth }}>
+        <Thumb aspectRatio={aspect_ratio} imageUrl={file_path} imageWidth="w780" type={type} />
+      </View>
+    ),
+    [cardWidth, type]
   )
 
-  function getItemOffset(index: number) {
-    return cardWidth * index + GAP * index - CARD_LIST_INSET - GAP / 2
-  }
+  const getItemOffset = React.useCallback(
+    (index: number) => cardWidth * index + GAP * index - CARD_LIST_INSET - GAP / 2,
+    [cardWidth]
+  )
+
+  const snapToOffsets = React.useMemo(
+    () => [...Array(images?.length)].map((_, i) => getItemOffset(i)),
+    [images?.length, getItemOffset]
+  )
 
   function getItemLayout(_: unknown, index: number) {
     return {
@@ -74,7 +81,7 @@ export default function FullScreenImagesList({
         pagingEnabled
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
-        snapToOffsets={[...Array(images?.length)].map((_, i) => getItemOffset(i))}
+        snapToOffsets={snapToOffsets}
       />
     </View>
   )

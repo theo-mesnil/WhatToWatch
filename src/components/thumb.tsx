@@ -36,8 +36,11 @@ export function Thumb({
     <View className={`overflow-hidden ${isRounded ? 'rounded-full' : 'rounded'}`}>
       <View className="bg-foreground" style={{ aspectRatio, height: height as number }}>
         <UniwindImage
+          cachePolicy="memory-disk"
           className="absolute inset-0 h-full w-full"
+          contentFit="cover"
           source={externalImageUrl || (imageUrl ? getImageUrl(imageUrl, imageWidth) : undefined)}
+          transition={150}
         />
         {isLoading ? (
           <Loader className="w-full" />
