@@ -2,7 +2,7 @@ import { GlassView, isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import type { ImageProps } from 'expo-image'
 import { Image } from 'expo-image'
-import type { GestureResponderEvent } from 'react-native'
+import type { AccessibilityState, GestureResponderEvent } from 'react-native'
 import { useResolveClassNames } from 'uniwind'
 
 import { Icon, type IconProps } from '~/components/icon'
@@ -11,8 +11,13 @@ import { Text } from '~/components/text'
 import type { NetworkId } from '~/types/content'
 import { getNetworkBackgroundClassName } from '~/utils/networks'
 
-export type ButtonProps = {
-  children?: React.ReactNode
+export type ButtonProps =
+  | (BaseButtonProps & { accessibilityLabel: string; children?: never })
+  | (BaseButtonProps & { accessibilityLabel?: string; children: React.ReactNode })
+
+type BaseButtonProps = {
+  accessibilityHint?: string
+  accessibilityState?: AccessibilityState
   className?: string
   customRightElement?: React.ReactNode
   icon?: IconProps['name']
@@ -27,6 +32,9 @@ export type ButtonProps = {
 }
 
 export const Button = ({
+  accessibilityHint,
+  accessibilityLabel,
+  accessibilityState,
   children,
   className = '',
   customRightElement,
@@ -87,7 +95,16 @@ export const Button = ({
   }
 
   return (
-    <Pressable onPress={handleOnPress} testID={testID} withoutScale={hasLiquidGlass}>
+    <Pressable
+      accessibilityHint={accessibilityHint}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="button"
+      accessibilityState={accessibilityState}
+      hitSlop={isRounded && size === 'md' ? { bottom: 8, left: 8, right: 8, top: 8 } : undefined}
+      onPress={handleOnPress}
+      testID={testID}
+      withoutScale={hasLiquidGlass}
+    >
       <GlassView glassEffectStyle="clear" isInteractive={true} style={wrapperStyles}>
         {image && <Image source={image} style={imageStyle} />}
         {children && <Text>{children}</Text>}

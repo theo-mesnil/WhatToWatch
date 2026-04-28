@@ -1,6 +1,7 @@
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React from 'react'
+import { useIntl } from 'react-intl'
 import { View } from 'react-native'
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated'
 import { withUniwind } from 'uniwind'
@@ -36,6 +37,7 @@ export const ContentLayout = ({
   subtitle,
   title,
 }: ContentLayoutProps) => {
+  const intl = useIntl()
   const scrollY = useSharedValue(0)
 
   const onScroll = useAnimatedScrollHandler({
@@ -48,7 +50,14 @@ export const ContentLayout = ({
     <View className="flex-1 bg-background">
       <Header
         interpolateValues={[250, 300]}
-        leftActions={<Button icon="arrow-back" onPress={() => router.back()} size="lg" />}
+        leftActions={
+          <Button
+            accessibilityLabel={intl.formatMessage({ defaultMessage: 'Go back', id: 'orvpWh' })}
+            icon="arrow-back"
+            onPress={() => router.back()}
+            size="lg"
+          />
+        }
         scrollY={scrollY}
         title={isIpad ? '' : title}
       />
@@ -61,9 +70,12 @@ export const ContentLayout = ({
         <View className="h-cover mb-4 absolute w-full">
           <View className="h-cover absolute w-full bg-foreground">
             <UniwindImage
+              cachePolicy="memory-disk"
               className="absolute inset-0"
+              contentFit="cover"
               source={imageUrl ? getImageUrl(imageUrl, 'w1280') : undefined}
               testID="cover-image"
+              transition={150}
             />
             {isLoading && <Loader className="w-full" />}
           </View>
@@ -71,10 +83,13 @@ export const ContentLayout = ({
           <View className="items-center h-full justify-end mx-6">
             {logo && (
               <UniwindImage
+                cachePolicy="memory-disk"
                 className="max-h-cover-top w-62.5"
+                contentFit="contain"
                 source={getImageUrl(logo.url, 'w500')}
                 style={{ aspectRatio: logo.aspectRatio }}
                 testID="cover-logo"
+                transition={150}
               />
             )}
             {!logo && title && (

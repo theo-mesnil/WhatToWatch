@@ -1,7 +1,7 @@
 import type { FlashListProps } from '@shopify/flash-list'
 import * as React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { View } from 'react-native'
+import { AccessibilityInfo, View } from 'react-native'
 
 import { useGetSearch } from '~/api/search'
 import type { UseGetTrendingApiResponse } from '~/api/trending'
@@ -39,6 +39,14 @@ export default function Search() {
   const results = querySearch
     ? searchResults?.pages?.map(page => page.results).flat()
     : data?.pages?.map(page => page.results).flat()
+
+  React.useEffect(() => {
+    if (!deferredQuery || isSearchLoading) return
+    const count = results?.length ?? 0
+    AccessibilityInfo.announceForAccessibility(
+      intl.formatMessage({ defaultMessage: '{count} results found', id: 'J+DlxR' }, { count })
+    )
+  }, [deferredQuery, intl, isSearchLoading, results?.length])
 
   const loadMore = () => {
     if (querySearch) {
@@ -99,13 +107,21 @@ export default function Search() {
   return (
     <TabsLayout title={intl.formatMessage({ defaultMessage: 'Search', id: 'xmcVZ0' })}>
       <TextInput
+        accessibilityLabel={intl.formatMessage({
+          defaultMessage: 'Search for a movie, series or person',
+          id: 'tRwj81',
+        })}
+        autoComplete="off"
         clearButtonMode="always"
         enterKeyHint="search"
+        keyboardType="default"
         onChangeText={setQuerySearch}
         placeholder={intl.formatMessage({
           defaultMessage: 'What would you like to watch?',
           id: 'UhsiMg',
         })}
+        returnKeyType="search"
+        textContentType="none"
       />
       <VerticalList<Item>
         id="search-trending"

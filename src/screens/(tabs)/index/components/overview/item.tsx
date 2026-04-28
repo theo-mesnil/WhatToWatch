@@ -29,14 +29,23 @@ export function Item({ description, id, imageUrl, title, type }: ItemProps) {
 
   return (
     <View className="h-150 justify-end">
-      <UniwindImage className="absolute inset-0" source={getImageUrl(imageUrl, 'w1280')} />
+      <UniwindImage
+        cachePolicy="memory-disk"
+        className="absolute inset-0"
+        contentFit="cover"
+        source={getImageUrl(imageUrl, 'w1280')}
+        transition={150}
+      />
       <View className="items-center h-100 justify-end pb-10 px-8">
         <View className="absolute inset-0 bg-linear-180 from-transparent to-foreground" />
         {!isLoadingLogo && logo && (
           <UniwindImage
+            cachePolicy="memory-disk"
             className="max-h-cover-top w-62.5"
+            contentFit="contain"
             source={getImageUrl(logo.url, 'w500')}
             style={{ aspectRatio: logo.aspectRatio }}
+            transition={150}
           />
         )}
         {!isLoadingLogo && !logo && (

@@ -1,5 +1,6 @@
 import { router } from 'expo-router'
 import React from 'react'
+import { useIntl } from 'react-intl'
 import { View } from 'react-native'
 import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated'
 
@@ -11,6 +12,7 @@ type ModalLayoutrops = {
 }
 
 export const ModalLayout = ({ children }: ModalLayoutrops) => {
+  const intl = useIntl()
   const scrollY = useSharedValue(0)
 
   const onScroll = useAnimatedScrollHandler({
@@ -20,10 +22,17 @@ export const ModalLayout = ({ children }: ModalLayoutrops) => {
   })
 
   return (
-    <View className="flex-1 bg-background">
+    <View accessibilityViewIsModal className="flex-1 bg-background" importantForAccessibility="yes">
       <Header
         layout="modal"
-        rightActions={<Button icon="close" onPress={() => router.back()} size="lg" />}
+        rightActions={
+          <Button
+            accessibilityLabel={intl.formatMessage({ defaultMessage: 'Close', id: 'rbrahO' })}
+            icon="close"
+            onPress={() => router.back()}
+            size="lg"
+          />
+        }
         scrollY={scrollY}
       />
       <Animated.ScrollView

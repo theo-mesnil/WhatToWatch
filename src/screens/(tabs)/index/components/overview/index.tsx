@@ -1,8 +1,8 @@
 import type { FlashListProps, ViewToken } from '@shopify/flash-list'
 import { AnimatedFlashList } from '@shopify/flash-list'
 import * as React from 'react'
-import { Animated, Dimensions, View } from 'react-native'
-import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
+import { Dimensions, View } from 'react-native'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
@@ -13,11 +13,6 @@ import { Item } from './item'
 
 export function Overview() {
   const [activeSlide, setActiveSlide] = React.useState(0)
-  const [isScrolling, setIsScrolling] = React.useState(false)
-  const [lastContentOffset, setLastContentOffset] = React.useState(0)
-  const [direction, setDirection] = React.useState<'left' | 'right'>('left')
-  const [width] = React.useState(new Animated.Value(10))
-  const [prevWidth] = React.useState(new Animated.Value(20))
 
   const { data, isLoading } = useGetTrending()
   const results = data?.pages
@@ -56,47 +51,6 @@ export function Overview() {
     )
   }
 
-  const widthAnimated = Animated.timing(width, {
-    duration: 200,
-    toValue: 20,
-    useNativeDriver: false,
-  })
-
-  const prevWidthAnimated = Animated.timing(prevWidth, {
-    duration: 200,
-    toValue: 10,
-    useNativeDriver: false,
-  })
-
-  function onScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
-    if (lastContentOffset > event.nativeEvent.contentOffset.x) {
-      if (isScrolling) {
-        setDirection('left')
-      }
-    } else if (lastContentOffset < event.nativeEvent.contentOffset.x) {
-      if (isScrolling) {
-        setDirection('right')
-      }
-    }
-    setLastContentOffset(event.nativeEvent.contentOffset.x)
-  }
-
-  function onScrollBeginDrag() {
-    setIsScrolling(true)
-  }
-
-  function onScrollEndDrag() {
-    setIsScrolling(true)
-  }
-
-  React.useEffect(() => {
-    prevWidthAnimated.reset()
-    prevWidthAnimated.start()
-    widthAnimated.reset()
-    widthAnimated.start()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSlide])
-
   if (isLoading) {
     return (
       <View className="h-150">
@@ -104,6 +58,7 @@ export function Overview() {
       </View>
     )
   }
+
   return (
     <View>
       <AnimatedFlashList
@@ -114,9 +69,6 @@ export function Overview() {
           isLoading ? `loading_${index}_overview` : `${index}_${item.id}_overview`
         }
         numColumns={1}
-        onScroll={onScroll}
-        onScrollBeginDrag={onScrollBeginDrag}
-        onScrollEndDrag={onScrollEndDrag}
         onViewableItemsChanged={onViewableItemsChanged}
         pagingEnabled
         renderItem={renderItem}
@@ -124,18 +76,26 @@ export function Overview() {
       />
       <View className="absolute bottom-3 left-0 right-0 flex-row justify-center gap-3">
         {results?.map((_, index) => (
-          <Animated.View
-            className={`h-2.5 rounded-[10px] ${index === activeSlide ? 'bg-[#cccccc]' : 'bg-[#808080]'}`}
-            key={`overview-list-dot-${index}`}
-            style={[
-              { width: 10 },
-              index === activeSlide && { width },
-              direction === 'right' && index + 1 === activeSlide && { width: prevWidth },
-              direction === 'left' && index - 1 === activeSlide && { width: prevWidth },
-            ]}
-          />
+          <Dot isActive={index === activeSlide} key={`overview-list-dot-${index}`} />
         ))}
       </View>
     </View>
+  )
+}
+
+function Dot({ isActive }: { isActive: boolean }) {
+  const dotWidth = useSharedValue(isActive ? 20 : 10)
+
+  React.useEffect(() => {
+    dotWidth.value = withTiming(isActive ? 20 : 10, { duration: 200 })
+  }, [dotWidth, isActive])
+
+  const animatedStyle = useAnimatedStyle(() => ({ width: dotWidth.value }))
+
+  return (
+    <Animated.View
+      className={`h-2.5 rounded-[10px] ${isActive ? 'bg-[#cccccc]' : 'bg-[#808080]'}`}
+      style={animatedStyle}
+    />
   )
 }

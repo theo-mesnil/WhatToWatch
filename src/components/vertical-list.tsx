@@ -47,20 +47,17 @@ export function VerticalList<ItemProps>({
 
   React.useEffect(() => getScrollYPosition?.(scrollY), [getScrollYPosition, scrollY])
 
-  const internalRenderItem = React.useCallback(
-    (props: ListRenderItemInfo<ItemProps>) => {
-      if (renderItem) {
-        return (
-          <View style={{ marginBottom: gap, marginRight: gap, width: itemSize }}>
-            {renderItem(props)}
-          </View>
-        )
-      }
+  const internalRenderItem = (props: ListRenderItemInfo<ItemProps>) => {
+    if (renderItem) {
+      return (
+        <View style={{ marginBottom: gap, marginRight: gap, width: itemSize }}>
+          {renderItem(props)}
+        </View>
+      )
+    }
 
-      return null
-    },
-    [gap, itemSize, renderItem]
-  )
+    return null
+  }
 
   function renderListHeaderComponent() {
     if (ListHeaderComponent) {

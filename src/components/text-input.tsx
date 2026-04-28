@@ -12,6 +12,7 @@ export function TextInput(props: TextInputProps) {
       placeholderTextColorClassName="accent-neutral-900"
       selectionColorClassName="accent-violet-500"
       {...props}
+      accessibilityLabel={props.accessibilityLabel ?? props.placeholder}
     />
   )
 }

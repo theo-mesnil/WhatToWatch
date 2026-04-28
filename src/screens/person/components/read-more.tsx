@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 import type { NativeSyntheticEvent, TextLayoutEventData } from 'react-native'
 import { View } from 'react-native'
 
@@ -34,7 +35,11 @@ export function ReadMore({ children }: ReadMoreProps) {
       </Text>
       {showMoreButton && (
         <Text className="mt-2 text-text-maximal" onPress={toggleTextShown}>
-          {isExpanded ? 'Read Less' : 'Read More'}
+          {isExpanded ? (
+            <FormattedMessage defaultMessage="Read Less" id="jB/Lmw" />
+          ) : (
+            <FormattedMessage defaultMessage="Read More" id="4Cltcc" />
+          )}
         </Text>
       )}
     </View>
