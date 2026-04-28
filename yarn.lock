@@ -4285,10 +4285,10 @@ expo-manifests@~55.0.16:
   dependencies:
     expo-json-utils "~55.0.2"
 
-expo-modules-autolinking@55.0.18:
-  version "55.0.18"
-  resolved "https://registry.npmjs.org/expo-modules-autolinking/-/expo-modules-autolinking-55.0.18.tgz"
-  integrity sha512-olGTCWYkwVPj/momcgnF+z8MTzurGNFjopqPztQ4F53UkGPJnOFEuaM2/z4KbZtKbwHqeBv34OA5hxZP8uLdaQ==
+expo-modules-autolinking@55.0.19:
+  version "55.0.19"
+  resolved "https://registry.yarnpkg.com/expo-modules-autolinking/-/expo-modules-autolinking-55.0.19.tgz#5dd1e06c5f584d285dc7503990f960ec5135a782"
+  integrity sha512-rHO1NZC/bxcKTLzkn6WYm9ErzS6qp7Kgb1NM2YxXJAYRWHwW/M7NZXyj6swWiKxyhRpcdoppRpjrz1sBuYGAjg==
   dependencies:
     "@expo/require-utils" "^55.0.4"
     "@expo/spawn-async" "^1.7.2"
@@ -4409,10 +4409,10 @@ expo-web-browser@~55.0.14:
   resolved "https://registry.npmjs.org/expo-web-browser/-/expo-web-browser-55.0.14.tgz"
   integrity sha512-bTDkBSQBnrlnYcM7Aak72AOvJuvdgA3M8p//Lazrm0Nfa77T9cRXzQ6KhLrB08V39n1+00d1dvuTWznJslkmdg==
 
-expo@~55.0.17:
-  version "55.0.17"
-  resolved "https://registry.npmjs.org/expo/-/expo-55.0.17.tgz"
-  integrity sha512-yVF2phiPw5XgOCedC/oQaL3j0XbwzsBLst3JiAF8bi9aFlxLOVvuDEM8BDg3E09XGSLaGCAclY4q5L+sFerXlQ==
+expo@~55.0.18:
+  version "55.0.18"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-55.0.18.tgz#ef91fd67b3993a252931d29cccbc9b79f87b8b60"
+  integrity sha512-J3LVgN8ygERC0pmSjXfW2W/jlT18+VBek6vB9DBJiCNyrGKpSE4Kv9BH7VooiIMEizwwzsgDgXbDRWBS14IaKA==
   dependencies:
     "@babel/runtime" "^7.20.0"
     "@expo/cli" "55.0.26"
@@ -4432,7 +4432,7 @@ expo@~55.0.17:
     expo-file-system "~55.0.17"
     expo-font "~55.0.6"
     expo-keep-awake "~55.0.6"
-    expo-modules-autolinking "55.0.18"
+    expo-modules-autolinking "55.0.19"
     expo-modules-core "55.0.23"
     pretty-format "^29.7.0"
     react-refresh "^0.14.2"
@@ -7747,10 +7747,10 @@ typescript-eslint@^8.58.0:
   resolved "https://registry.npmjs.org/typescript/-/typescript-6.0.2.tgz"
   integrity sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==
 
-typescript@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-6.0.3.tgz#90251dc007916e972786cb94d74d15b185577d21"
-  integrity sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==
+typescript@~5.9.2:
+  version "5.9.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.3.tgz#5b4f59e15310ab17a216f5d6cf53ee476ede670f"
+  integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
 
 ua-parser-js@^0.7.33:
   version "0.7.41"
