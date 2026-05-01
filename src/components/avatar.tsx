@@ -24,7 +24,6 @@ export function Avatar({ imageUrl, name, size = 40 }: AvatarProps) {
   if (imageUrl) {
     return (
       <UniwindExpoImage
-        cachePolicy="memory-disk"
         className={avatarStyles}
         contentFit="cover"
         source={imageUrl}

@@ -2,13 +2,14 @@ import 'intl'
 import 'intl/locale-data/jsonp/en'
 import 'intl/locale-data/jsonp/fr'
 import { Poppins_400Regular, Poppins_600SemiBold, useFonts } from '@expo-google-fonts/poppins'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import * as React from 'react'
 import { SafeAreaListener } from 'react-native-safe-area-context'
 import { Uniwind } from 'uniwind'
 
+import { queryClient } from '~/api/query-client'
 import { StatusBar } from '~/components/status-bar'
 import { AuthProvider } from '~/contexts/auth'
 
@@ -21,17 +22,6 @@ SplashScreen.preventAutoHideAsync()
 SplashScreen.setOptions({
   duration: 2000,
   fade: true,
-})
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      gcTime: 30 * 60 * 1000,
-      refetchOnWindowFocus: false,
-      retry: 2,
-      staleTime: 5 * 60 * 1000,
-    },
-  },
 })
 
 export default function Layout() {

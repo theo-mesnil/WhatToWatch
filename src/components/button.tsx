@@ -7,6 +7,7 @@ import { useResolveClassNames } from 'uniwind'
 
 import { Icon, type IconProps } from '~/components/icon'
 import { Pressable } from '~/components/presseable'
+import type { TextProps } from '~/components/text'
 import { Text } from '~/components/text'
 import type { NetworkId } from '~/types/content'
 import { getNetworkBackgroundClassName } from '~/utils/networks'
@@ -27,7 +28,7 @@ type BaseButtonProps = {
   onPress?: (event?: GestureResponderEvent) => void
   size?: 'lg' | 'md' | 'xl'
   testID?: string
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'tertiary'
   withHaptic?: boolean
 }
 
@@ -60,8 +61,8 @@ export const Button = ({
         xl: 'size-12 rounded-full',
       }
     : {
-        lg: 'px-2 h-10 rounded-full',
-        md: 'px-3 h-8 rounded-lg',
+        lg: 'px-4 h-10 rounded-full',
+        md: 'px-2 h-8 rounded-lg',
         xl: 'px-4 h-12 rounded-full',
       }
   const iconSizes = {
@@ -74,12 +75,22 @@ export const Button = ({
     md: 'size-7',
     xl: 'size-11',
   }
+  const variantStyles = {
+    primary: `${!hasLiquidGlass && 'bg-white'}`,
+    secondary: 'bg-violet-600',
+    tertiary: `bg-white/20 border border-white/30`,
+  }
+  const textSizeStyles: Record<NonNullable<ButtonProps['size']>, TextProps['variant']> = {
+    lg: undefined,
+    md: undefined,
+    xl: 'h3',
+  }
 
   /**
    * resolves styles
    */
   const wrapperStyles = useResolveClassNames(
-    `flex-row gap-2 items-center justify-center ${sizes[size]} ${!hasLiquidGlass && 'bg-white'} ${variant === 'secondary' && 'bg-violet-600'} ${backgroundNetworkColor} ${className}`
+    `flex-row gap-2 items-center justify-center ${sizes[size]} ${variantStyles[variant]} ${backgroundNetworkColor} ${className}`
   )
   const imageStyle = useResolveClassNames(`rounded-full ${imageSizes[size]}`)
   const iconSizeStyle = useResolveClassNames(iconSizes[size]).width
@@ -107,7 +118,11 @@ export const Button = ({
     >
       <GlassView glassEffectStyle="clear" isInteractive={true} style={wrapperStyles}>
         {image && <Image source={image} style={imageStyle} />}
-        {children && <Text>{children}</Text>}
+        {children && (
+          <Text bold variant={textSizeStyles[size]}>
+            {children}
+          </Text>
+        )}
         {icon && <Icon name={icon} size={Number(iconSizeStyle)} />}
         {customRightElement}
       </GlassView>

@@ -70,7 +70,6 @@ export const ContentLayout = ({
         <View className="h-cover mb-4 absolute w-full">
           <View className="h-cover absolute w-full bg-foreground">
             <UniwindImage
-              cachePolicy="memory-disk"
               className="absolute inset-0"
               contentFit="cover"
               source={imageUrl ? getImageUrl(imageUrl, 'w1280') : undefined}
@@ -83,7 +82,6 @@ export const ContentLayout = ({
           <View className="items-center h-full justify-end mx-6">
             {logo && (
               <UniwindImage
-                cachePolicy="memory-disk"
                 className="max-h-cover-top w-62.5"
                 contentFit="contain"
                 source={getImageUrl(logo.url, 'w500')}

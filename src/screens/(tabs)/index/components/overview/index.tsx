@@ -1,15 +1,22 @@
 import type { FlashListProps, ViewToken } from '@shopify/flash-list'
-import { AnimatedFlashList } from '@shopify/flash-list'
 import * as React from 'react'
-import { Dimensions, View } from 'react-native'
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { View } from 'react-native'
+import Animated, {
+  interpolate,
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
 
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
-import { Loader } from '~/components/loader'
+import { List } from '~/components/list'
 import type { ContentType } from '~/types/content'
 
 import { Item } from './item'
+
+type Item = NonNullable<UseGetTrendingApiResponse['all']['results']>[number] & { name?: string }
 
 export function Overview() {
   const [activeSlide, setActiveSlide] = React.useState(0)
@@ -19,6 +26,8 @@ export function Overview() {
     ?.map(page => page.results)
     .flat()
     .slice(0, 5)
+
+  const viewabilityConfig = React.useMemo(() => ({ itemVisiblePercentThreshold: 51 }), [])
 
   const onViewableItemsChanged = React.useCallback(
     ({
@@ -35,46 +44,34 @@ export function Overview() {
     []
   )
 
-  const renderItem: FlashListProps<
-    NonNullable<UseGetTrendingApiResponse['all']['results']>[number] & { name?: string }
-  >['renderItem'] = ({ item: { backdrop_path, id, media_type, name, overview, title } }) => {
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
+    item: { backdrop_path, genre_ids, id, media_type, name, title },
+  }) => {
     return (
-      <View style={{ width: Dimensions.get('window').width }}>
-        <Item
-          description={overview}
-          id={id}
-          imageUrl={backdrop_path ?? ''}
-          title={title ?? name ?? ''}
-          type={media_type as ContentType}
-        />
-      </View>
-    )
-  }
-
-  if (isLoading) {
-    return (
-      <View className="h-150">
-        <Loader />
-      </View>
+      <Item
+        genres={genre_ids}
+        id={id}
+        imageUrl={backdrop_path ?? ''}
+        title={title ?? name ?? ''}
+        type={media_type as ContentType}
+      />
     )
   }
 
   return (
     <View>
-      <AnimatedFlashList
-        bounces={false}
-        data={results}
-        horizontal
-        keyExtractor={(item, index) =>
-          isLoading ? `loading_${index}_overview` : `${index}_${item.id}_overview`
-        }
-        numColumns={1}
+      <List<Item>
+        gap={16}
+        id="overview-list"
+        isLoading={isLoading}
+        numberOfItems={1}
         onViewableItemsChanged={onViewableItemsChanged}
         pagingEnabled
         renderItem={renderItem}
-        showsHorizontalScrollIndicator={false}
+        results={results}
+        viewabilityConfig={viewabilityConfig}
       />
-      <View className="absolute bottom-3 left-0 right-0 flex-row justify-center gap-3">
+      <View className="mt-3 flex-row justify-center gap-3">
         {results?.map((_, index) => (
           <Dot isActive={index === activeSlide} key={`overview-list-dot-${index}`} />
         ))}
@@ -84,18 +81,16 @@ export function Overview() {
 }
 
 function Dot({ isActive }: { isActive: boolean }) {
-  const dotWidth = useSharedValue(isActive ? 20 : 10)
+  const progress = useSharedValue(isActive ? 1 : 0)
 
   React.useEffect(() => {
-    dotWidth.value = withTiming(isActive ? 20 : 10, { duration: 200 })
-  }, [dotWidth, isActive])
+    progress.value = withTiming(isActive ? 1 : 0, { duration: 300 })
+  }, [progress, isActive])
 
-  const animatedStyle = useAnimatedStyle(() => ({ width: dotWidth.value }))
+  const animatedStyle = useAnimatedStyle(() => ({
+    backgroundColor: interpolateColor(progress.value, [0, 1], ['#808080', '#cccccc']),
+    width: interpolate(progress.value, [0, 1], [8, 30]),
+  }))
 
-  return (
-    <Animated.View
-      className={`h-2.5 rounded-[10px] ${isActive ? 'bg-[#cccccc]' : 'bg-[#808080]'}`}
-      style={animatedStyle}
-    />
-  )
+  return <Animated.View className="h-2 rounded-[10px]" style={animatedStyle} />
 }

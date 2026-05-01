@@ -14,10 +14,10 @@ export function GenreThumb({ id, title }: GenreThumbProps) {
       className={`w-screen-lg aspect-video rounded-lg overflow-hidden ${getGenreBackgroundClassName(id)}`}
     >
       <View className="aspect-video justify-end p-3">
-        <Text className="bottom-3 absolute left-3 text-white" variant="h1">
+        <Text className="bottom-3 absolute left-3 text-text-maximal" variant="h1">
           {title}
         </Text>
-        <Text className="bottom-3 absolute left-3 text-white opacity-30 z-1" variant="h1">
+        <Text className="bottom-3 absolute left-3 text-text-maximal opacity-30 z-1" variant="h1">
           {title}
         </Text>
       </View>

@@ -6,7 +6,7 @@
     @variant dark {
       /** Backgrounds */
       --color-background: oklch(0.1353 0.0666 304.987);
-      --color-foreground: oklch(0.1765 0.0765 304.987);
+      --color-foreground: var(--color-foreground-fixed);
       --color-background-gradient: oklch(0.1353 0.0666 304.987);
       /** Text */
       --color-text-base: var(--color-neutral-100);
@@ -63,6 +63,9 @@
   --spacing-cover: 450px;
   --spacing-cover-top: 150px;
   --spacing-cover-without-top: 300px;
+
+  /** Colors */
+  --color-foreground-fixed: oklch(0.1765 0.0765 304.987);
 
   /** Networks colors */
   --color-network-apple-tv-plus: #323232;
