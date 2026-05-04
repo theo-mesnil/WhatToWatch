@@ -7,7 +7,7 @@ export type IconProps = {
   size?: number
 }
 
-export const Icon = ({ className, name, size = 24 }: IconProps) => {
+export const Icon = ({ className = '', name, size = 24 }: IconProps) => {
   const iconStyles = useResolveClassNames(`text-text-maximal ${className}`)
 
   return <Ionicons name={name} size={size} style={iconStyles} />

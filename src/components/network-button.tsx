@@ -1,5 +1,5 @@
 import { FormattedMessage } from 'react-intl'
-import { Linking, View } from 'react-native'
+import { Linking } from 'react-native'
 
 import type { ButtonProps } from '~/components/button'
 import { Button } from '~/components/button'
@@ -18,14 +18,10 @@ export function NetworkButton({ className = '', id, link }: NetworkButtonProps) 
   return (
     <Button
       className={`${className} ${backgroundNetworkColor}`}
-      customRightElement={
-        <View>
-          <NetworkLogo height={23} id={id} />
-        </View>
-      }
+      customRightElement={<NetworkLogo height={23} id={id} />}
       networkId={id}
       onPress={() => Linking.openURL(link)}
-      size="lg"
+      size="xl"
       testID={`network-${id}`}
       withHaptic
     >

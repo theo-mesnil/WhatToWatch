@@ -8,12 +8,14 @@ import { Button } from '~/components/button'
 import { Header } from '~/components/header'
 
 type ModalLayoutrops = {
+  centered?: boolean
   children: React.ReactNode
 }
 
-export const ModalLayout = ({ children }: ModalLayoutrops) => {
+export const ModalLayout = ({ centered, children }: ModalLayoutrops) => {
   const intl = useIntl()
   const scrollY = useSharedValue(0)
+  const wrapperClassName = centered ? 'justify-center pb-safe-offset-25' : 'pb-safe'
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: event => {
@@ -36,7 +38,7 @@ export const ModalLayout = ({ children }: ModalLayoutrops) => {
         scrollY={scrollY}
       />
       <Animated.ScrollView
-        contentContainerClassName="min-h-full gap-5 pt-safe-offset-2 pb-safe-offset-26 md:pb-safe android:pb-safe-offset-4"
+        contentContainerClassName={`min-h-full gap-5 pt-safe-offset-2 ${wrapperClassName}`}
         onScroll={onScroll}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}

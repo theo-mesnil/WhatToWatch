@@ -8,6 +8,7 @@ import { useGetContentLogo } from '~/api/logo'
 import type {
   UseGetTvApiResponse,
   UseGetTvCreditsApiResponse,
+  UseGetTvSeasonApiResponse,
   UseGetTvSimilarApiResponse,
   UseGetTvVideosApiResponse,
 } from '~/api/tv'
@@ -24,12 +25,11 @@ import { Badge } from '~/components/badge'
 import { Button } from '~/components/button'
 import { Images } from '~/components/images'
 import { List } from '~/components/list'
-import { NetworkButton } from '~/components/network-button'
 import { PersonThumb } from '~/components/person-thumb'
+import { ReadMore } from '~/components/read-more'
 import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
-import { TrailerButton } from '~/components/trailer-button'
 import { VideoThumb } from '~/components/video-thumb'
 import { ContentLayout } from '~/layouts/content'
 import { personPath, tvPath } from '~/routes'
@@ -37,6 +37,7 @@ import { EpisodeThumb } from '~/screens/tv/composants/episode-thumb'
 import { formatTime } from '~/utils/time'
 
 type CastItem = NonNullable<UseGetTvCreditsApiResponse['cast']>[number]
+type EpisodeItem = NonNullable<UseGetTvSeasonApiResponse['episodes']>[number]
 type SeasonItem = NonNullable<UseGetTvApiResponse['seasons']>[number]
 type TvItem = NonNullable<UseGetTvSimilarApiResponse['results']>[number]
 type VideoItem = NonNullable<UseGetTvVideosApiResponse['results']>[number]
@@ -94,10 +95,23 @@ export default function Tv() {
     <Button
       onPress={() => setSelectedSeason(season_number)}
       size="lg"
-      variant={selectedSeason === season_number ? 'secondary' : 'primary'}
+      variant={selectedSeason === season_number ? 'tertiary' : 'primary'}
     >
-      S{season_number}
+      <FormattedMessage defaultMessage="Season" id="3wSEx3" /> {season_number}
     </Button>
+  )
+
+  const renderItemEpisode: FlashListProps<EpisodeItem>['renderItem'] = ({
+    item: { air_date, episode_number, name, overview, still_path },
+  }) => (
+    <EpisodeThumb
+      airDate={air_date}
+      imageUrl={still_path}
+      name={name}
+      number={episode_number}
+      overview={overview}
+      runtime={runtime}
+    />
   )
 
   const renderItemCast: FlashListProps<CastItem>['renderItem'] = ({
@@ -144,7 +158,7 @@ export default function Tv() {
               </Badge>
             )}
             {!!rating && (
-              <Badge icon="star" testID="votes">
+              <Badge icon="star" testID="votes" variant="vote">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
@@ -157,27 +171,26 @@ export default function Tv() {
       subtitle={genres}
       title={!isLoadingLogo ? name : undefined}
     >
-      <Actions id={tvID} type="tv" />
-      {!!networkLink && (
-        <NetworkButton className="mx-screen" id={networkLink.id} link={networkLink.link} />
-      )}
-      {!!trailer && (
-        <TrailerButton
-          className="items-center justify-center mt-2"
-          id={trailer.key ?? ''}
-          platform={trailer.site ?? ''}
-        />
-      )}
+      <Actions
+        id={tvID}
+        networkLink={networkLink}
+        trailer={
+          trailer && trailer.key && trailer.site
+            ? {
+                key: trailer.key,
+                platform: trailer.site,
+              }
+            : undefined
+        }
+        type="tv"
+      />
       {(!!overview || !!tagline) && (
-        <Text className="px-screen mt-3 text-text-maximal" variant="lg">
-          {overview || tagline}
-        </Text>
+        <ReadMore className="px-screen mt-3">{overview || tagline}</ReadMore>
       )}
-      <View className="gap-6 mt-8">
+      <View className="gap-6 mt-4">
         {!!seasonsLength && (
           <View>
             <List<SeasonItem>
-              gap={8}
               id="seasons-buttons"
               renderItem={renderItemSeason}
               results={seasonsLength > 1 ? seasons : null}
@@ -191,35 +204,26 @@ export default function Tv() {
               </View>
             )}
             {!isLoadingSeason && (
-              <View className={`px-4 ${seasonsLength > 1 ? 'mt-6' : ''}`}>
-                <Text variant="h1">
-                  <FormattedMessage defaultMessage="Episodes" id="oIih5v" />
-                </Text>
-                <Text>
-                  <FormattedMessage
-                    defaultMessage="{count} episodes on season {seasonNumber}"
-                    id="mYKY3z"
-                    values={{
-                      count: season?.episodes?.length ?? 0,
-                      seasonNumber: season?.season_number ?? 0,
-                    }}
-                  />
-                  {seasonAirDate && ` • ${new Date(seasonAirDate).getFullYear()}`}
-                </Text>
-                <View className="gap-6 mt-4">
-                  {season?.episodes?.map((episode, index) => (
-                    <EpisodeThumb
-                      airDate={episode.air_date}
-                      imageUrl={episode.still_path}
-                      key={`${index}-${episode.id}`}
-                      name={episode.name}
-                      number={index + 1}
-                      overview={episode.overview}
-                      runtime={episode.runtime}
+              <>
+                <View className={`mx-screen mb-2 ${seasonsLength > 1 ? 'mt-4' : ''}`}>
+                  <Text variant="h3">
+                    <FormattedMessage
+                      defaultMessage="{count} episodes"
+                      id="Oux7WC"
+                      values={{
+                        count: season?.episodes?.length ?? 0,
+                      }}
                     />
-                  ))}
+                    {seasonAirDate && ` • ${new Date(seasonAirDate).getFullYear()}`}
+                  </Text>
                 </View>
-              </View>
+                <List<EpisodeItem>
+                  id="episodes"
+                  numberOfItems={1.3}
+                  renderItem={renderItemEpisode}
+                  results={season?.episodes}
+                />
+              </>
             )}
           </View>
         )}

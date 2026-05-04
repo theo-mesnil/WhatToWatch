@@ -3,7 +3,7 @@ import { Text as RNText } from 'react-native'
 
 export type TextProps = RNTextProps & {
   bold?: boolean
-  variant?: 'h0' | 'h1' | 'h2' | 'h3' | 'lg' | 'md' | undefined
+  variant?: 'h0' | 'h1' | 'h2' | 'h3' | 'lg' | 'md' | 'sm' | undefined
 }
 
 export const Text = ({
@@ -21,11 +21,12 @@ export const Text = ({
     h3: 'text-lg font-bold text-text-maximal',
     lg: 'text-base font-normal text-text-base',
     md: 'text-sm font-normal text-text-base',
+    sm: 'text-xs font-normal text-text-base',
   }[variant]
 
   return (
     <RNText
-      className={`${variantClass} ${bold ? 'font-bold' : ''} ${className}`}
+      className={`${variantClass} ${bold ? 'font-bold leading-tight' : ''} ${className}`}
       maxFontSizeMultiplier={maxFontSizeMultiplier}
       {...rest}
     >

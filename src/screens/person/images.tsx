@@ -16,7 +16,7 @@ export default function MovieImages() {
   })
 
   return (
-    <ModalLayout>
+    <ModalLayout centered>
       <FullScreenImagesList images={data} isLoading={isLoading} startAt={startAt} type="person" />
     </ModalLayout>
   )

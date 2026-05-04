@@ -48,7 +48,8 @@ export function Thumb({
         <UniwindImage
           className="absolute inset-0 h-full w-full"
           contentFit="cover"
-          source={externalImageUrl || (imageUrl ? getImageUrl(imageUrl, imageWidth) : undefined)}
+          recyclingKey={externalImageUrl || imageUrl || 'placeholder'}
+          source={externalImageUrl || (imageUrl ? getImageUrl(imageUrl, imageWidth) : null)}
           transition={150}
         />
         {children && <View className="h-full">{children}</View>}

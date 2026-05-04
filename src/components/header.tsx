@@ -124,7 +124,7 @@ export const Header = ({
           style={smallHeaderStyle}
         >
           {title && (
-            <Text bold numberOfLines={1} variant="lg">
+            <Text bold className="text-text-maximal" numberOfLines={1} variant="lg">
               {title}
             </Text>
           )}

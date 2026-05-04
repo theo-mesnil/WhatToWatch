@@ -2,7 +2,7 @@ import { GlassView, isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import type { ImageProps } from 'expo-image'
 import { Image } from 'expo-image'
-import type { AccessibilityState, GestureResponderEvent } from 'react-native'
+import { type AccessibilityState, type GestureResponderEvent } from 'react-native'
 import { useResolveClassNames } from 'uniwind'
 
 import { Icon, type IconProps } from '~/components/icon'
@@ -119,7 +119,7 @@ export const Button = ({
       <GlassView glassEffectStyle="clear" isInteractive={true} style={wrapperStyles}>
         {image && <Image source={image} style={imageStyle} />}
         {children && (
-          <Text bold variant={textSizeStyles[size]}>
+          <Text bold className="text-text-maximal" variant={textSizeStyles[size]}>
             {children}
           </Text>
         )}

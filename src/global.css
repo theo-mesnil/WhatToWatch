@@ -9,7 +9,8 @@
       --color-foreground: var(--color-foreground-fixed);
       --color-background-gradient: oklch(0.1353 0.0666 304.987);
       /** Text */
-      --color-text-base: var(--color-neutral-100);
+      /* --color-text-base: var(--color-violet-200); */
+      --color-text-base: var(--color-violet-200);
       --color-text-maximal: var(--color-white);
       --color-text-minimal: var(--color-neutral-400);
       /** Borders */
@@ -60,12 +61,13 @@
   /* Spacing for tablet landscape */
   --spacing-screen-lg: 200px;
   /* Cover on content screen */
-  --spacing-cover: 450px;
-  --spacing-cover-top: 150px;
-  --spacing-cover-without-top: 300px;
+  --spacing-cover: 350px;
+  --spacing-cover-top: 100px;
+  --spacing-cover-without-top: 250px;
 
   /** Colors */
   --color-foreground-fixed: oklch(0.1765 0.0765 304.987);
+  --color-background-fixed: oklch(0.1353 0.0666 304.987);
 
   /** Networks colors */
   --color-network-apple-tv-plus: #323232;

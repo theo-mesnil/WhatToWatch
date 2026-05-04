@@ -13,7 +13,7 @@ type PressableProps = RNPressableProps & {
 }
 
 export const Pressable = ({
-  className,
+  className = '',
   endScale = 0.95,
   onPress,
   ref,

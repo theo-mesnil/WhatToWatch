@@ -95,7 +95,7 @@ export function List<ItemProps>({
       {!!title && renderTitle}
       <AnimatedFlashList
         bounces={false}
-        contentContainerStyle={{ paddingHorizontal }}
+        contentContainerStyle={{ paddingHorizontal, paddingVertical: 4 }}
         data={dataFormatted}
         decelerationRate={pagingEnabled ? 'fast' : undefined}
         horizontal

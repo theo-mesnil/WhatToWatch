@@ -17,21 +17,21 @@ export function Badge({ children, className = '', icon, testID, variant = 'prima
   const variantStyles = {
     primary: {
       background: 'bg-black/10 border border-white/30',
-      text: 'text-text-base',
+      text: 'text-text-maximal',
     },
     secondary: {
       background: 'bg-violet-400/20 border border-violet-500/80',
       text: 'text-violet-300',
     },
     vote: {
-      background: 'bg-yellow-400/20 border border-yellow-500/80',
+      background: 'bg-yellow-400/10 border border-yellow-300/60',
       text: 'text-yellow-300',
     },
   }
 
   return (
     <View
-      className={`items-center rounded-full flex-row gap-1.5 px-3 h-7 ${variantStyles[variant].background} ${className}`}
+      className={`self-start items-center rounded-full flex-row gap-1.5 px-3 h-7 ${variantStyles[variant].background} ${className}`}
       testID={testID}
     >
       {icon && <Icon className={variantStyles[variant].text} name={icon} size={13} />}

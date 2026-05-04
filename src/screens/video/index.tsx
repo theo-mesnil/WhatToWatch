@@ -16,7 +16,7 @@ export default function Video() {
   const videoID = params.id
 
   return (
-    <ModalLayout>
+    <ModalLayout centered>
       <View testID="video">
         <YoutubePlayer
           height={height}

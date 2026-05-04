@@ -62,7 +62,7 @@ export const ContentLayout = ({
         title={isIpad ? '' : title}
       />
       <Animated.ScrollView
-        contentContainerClassName="min-h-full gap-5 pb-safe-offset-26 md:pb-safe android:pb-safe-offset-4"
+        contentContainerClassName="min-h-full gap-2 pb-safe"
         onScroll={onScroll}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
@@ -79,10 +79,10 @@ export const ContentLayout = ({
             {isLoading && <Loader className="w-full" />}
           </View>
           <View className="absolute w-full mt-cover-top h-cover-without-top bg-linear-180 from-transparent to-background" />
-          <View className="items-center h-full justify-end mx-6">
+          <View className="h-full justify-end mx-screen">
             {logo && (
               <UniwindImage
-                className="max-h-cover-top w-62.5"
+                className="max-h-cover-top w-cover-without-top ml-1"
                 contentFit="contain"
                 source={getImageUrl(logo.url, 'w500')}
                 style={{ aspectRatio: logo.aspectRatio }}
@@ -91,14 +91,14 @@ export const ContentLayout = ({
               />
             )}
             {!logo && title && (
-              <Text className="text-center text-4xl font-bold" testID="cover-title">
+              <Text className="text-4xl font-bold text-violet-300" testID="cover-title">
                 {title}
               </Text>
             )}
           </View>
         </View>
-        <View className="items-center gap-2 pt-cover mt-4 pb-4 px-8">
-          {badges && <View className="flex-row flex-wrap justify-center gap-1.5">{badges}</View>}
+        <View className="gap-2 pt-cover mt-4 pb-4 px-5">
+          {badges && <View className="flex-row flex-wrap gap-1.5 -ml-1">{badges}</View>}
           {subtitle && <Text testID="subtitle">{subtitle}</Text>}
         </View>
         {children}

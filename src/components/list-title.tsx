@@ -1,6 +1,5 @@
 import type { Href } from 'expo-router'
 import { Link } from 'expo-router'
-import { FormattedMessage } from 'react-intl'
 import { View } from 'react-native'
 
 import type { IconProps } from '~/components/icon'
@@ -15,24 +14,19 @@ type ListTitleProps = {
   titleHref?: Href
 }
 
-export function ListTitle({ children, className, icon, titleHref }: ListTitleProps) {
+export function ListTitle({ children, className = '', icon, titleHref }: ListTitleProps) {
   return (
     <View
-      className={`flex-row items-center gap-1.5 mb-1.5 ${titleHref ? 'justify-between' : ''} ${className ?? ''}`}
+      className={`flex-row items-center gap-1.5 mb-1.5 ${titleHref ? 'justify-between' : ''} ${className}`}
     >
       <View className="flex-row items-center gap-1.5">
-        {icon && <Icon name={icon} size={20} />}
+        {icon && <Icon className="text-violet-400" name={icon} size={20} />}
         <Text variant="h2">{children}</Text>
       </View>
       {titleHref && (
         <Link asChild href={titleHref}>
           <Touchable>
-            <View className="flex-row items-center gap-1">
-              <Text className="text-violet-200" variant="lg">
-                <FormattedMessage defaultMessage="More" id="I5NMJ8" />
-              </Text>
-              <Icon className="text-text-minimal" name="arrow-back" size={20} />
-            </View>
+            <Icon className="text-violet-400" name="arrow-forward" size={30} />
           </Touchable>
         </Link>
       )}

@@ -49,7 +49,7 @@ export function Item({ genres, id, imageUrl, title, type }: ItemProps) {
         {isLoading && <Loader className="w-full" />}
         {!isLoading && (
           <>
-            <View className="absolute top-1/4 bottom-0 bg-linear-180 from-transparent via-foreground-fixed/70 to-foreground-fixed left-0 right-0" />
+            <View className="absolute top-1/4 bottom-0 bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95 left-0 right-0" />
             <View className="mt-auto items-center pb-8 px-1 z-1">
               {!isLoadingLogo && logo && (
                 <UniwindImage

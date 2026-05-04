@@ -22,7 +22,7 @@ export function Top10Movies() {
   )
 
   return (
-    <List
+    <List<Item>
       id="top-10-movie"
       isLoading={isLoading}
       renderItem={renderItem}
@@ -31,7 +31,6 @@ export function Top10Movies() {
         .flat()
         .slice(0, 10)}
       title={<FormattedMessage defaultMessage="Top 10 Movies" id="ZUCQbH" />}
-      withoutSizing
     />
   )
 }

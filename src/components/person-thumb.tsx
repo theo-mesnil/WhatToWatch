@@ -11,14 +11,13 @@ type PersonThumbProps = {
 
 export function PersonThumb({ character, imageUrl, name }: PersonThumbProps) {
   return (
-    <View>
-      <Thumb aspectRatio={6 / 7} imageUrl={imageUrl} type="person" />
-      <View className="mt-1.5">
-        <Text numberOfLines={2} variant="h3">
+    <Thumb aspectRatio={2 / 3.5} imageUrl={imageUrl} type="person">
+      <View className="justify-end p-2 absolute left-0 right-0 bottom-0 top-[50%] bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95">
+        <Text bold className="text-violet-400" numberOfLines={2}>
           {name}
         </Text>
-        {character && <Text numberOfLines={2}>{character}</Text>}
+        {character && <Text numberOfLines={1}>{character}</Text>}
       </View>
-    </View>
+    </Thumb>
   )
 }

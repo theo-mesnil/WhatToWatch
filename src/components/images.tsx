@@ -3,8 +3,8 @@ import { FormattedMessage } from 'react-intl'
 import { View } from 'react-native'
 
 import type { UseGetMovieImagesApiResponse } from '~/api/movie'
-import { Button } from '~/components/button'
 import { ListTitle } from '~/components/list-title'
+import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
 import { movieImagesPath, tvImagesPath } from '~/routes'
@@ -34,21 +34,20 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                     : tvImagesPath({ id, type: 'backdrops' })
                 }
               >
-                <>
-                  <Thumb
-                    aspectRatio={backdrops?.[0]?.aspect_ratio}
-                    height="100%"
-                    imageUrl={backdrops?.[0]?.file_path}
-                    imageWidth="w780"
-                    isLoading={isLoading}
-                    type="movie"
-                  />
-                  <View className="absolute inset-0 justify-end">
-                    <Button size="lg" variant="secondary">
+                <Thumb
+                  aspectRatio={backdrops?.[0]?.aspect_ratio}
+                  height="100%"
+                  imageUrl={backdrops?.[0]?.file_path}
+                  imageWidth="w780"
+                  isLoading={isLoading}
+                  type="movie"
+                >
+                  <View className="absolute bottom-0 left-0 right-0 top-1/2 justify-end pb-3 pl-5 bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95">
+                    <Text variant="h3">
                       <FormattedMessage defaultMessage="Backdrops" id="eBDmdm" />
-                    </Button>
+                    </Text>
                   </View>
-                </>
+                </Thumb>
               </ThumbLink>
             </View>
           )}
@@ -61,21 +60,20 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                     : tvImagesPath({ id, type: 'posters' })
                 }
               >
-                <>
-                  <Thumb
-                    aspectRatio={posters?.[0]?.aspect_ratio}
-                    height="100%"
-                    imageUrl={posters?.[0]?.file_path}
-                    imageWidth="w780"
-                    isLoading={isLoading}
-                    type="movie"
-                  />
-                  <View className="absolute inset-0 justify-end">
-                    <Button size="lg" variant="secondary">
+                <Thumb
+                  aspectRatio={posters?.[0]?.aspect_ratio}
+                  height="100%"
+                  imageUrl={posters?.[0]?.file_path}
+                  imageWidth="w780"
+                  isLoading={isLoading}
+                  type="movie"
+                >
+                  <View className="absolute bottom-0 left-0 right-0 top-1/2 justify-end pb-3 pl-5 bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95">
+                    <Text variant="h3">
                       <FormattedMessage defaultMessage="Posters" id="4NCdJM" />
-                    </Button>
+                    </Text>
                   </View>
-                </>
+                </Thumb>
               </ThumbLink>
             </View>
           )}
