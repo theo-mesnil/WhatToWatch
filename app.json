@@ -1,7 +1,7 @@
 {
   "expo": {
     "android": {
-      "version": "4.3.0",
+      "version": "5.0.0",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#7121d0"
