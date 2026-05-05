@@ -21,12 +21,10 @@ import { Actions } from '~/components/actions'
 import { Badge } from '~/components/badge'
 import { Images } from '~/components/images'
 import { List } from '~/components/list'
-import { NetworkButton } from '~/components/network-button'
 import { PersonThumb } from '~/components/person-thumb'
-import { Text } from '~/components/text'
+import { ReadMore } from '~/components/read-more'
 import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
-import { TrailerButton } from '~/components/trailer-button'
 import { VideoThumb } from '~/components/video-thumb'
 import { ContentLayout } from '~/layouts/content'
 import { moviePath, personPath } from '~/routes'
@@ -114,7 +112,7 @@ export default function Movie() {
               </Badge>
             )}
             {!!rating && (
-              <Badge icon="star" testID="votes">
+              <Badge icon="star" testID="votes" variant="vote">
                 {rating.votes} ({rating.count})
               </Badge>
             )}
@@ -127,22 +125,22 @@ export default function Movie() {
       subtitle={genres}
       title={!isLoadingLogo ? title : undefined}
     >
-      <Actions id={movieID} type="movie" />
-      {!!networkLink && (
-        <NetworkButton className="mx-screen" id={networkLink.id} link={networkLink.link} />
-      )}
-      {!!trailer && (
-        <TrailerButton
-          className="items-center justify-center mt-2"
-          id={trailer.key ?? ''}
-          platform={trailer.site ?? ''}
-        />
-      )}
-      <View className="gap-6">
+      <Actions
+        id={movieID}
+        networkLink={networkLink}
+        trailer={
+          trailer && trailer.key && trailer.site
+            ? {
+                key: trailer.key,
+                platform: trailer.site,
+              }
+            : undefined
+        }
+        type="movie"
+      />
+      <View className="gap-6 mt-3">
         {(!!overview || !!tagline) && (
-          <Text className="px-screen mt-3 text-text-maximal" variant="lg">
-            {overview || tagline}
-          </Text>
+          <ReadMore className="mx-screen">{overview || tagline}</ReadMore>
         )}
         {!!casting && casting.length > 0 && (
           <List<CastItem>

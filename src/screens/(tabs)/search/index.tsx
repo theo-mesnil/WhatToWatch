@@ -99,30 +99,32 @@ export default function Search() {
       )}
     </>
   ) : (
-    <Text className="mt-6" variant="h2">
+    <Text variant="h3">
       <FormattedMessage defaultMessage="Latest trends" id="mnB7Ay" />
     </Text>
   )
 
   return (
     <TabsLayout title={intl.formatMessage({ defaultMessage: 'Search', id: 'xmcVZ0' })}>
-      <TextInput
-        accessibilityLabel={intl.formatMessage({
-          defaultMessage: 'Search for a movie, series or person',
-          id: 'tRwj81',
-        })}
-        autoComplete="off"
-        clearButtonMode="always"
-        enterKeyHint="search"
-        keyboardType="default"
-        onChangeText={setQuerySearch}
-        placeholder={intl.formatMessage({
-          defaultMessage: 'What would you like to watch?',
-          id: 'UhsiMg',
-        })}
-        returnKeyType="search"
-        textContentType="none"
-      />
+      <View className="mx-screen">
+        <TextInput
+          accessibilityLabel={intl.formatMessage({
+            defaultMessage: 'Search for a movie, series or person',
+            id: 'tRwj81',
+          })}
+          autoComplete="off"
+          clearButtonMode="always"
+          enterKeyHint="search"
+          keyboardType="default"
+          onChangeText={setQuerySearch}
+          placeholder={intl.formatMessage({
+            defaultMessage: 'What would you like to watch?',
+            id: 'UhsiMg',
+          })}
+          returnKeyType="search"
+          textContentType="none"
+        />
+      </View>
       <VerticalList<Item>
         id="search-trending"
         isLoading={isLoading || isSearchLoading}

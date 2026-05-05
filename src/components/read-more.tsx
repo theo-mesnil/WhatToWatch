@@ -5,13 +5,14 @@ import { View } from 'react-native'
 
 import { Text } from '~/components/text'
 
-const maxLines = 8
+const maxLines = 6
 
 type ReadMoreProps = {
-  children: string
+  children: React.ReactNode
+  className?: string
 }
 
-export function ReadMore({ children }: ReadMoreProps) {
+export function ReadMore({ children, className = '' }: ReadMoreProps) {
   const [showMoreButton, setShowMoreButton] = useState(false)
   const [isExpanded, setIsExpended] = useState(false)
   const [numLines, setNumLines] = useState<number | undefined>(undefined)
@@ -29,12 +30,12 @@ export function ReadMore({ children }: ReadMoreProps) {
   }
 
   return (
-    <View>
+    <View className={className}>
       <Text numberOfLines={numLines} onTextLayout={onTextLayout}>
         {children}
       </Text>
       {showMoreButton && (
-        <Text className="mt-2 text-text-maximal" onPress={toggleTextShown}>
+        <Text className="mt-2 text-violet-400" onPress={toggleTextShown}>
           {isExpanded ? (
             <FormattedMessage defaultMessage="Read Less" id="jB/Lmw" />
           ) : (

@@ -14,7 +14,7 @@ export type TouchableProps = PressableProps & {
 }
 
 export const Touchable = ({
-  className,
+  className = '',
   duration = 50,
   endScale = 0.95,
   onPress,

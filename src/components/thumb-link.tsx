@@ -16,7 +16,13 @@ type ThumbLinkProps = Pick<TouchableProps, 'className'> & {
   prefetchUrl?: string
 }
 
-export function ThumbLink({ children, className, href, isLoading, prefetchUrl }: ThumbLinkProps) {
+export function ThumbLink({
+  children,
+  className = '',
+  href,
+  isLoading,
+  prefetchUrl,
+}: ThumbLinkProps) {
   const router = useRouter()
 
   if (isLoading) {

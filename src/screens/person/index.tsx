@@ -15,13 +15,13 @@ import {
 } from '~/api/person'
 import { Badge } from '~/components/badge'
 import { List } from '~/components/list'
+import { ReadMore } from '~/components/read-more'
 import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
 import { ContentLayout } from '~/layouts/content'
 import { personImagePath, personMoviesPath, personTvPath } from '~/routes'
 import { routeByType } from '~/routes/utils'
 import { CreditNumberThumb } from '~/screens/person/components/credit-number-thumb'
-import { ReadMore } from '~/screens/person/components/read-more'
 
 type CastItem = NonNullable<UseGetPersonCreditsApiResponse['cast']>[number]
 type ImageItem = NonNullable<UseGetPersonImagesApiResponse['profiles']>[number]
@@ -149,11 +149,7 @@ export default function Person() {
       title={name || ''}
     >
       <View className="gap-6 mb-6">
-        {!!biography && (
-          <View className="mx-screen">
-            <ReadMore>{biography}</ReadMore>
-          </View>
-        )}
+        {!!biography && <ReadMore className="mx-screen">{biography}</ReadMore>}
         {(isLoadingCredits || (credits?.length ?? 0) > 0) && (
           <List<CastItem>
             id="similar"

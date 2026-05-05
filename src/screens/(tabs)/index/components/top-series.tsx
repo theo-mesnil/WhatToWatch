@@ -23,7 +23,6 @@ export function Top10Series() {
 
   return (
     <List<Item>
-      gap={0}
       id="top-10-series"
       isLoading={isLoading}
       renderItem={renderItem}
@@ -32,7 +31,6 @@ export function Top10Series() {
         .flat()
         .slice(0, 10)}
       title={<FormattedMessage defaultMessage="Top 10 Series" id="u2t1Js" />}
-      withoutSizing
     />
   )
 }

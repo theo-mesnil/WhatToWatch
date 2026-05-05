@@ -11,20 +11,17 @@ type CreditNumberThumbProps = {
 
 export function CreditNumberThumb({ number, title, type }: CreditNumberThumbProps) {
   return (
-    <View className="rounded-lg overflow-hidden" testID={`credits-${type}`}>
-      <View className="absolute inset-O bg-linear-60 from-violet-800 to-foreground" />
+    <View
+      className="rounded-lg overflow-hidden bg-linear-60 from-foreground to-violet-800"
+      testID={`credits-${type}`}
+    >
       <View className="items-center flex-row">
-        <View className="-ml-7.5 mr-1.5 opacity-40">
-          <Icon name={type === 'movie' ? 'film' : 'tv'} size={80} />
+        <View className="-ml-7.5 mr-2.5 opacity-40">
+          <Icon className="text-violet-500" name={type === 'movie' ? 'film' : 'tv'} size={80} />
         </View>
-        <View>
-          <Text className="-mt-1.5" variant="h0">
-            {number}
-          </Text>
-          <Text className="uppercase" variant="h2">
-            {title}
-          </Text>
-        </View>
+        <Text variant="h2">
+          {number} {title}
+        </Text>
       </View>
     </View>
   )

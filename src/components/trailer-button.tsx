@@ -4,12 +4,12 @@ import type { ButtonProps } from '~/components/button'
 import { Button } from '~/components/button'
 import { getVideo } from '~/utils/videos'
 
-type TrailerButtonProps = Pick<ButtonProps, 'className'> & {
+type TrailerButtonProps = Pick<ButtonProps, 'className' | 'size'> & {
   id: string
   platform: string
 }
 
-export function TrailerButton({ className, id, platform }: TrailerButtonProps) {
+export function TrailerButton({ className = '', id, platform, size }: TrailerButtonProps) {
   const { handlePress } = getVideo({ id, platform })
 
   return (
@@ -17,7 +17,7 @@ export function TrailerButton({ className, id, platform }: TrailerButtonProps) {
       className={className}
       icon="play-circle"
       onPress={() => handlePress()}
-      size="lg"
+      size={size}
       withHaptic
     >
       <FormattedMessage defaultMessage="Watch the trailer" id="wLlKjy" />

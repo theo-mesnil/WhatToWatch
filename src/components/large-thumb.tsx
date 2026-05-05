@@ -22,7 +22,7 @@ type LargeThumbProps = {
 }
 
 export function LargeThumb({
-  className,
+  className = '',
   id,
   imageUrl,
   imageWidth = 'w780',
@@ -36,7 +36,7 @@ export function LargeThumb({
   })
 
   return (
-    <View className={`rounded-[20px] overflow-hidden w-full ${className ?? ''}`}>
+    <View className={`rounded-[20px] overflow-hidden w-full ${className}`}>
       <Thumb
         aspectRatio={16 / 12}
         imageUrl={imageUrl}
@@ -45,10 +45,10 @@ export function LargeThumb({
         type={type}
       />
       <View className="absolute inset-0 items-center justify-end">
-        <View className="absolute inset-0 bg-linear-180 from-transparent to-background" />
+        <View className="absolute inset-0 bg-linear-180 from-transparent to-background-fixed" />
         {!isLoadingLogo && logo && (
           <UniwindImage
-            className="mb-4 max-h-25 w-62.5"
+            className="mb-4 max-h-cover-top w-cover-without-top"
             source={getImageUrl(logo.url, 'w500')}
             style={{ aspectRatio: logo.aspectRatio }}
           />

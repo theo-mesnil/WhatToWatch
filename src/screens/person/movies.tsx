@@ -26,7 +26,7 @@ export default function PersonMovies() {
   return (
     <BasicLayout title={name || ''}>
       {!isLoadingMovies && (
-        <View className="gap-3 mx-screen">
+        <View className="gap-8 mx-screen">
           {movies?.map((movie, index) => (
             <ThumbLink
               href={moviePath({ id: movie.id })}

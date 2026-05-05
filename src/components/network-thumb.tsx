@@ -21,8 +21,11 @@ export const NetworkThumb = ({
 
   return (
     <View
-      className={`rounded-sm overflow-hidden ${isMinimalist && 'rounded-[200px] bg-neutral-500'} ${backgroundNetworkColor}`}
+      className={`rounded-sm overflow-hidden ${isMinimalist && 'rounded-[200px] bg-violet-900'} ${backgroundNetworkColor}`}
     >
+      <View
+        className={`absolute inset-0 border border-white/20 z-1 ${isMinimalist ? 'rounded-[200px]' : 'rounded-sm'}`}
+      />
       <View
         className="items-center justify-center"
         style={[

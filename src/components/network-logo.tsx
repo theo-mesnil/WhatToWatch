@@ -32,7 +32,7 @@ type NetworkLogoProps = {
 }
 
 export function NetworkLogo({ height, id, width }: NetworkLogoProps) {
-  const color = useCSSVariable('--color-text-maximal')?.toString()
+  const color = useCSSVariable('--color-white')?.toString()
 
   return (
     <View

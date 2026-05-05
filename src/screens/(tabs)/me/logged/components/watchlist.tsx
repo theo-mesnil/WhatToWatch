@@ -44,7 +44,7 @@ export function Watchlist({ type }: { type: 'movie' | 'tv' }) {
       <ThumbLink href={routeByType({ id: item?.id, type })} isLoading={isLoading}>
         <>
           <Thumb imageUrl={item?.poster_path} imageWidth="w300" type="tv" />
-          <Text numberOfLines={3}>{displayTitle}</Text>
+          <Text numberOfLines={2}>{displayTitle}</Text>
         </>
       </ThumbLink>
     )

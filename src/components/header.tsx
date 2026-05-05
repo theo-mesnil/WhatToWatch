@@ -3,12 +3,7 @@ import { BlurView } from 'expo-blur'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Platform, View } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
-import Animated, {
-  Extrapolation,
-  interpolate,
-  useAnimatedProps,
-  useAnimatedStyle,
-} from 'react-native-reanimated'
+import Animated, { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated'
 import { useResolveClassNames, withUniwind } from 'uniwind'
 
 import { Text } from '~/components/text'
@@ -25,7 +20,6 @@ type HeaderProps = {
 
 const MaxBlurIntensity = 50
 
-const AnimatedBlurView = Animated.createAnimatedComponent(BlurView)
 const UniwindLinearGradient = withUniwind(LinearGradient)
 const UniwindBlurView = withUniwind(BlurView)
 const UniwindMaskedView = withUniwind(MaskedView)
@@ -43,7 +37,7 @@ export const Header = ({
   const backgroundColor99 = useResolveClassNames('bg-background/99')?.backgroundColor as string
   const backgroundColor20 = useResolveClassNames('bg-background/20')?.backgroundColor as string
 
-  const headerHeight = layout === 'modal' ? 'h-20' : 'h-37.5'
+  const headerHeight = layout === 'modal' ? 'h-20 android:h-24' : 'h-37.5'
 
   const interpolateValue_10 = interpolateValues[0] + 10
   const interpolateValue_40 = interpolateValues[0] + 40
@@ -56,7 +50,7 @@ export const Header = ({
     }
   })
 
-  const animatedHeaderBlur = useAnimatedProps(() => {
+  const animatedHeaderBlurStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       scrollY.value,
       [interpolateValue_40, 0],
@@ -65,7 +59,7 @@ export const Header = ({
     )
 
     return {
-      intensity: opacity * MaxBlurIntensity,
+      opacity,
     }
   })
 
@@ -95,8 +89,12 @@ export const Header = ({
   })
 
   return (
-    <View className={`${headerHeight} absolute inset-0 z-10`}>
-      <Animated.View className="absolute inset-0" style={headerBackgroundStyle}>
+    <View className={`${headerHeight} absolute inset-0 z-10`} pointerEvents="box-none">
+      <Animated.View
+        className="absolute inset-0"
+        pointerEvents="none"
+        style={headerBackgroundStyle}
+      >
         <UniwindMaskedView
           className="absolute inset-0"
           maskElement={
@@ -117,23 +115,29 @@ export const Header = ({
           />
         </UniwindMaskedView>
       </Animated.View>
-      <View className="absolute inset-0 flex-row items-center justify-between px-screen">
+      <View
+        className={`absolute inset-0 flex-row items-center justify-between px-screen ${layout === 'modal' ? 'android:top-8' : ''}`}
+        pointerEvents="box-none"
+      >
         <View className="z-12 flex-row items-center">{leftActions}</View>
         <Animated.View
           className={`absolute inset-0 items-center justify-center px-20 z-11 overflow-hidden`}
+          pointerEvents="none"
           style={smallHeaderStyle}
         >
           {title && (
-            <Text bold numberOfLines={1} variant="lg">
+            <Text bold className="text-text-maximal" numberOfLines={1} variant="lg">
               {title}
             </Text>
           )}
           {!showSmallTitleOnStart && (
-            <AnimatedBlurView
-              animatedProps={animatedHeaderBlur}
-              className="absolute inset-0"
-              tint={Platform.OS === 'ios' ? 'systemChromeMaterial' : 'systemMaterial'}
-            />
+            <Animated.View className="absolute inset-0" style={animatedHeaderBlurStyle}>
+              <UniwindBlurView
+                className="absolute inset-0"
+                intensity={MaxBlurIntensity}
+                tint={Platform.OS === 'ios' ? 'systemChromeMaterial' : 'systemMaterial'}
+              />
+            </Animated.View>
           )}
         </Animated.View>
         <View className="z-12 flex-row items-center">{rightActions}</View>

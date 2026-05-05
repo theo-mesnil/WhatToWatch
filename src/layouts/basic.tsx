@@ -39,7 +39,7 @@ export const BasicLayout = ({ children, title }: BasicLayoutrops) => {
         title={isIpad ? '' : title}
       />
       <Animated.ScrollView
-        contentContainerClassName="min-h-full gap-5 pt-safe-offset-12 pb-safe md:pb-safe android:pb-safe-offset-4"
+        contentContainerClassName="min-h-full gap-5 pt-safe-offset-12 pb-safe"
         onScroll={onScroll}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}

@@ -19,7 +19,7 @@ export default function MovieImages() {
   const images = data?.[type]
 
   return (
-    <ModalLayout>
+    <ModalLayout centered>
       <FullScreenImagesList images={images} isLoading={isLoading} type="movie" />
     </ModalLayout>
   )

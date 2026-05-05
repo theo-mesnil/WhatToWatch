@@ -8,17 +8,20 @@ import type { IconProps } from '~/components/icon'
 import { ListTitle } from '~/components/list-title'
 import { fakeData30 } from '~/constants/mocks'
 
-const MARGIN_LIST = 16
-
 type ListProps<ItemProps> = Pick<
   FlashListProps<ItemProps>,
-  'ListHeaderComponent' | 'renderItem'
+  | 'ListHeaderComponent'
+  | 'onViewableItemsChanged'
+  | 'pagingEnabled'
+  | 'renderItem'
+  | 'viewabilityConfig'
 > & {
   gap?: number
   icon?: IconProps['name']
   /** uniq id for performance */
   id: string
   isLoading?: boolean
+  marginHorizontal?: number
   numberOfItems?: number
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   results?: any
@@ -34,11 +37,15 @@ export function List<ItemProps>({
   id,
   isLoading,
   ListHeaderComponent,
+  marginHorizontal = 16,
   numberOfItems = 3,
+  onViewableItemsChanged,
+  pagingEnabled,
   renderItem,
   results,
   title,
   titleHref,
+  viewabilityConfig,
   withoutSizing,
 }: ListProps<ItemProps>) {
   const dataFormatted = isLoading ? fakeData30 : results
@@ -46,7 +53,12 @@ export function List<ItemProps>({
   const screenWidth = Dimensions.get('window').width
 
   const itemSize =
-    screenWidth / numberOfItems - gap - MARGIN_LIST / numberOfItems - MARGIN_LIST / numberOfItems
+    screenWidth / numberOfItems -
+    gap -
+    marginHorizontal / numberOfItems -
+    marginHorizontal / numberOfItems
+
+  const paddingHorizontal = pagingEnabled ? (screenWidth - itemSize) / 2 : marginHorizontal
 
   const internalRenderItem = (props: ListRenderItemInfo<ItemProps>) => {
     if (renderItem) {
@@ -83,16 +95,20 @@ export function List<ItemProps>({
       {!!title && renderTitle}
       <AnimatedFlashList
         bounces={false}
-        contentContainerStyle={{ paddingHorizontal: MARGIN_LIST }}
+        contentContainerStyle={{ paddingHorizontal, paddingVertical: 4 }}
         data={dataFormatted}
+        decelerationRate={pagingEnabled ? 'fast' : undefined}
         horizontal
         ItemSeparatorComponent={renderSeparators}
         keyExtractor={(_, index: number) =>
           isLoading ? `loading_${id}_${index}` : `${id}_${index}`
         }
         ListHeaderComponent={renderListHeaderComponent}
+        onViewableItemsChanged={onViewableItemsChanged}
         renderItem={internalRenderItem}
         showsHorizontalScrollIndicator={false}
+        snapToInterval={pagingEnabled ? itemSize + gap : undefined}
+        viewabilityConfig={viewabilityConfig}
       />
     </View>
   )

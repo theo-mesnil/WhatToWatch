@@ -22,13 +22,9 @@ export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: 
         <Thumb imageUrl={posterUrl} type={type} />
       </View>
       <View className="flex-1">
-        <View className="gap-1">
+        <View className="gap-0.5">
           <Text variant="h3">{title}</Text>
-          {subtitle && (
-            <Text className="text-text-maximal" variant="h3">
-              {subtitle}
-            </Text>
-          )}
+          {subtitle && <Text className="text-text-maximal">{subtitle}</Text>}
           {date && (
             <Text>
               <FormattedDate value={new Date(date)} />
@@ -36,7 +32,7 @@ export function ItemThumb({ date, overview, posterUrl, subtitle, title, type }: 
           )}
         </View>
         {overview && (
-          <Text className="mt-3" numberOfLines={4}>
+          <Text className="mt-2" numberOfLines={3}>
             {overview}
           </Text>
         )}

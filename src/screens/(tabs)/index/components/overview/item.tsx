@@ -4,64 +4,108 @@ import { FormattedMessage } from 'react-intl'
 import { View } from 'react-native'
 import { withUniwind } from 'uniwind'
 
+import { useGetGenreMovieList, useGetGenreTvList } from '~/api/genres'
 import { useGetContentLogo } from '~/api/logo'
+import { Badge } from '~/components/badge'
 import { Button } from '~/components/button'
+import { Loader } from '~/components/loader'
 import { Text } from '~/components/text'
+import { Thumb } from '~/components/thumb'
+import { WatchlistButton } from '~/components/watchlist-button'
 import { routeByType } from '~/routes/utils'
-import type { ContentType } from '~/types/content'
 import { getImageUrl } from '~/utils/images'
 
 const UniwindImage = withUniwind(Image)
 
 type ItemProps = {
-  description?: string
+  genres?: number[]
   id: number
   imageUrl: string
+  overview?: string
   title: string
-  type: ContentType
+  type: 'movie' | 'tv'
 }
 
-export function Item({ description, id, imageUrl, title, type }: ItemProps) {
+export function Item({ genres, id, imageUrl, overview, title, type }: ItemProps) {
+  const { data: genreMovie, isLoading: isLoadingGenreMovie } = useGetGenreMovieList()
+  const { data: genreSerie, isLoading: isLoadingGenreSerie } = useGetGenreTvList()
   const { data: logo, isLoading: isLoadingLogo } = useGetContentLogo({
     id,
     type,
   })
 
+  const isLoading = isLoadingGenreMovie || isLoadingGenreSerie || isLoadingLogo
+
+  const formatGenre = (genreId: number) => {
+    if (type === 'movie') {
+      return genreMovie?.find(genre => genre.id === genreId)?.name
+    } else {
+      return genreSerie?.find(genre => genre.id === genreId)?.name
+    }
+  }
+
   return (
-    <View className="h-150 justify-end">
-      <UniwindImage
-        cachePolicy="memory-disk"
-        className="absolute inset-0"
-        contentFit="cover"
-        source={getImageUrl(imageUrl, 'w1280')}
-        transition={150}
-      />
-      <View className="items-center h-100 justify-end pb-10 px-8">
-        <View className="absolute inset-0 bg-linear-180 from-transparent to-foreground" />
-        {!isLoadingLogo && logo && (
-          <UniwindImage
-            cachePolicy="memory-disk"
-            className="max-h-cover-top w-62.5"
-            contentFit="contain"
-            source={getImageUrl(logo.url, 'w500')}
-            style={{ aspectRatio: logo.aspectRatio }}
-            transition={150}
-          />
+    <View>
+      <Thumb
+        aspectRatio={2.9 / 4}
+        imageUrl={getImageUrl(imageUrl, 'w1280')}
+        isLoading={isLoading}
+        type={type}
+      >
+        {isLoading && <Loader className="w-full" />}
+        {!isLoading && (
+          <>
+            <View className="absolute top-1/4 bottom-0 bg-linear-180 from-transparent via-background/80 to-background/95 left-0 right-0" />
+            <View className="mt-auto gap-2 p-6 z-1">
+              {!isLoadingLogo && logo && (
+                <UniwindImage
+                  className="max-h-30 max-w-70 m-auto mb-3"
+                  contentFit="contain"
+                  source={getImageUrl(logo.url, 'w500')}
+                  style={{ aspectRatio: logo.aspectRatio }}
+                  transition={150}
+                />
+              )}
+              {!isLoadingLogo && !logo && <Text variant="h0">{title}</Text>}
+              {overview && (
+                <Text className="my-1" numberOfLines={2}>
+                  {overview}
+                </Text>
+              )}
+              <View className="flex-row flex-wrap items-center gap-1 mb-2 max-w-full">
+                <Badge icon={type === 'movie' ? 'film' : 'tv'}>
+                  {type === 'movie' ? (
+                    <FormattedMessage defaultMessage="Movie" id="u06TNf" />
+                  ) : (
+                    <FormattedMessage defaultMessage="Serie" id="5RN6T/" />
+                  )}
+                </Badge>
+                {genres?.slice(0, 2).map(genreId => (
+                  <Badge className="max-w-28" key={`badge-${id}-${genreId}`}>
+                    {formatGenre(genreId)}
+                  </Badge>
+                ))}
+              </View>
+              <View className="flex-row items-center gap-3 w-full">
+                <View className="flex-1">
+                  <Link asChild href={routeByType({ id, type })}>
+                    <Button
+                      className="w-full"
+                      icon="arrow-forward"
+                      size="xl"
+                      variant="tertiary"
+                      withHaptic
+                    >
+                      <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
+                    </Button>
+                  </Link>
+                </View>
+                <WatchlistButton id={id} type={type} />
+              </View>
+            </View>
+          </>
         )}
-        {!isLoadingLogo && !logo && (
-          <Text className="text-center" variant="h0">
-            {title}
-          </Text>
-        )}
-        <Text className="text-center mt-1.5 text-text-maximal" numberOfLines={3}>
-          {description}
-        </Text>
-        <Link asChild href={routeByType({ id, type })}>
-          <Button className="mt-4" icon="arrow-forward" networkId={213} size="lg" withHaptic>
-            <FormattedMessage defaultMessage="Discover" id="cE4Hfw" />
-          </Button>
-        </Link>
-      </View>
+      </Thumb>
     </View>
   )
 }

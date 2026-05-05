@@ -7,18 +7,34 @@ import { Text } from '~/components/text'
 
 type BadgeProps = {
   children: React.ReactNode
+  className?: string
   icon?: IconProps['name']
   testID?: string
+  variant?: 'primary' | 'vote'
 }
 
-export function Badge({ children, icon, testID }: BadgeProps) {
+export function Badge({ children, className = '', icon, testID, variant = 'primary' }: BadgeProps) {
+  const variantStyles = {
+    primary: {
+      background: 'bg-black/10 border border-white/30 light:bg-white/10 light:border-black/30',
+      text: 'text-text-maximal',
+    },
+    vote: {
+      background:
+        'bg-yellow-400/10 border border-yellow-300/60 light:bg-yellow-200/30 light:border-yellow-700/30',
+      text: 'text-yellow-300 light:text-yellow-700',
+    },
+  }
+
   return (
     <View
-      className="items-center bg-neutral-700 rounded-xs flex-row gap-0.5 px-1.5 py-1"
+      className={`self-start items-center rounded-full flex-row gap-1.5 px-3 h-7 ${variantStyles[variant].background} ${className}`}
       testID={testID}
     >
-      {icon && <Icon name={icon} size={13} />}
-      <Text className="text-text-maximal">{children}</Text>
+      {icon && <Icon className={variantStyles[variant].text} name={icon} size={13} />}
+      <Text className={variantStyles[variant].text} numberOfLines={1}>
+        {children}
+      </Text>
     </View>
   )
 }

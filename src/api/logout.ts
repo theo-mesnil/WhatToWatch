@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { queryClient } from '~/app/_layout'
 import { LOCALE } from '~/constants/locales'
 import { useAuth } from '~/contexts/auth'
 
 import { apiV4 } from './api'
+import { queryClient } from './query-client'
 import type { paths as pathsV4 } from './types-v4'
 
 type UseDeleteAccessTokenApiResponse =
