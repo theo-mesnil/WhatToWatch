@@ -78,11 +78,11 @@ export const ContentLayout = ({
             />
             {isLoading && <Loader className="w-full" />}
           </View>
-          <View className="absolute w-full mt-cover-top h-cover-without-top bg-linear-180 from-transparent to-background" />
+          <View className="absolute w-full mt-cover-top h-cover-without-top bg-linear-180 from-transparent to-background-fixed" />
           <View className="h-full justify-end mx-screen">
             {logo && (
               <UniwindImage
-                className="max-h-30 w-cover-without-top ml-1"
+                className="max-h-30 w-cover-without-top ml-1 mb-4"
                 contentFit="contain"
                 source={getImageUrl(logo.url, 'w500')}
                 style={{ aspectRatio: logo.aspectRatio }}
@@ -91,7 +91,7 @@ export const ContentLayout = ({
               />
             )}
             {!logo && title && (
-              <Text className="text-4xl font-bold text-violet-300" testID="cover-title">
+              <Text className="mb-4 text-4xl font-bold text-violet-300" testID="cover-title">
                 {title}
               </Text>
             )}

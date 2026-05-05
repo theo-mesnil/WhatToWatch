@@ -55,7 +55,7 @@ export function Item({ genres, id, imageUrl, overview, title, type }: ItemProps)
         {isLoading && <Loader className="w-full" />}
         {!isLoading && (
           <>
-            <View className="absolute top-1/4 bottom-0 bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95 left-0 right-0" />
+            <View className="absolute top-1/4 bottom-0 bg-linear-180 from-transparent via-background/80 to-background/95 left-0 right-0" />
             <View className="mt-auto gap-2 p-6 z-1">
               {!isLoadingLogo && logo && (
                 <UniwindImage

@@ -43,7 +43,7 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                   type="movie"
                 >
                   <View className="absolute bottom-0 left-0 right-0 top-1/2 justify-end pb-3 pl-5 bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95">
-                    <Text variant="h3">
+                    <Text className="light:text-white" variant="h3">
                       <FormattedMessage defaultMessage="Backdrops" id="eBDmdm" />
                     </Text>
                   </View>
@@ -69,7 +69,7 @@ export function Images({ backdrops, id, isLoading, posters, type }: ImagesProps)
                   type="movie"
                 >
                   <View className="absolute bottom-0 left-0 right-0 top-1/2 justify-end pb-3 pl-5 bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95">
-                    <Text variant="h3">
+                    <Text className="light:text-white" variant="h3">
                       <FormattedMessage defaultMessage="Posters" id="4NCdJM" />
                     </Text>
                   </View>

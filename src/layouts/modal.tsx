@@ -38,7 +38,7 @@ export const ModalLayout = ({ centered, children }: ModalLayoutrops) => {
         scrollY={scrollY}
       />
       <Animated.ScrollView
-        contentContainerClassName={`min-h-full gap-5 pt-safe-offset-2 ${wrapperClassName}`}
+        contentContainerClassName={`min-h-full gap-5 pt-safe-offset-4 ${wrapperClassName}`}
         onScroll={onScroll}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}

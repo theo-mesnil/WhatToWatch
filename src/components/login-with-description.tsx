@@ -10,7 +10,7 @@ export const LoginWithDescription = () => {
   const { openLogin } = useAuth()
 
   return (
-    <View>
+    <View className="mx-screen gap-4 mt-16">
       <View className="items-center flex-row gap-2">
         <Icon className="text-violet-500" name="heart" size={30} />
         <Text variant="h2">
@@ -32,15 +32,13 @@ export const LoginWithDescription = () => {
           />
         </Text>
       </View>
-      <View>
-        <Text variant="lg">
-          <FormattedMessage
-            defaultMessage="Use your TMDB account to sync your watchlist, favorite and more."
-            id="TKM0PN"
-          />
-        </Text>
-        <LoginButton onPress={() => openLogin()} />
-      </View>
+      <Text variant="lg">
+        <FormattedMessage
+          defaultMessage="Use your TMDB account to sync your watchlist, favorite and more."
+          id="TKM0PN"
+        />
+      </Text>
+      <LoginButton onPress={() => openLogin()} />
     </View>
   )
 }

@@ -119,7 +119,11 @@ export const Button = ({
       <GlassView glassEffectStyle="clear" isInteractive={true} style={wrapperStyles}>
         {image && <Image source={image} style={imageStyle} />}
         {children && (
-          <Text bold className="text-text-maximal" variant={textSizeStyles[size]}>
+          <Text
+            bold
+            className={` ${networkId ? 'text-white' : 'text-text-maximal'}`}
+            variant={textSizeStyles[size]}
+          >
             {children}
           </Text>
         )}

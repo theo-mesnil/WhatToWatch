@@ -16,7 +16,11 @@ export function PersonThumb({ character, imageUrl, name }: PersonThumbProps) {
         <Text bold className="text-violet-300" numberOfLines={2}>
           {name}
         </Text>
-        {character && <Text numberOfLines={1}>{character}</Text>}
+        {character && (
+          <Text className="light:text-neutral-400" numberOfLines={1}>
+            {character}
+          </Text>
+        )}
       </View>
     </Thumb>
   )

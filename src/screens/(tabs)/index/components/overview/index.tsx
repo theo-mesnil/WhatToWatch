@@ -8,6 +8,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { useCSSVariable } from 'uniwind'
 
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
@@ -82,13 +83,15 @@ export function Overview() {
 
 function Dot({ isActive }: { isActive: boolean }) {
   const progress = useSharedValue(isActive ? 1 : 0)
+  const inactiveColor = useCSSVariable('--color-pagination-dot') as string
+  const activeColor = useCSSVariable('--color-pagination-dot-active') as string
 
   React.useEffect(() => {
     progress.value = withTiming(isActive ? 1 : 0, { duration: 300 })
   }, [progress, isActive])
 
   const animatedStyle = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(progress.value, [0, 1], ['#808080', '#cccccc']),
+    backgroundColor: interpolateColor(progress.value, [0, 1], [inactiveColor, activeColor]),
     width: interpolate(progress.value, [0, 1], [8, 30]),
   }))
 

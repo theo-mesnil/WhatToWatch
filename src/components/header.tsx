@@ -37,7 +37,7 @@ export const Header = ({
   const backgroundColor99 = useResolveClassNames('bg-background/99')?.backgroundColor as string
   const backgroundColor20 = useResolveClassNames('bg-background/20')?.backgroundColor as string
 
-  const headerHeight = layout === 'modal' ? 'h-20' : 'h-37.5'
+  const headerHeight = layout === 'modal' ? 'h-20 android:h-24' : 'h-37.5'
 
   const interpolateValue_10 = interpolateValues[0] + 10
   const interpolateValue_40 = interpolateValues[0] + 40
@@ -89,8 +89,12 @@ export const Header = ({
   })
 
   return (
-    <View className={`${headerHeight} absolute inset-0 z-10`}>
-      <Animated.View className="absolute inset-0" style={headerBackgroundStyle}>
+    <View className={`${headerHeight} absolute inset-0 z-10`} pointerEvents="box-none">
+      <Animated.View
+        className="absolute inset-0"
+        pointerEvents="none"
+        style={headerBackgroundStyle}
+      >
         <UniwindMaskedView
           className="absolute inset-0"
           maskElement={
@@ -111,10 +115,14 @@ export const Header = ({
           />
         </UniwindMaskedView>
       </Animated.View>
-      <View className="absolute inset-0 flex-row items-center justify-between px-screen">
+      <View
+        className={`absolute inset-0 flex-row items-center justify-between px-screen ${layout === 'modal' ? 'android:top-8' : ''}`}
+        pointerEvents="box-none"
+      >
         <View className="z-12 flex-row items-center">{leftActions}</View>
         <Animated.View
           className={`absolute inset-0 items-center justify-center px-20 z-11 overflow-hidden`}
+          pointerEvents="none"
           style={smallHeaderStyle}
         >
           {title && (

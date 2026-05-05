@@ -24,6 +24,9 @@
       /** Skeleton */
       --skeleton-gradient-start: var(--color-neutral-900);
       --skeleton-gradient-end: var(--color-neutral-600);
+      /** Pagination */
+      --color-pagination-dot: var(--color-violet-500);
+      --color-pagination-dot-active: var(--color-violet-400);
     }
 
     @variant light {
@@ -36,7 +39,7 @@
       --color-text-maximal: var(--color-black);
       --color-text-minimal: var(--color-neutral-400);
       /** Borders */
-      --color-border-default: var(--color-violet-400);
+      --color-border-default: var(--color-violet-300);
       /** NativeTabs */
       --native-tabs-color: var(--color-black);
       --native-tabs-icon-color: var(--color-neutral-700);
@@ -46,6 +49,9 @@
       /** Skeleton */
       --skeleton-gradient-start: var(--color-neutral-100);
       --skeleton-gradient-end: var(--color-neutral-300);
+      /** Pagination */
+      --color-pagination-dot: var(--color-violet-300);
+      --color-pagination-dot-active: var(--color-violet-700);
     }
   }
 }

@@ -45,7 +45,7 @@ export function LargeThumb({
         type={type}
       />
       <View className="absolute inset-0 items-center justify-end">
-        <View className="absolute inset-0 bg-linear-180 from-transparent to-background" />
+        <View className="absolute inset-0 bg-linear-180 from-transparent to-background-fixed" />
         {!isLoadingLogo && logo && (
           <UniwindImage
             className="mb-4 max-h-cover-top w-cover-without-top"

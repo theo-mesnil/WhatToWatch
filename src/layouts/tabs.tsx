@@ -64,7 +64,7 @@ export const TabsLayout = ({ children, title }: TabsLayoutrops) => {
         title={isIpad ? '' : title}
       />
       <Animated.ScrollView
-        contentContainerClassName="min-h-full gap-5 pb-safe-offset-18"
+        contentContainerClassName="min-h-full gap-5 pb-safe ios:pb-safe-offset-18"
         onScroll={onScroll}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}

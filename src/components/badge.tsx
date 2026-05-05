@@ -10,22 +10,19 @@ type BadgeProps = {
   className?: string
   icon?: IconProps['name']
   testID?: string
-  variant?: 'primary' | 'secondary' | 'vote'
+  variant?: 'primary' | 'vote'
 }
 
 export function Badge({ children, className = '', icon, testID, variant = 'primary' }: BadgeProps) {
   const variantStyles = {
     primary: {
-      background: 'bg-black/10 border border-white/30',
+      background: 'bg-black/10 border border-white/30 light:bg-white/10 light:border-black/30',
       text: 'text-text-maximal',
     },
-    secondary: {
-      background: 'bg-violet-400/20 border border-violet-500/80',
-      text: 'text-violet-300',
-    },
     vote: {
-      background: 'bg-yellow-400/10 border border-yellow-300/60',
-      text: 'text-yellow-300',
+      background:
+        'bg-yellow-400/10 border border-yellow-300/60 light:bg-yellow-200/30 light:border-yellow-700/30',
+      text: 'text-yellow-300 light:text-yellow-700',
     },
   }
 
