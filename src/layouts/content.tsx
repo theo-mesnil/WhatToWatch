@@ -82,7 +82,7 @@ export const ContentLayout = ({
           <View className="h-full justify-end mx-screen">
             {logo && (
               <UniwindImage
-                className="max-h-cover-top w-cover-without-top ml-1"
+                className="max-h-30 w-cover-without-top ml-1"
                 contentFit="contain"
                 source={getImageUrl(logo.url, 'w500')}
                 style={{ aspectRatio: logo.aspectRatio }}

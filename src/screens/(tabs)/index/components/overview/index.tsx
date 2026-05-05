@@ -12,7 +12,6 @@ import Animated, {
 import type { UseGetTrendingApiResponse } from '~/api/trending'
 import { useGetTrending } from '~/api/trending'
 import { List } from '~/components/list'
-import type { ContentType } from '~/types/content'
 
 import { Item } from './item'
 
@@ -45,15 +44,16 @@ export function Overview() {
   )
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({
-    item: { backdrop_path, genre_ids, id, media_type, name, title },
+    item: { backdrop_path, genre_ids, id, media_type, name, overview, title },
   }) => {
     return (
       <Item
         genres={genre_ids}
         id={id}
         imageUrl={backdrop_path ?? ''}
+        overview={overview}
         title={title ?? name ?? ''}
-        type={media_type as ContentType}
+        type={media_type as 'movie' | 'tv'}
       />
     )
   }
@@ -61,7 +61,7 @@ export function Overview() {
   return (
     <View>
       <List<Item>
-        gap={16}
+        gap={6}
         id="overview-list"
         isLoading={isLoading}
         numberOfItems={1}

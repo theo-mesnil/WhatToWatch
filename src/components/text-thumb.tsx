@@ -16,7 +16,7 @@ export function TextThumb({ imageUrl, overview, tag, title, type }: TextThumbPro
   return (
     <View className="gap-2">
       <Thumb aspectRatio={16 / 9} imageUrl={imageUrl} imageWidth="w500" type={type} />
-      <View className="gap-1">
+      <View>
         {tag && <Text>{tag}</Text>}
         <Text numberOfLines={1} variant="h3">
           {title}

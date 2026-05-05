@@ -3,12 +3,7 @@ import { BlurView } from 'expo-blur'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Platform, View } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
-import Animated, {
-  Extrapolation,
-  interpolate,
-  useAnimatedProps,
-  useAnimatedStyle,
-} from 'react-native-reanimated'
+import Animated, { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated'
 import { useResolveClassNames, withUniwind } from 'uniwind'
 
 import { Text } from '~/components/text'
@@ -25,7 +20,6 @@ type HeaderProps = {
 
 const MaxBlurIntensity = 50
 
-const AnimatedBlurView = Animated.createAnimatedComponent(BlurView)
 const UniwindLinearGradient = withUniwind(LinearGradient)
 const UniwindBlurView = withUniwind(BlurView)
 const UniwindMaskedView = withUniwind(MaskedView)
@@ -56,7 +50,7 @@ export const Header = ({
     }
   })
 
-  const animatedHeaderBlur = useAnimatedProps(() => {
+  const animatedHeaderBlurStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       scrollY.value,
       [interpolateValue_40, 0],
@@ -65,7 +59,7 @@ export const Header = ({
     )
 
     return {
-      intensity: opacity * MaxBlurIntensity,
+      opacity,
     }
   })
 
@@ -129,11 +123,13 @@ export const Header = ({
             </Text>
           )}
           {!showSmallTitleOnStart && (
-            <AnimatedBlurView
-              animatedProps={animatedHeaderBlur}
-              className="absolute inset-0"
-              tint={Platform.OS === 'ios' ? 'systemChromeMaterial' : 'systemMaterial'}
-            />
+            <Animated.View className="absolute inset-0" style={animatedHeaderBlurStyle}>
+              <UniwindBlurView
+                className="absolute inset-0"
+                intensity={MaxBlurIntensity}
+                tint={Platform.OS === 'ios' ? 'systemChromeMaterial' : 'systemMaterial'}
+              />
+            </Animated.View>
           )}
         </Animated.View>
         <View className="z-12 flex-row items-center">{rightActions}</View>

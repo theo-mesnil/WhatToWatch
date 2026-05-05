@@ -138,8 +138,10 @@ export default function Movie() {
         }
         type="movie"
       />
-      <View className="gap-6">
-        {(!!overview || !!tagline) && <ReadMore>{overview || tagline}</ReadMore>}
+      <View className="gap-6 mt-3">
+        {(!!overview || !!tagline) && (
+          <ReadMore className="mx-screen">{overview || tagline}</ReadMore>
+        )}
         {!!casting && casting.length > 0 && (
           <List<CastItem>
             id="cast"

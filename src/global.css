@@ -18,7 +18,7 @@
       /** NativeTabs */
       --native-tabs-color: var(--color-neutral-100);
       --native-tabs-icon-color: var(--color-neutral-100);
-      --native-tabs-tint-color: var(--color-violet-500);
+      --native-tabs-tint-color: var(--color-violet-400);
       --native-tabs-ripple-color: var(--color-neutral-900);
       --native-tabs-indicator-color: var(--color-black);
       /** Skeleton */
