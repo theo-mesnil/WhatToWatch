@@ -1,27 +1,26 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-const fs = require('fs')
-const path = require('path')
+import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs'
+import { resolve } from 'path'
 
 // Parse the extracted temp translation file
 function generateTranslationFiles() {
-  const tempFilePath = path.resolve('src/locales/temp.json')
-  const localesDir = path.resolve('src/locales')
-  const enFilePath = path.resolve(localesDir, 'en-US.json')
-  const frFilePath = path.resolve(localesDir, 'fr-FR.json')
+  const tempFilePath = resolve('src/locales/temp.json')
+  const localesDir = resolve('src/locales')
+  const enFilePath = resolve(localesDir, 'en-US.json')
+  const frFilePath = resolve(localesDir, 'fr-FR.json')
 
   // Check if temp file exists
-  if (!fs.existsSync(tempFilePath)) {
+  if (!existsSync(tempFilePath)) {
     // eslint-disable-next-line no-console
     console.error('No temp translation file found. Run extraction first.')
     process.exit(1)
   }
 
   // Read the temp translations
-  const tempTranslations = JSON.parse(fs.readFileSync(tempFilePath, 'utf-8'))
+  const tempTranslations = JSON.parse(readFileSync(tempFilePath, 'utf-8'))
 
   // Read existing French translations, if available
-  const existingFrTranslations = fs.existsSync(frFilePath)
-    ? JSON.parse(fs.readFileSync(frFilePath, 'utf-8'))
+  const existingFrTranslations = existsSync(frFilePath)
+    ? JSON.parse(readFileSync(frFilePath, 'utf-8'))
     : {}
 
   // Generate English translations (use original keys)
@@ -40,21 +39,21 @@ function generateTranslationFiles() {
   }, {})
 
   // Ensure locales directory exists
-  if (!fs.existsSync(localesDir)) {
-    fs.mkdirSync(localesDir, { recursive: true })
+  if (!existsSync(localesDir)) {
+    mkdirSync(localesDir, { recursive: true })
   }
 
   // Write English translations
-  fs.writeFileSync(enFilePath, JSON.stringify(enTranslations, null, 2), 'utf-8')
+  writeFileSync(enFilePath, JSON.stringify(enTranslations, null, 2), 'utf-8')
 
   // Write French translations
-  fs.writeFileSync(frFilePath, JSON.stringify(frTranslations, null, 2), 'utf-8')
+  writeFileSync(frFilePath, JSON.stringify(frTranslations, null, 2), 'utf-8')
 
   // eslint-disable-next-line no-console
   console.log('Translation files generated ✅')
 
   // Optional: Remove temp file
-  fs.unlinkSync(tempFilePath)
+  unlinkSync(tempFilePath)
 }
 
 // Run the generator

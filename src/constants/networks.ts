@@ -13,12 +13,12 @@ export const NETWORK_PARAMOUNT_PLUS = 4330
 export const NETWORK_PRIME_VIDEO = 1024
 export const NETWORK_SHOWTIME_ID = 67
 
-export type Network = {
+export type NetworksList = Network[]
+type Network = {
   id: NetworkId
   slug: string
   title: string
 }
-export type NetworksList = Network[]
 
 /**
  * /!| do not change the order /!\

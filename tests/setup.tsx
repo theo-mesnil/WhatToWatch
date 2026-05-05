@@ -16,10 +16,14 @@ jest.mock('react-native-safe-area-context', () => ({
   }),
 }))
 
-jest.mock('@react-native-async-storage/async-storage', () =>
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-)
+jest.mock('expo-secure-store', () => ({
+  deleteItemAsync: jest.fn(),
+  getItemAsync: jest.fn(() => null),
+  setItemAsync: jest.fn(),
+}))
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+jest.mock('react-native-worklets', () => require('react-native-worklets/src/mock'))
 
 afterEach(() => {
   jest.restoreAllMocks()

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { LOCALE } from '~/constants/locales'
-import { useAuth } from '~/contexts/Auth'
+import { useAuth } from '~/contexts/auth'
 
 import { api } from './api'
 import type { paths } from './types'

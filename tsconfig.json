@@ -9,6 +9,12 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "src/uniwind-types.d.ts"
+  ],
   "exclude": ["src/api/types.d.ts"]
 }

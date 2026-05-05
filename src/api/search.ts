@@ -5,14 +5,14 @@ import { LOCALE } from '~/constants/locales'
 import { api } from './api'
 import type { paths } from './types'
 
-export type UseGetSearchApiParams = paths['/3/search/multi']['get']['parameters']['query']
+type UseGetSearchApiParams = paths['/3/search/multi']['get']['parameters']['query']
 
-export type UseGetSearchApiProps = {
+type UseGetSearchApiProps = {
   maxPages?: number
   params?: UseGetSearchApiParams
 }
 
-export type UseGetSearchApiResponse =
+type UseGetSearchApiResponse =
   paths['/3/search/multi']['get']['responses']['200']['content']['application/json']
 
 export function useGetSearch(props?: UseGetSearchApiProps) {

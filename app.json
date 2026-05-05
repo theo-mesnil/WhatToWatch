@@ -1,7 +1,7 @@
 {
   "expo": {
     "android": {
-      "version": "4.3.0",
+      "version": "5.0.0",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#7121d0"
@@ -10,6 +10,7 @@
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.theomesnil.WhatToWatch"
     },
     "assetBundlePatterns": ["**/*"],
+    "userInterfaceStyle": "automatic",
     "description": "Looking for a movie or series idea for tonight? WhatToWatch is the simplest and fastest way to discover movies, series, and where to watch them. This app is powered by the themoviedb (TMDb) database.",
     "extra": {
       "eas": {
@@ -44,7 +45,10 @@
           "image": "./src/assets/splash-icon.png",
           "imageWidth": 200
         }
-      ]
+      ],
+      "expo-secure-store",
+      "expo-image",
+      "expo-web-browser"
     ],
     "scheme": "whattowatch",
     "slug": "WhatToWatch",
@@ -56,6 +60,7 @@
       "favicon": "./src/assets/favicon.png"
     },
     "experiments": {
+      "reactCompiler": true,
       "typedRoutes": true
     },
     "runtimeVersion": {

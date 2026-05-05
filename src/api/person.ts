@@ -19,28 +19,28 @@ export type UseGetPerson = UseQueryResult<
   Error
 >
 
-export type UseGetPersonApiProps = {
-  id: number
-}
-export type UseGetPersonApiResponse =
-  paths['/3/person/{person_id}']['get']['responses']['200']['content']['application/json']
 export type UseGetPersonCreditsApiResponse =
   paths['/3/person/{person_id}/combined_credits']['get']['responses']['200']['content']['application/json']
 export type UseGetPersonImagesApiResponse =
   paths['/3/person/{person_id}/images']['get']['responses']['200']['content']['application/json']
-export type UseGetPersonMovieCreditsApiResponse =
-  paths['/3/person/{person_id}/movie_credits']['get']['responses']['200']['content']['application/json']
 export type UseGetPersonPopularApiResponse =
   paths['/3/person/popular']['get']['responses']['200']['content']['application/json']
+type Department = 'Acting' | 'Director' | 'Writing'
+type UseGetPersonApiProps = {
+  id: number
+}
+type UseGetPersonApiResponse =
+  paths['/3/person/{person_id}']['get']['responses']['200']['content']['application/json']
 
-export type UseGetPersonTvCreditsApiResponse =
+type UseGetPersonMovieCreditsApiResponse =
+  paths['/3/person/{person_id}/movie_credits']['get']['responses']['200']['content']['application/json']
+
+type UseGetPersonTvCreditsApiResponse =
   paths['/3/person/{person_id}/tv_credits']['get']['responses']['200']['content']['application/json']
 
-export type UseGetPersonWithDepartmentApiProps = UseGetPersonApiProps & {
+type UseGetPersonWithDepartmentApiProps = UseGetPersonApiProps & {
   isActing: boolean
 }
-
-type Department = 'Acting' | 'Director' | 'Writing'
 
 export function useGetPerson(props?: UseGetPersonApiProps): UseGetPerson {
   const { id } = props || {}

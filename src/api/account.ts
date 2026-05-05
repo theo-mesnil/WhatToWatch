@@ -1,57 +1,48 @@
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 
-import { queryClient } from '~/app/_layout'
 import { LOCALE } from '~/constants/locales'
-import { useAuth } from '~/contexts/Auth'
+import { useAuth } from '~/contexts/auth'
 
 import { api, apiV4 } from './api'
+import { queryClient } from './query-client'
 import type { paths } from './types'
 import type { paths as pathsV4 } from './types-v4'
 
-export type FavoriteAndWatchlistBody = {
-  favorite: boolean
-  media_id: number
-  media_type: 'movie' | 'tv'
-}
 export type UseGetFavorite = {
   movie: UseGetFavoriteMovie
   tv: UseGetFavoriteTv
-}
-export type UseGetFavoritesProps = {
-  maxPages?: number
-  type: 'movie' | 'tv'
 }
 export type UseGetRecommendations = {
   movie: UseGetRecommendationsMovie
   tv: UseGetRecommendationsTv
 }
-export type UseGetRecommendationsProps = {
-  maxPages?: number
-  type: 'movie' | 'tv'
-}
-export type UseGetUser =
-  paths['/3/account/{account_id}']['get']['responses']['200']['content']['application/json']
 export type UseGetWatchlist = {
   movie: UseGetWatchlistMovie
   tv: UseGetWatchlistTv
-}
-export type UseGetWatchlistProps = {
-  maxPages?: number
-  type: 'movies' | 'tv'
 }
 type FormatUser = { avatar: null | string; id: number; name: string }
 type UseGetFavoriteMovie =
   pathsV4['/4/account/{account_object_id}/movie/favorites']['get']['responses']['200']['content']['application/json']
 type UseGetFavoriteParams =
   pathsV4['/4/account/{account_object_id}/movie/favorites']['get']['parameters']['query']
+type UseGetFavoritesProps = {
+  maxPages?: number
+  type: 'movie' | 'tv'
+}
 type UseGetFavoriteTv =
   pathsV4['/4/account/{account_object_id}/tv/favorites']['get']['responses']['200']['content']['application/json']
 type UseGetRecommendationsMovie =
   pathsV4['/4/account/{account_object_id}/movie/recommendations']['get']['responses']['200']['content']['application/json']
 type UseGetRecommendationsParams =
   pathsV4['/4/account/{account_object_id}/movie/recommendations']['get']['parameters']['query']
+type UseGetRecommendationsProps = {
+  maxPages?: number
+  type: 'movie' | 'tv'
+}
 type UseGetRecommendationsTv =
   pathsV4['/4/account/{account_object_id}/tv/recommendations']['get']['responses']['200']['content']['application/json']
+type UseGetUser =
+  paths['/3/account/{account_id}']['get']['responses']['200']['content']['application/json']
 type UseGetWatchlistMovie =
   pathsV4['/4/account/{account_object_id}/movie/watchlist']['get']['responses']['200']['content']['application/json']
 type UseGetWatchlistParams =
@@ -153,6 +144,7 @@ export function useGetWatchlist(props: UseGetFavoritesProps) {
 export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { sessionId } = useAuth()
   const { data: user } = useUser()
+  const queryKey = ['account-states', sessionId, type, id, LOCALE]
 
   return useMutation({
     mutationFn: async (isFavorite: boolean) => {
@@ -171,9 +163,6 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
           }
         )
         if (data.success) {
-          queryClient.refetchQueries({
-            queryKey: ['account-states', sessionId, type, id, LOCALE],
-          })
           queryClient.invalidateQueries({
             queryKey: ['account', sessionId, 'favorites', type, LOCALE],
           })
@@ -186,12 +175,30 @@ export function useUpdateFavorite({ id, type }: { id: number; type: 'movie' | 't
         throw error // Re-throw to let react-query handle the error state
       }
     },
+    onError: (_err, _variables, context: undefined | { previous?: unknown }) => {
+      if (context?.previous) {
+        queryClient.setQueryData(queryKey, context.previous)
+      }
+    },
+    onMutate: async isFavorite => {
+      await queryClient.cancelQueries({ queryKey })
+      const previous = queryClient.getQueryData(queryKey)
+      queryClient.setQueryData(queryKey, (old: Record<string, unknown>) => ({
+        ...old,
+        favorite: isFavorite,
+      }))
+      return { previous }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
+    },
   })
 }
 
 export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | 'tv' }) {
   const { sessionId } = useAuth()
   const { data: user } = useUser()
+  const queryKey = ['account-states', sessionId, type, id, LOCALE]
 
   return useMutation({
     mutationFn: async (isWatchlisted: boolean) => {
@@ -210,9 +217,6 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
           }
         )
         if (data.success) {
-          queryClient.refetchQueries({
-            queryKey: ['account-states', sessionId, type, id, LOCALE],
-          })
           queryClient.invalidateQueries({
             queryKey: ['account', sessionId, 'watchlist', type, LOCALE],
           })
@@ -226,6 +230,23 @@ export function useUpdateWatchlist({ id, type }: { id: number; type: 'movie' | '
       }
     },
     mutationKey: ['account', sessionId, 'watchlist', 'update', LOCALE],
+    onError: (_err, _variables, context: undefined | { previous?: unknown }) => {
+      if (context?.previous) {
+        queryClient.setQueryData(queryKey, context.previous)
+      }
+    },
+    onMutate: async isWatchlisted => {
+      await queryClient.cancelQueries({ queryKey })
+      const previous = queryClient.getQueryData(queryKey)
+      queryClient.setQueryData(queryKey, (old: Record<string, unknown>) => ({
+        ...old,
+        watchlist: isWatchlisted,
+      }))
+      return { previous }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey })
+    },
   })
 }
 

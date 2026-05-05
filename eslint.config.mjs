@@ -4,6 +4,7 @@ import expo from 'eslint-plugin-expo'
 import formatjs from 'eslint-plugin-formatjs'
 import perfectionist from 'eslint-plugin-perfectionist'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import reactCompiler from 'eslint-plugin-react-compiler'
 import reactHooks from 'eslint-plugin-react-hooks'
 import { defineConfig } from 'eslint/config'
 import globals from 'globals'
@@ -13,6 +14,7 @@ export default defineConfig([
   eslint.configs.recommended,
   tslint.configs.recommended,
   reactHooks.configs.flat.recommended,
+  reactCompiler.configs.recommended,
   eslintPluginPrettierRecommended,
   perfectionist.configs['recommended-natural'],
   {
@@ -28,6 +30,7 @@ export default defineConfig([
       'src/api/types.d.ts',
       'src/api/type-v4.d.ts',
       'expo-env.d.ts',
+      'src/uniwind-types.d.ts',
     ],
   },
   {

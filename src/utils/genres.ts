@@ -1,58 +1,87 @@
-import type { LinearGradientProps } from 'expo-linear-gradient'
-
-export const genresColor: { [key: number]: LinearGradientProps['colors'] } = {
-  // adventure
-  12: ['#005e05', '#00b109'],
-  // fantasy
-  14: ['#988401', '#bea501'],
-  // animation
-  16: ['#c89703', '#d3ab35'],
-  // drama
-  18: ['#a4617e', '#b68198'],
-  // horror
-  27: ['#cc0f26', '#ef263f'],
-  // action
-  28: ['#8000e9', '#8b4cbf'],
-  // comedy
-  35: ['#02749b', '#03a8e1'],
-  // history
-  36: ['#be3e00', '#fe5300'],
-  // western
-  37: ['#cb3e00', '#ff5409'],
-  // thriller
-  53: ['#006533', '#32835b'],
-  // crime
-  80: ['#9e001b', '#e40027'],
-  // documentary
-  99: ['#127f62', '#1bbf93'],
-  // sci
-  878: ['#529173', '#6ead8f'],
-  // mystery
-  9648: ['#A84927', '#b96d52'],
-  // music
-  10402: ['#428200', '#69ce00'],
-  // romance
-  10749: ['#e3147a', '#e84294'],
-  // family
-  10751: ['#002BFE', '#3255fe'],
-  // war
-  10752: ['#a4931e', '#d6c027'],
-  // action adventure
-  10759: ['#00b109', '#03a8e1'],
-  // kids
-  10762: ['#428200', '#69ce00'],
-  // news
-  10763: ['#59707a', '#758f9a'],
-  // reality
-  10764: ['#5a3f93', '#7657b7'],
-  // sci & fantasy
-  10765: ['#529173', '#988401'],
-  // soap
-  10766: ['#e3147a', '#e84294'],
-  // talk
-  10767: ['#004e98', '#006cd3'],
-  // war & politics
-  10768: ['#a4931e', '#d6c027'],
-  // tv movie
-  10770: ['#004e98', '#006cd3'],
+export const getGenreBorderClassName = (genreId: number) => {
+  switch (genreId) {
+    // adventure
+    case 12:
+      return 'border-genre-adventure/60'
+    // fantasy
+    case 14:
+      return 'border-genre-fantasy/60'
+    // animation
+    case 16:
+      return 'border-genre-animation/60'
+    // drama
+    case 18:
+      return 'border-genre-drama/60'
+    // horror
+    case 27:
+      return 'border-genre-horror/60'
+    // action
+    case 28:
+      return 'border-genre-action/60'
+    // comedy
+    case 35:
+      return 'border-genre-comedy/60'
+    // history
+    case 36:
+      return 'border-genre-history/60'
+    // western
+    case 37:
+      return 'border-genre-western/60'
+    // thriller
+    case 53:
+      return 'border-genre-thriller/60'
+    // crime
+    case 80:
+      return 'border-genre-crime/60'
+    // documentary
+    case 99:
+      return 'border-genre-documentary/60'
+    // sci-fi
+    case 878:
+      return 'border-genre-sci-fi/60'
+    // mystery
+    case 9648:
+      return 'border-genre-mystery/60'
+    // music
+    case 10402:
+      return 'border-genre-music/60'
+    // romance
+    case 10749:
+      return 'border-genre-romance/60'
+    // family
+    case 10751:
+      return 'border-genre-family/60'
+    // war
+    case 10752:
+      return 'border-genre-war/60'
+    // action & adventure
+    case 10759:
+      return 'border-genre-action-adventure/60'
+    // kids
+    case 10762:
+      return 'border-genre-kids/60'
+    // news
+    case 10763:
+      return 'border-genre-news/60'
+    // reality
+    case 10764:
+      return 'border-genre-reality/60'
+    // sci-fi & fantasy
+    case 10765:
+      return 'border-genre-sci-fi-fantasy/60'
+    // soap
+    case 10766:
+      return 'border-genre-soap/60'
+    // talk
+    case 10767:
+      return 'border-genre-talk/60'
+    // war & politics
+    case 10768:
+      return 'border-genre-war-politics/60'
+    // tv movie
+    case 10770:
+      return 'border-genre-tv-movie/60'
+    default:
+      return undefined
+  }
 }
