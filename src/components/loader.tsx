@@ -41,7 +41,7 @@ export function Loader({ className }: LoaderProps) {
   return (
     <View className={`bg-foreground ${className}`}>
       <Animated.View className="h-full w-full" style={animatedStyle}>
-        <View className="absolute inset-0 bg-linear-40 from-foreground to-violet-800" />
+        <View className="absolute inset-0 bg-linear-40 from-foreground to-background-fixed" />
       </Animated.View>
     </View>
   )

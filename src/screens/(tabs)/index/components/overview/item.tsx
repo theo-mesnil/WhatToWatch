@@ -34,7 +34,7 @@ export function Item({ genres, id, imageUrl, overview, title, type }: ItemProps)
     type,
   })
 
-  const isLoading = isLoadingGenreMovie || isLoadingGenreSerie || isLoadingLogo
+  const isLoading = !id || isLoadingGenreMovie || isLoadingGenreSerie || isLoadingLogo
 
   const formatGenre = (genreId: number) => {
     if (type === 'movie') {

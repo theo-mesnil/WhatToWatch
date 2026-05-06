@@ -19,11 +19,6 @@ import { IntlMessages } from '~/locales'
 
 SplashScreen.preventAutoHideAsync()
 
-SplashScreen.setOptions({
-  duration: 2000,
-  fade: true,
-})
-
 export default function Layout() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
