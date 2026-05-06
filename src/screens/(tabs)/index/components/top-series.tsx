@@ -15,9 +15,12 @@ export function Top10Series() {
     type: 'tv',
   })
 
-  const renderItem: FlashListProps<Item>['renderItem'] = ({ index, item: { id, poster_path } }) => (
+  const renderItem: FlashListProps<Item>['renderItem'] = ({
+    index,
+    item: { id, name, poster_path },
+  }) => (
     <ThumbLink href={tvPath({ id })}>
-      <NumberThumb imageUrl={poster_path} number={index + 1} type="tv" />
+      <NumberThumb imageUrl={poster_path} name={name ?? ''} number={index + 1} type="tv" />
     </ThumbLink>
   )
 
