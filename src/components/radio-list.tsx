@@ -35,11 +35,13 @@ export function RadioList<T extends ExtendsPropsItem>({
     const itemId = props.item.id
     const isDisabled = props.item.disabled
     const isSelected = itemId === selectedId
+    const isFirst = props.index === 0
+    const isLast = props.index === (data?.length ?? 0) - 1
 
     return (
       <TouchableOpacity
         activeOpacity={isDisabled ? 1 : 0.5}
-        className={`flex-row items-center gap-3 py-1 w-full justify-between`}
+        className={`flex-row items-center gap-3 w-full px-1 justify-between ${isFirst ? '' : 'pt-1'} ${isLast ? '' : 'pb-1'}`}
         disabled={props.item.disabled}
         onPress={onPress && !isDisabled ? () => onPress(props.item) : undefined}
         testID={`${id}-${itemId}`}

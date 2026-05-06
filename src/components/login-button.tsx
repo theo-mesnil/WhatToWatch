@@ -19,7 +19,7 @@ export const LoginButton = ({ onPress }: LoginButtonProps) => {
         </View>
       }
       onPress={onPress}
-      size="lg"
+      size="xl"
       withHaptic
     >
       <FormattedMessage defaultMessage="Login with" id="+iFjzy" />
