@@ -17,7 +17,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>('system')
+  const [theme, setTheme] = useState<Theme>('dark')
   const colorScheme = useColorScheme()
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         setTheme(storedTheme as Theme)
         Uniwind.setTheme(storedTheme as Theme)
       } else {
-        Uniwind.setTheme('system')
+        Uniwind.setTheme('dark')
       }
     })
   }, [])
