@@ -10,9 +10,10 @@ import { Header } from '~/components/header'
 type ModalLayoutrops = {
   centered?: boolean
   children: React.ReactNode
+  title?: React.ReactNode
 }
 
-export const ModalLayout = ({ centered, children }: ModalLayoutrops) => {
+export const ModalLayout = ({ centered, children, title }: ModalLayoutrops) => {
   const intl = useIntl()
   const scrollY = useSharedValue(0)
   const wrapperClassName = centered ? 'justify-center pb-safe-offset-25' : 'pb-safe'
@@ -36,6 +37,7 @@ export const ModalLayout = ({ centered, children }: ModalLayoutrops) => {
           />
         }
         scrollY={scrollY}
+        title={title}
       />
       <Animated.ScrollView
         contentContainerClassName={`min-h-full gap-5 pt-safe-offset-4 ${wrapperClassName}`}

@@ -10,22 +10,22 @@ export const LoginWithDescription = () => {
   const { openLogin } = useAuth()
 
   return (
-    <View className="mx-screen gap-4 mt-16">
-      <View className="items-center flex-row gap-2">
+    <View className="gap-4 m-2">
+      <View className="items-center flex-row w-full gap-4">
         <Icon className="text-violet-500" name="heart" size={30} />
-        <Text variant="h2">
+        <Text bold className="flex-1 text-text-maximal" variant="lg">
           <FormattedMessage defaultMessage="Manage your favourite films and series" id="K0XQE7" />
         </Text>
       </View>
-      <View className="items-center flex-row gap-2">
+      <View className="items-center flex-row gap-4">
         <Icon className="text-violet-500" name="bookmark" size={30} />
-        <Text variant="h2">
+        <Text bold className="flex-1 text-text-maximal" variant="lg">
           <FormattedMessage defaultMessage="Add movies and series on your watchlist" id="OQEcON" />
         </Text>
       </View>
-      <View className="items-center flex-row gap-2">
+      <View className="items-center flex-row gap-4">
         <Icon className="text-violet-500" name="person" size={30} />
-        <Text variant="h2">
+        <Text bold className="flex-1 text-text-maximal" variant="lg">
           <FormattedMessage
             defaultMessage="Get Recommendations based on your profile"
             id="ASO7Cw"

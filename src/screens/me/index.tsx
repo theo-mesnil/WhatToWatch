@@ -55,10 +55,14 @@ export default function Me() {
     )
 
   return (
-    <ModalLayout>
-      {!accountId && <LoginWithDescription />}
-      {accountId && (
-        <View className="gap-8">
+    <ModalLayout title={<FormattedMessage defaultMessage="Me" id="TdbPNK" />}>
+      <View className="gap-8">
+        {!accountId && (
+          <Section>
+            <LoginWithDescription />
+          </Section>
+        )}
+        {accountId && (
           <Section className="flex-row items-center gap-3">
             <Avatar imageUrl={user?.avatar ?? undefined} name={user?.name} size={80} />
             <View>
@@ -66,22 +70,24 @@ export default function Me() {
               <Text>{user?.id}</Text>
             </View>
           </Section>
-          <Section title="Appearance">
-            <RadioList<ThemeValue>
-              data={THEMES}
-              id="themes"
-              onPress={(item: ThemeValue) => changeTheme(item.id)}
-              renderItem={renderThemeItem}
-              selectedId={theme}
-            />
-          </Section>
+        )}
+        <Section title="Appearance">
+          <RadioList<ThemeValue>
+            data={THEMES}
+            id="themes"
+            onPress={(item: ThemeValue) => changeTheme(item.id)}
+            renderItem={renderThemeItem}
+            selectedId={theme}
+          />
+        </Section>
+        {accountId && (
           <View className="mx-screen">
             <Button icon="log-out" onPress={() => handleLogout()} size="lg" withHaptic>
               <FormattedMessage defaultMessage="Logout" id="C81/uG" />
             </Button>
           </View>
-        </View>
-      )}
+        )}
+      </View>
     </ModalLayout>
   )
 }
