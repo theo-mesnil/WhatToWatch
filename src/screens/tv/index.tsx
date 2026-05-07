@@ -96,7 +96,7 @@ export default function Tv() {
     <Button
       onPress={() => setSelectedSeason(season_number)}
       size="lg"
-      variant={selectedSeason === season_number ? 'tertiary' : 'primary'}
+      variant={selectedSeason === season_number ? 'secondary' : 'primary'}
     >
       <FormattedMessage defaultMessage="Season" id="3wSEx3" /> {season_number}
     </Button>

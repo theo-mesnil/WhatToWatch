@@ -8,7 +8,12 @@ import { useGetAccountState } from '~/api/account-states'
 import { Button } from '~/components/button'
 import { useAuth } from '~/contexts/auth'
 
-export function WatchlistButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
+type WatchlistButtonProps = {
+  id: number
+  type: 'movie' | 'tv'
+}
+
+export function WatchlistButton({ id, type }: WatchlistButtonProps) {
   const intl = useIntl()
   const { accountId, openLogin } = useAuth()
   const pathname = usePathname()

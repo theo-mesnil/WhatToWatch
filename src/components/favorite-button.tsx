@@ -8,7 +8,9 @@ import { useGetAccountState } from '~/api/account-states'
 import { Button } from '~/components/button'
 import { useAuth } from '~/contexts/auth'
 
-export function FavoriteButton({ id, type }: { id: number; type: 'movie' | 'tv' }) {
+type FavoriteButtonProps = { id: number; type: 'movie' | 'tv' }
+
+export function FavoriteButton({ id, type }: FavoriteButtonProps) {
   const intl = useIntl()
   const { accountId, openLogin } = useAuth()
   const pathname = usePathname()

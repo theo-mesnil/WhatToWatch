@@ -9,6 +9,7 @@ import { Icon, type IconProps } from '~/components/icon'
 import { Pressable } from '~/components/presseable'
 import type { TextProps } from '~/components/text'
 import { Text } from '~/components/text'
+import { useTheme } from '~/contexts/theme'
 import type { NetworkId } from '~/types/content'
 import { getNetworkBackgroundClassName } from '~/utils/networks'
 
@@ -49,11 +50,13 @@ export const Button = ({
   withHaptic,
 }: ButtonProps) => {
   const hasLiquidGlass = isLiquidGlassAvailable()
+  const { isDark } = useTheme()
   const backgroundNetworkColor = networkId ? getNetworkBackgroundClassName(networkId) : ''
   /**
    * styles conditions
    */
   const isRounded = !children && (icon || image)
+
   const sizes = isRounded
     ? {
         lg: 'size-10 rounded-full',
@@ -65,21 +68,39 @@ export const Button = ({
         md: 'px-2 h-8 rounded-lg',
         xl: 'px-4 h-12 rounded-full',
       }
+
   const iconSizes = {
     lg: 'size-5',
     md: 'size-3',
     xl: 'size-6',
   }
+
   const imageSizes = {
     lg: 'size-9',
     md: 'size-7',
     xl: 'size-11',
   }
+
   const variantStyles = {
-    primary: `${!hasLiquidGlass && 'bg-white'}`,
-    secondary: 'bg-violet-600',
-    tertiary: `bg-white/20 border border-white/30`,
+    network: {
+      background: networkId ? getNetworkBackgroundClassName(networkId) : '',
+      content: 'text-white',
+    },
+    primary: {
+      background: hasLiquidGlass ? '' : 'bg-neutral-600/60 light:bg-white',
+      content: 'text-text-maximal',
+    },
+    secondary: { background: 'bg-violet-600', content: 'text-white' },
+    tertiary: {
+      background:
+        'bg-white/10 android:bg-white/20 android:light:bg-white/20 border border-white/30',
+      content: 'text-text-maximal',
+    },
   }
+
+  const backgroundVariant = variantStyles[networkId ? 'network' : variant].background
+  const contentVariant = variantStyles[networkId ? 'network' : variant].content
+
   const textSizeStyles: Record<NonNullable<ButtonProps['size']>, TextProps['variant']> = {
     lg: undefined,
     md: undefined,
@@ -90,7 +111,7 @@ export const Button = ({
    * resolves styles
    */
   const wrapperStyles = useResolveClassNames(
-    `flex-row gap-2 items-center justify-center ${sizes[size]} ${variantStyles[variant]} ${backgroundNetworkColor} ${className}`
+    `flex-row gap-2 items-center justify-center ${sizes[size]} ${backgroundVariant} ${backgroundNetworkColor} ${className}`
   )
   const imageStyle = useResolveClassNames(`rounded-full ${imageSizes[size]}`)
   const iconSizeStyle = useResolveClassNames(iconSizes[size]).width
@@ -116,18 +137,19 @@ export const Button = ({
       testID={testID}
       withoutScale={hasLiquidGlass}
     >
-      <GlassView glassEffectStyle="clear" isInteractive={true} style={wrapperStyles}>
+      <GlassView
+        colorScheme={isDark ? 'dark' : 'light'}
+        glassEffectStyle={'clear'}
+        isInteractive={true}
+        style={wrapperStyles}
+      >
         {image && <Image source={image} style={imageStyle} />}
         {children && (
-          <Text
-            bold
-            className={` ${networkId ? 'text-white' : 'text-text-maximal'}`}
-            variant={textSizeStyles[size]}
-          >
+          <Text bold className={contentVariant} variant={textSizeStyles[size]}>
             {children}
           </Text>
         )}
-        {icon && <Icon name={icon} size={Number(iconSizeStyle)} />}
+        {icon && <Icon className={contentVariant} name={icon} size={Number(iconSizeStyle)} />}
         {customRightElement}
       </GlassView>
     </Pressable>

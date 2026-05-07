@@ -24,7 +24,7 @@ export function EpisodeThumb({
 }: EpisodeThumbProps) {
   return (
     <Thumb aspectRatio={16 / 15} imageUrl={imageUrl} imageWidth="w780" type="tv">
-      <View className="absolute left-0 right-0 bottom-0 top-[30%] justify-end bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95 p-3 gap-0.5">
+      <View className="absolute left-0 right-0 bottom-0 top-[30%] justify-end bg-linear-180 from-transparent via-background-fixed/80 to-background-fixed/95 p-3 gap-1">
         <Text className="uppercase light:text-neutral-300" variant="sm">
           <FormattedMessage defaultMessage="Episode {number}" id="xf6y+C" values={{ number }} />
         </Text>
