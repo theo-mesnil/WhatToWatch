@@ -17,9 +17,9 @@ jest.mock('react-native-safe-area-context', () => ({
 }))
 
 jest.mock('expo-secure-store', () => ({
-  deleteItemAsync: jest.fn(),
-  getItemAsync: jest.fn(() => null),
-  setItemAsync: jest.fn(),
+  deleteItemAsync: jest.fn(() => Promise.resolve()),
+  getItemAsync: jest.fn(() => Promise.resolve(null)),
+  setItemAsync: jest.fn(() => Promise.resolve()),
 }))
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports

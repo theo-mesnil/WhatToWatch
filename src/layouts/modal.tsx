@@ -40,7 +40,7 @@ export const ModalLayout = ({ centered, children, title }: ModalLayoutrops) => {
         title={title}
       />
       <Animated.ScrollView
-        contentContainerClassName={`min-h-full gap-5 pt-safe-offset-4 ${wrapperClassName}`}
+        contentContainerClassName={`min-h-full gap-5 pt-safe-offset-4 android:pt-safe-offset-12 ${wrapperClassName}`}
         onScroll={onScroll}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}

@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 
+import { ThemeProvider } from '~/contexts/theme'
 import { IntlMessages } from '~/locales'
 
 type AllTheProvidersProps = {
@@ -21,7 +22,9 @@ const AllTheProviders = ({ children }: AllTheProvidersProps) => {
 
   return (
     <IntlMessages>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <ThemeProvider>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      </ThemeProvider>
     </IntlMessages>
   )
 }

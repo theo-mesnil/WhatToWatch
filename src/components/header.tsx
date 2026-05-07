@@ -116,7 +116,7 @@ export const Header = ({
         </UniwindMaskedView>
       </Animated.View>
       <View
-        className={`absolute inset-0 flex-row items-center justify-between px-screen ${layout === 'modal' ? 'android:top-8' : ''}`}
+        className={`absolute inset-0 flex-row items-center justify-between px-screen ${layout === 'modal' ? 'android:top-12' : ''}`}
         pointerEvents="box-none"
       >
         <View className="z-12 flex-row items-center">{leftActions}</View>
