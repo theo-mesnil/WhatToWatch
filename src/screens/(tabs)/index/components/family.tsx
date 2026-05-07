@@ -20,9 +20,10 @@ export function Family() {
   const renderItem: FlashListProps<Item>['renderItem'] = ({
     item: { backdrop_path, id, overview, release_date, title },
   }) => (
-    <ThumbLink href={moviePath({ id })}>
+    <ThumbLink href={moviePath({ id })} isLoading={isLoading}>
       <TextThumb
         imageUrl={backdrop_path}
+        isLoading={isLoading}
         overview={overview}
         tag={<FormattedDate value={new Date(release_date ?? '')} />}
         title={title}

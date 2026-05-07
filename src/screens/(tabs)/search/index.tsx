@@ -40,6 +40,8 @@ export default function Search() {
     ? searchResults?.pages?.map(page => page.results).flat()
     : data?.pages?.map(page => page.results).flat()
 
+  const totalResults = searchResults?.pages?.[0]?.total_results ?? 0
+
   React.useEffect(() => {
     if (!deferredQuery || isSearchLoading) return
     const count = results?.length ?? 0
@@ -93,8 +95,13 @@ export default function Search() {
           </Text>
         </View>
       ) : (
-        <Text className="mt-6" variant="h2">
-          <FormattedMessage defaultMessage="We offer you:" id="qAbeEW" />
+        <Text className="text-text-base" variant="h3">
+          {totalResults}{' '}
+          {totalResults === 1 ? (
+            <FormattedMessage defaultMessage="result" id="bxnWhY" />
+          ) : (
+            <FormattedMessage defaultMessage="results" id="8quEg9" />
+          )}
         </Text>
       )}
     </>
