@@ -19,8 +19,14 @@ export function Top10Movies() {
     index,
     item: { id, poster_path, title },
   }) => (
-    <ThumbLink href={moviePath({ id })}>
-      <NumberThumb imageUrl={poster_path} name={title ?? ''} number={index + 1} type="movie" />
+    <ThumbLink href={moviePath({ id })} isLoading={isLoading}>
+      <NumberThumb
+        imageUrl={poster_path}
+        isLoading={isLoading}
+        name={title ?? ''}
+        number={index + 1}
+        type="movie"
+      />
     </ThumbLink>
   )
 

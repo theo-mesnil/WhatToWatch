@@ -80,7 +80,8 @@ export const ContentLayout = ({
           </View>
           <View className="absolute w-full mt-cover-top h-cover-without-top bg-linear-180 from-transparent to-background-fixed" />
           <View className="h-full justify-end mx-screen">
-            {logo && (
+            {isLoading && <Loader className="mb-4 h-10 w-2/3 rounded-lg" />}
+            {!isLoading && logo && (
               <UniwindImage
                 className="max-h-30 w-cover-without-top ml-1 mb-4"
                 contentFit="contain"
@@ -90,7 +91,7 @@ export const ContentLayout = ({
                 transition={150}
               />
             )}
-            {!logo && title && (
+            {!isLoading && !logo && title && (
               <Text className="mb-4 text-4xl font-bold text-violet-300" testID="cover-title">
                 {title}
               </Text>
@@ -98,8 +99,20 @@ export const ContentLayout = ({
           </View>
         </View>
         <View className="gap-2 pt-cover mt-4 pb-4 px-5">
-          {badges && <View className="flex-row flex-wrap gap-1.5 -ml-1">{badges}</View>}
-          {subtitle && <Text testID="subtitle">{subtitle}</Text>}
+          {isLoading && (
+            <>
+              <View className="flex-row flex-wrap gap-1.5 -ml-1">
+                <Loader className="h-7 w-24 rounded-full" />
+                <Loader className="h-7 w-20 rounded-full" />
+                <Loader className="h-7 w-28 rounded-full" />
+              </View>
+              <Loader className="h-4 w-1/2 rounded mt-1" />
+            </>
+          )}
+          {!isLoading && badges && (
+            <View className="flex-row flex-wrap gap-1.5 -ml-1">{badges}</View>
+          )}
+          {!isLoading && subtitle && <Text testID="subtitle">{subtitle}</Text>}
         </View>
         {children}
       </Animated.ScrollView>

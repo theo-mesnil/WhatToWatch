@@ -35,6 +35,14 @@ describe('<Person />', () => {
     jest
       .spyOn(person, 'useGetPerson')
       .mockReturnValue(mockQuery({ ...MOCK_PERSON, deathday: '2024-07-23' } as typeof MOCK_PERSON))
+    jest
+      .spyOn(person, 'useGetPersonMovieCredits')
+      .mockReturnValue(
+        mockQuery(MOCK_PERSON_MOVIES) as ReturnType<typeof person.useGetPersonMovieCredits>
+      )
+    jest
+      .spyOn(person, 'useGetPersonTvCredits')
+      .mockReturnValue(mockQuery(MOCK_PERSON_TV) as ReturnType<typeof person.useGetPersonTvCredits>)
 
     render(<Person />)
 

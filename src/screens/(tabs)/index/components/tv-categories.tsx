@@ -14,8 +14,8 @@ export function TvCategories() {
   const { data, isLoading } = useGetGenreTvList()
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({ item: { id, name } }) => (
-    <ThumbLink href={genreTvPath({ id })}>
-      <GenreThumb id={id} title={name} />
+    <ThumbLink href={genreTvPath({ id })} isLoading={isLoading}>
+      <GenreThumb id={id} isLoading={isLoading} title={name} />
     </ThumbLink>
   )
 

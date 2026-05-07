@@ -14,7 +14,7 @@ export function InTheaters() {
   const { data, isLoading } = useGetMovieNowPlaying()
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({ item: { id, poster_path } }) => (
-    <ThumbLink href={moviePath({ id })}>
+    <ThumbLink href={moviePath({ id })} isLoading={isLoading}>
       <Thumb imageUrl={poster_path} type="movie" />
     </ThumbLink>
   )

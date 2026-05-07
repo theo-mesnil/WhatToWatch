@@ -19,8 +19,14 @@ export function Top10Series() {
     index,
     item: { id, name, poster_path },
   }) => (
-    <ThumbLink href={tvPath({ id })}>
-      <NumberThumb imageUrl={poster_path} name={name ?? ''} number={index + 1} type="tv" />
+    <ThumbLink href={tvPath({ id })} isLoading={isLoading}>
+      <NumberThumb
+        imageUrl={poster_path}
+        isLoading={isLoading}
+        name={name ?? ''}
+        number={index + 1}
+        type="tv"
+      />
     </ThumbLink>
   )
 

@@ -5,7 +5,7 @@ import { useWindowDimensions, View } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
 import { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated'
 
-import { fakeData30 } from '~/constants/mocks'
+import { buildPlaceholderData } from '~/constants/mocks'
 
 const MARGIN_LIST = 16
 
@@ -34,7 +34,7 @@ export function VerticalList<ItemProps>({
   results,
 }: VerticalListProps<ItemProps>) {
   const { width } = useWindowDimensions()
-  const dataFormatted = isLoading ? fakeData30 : results
+  const dataFormatted = isLoading ? buildPlaceholderData(numColumns * 4) : results
   const availableSpace = width - MARGIN_LIST * 2
   const itemSize = (availableSpace - gap * (numColumns - 1)) / numColumns
   const scrollY = useSharedValue(0)

@@ -6,7 +6,7 @@ import { Dimensions, View } from 'react-native'
 
 import type { IconProps } from '~/components/icon'
 import { ListTitle } from '~/components/list-title'
-import { fakeData30 } from '~/constants/mocks'
+import { buildPlaceholderData } from '~/constants/mocks'
 
 type ListProps<ItemProps> = Pick<
   FlashListProps<ItemProps>,
@@ -48,7 +48,7 @@ export function List<ItemProps>({
   viewabilityConfig,
   withoutSizing,
 }: ListProps<ItemProps>) {
-  const dataFormatted = isLoading ? fakeData30 : results
+  const dataFormatted = isLoading ? buildPlaceholderData(numberOfItems + 1) : results
 
   const screenWidth = Dimensions.get('window').width
 

@@ -14,8 +14,8 @@ export function PopularPerson() {
   const { data, isLoading } = useGetPersonPopular()
 
   const renderItem: FlashListProps<Item>['renderItem'] = ({ item: { id, name, profile_path } }) => (
-    <ThumbLink href={personPath({ id })}>
-      <PersonThumb imageUrl={profile_path} name={name} />
+    <ThumbLink href={personPath({ id })} isLoading={isLoading}>
+      <PersonThumb imageUrl={profile_path} isLoading={isLoading} name={name} />
     </ThumbLink>
   )
 

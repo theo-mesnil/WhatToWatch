@@ -22,9 +22,10 @@ export function PopularSeries() {
   const renderItem: FlashListProps<Item>['renderItem'] = ({
     item: { backdrop_path, id, name, overview, vote_average, vote_count },
   }) => (
-    <ThumbLink href={tvPath({ id })}>
+    <ThumbLink href={tvPath({ id })} isLoading={isLoading}>
       <TextThumb
         imageUrl={backdrop_path}
+        isLoading={isLoading}
         overview={overview}
         tag={
           <>

@@ -25,6 +25,7 @@ import { Badge } from '~/components/badge'
 import { Button } from '~/components/button'
 import { Images } from '~/components/images'
 import { List } from '~/components/list'
+import { Loader } from '~/components/loader'
 import { PersonThumb } from '~/components/person-thumb'
 import { ReadMore } from '~/components/read-more'
 import { Text } from '~/components/text'
@@ -196,35 +197,29 @@ export default function Tv() {
               results={seasonsLength > 1 ? seasons : null}
               withoutSizing
             />
-            {isLoadingSeason && (
-              <View className="h-175 mt-6">
-                <Text variant="h1">
-                  <FormattedMessage defaultMessage="Episodes" id="oIih5v" />
+            <View className={`mx-screen mb-2 ${seasonsLength > 1 ? 'mt-4' : ''}`}>
+              {isLoadingSeason ? (
+                <Loader className="h-5 w-32 rounded" />
+              ) : (
+                <Text variant="h3">
+                  <FormattedMessage
+                    defaultMessage="{count} episodes"
+                    id="Oux7WC"
+                    values={{
+                      count: season?.episodes?.length ?? 0,
+                    }}
+                  />
+                  {seasonAirDate && ` • ${new Date(seasonAirDate).getFullYear()}`}
                 </Text>
-              </View>
-            )}
-            {!isLoadingSeason && (
-              <>
-                <View className={`mx-screen mb-2 ${seasonsLength > 1 ? 'mt-4' : ''}`}>
-                  <Text variant="h3">
-                    <FormattedMessage
-                      defaultMessage="{count} episodes"
-                      id="Oux7WC"
-                      values={{
-                        count: season?.episodes?.length ?? 0,
-                      }}
-                    />
-                    {seasonAirDate && ` • ${new Date(seasonAirDate).getFullYear()}`}
-                  </Text>
-                </View>
-                <List<EpisodeItem>
-                  id="episodes"
-                  numberOfItems={1.3}
-                  renderItem={renderItemEpisode}
-                  results={season?.episodes}
-                />
-              </>
-            )}
+              )}
+            </View>
+            <List<EpisodeItem>
+              id="episodes"
+              isLoading={isLoadingSeason}
+              numberOfItems={1.3}
+              renderItem={renderItemEpisode}
+              results={season?.episodes}
+            />
           </View>
         )}
         {(isLoadingCredits || (!!casting && casting.length > 0)) && (
