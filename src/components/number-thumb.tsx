@@ -19,7 +19,7 @@ export function NumberThumb({ imageUrl, isLoading, name, number, type }: NumberT
         {!isLoading && (
           <Text
             bold
-            className="text-5xl text-text-maximal ml-2 mt-1"
+            className="text-5xl text-white ml-2 mt-1"
             style={{
               textShadowColor: 'rgba(0, 0, 0, 0.9)',
               textShadowOffset: { height: 0, width: 0 },

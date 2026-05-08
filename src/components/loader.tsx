@@ -41,7 +41,7 @@ export function Loader({ className }: LoaderProps) {
   return (
     <View className={`bg-foreground overflow-hidden ${className}`}>
       <Animated.View className="h-full w-full" style={animatedStyle}>
-        <View className="absolute inset-0 bg-linear-40 from-violet-950 to-foreground" />
+        <View className="absolute inset-0 bg-linear-40 from-violet-950 android:from-violet-200 to-foreground" />
       </Animated.View>
     </View>
   )
