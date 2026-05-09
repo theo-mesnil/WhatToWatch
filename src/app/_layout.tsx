@@ -61,6 +61,12 @@ export default function Layout() {
                   }}
                 />
                 <Stack.Screen
+                  name="tv/[id]/episode/[season]/[episode]"
+                  options={{
+                    presentation: 'formSheet',
+                  }}
+                />
+                <Stack.Screen
                   name="person/[id]/images/[start]"
                   options={{
                     presentation: 'modal',

@@ -10,6 +10,11 @@ export const tvImagesPath = (params: { id: number; type: 'backdrops' | 'posters'
   pathname: '/tv/[id]/images/[type]',
 })
 
+export const tvEpisodePath = (params: { episode: number; id: number; season: number }): Href => ({
+  params,
+  pathname: '/tv/[id]/episode/[season]/[episode]',
+})
+
 export const moviePath = (params: { id: number }): Href => ({
   params,
   pathname: '/movie/[id]',

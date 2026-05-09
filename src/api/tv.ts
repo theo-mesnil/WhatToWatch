@@ -50,6 +50,13 @@ export type UseGetTvEnabledApiProps = {
   enabled: boolean
   id: number
 }
+export type UseGetTvEpisodeApiProps = {
+  episodeNumber: number
+  id: number
+  seasonNumber: number
+}
+export type UseGetTvEpisodeApiResponse =
+  paths['/3/tv/{series_id}/season/{season_number}/episode/{episode_number}']['get']['responses']['200']['content']['application/json']
 export type UseGetTvImagesApiResponse =
   paths['/3/tv/{series_id}/images']['get']['responses']['200']['content']['application/json']
 export type UseGetTvRecommendationsApiResponse =
@@ -132,6 +139,22 @@ export function useGetTvCredits(props?: UseGetTvEnabledApiProps) {
       }
     },
     queryKey: ['tv', id, 'credits', LOCALE],
+  })
+}
+
+export function useGetTvEpisode(props?: UseGetTvEpisodeApiProps) {
+  const { episodeNumber, id, seasonNumber } = props || {}
+
+  return useQuery({
+    enabled: !!id && !!seasonNumber && !!episodeNumber,
+    queryFn: async () => {
+      const { data } = await api.get<UseGetTvEpisodeApiResponse>(
+        `tv/${id}/season/${seasonNumber}/episode/${episodeNumber}`
+      )
+
+      return data
+    },
+    queryKey: ['tv', id, 'season', seasonNumber, 'episode', episodeNumber, LOCALE],
   })
 }
 
