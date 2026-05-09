@@ -33,7 +33,7 @@ import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
 import { VideoThumb } from '~/components/video-thumb'
 import { ContentLayout } from '~/layouts/content'
-import { personPath, tvPath } from '~/routes'
+import { personPath, tvEpisodePath, tvPath } from '~/routes'
 import { EpisodeThumb } from '~/screens/tv/composants/episode-thumb'
 import { formatTime } from '~/utils/time'
 
@@ -105,14 +105,22 @@ export default function Tv() {
   const renderItemEpisode: FlashListProps<EpisodeItem>['renderItem'] = ({
     item: { air_date, episode_number, name, overview, still_path },
   }) => (
-    <EpisodeThumb
-      airDate={air_date}
-      imageUrl={still_path}
-      name={name}
-      number={episode_number}
-      overview={overview}
-      runtime={runtime}
-    />
+    <ThumbLink
+      href={tvEpisodePath({
+        episode: episode_number,
+        id: tvID,
+        season: selectedSeason,
+      })}
+    >
+      <EpisodeThumb
+        airDate={air_date}
+        imageUrl={still_path}
+        name={name}
+        number={episode_number}
+        overview={overview}
+        runtime={runtime}
+      />
+    </ThumbLink>
   )
 
   const renderItemCast: FlashListProps<CastItem>['renderItem'] = ({
