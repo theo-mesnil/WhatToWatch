@@ -78,6 +78,12 @@ export default function Layout() {
                     presentation: 'modal',
                   }}
                 />
+                <Stack.Screen
+                  name="review/[id]"
+                  options={{
+                    presentation: 'formSheet',
+                  }}
+                />
               </Stack>
             </QueryClientProvider>
           </IntlMessages>

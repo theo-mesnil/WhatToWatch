@@ -43,6 +43,9 @@ export type UseGetMovieImagesApiResponse =
 export type UseGetMovieNowPlayingApiResponse =
   paths['/3/movie/now_playing']['get']['responses']['200']['content']['application/json']
 
+export type UseGetMovieReviewsApiResponse =
+  paths['/3/movie/{movie_id}/reviews']['get']['responses']['200']['content']['application/json']
+
 export type UseGetMovieSimilarApiResponse =
   paths['/3/movie/{movie_id}/similar']['get']['responses']['200']['content']['application/json']
 
@@ -141,6 +144,41 @@ export function useGetMovieNowPlaying() {
       return data
     },
     queryKey: ['movies', 'now_playing', REGION_CODE, LOCALE],
+  })
+}
+
+export function useGetMovieReviews(props?: UseGetMovieEnabledApiProps) {
+  const { enabled, id } = props || {}
+
+  return useQuery({
+    enabled: !!id && enabled,
+    queryFn: async () => {
+      const localized = api.get<UseGetMovieReviewsApiResponse>(`movie/${id}/reviews`)
+      const english =
+        LOCALE === 'en'
+          ? null
+          : api.get<UseGetMovieReviewsApiResponse>(`movie/${id}/reviews`, {
+              params: { language: 'en-US' },
+            })
+
+      const [{ data }, englishResponse] = await Promise.all([localized, english])
+      const localizedResults = (data.results ?? []).map(review => ({
+        ...review,
+        iso_639_1: LOCALE,
+      }))
+      const englishResults = (englishResponse?.data.results ?? []).map(review => ({
+        ...review,
+        iso_639_1: 'en',
+      }))
+      const seen = new Set(localizedResults.map(review => review.id))
+      const merged = [
+        ...localizedResults,
+        ...englishResults.filter(review => review.id && !seen.has(review.id)),
+      ]
+
+      return { ...data, results: merged }
+    },
+    queryKey: ['movie', id, 'reviews', LOCALE],
   })
 }
 
