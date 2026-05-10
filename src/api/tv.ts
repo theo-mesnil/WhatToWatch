@@ -62,6 +62,9 @@ export type UseGetTvImagesApiResponse =
 export type UseGetTvRecommendationsApiResponse =
   paths['/3/tv/{series_id}/recommendations']['get']['responses']['200']['content']['application/json']
 
+export type UseGetTvReviewsApiResponse =
+  paths['/3/tv/{series_id}/reviews']['get']['responses']['200']['content']['application/json']
+
 export type UseGetTvSeasonApiResponse =
   paths['/3/tv/{series_id}/season/{season_number}']['get']['responses']['200']['content']['application/json']
 
@@ -175,6 +178,41 @@ export function useGetTvImages(props?: UseGetTvEnabledApiProps) {
       return data
     },
     queryKey: ['tv', id, 'images', locales],
+  })
+}
+
+export function useGetTvReviews(props?: UseGetTvEnabledApiProps) {
+  const { enabled, id } = props || {}
+
+  return useQuery({
+    enabled: !!id && enabled,
+    queryFn: async () => {
+      const localized = api.get<UseGetTvReviewsApiResponse>(`tv/${id}/reviews`)
+      const english =
+        LOCALE === 'en'
+          ? null
+          : api.get<UseGetTvReviewsApiResponse>(`tv/${id}/reviews`, {
+              params: { language: 'en-US' },
+            })
+
+      const [{ data }, englishResponse] = await Promise.all([localized, english])
+      const localizedResults = (data.results ?? []).map(review => ({
+        ...review,
+        iso_639_1: LOCALE,
+      }))
+      const englishResults = (englishResponse?.data.results ?? []).map(review => ({
+        ...review,
+        iso_639_1: 'en',
+      }))
+      const seen = new Set(localizedResults.map(review => review.id))
+      const merged = [
+        ...localizedResults,
+        ...englishResults.filter(review => review.id && !seen.has(review.id)),
+      ]
+
+      return { ...data, results: merged }
+    },
+    queryKey: ['tv', id, 'reviews', LOCALE],
   })
 }
 

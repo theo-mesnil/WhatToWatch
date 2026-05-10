@@ -1,5 +1,5 @@
 import type { FlashListProps } from '@shopify/flash-list'
-import { useLocalSearchParams } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import * as React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { View } from 'react-native'
@@ -16,6 +16,7 @@ import {
   useGetTv,
   useGetTvCredits,
   useGetTvImages,
+  useGetTvReviews,
   useGetTvSeason,
   useGetTvSimilar,
   useGetTvVideos,
@@ -28,12 +29,14 @@ import { List } from '~/components/list'
 import { Loader } from '~/components/loader'
 import { PersonThumb } from '~/components/person-thumb'
 import { ReadMore } from '~/components/read-more'
+import { ReviewsHorizontalList } from '~/components/reviews-horizontal-list'
 import { Text } from '~/components/text'
 import { Thumb } from '~/components/thumb'
 import { ThumbLink } from '~/components/thumb-link'
+import { Touchable } from '~/components/touchable'
 import { VideoThumb } from '~/components/video-thumb'
 import { ContentLayout } from '~/layouts/content'
-import { personPath, tvEpisodePath, tvPath } from '~/routes'
+import { personPath, tvEpisodePath, tvPath, tvReviewsPath } from '~/routes'
 import { EpisodeThumb } from '~/screens/tv/composants/episode-thumb'
 import { formatTime } from '~/utils/time'
 
@@ -70,6 +73,10 @@ export default function Tv() {
     id: tvID,
   })
   const { data: similar, isLoading: isLoadingSimilar } = useGetTvSimilar({
+    enabled: !isLoadingCredits,
+    id: tvID,
+  })
+  const { data: reviews, isLoading: isLoadingReviews } = useGetTvReviews({
     enabled: !isLoadingCredits,
     id: tvID,
   })
@@ -143,6 +150,9 @@ export default function Tv() {
     item: { key, name, site },
   }) => <VideoThumb id={key ?? ''} name={name ?? ''} platform={site ?? ''} type="tv" />
 
+  const hasReviews = !isLoadingReviews && (reviews?.results?.length ?? 0) > 0
+  const reviewsHref = hasReviews ? tvReviewsPath({ id: tvID }) : undefined
+
   return (
     <ContentLayout
       badges={
@@ -166,11 +176,18 @@ export default function Tv() {
                 {formatTime(runtime)}
               </Badge>
             )}
-            {!!rating && (
-              <Badge icon="star" testID="votes" variant="vote">
-                {rating.votes} ({rating.count})
-              </Badge>
-            )}
+            {!!rating &&
+              (reviewsHref ? (
+                <Touchable className="self-start" onPress={() => router.push(reviewsHref)}>
+                  <Badge icon="star" testID="votes" variant="vote">
+                    {rating.votes} ({rating.count})
+                  </Badge>
+                </Touchable>
+              ) : (
+                <Badge icon="star" testID="votes" variant="vote">
+                  {rating.votes} ({rating.count})
+                </Badge>
+              ))}
           </>
         )
       }
@@ -249,6 +266,7 @@ export default function Tv() {
             title={<FormattedMessage defaultMessage="Videos" id="4XfMux" />}
           />
         )}
+        {hasReviews && <ReviewsHorizontalList reviews={reviews?.results} titleHref={reviewsHref} />}
         {(isLoadingImages || !!images) && (
           <View className="mx-screen">
             <Images

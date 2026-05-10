@@ -10,6 +10,11 @@ export const tvImagesPath = (params: { id: number; type: 'backdrops' | 'posters'
   pathname: '/tv/[id]/images/[type]',
 })
 
+export const tvReviewsPath = (params: { id: number }): Href => ({
+  params,
+  pathname: '/tv/[id]/reviews',
+})
+
 export const tvEpisodePath = (params: { episode: number; id: number; season: number }): Href => ({
   params,
   pathname: '/tv/[id]/episode/[season]/[episode]',
@@ -23,6 +28,11 @@ export const moviePath = (params: { id: number }): Href => ({
 export const movieImagesPath = (params: { id: number; type: 'backdrops' | 'posters' }): Href => ({
   params,
   pathname: '/movie/[id]/images/[type]',
+})
+
+export const movieReviewsPath = (params: { id: number }): Href => ({
+  params,
+  pathname: '/movie/[id]/reviews',
 })
 
 export const personPath = (params: { id: number }): Href => ({
@@ -63,6 +73,11 @@ export const genreTvPath = (params: { id: number }): Href => ({
 export const videoPath = (params: { id: string }): Href => ({
   params,
   pathname: '/video/[id]',
+})
+
+export const reviewPath = (params: { id: string }): Href => ({
+  params,
+  pathname: '/review/[id]',
 })
 
 export const watchlistPath = (params: { type: 'movie' | 'tv' }): Href => ({
