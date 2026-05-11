@@ -23,7 +23,7 @@ export function ThumbLink({
   isLoading,
   prefetchUrl,
 }: ThumbLinkProps) {
-  const router = useRouter()
+  const { push } = useRouter()
 
   if (isLoading) {
     return <Thumb {...(children.props as ThumbProps)} isLoading />
@@ -33,7 +33,7 @@ export function ThumbLink({
     if (prefetchUrl) {
       Image.prefetch(prefetchUrl)
     }
-    router.push(href)
+    push(href)
   }
 
   return (

@@ -8,7 +8,7 @@ WhatToWatch is the simplest and fastest way to discover movies, series and actor
 
 ---
 
-[![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://expo.io/)
+[![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://expo.io/) [![React Doctor](https://www.react.doctor/share/badge?p=whattowatch&s=99&e=14&w=45&f=15)](https://www.react.doctor/share?p=whattowatch&s=99&e=14&w=45&f=15)
 
 ## How to test
 
@@ -26,4 +26,5 @@ WhatToWatch is the simplest and fastest way to discover movies, series and actor
 ## Figma
 
 I'm creating the next upgrade for the app design in Figma, check on:
+
 - https://www.figma.com/design/1O3ADQH6vKzlm2bIPr0soH/App?node-id=12-3&t=ejZbnfr8ClYeqaLL-1

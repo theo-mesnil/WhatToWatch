@@ -35,12 +35,8 @@ export default function PersonTv() {
     >
       {!isLoadingTv && (
         <View className="gap-3 mx-screen">
-          {tv?.map((item, index) => (
-            <ThumbLink
-              href={tvPath({ id: item.id })}
-              isLoading={isLoading}
-              key={`tv-${index}-${item.id}`}
-            >
+          {tv?.map(item => (
+            <ThumbLink href={tvPath({ id: item.id })} isLoading={isLoading} key={`tv-${item.id}`}>
               <ItemThumb
                 date={item.first_air_date}
                 overview={item.overview}

@@ -1,4 +1,3 @@
-import { usePathname } from 'expo-router'
 import { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 import { AccessibilityInfo } from 'react-native'
@@ -13,7 +12,6 @@ type FavoriteButtonProps = { id: number; type: 'movie' | 'tv' }
 export function FavoriteButton({ id, type }: FavoriteButtonProps) {
   const intl = useIntl()
   const { accountId, openLogin } = useAuth()
-  const pathname = usePathname()
   const { data } = useGetAccountState({ id, type })
   const { mutate: updateFavorite } = useUpdateFavorite({ id, type })
   const { data: user } = useUser()
@@ -34,7 +32,7 @@ export function FavoriteButton({ id, type }: FavoriteButtonProps) {
 
   const handleUpdateFavorite = async () => {
     if (!accountId) {
-      const loggedIn = await openLogin(pathname)
+      const loggedIn = await openLogin(`/${type}/${id}`)
       if (loggedIn) {
         pendingAction.current = true
       }

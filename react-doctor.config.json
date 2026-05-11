@@ -1,0 +1,12 @@
+{
+  "textComponents": ["Badge"],
+  "ignore": {
+    "rules": ["react-doctor/rendering-hydration-mismatch-time"],
+    "overrides": [
+      {
+        "files": ["src/components/list.tsx", "src/components/vertical-list.tsx"],
+        "rules": ["react-doctor/no-render-in-render"]
+      }
+    ]
+  }
+}

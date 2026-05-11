@@ -31,11 +31,21 @@ const AuthContext = createContext<AuthState>({
   sessionId: null,
 })
 
+type AuthCredentials = {
+  accessToken: null | string
+  accountId: null | string
+  sessionId: null | string
+}
+
+const EMPTY_CREDENTIALS: AuthCredentials = {
+  accessToken: null,
+  accountId: null,
+  sessionId: null,
+}
+
 export function AuthProvider({ children }: PropsWithChildren) {
   const [isReady, setIsReady] = useState(false)
-  const [accountId, setAccountId] = useState<null | string>(null)
-  const [accessToken, setAccessToken] = useState<null | string>(null)
-  const [sessionId, setSessionId] = useState<null | string>(null)
+  const [credentials, setCredentials] = useState<AuthCredentials>(EMPTY_CREDENTIALS)
 
   useEffect(() => {
     WebBrowser.warmUpAsync()
@@ -44,11 +54,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     }
   }, [])
 
-  const storeAuthState = async (newState: {
-    accessToken: null | string
-    accountId: null | string
-    sessionId: null | string
-  }) => {
+  const storeAuthState = async (newState: AuthCredentials) => {
     try {
       const jsonValue = JSON.stringify(newState)
       await SecureStore.setItemAsync(authStorageKey, jsonValue)
@@ -59,16 +65,12 @@ export function AuthProvider({ children }: PropsWithChildren) {
   }
 
   const logIn = (accountId: string, accessToken: string, sessionId: string) => {
-    setAccountId(accountId)
-    setAccessToken(accessToken)
-    setSessionId(sessionId)
+    setCredentials({ accessToken, accountId, sessionId })
     storeAuthState({ accessToken, accountId, sessionId })
   }
 
   const logOut = () => {
-    setAccountId(null)
-    setAccessToken(null)
-    setSessionId(null)
+    setCredentials(EMPTY_CREDENTIALS)
     SecureStore.deleteItemAsync(authStorageKey)
   }
 
@@ -88,8 +90,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
       )
 
       if (result.type === 'success') {
-        const credentials = await fetchAccessToken(tokenData.request_token)
-        logIn(credentials.accountId, credentials.accessToken, credentials.sessionId)
+        const tokenResponse = await fetchAccessToken(tokenData.request_token)
+        logIn(tokenResponse.accountId, tokenResponse.accessToken, tokenResponse.sessionId)
         SecureStore.deleteItemAsync(authReturnPathKey)
         return true
       }
@@ -103,14 +105,16 @@ export function AuthProvider({ children }: PropsWithChildren) {
   }
 
   useEffect(() => {
-    const getAuthFromStorage = async () => {
+    const bootstrap = async () => {
       try {
         const value = await SecureStore.getItemAsync(authStorageKey)
         if (value !== null) {
-          const auth = JSON.parse(value)
-          setAccountId(auth.accountId)
-          setAccessToken(auth.accessToken)
-          setSessionId(auth.sessionId)
+          const stored = JSON.parse(value) as AuthCredentials
+          setCredentials({
+            accessToken: stored.accessToken,
+            accountId: stored.accountId,
+            sessionId: stored.sessionId,
+          })
         }
       } catch (error) {
         // eslint-disable-next-line no-console
@@ -118,23 +122,18 @@ export function AuthProvider({ children }: PropsWithChildren) {
       }
 
       setIsReady(true)
+
+      try {
+        await SplashScreen.hideAsync()
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('Error hiding splash screen:', e)
+      }
     }
-    getAuthFromStorage()
+    bootstrap()
   }, [])
 
-  useEffect(() => {
-    if (isReady) {
-      async function hideSplash() {
-        try {
-          await SplashScreen.hideAsync()
-        } catch (e) {
-          // eslint-disable-next-line no-console
-          console.error('Error hiding splash screen:', e)
-        }
-      }
-      hideSplash()
-    }
-  }, [isReady])
+  const { accessToken, accountId, sessionId } = credentials
 
   return (
     <AuthContext.Provider

@@ -1,4 +1,3 @@
-import { usePathname } from 'expo-router'
 import { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 import { AccessibilityInfo } from 'react-native'
@@ -16,7 +15,6 @@ type WatchlistButtonProps = {
 export function WatchlistButton({ id, type }: WatchlistButtonProps) {
   const intl = useIntl()
   const { accountId, openLogin } = useAuth()
-  const pathname = usePathname()
   const { data } = useGetAccountState({ id, type })
   const { mutate: updateWatchlist } = useUpdateWatchlist({ id, type })
   const { data: user } = useUser()
@@ -37,7 +35,7 @@ export function WatchlistButton({ id, type }: WatchlistButtonProps) {
 
   const handleUpdateWatchlist = async () => {
     if (!accountId) {
-      const loggedIn = await openLogin(pathname)
+      const loggedIn = await openLogin(`/${type}/${id}`)
       if (loggedIn) {
         pendingAction.current = true
       }

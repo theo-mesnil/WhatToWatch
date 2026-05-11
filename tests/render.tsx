@@ -11,14 +11,16 @@ type AllTheProvidersProps = {
 }
 
 const AllTheProviders = ({ children }: AllTheProvidersProps) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        // ✅ turns retries off
-        retry: false,
-      },
-    },
-  })
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      })
+  )
 
   return (
     <IntlMessages>

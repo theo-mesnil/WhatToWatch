@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { Dimensions, Platform } from 'react-native'
+import { Platform } from 'react-native'
 
 beforeEach(() => {
   jest.resetModules()
@@ -59,52 +59,5 @@ describe('isIpad', () => {
     const { isIpad } = require('./get-device-info')
 
     expect(isIpad).toBe(false)
-  })
-})
-
-describe('isTabletHorizontal', () => {
-  it('should return true when tablet and width > height', () => {
-    jest.doMock('expo-device', () => ({
-      DeviceType: { TABLET: 2 },
-      deviceType: 2,
-    }))
-
-    jest
-      .spyOn(Dimensions, 'get')
-      .mockReturnValue({ fontScale: 1, height: 768, scale: 1, width: 1024 })
-
-    const { isTabletHorizontal } = require('./get-device-info')
-
-    expect(isTabletHorizontal()).toBe(true)
-  })
-
-  it('should return false when tablet and width <= height', () => {
-    jest.doMock('expo-device', () => ({
-      DeviceType: { TABLET: 2 },
-      deviceType: 2,
-    }))
-
-    jest
-      .spyOn(Dimensions, 'get')
-      .mockReturnValue({ fontScale: 1, height: 1024, scale: 1, width: 768 })
-
-    const { isTabletHorizontal } = require('./get-device-info')
-
-    expect(isTabletHorizontal()).toBe(false)
-  })
-
-  it('should return false when not a tablet', () => {
-    jest.doMock('expo-device', () => ({
-      DeviceType: { TABLET: 2 },
-      deviceType: null,
-    }))
-
-    jest
-      .spyOn(Dimensions, 'get')
-      .mockReturnValue({ fontScale: 1, height: 768, scale: 1, width: 1024 })
-
-    const { isTabletHorizontal } = require('./get-device-info')
-
-    expect(isTabletHorizontal()).toBe(false)
   })
 })

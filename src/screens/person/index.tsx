@@ -113,9 +113,14 @@ export default function Person() {
           )}
           {!!deathday && (
             <Badge testID="deathday">
-              <FormattedMessage defaultMessage="Died on" id="jMuk1E" />{' '}
-              <FormattedDate day="numeric" month="long" value={new Date(deathday)} year="numeric" />
               <>
+                <FormattedMessage defaultMessage="Died on" id="jMuk1E" />{' '}
+                <FormattedDate
+                  day="numeric"
+                  month="long"
+                  value={new Date(deathday)}
+                  year="numeric"
+                />
                 {' ('}
                 {
                   intervalToDuration({

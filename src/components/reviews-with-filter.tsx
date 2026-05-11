@@ -41,9 +41,10 @@ type ReviewsWithFilterProps = {
 export function ReviewsWithFilter({ isLoading, reviews }: ReviewsWithFilterProps) {
   const [filter, setFilter] = React.useState<Filter>('all')
 
-  const availableLanguages = new Set(
-    (reviews ?? []).map(review => review.iso_639_1).filter((lang): lang is string => !!lang)
-  )
+  const availableLanguages = new Set<string>()
+  for (const review of reviews ?? []) {
+    if (review.iso_639_1) availableLanguages.add(review.iso_639_1)
+  }
   const visibleOptions = filterOptions.filter(
     option => option.id === 'all' || availableLanguages.has(option.id)
   )
