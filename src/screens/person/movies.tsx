@@ -27,11 +27,11 @@ export default function PersonMovies() {
     <BasicLayout title={name || ''}>
       {!isLoadingMovies && (
         <View className="gap-8 mx-screen">
-          {movies?.map((movie, index) => (
+          {movies?.map(movie => (
             <ThumbLink
               href={moviePath({ id: movie.id })}
               isLoading={isLoading}
-              key={`movie-${index}-${movie.id}`}
+              key={`movie-${movie.id}`}
             >
               <ItemThumb
                 date={movie.release_date}

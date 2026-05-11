@@ -2,7 +2,7 @@ import type { FlashListProps, ListRenderItemInfo } from '@shopify/flash-list'
 import { AnimatedFlashList } from '@shopify/flash-list'
 import type { Href } from 'expo-router'
 import * as React from 'react'
-import { Dimensions, View } from 'react-native'
+import { useWindowDimensions, View } from 'react-native'
 
 import type { IconProps } from '~/components/icon'
 import { ListTitle } from '~/components/list-title'
@@ -50,7 +50,7 @@ export function List<ItemProps>({
 }: ListProps<ItemProps>) {
   const dataFormatted = isLoading ? buildPlaceholderData(numberOfItems + 1) : results
 
-  const screenWidth = Dimensions.get('window').width
+  const { width: screenWidth } = useWindowDimensions()
 
   const itemSize =
     screenWidth / numberOfItems -
@@ -61,13 +61,8 @@ export function List<ItemProps>({
   const paddingHorizontal = pagingEnabled ? (screenWidth - itemSize) / 2 : marginHorizontal
 
   const internalRenderItem = (props: ListRenderItemInfo<ItemProps>) => {
-    if (renderItem) {
-      return (
-        <View style={{ width: withoutSizing ? undefined : itemSize }}>{renderItem(props)}</View>
-      )
-    }
-
-    return null
+    if (!renderItem) return null
+    return <View style={{ width: withoutSizing ? undefined : itemSize }}>{renderItem(props)}</View>
   }
 
   function renderListHeaderComponent() {
@@ -80,19 +75,17 @@ export function List<ItemProps>({
     }
   }
 
-  const renderTitle = (
-    <ListTitle className="mx-screen" icon={icon} titleHref={titleHref}>
-      {title ?? ''}
-    </ListTitle>
-  )
-
   function renderSeparators() {
     return <View style={{ width: gap }} />
   }
 
   return (
     <View>
-      {!!title && renderTitle}
+      {!!title && (
+        <ListTitle className="mx-screen" icon={icon} titleHref={titleHref}>
+          {title}
+        </ListTitle>
+      )}
       <AnimatedFlashList
         bounces={false}
         contentContainerStyle={{ paddingHorizontal, paddingVertical: 4 }}

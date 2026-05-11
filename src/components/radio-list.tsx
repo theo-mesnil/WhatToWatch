@@ -1,7 +1,7 @@
 import type { FlashListProps, ListRenderItemInfo } from '@shopify/flash-list'
 import { FlashList } from '@shopify/flash-list'
 import React from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 
 import { Icon } from '~/components/icon'
 import { Text } from '~/components/text'
@@ -39,23 +39,23 @@ export function RadioList<T extends ExtendsPropsItem>({
     const isLast = props.index === (data?.length ?? 0) - 1
 
     return (
-      <TouchableOpacity
-        activeOpacity={isDisabled ? 1 : 0.5}
+      <Pressable
         className={`flex-row items-center gap-3 w-full px-1 justify-between ${isFirst ? '' : 'pt-1'} ${isLast ? '' : 'pb-1'}`}
         disabled={props.item.disabled}
         onPress={onPress && !isDisabled ? () => onPress(props.item) : undefined}
+        style={({ pressed }) => (pressed && !isDisabled ? { opacity: 0.5 } : undefined)}
         testID={`${id}-${itemId}`}
       >
         {renderItem?.(props)}
         {isSelected && (
           <View
-            className={`w-6 h-6 rounded-full justify-center items-center ${isSelected ? ' bg-violet-600' : ''}`}
+            className="size-6 rounded-full justify-center items-center bg-violet-600"
             testID={`${id}-${itemId}-selected`}
           >
             <Icon className="text-white" name="checkmark-sharp" size={20} />
           </View>
         )}
-      </TouchableOpacity>
+      </Pressable>
     )
   }
 

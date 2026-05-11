@@ -31,7 +31,7 @@ export default function Review() {
       <View className="px-screen gap-4">
         <View className="flex-row items-center gap-3">
           {isLoading ? (
-            <Loader className="h-10 w-10 rounded-full" />
+            <Loader className="size-10 rounded-full" />
           ) : (
             <Avatar imageUrl={getAvatarUrl(avatarPath)} name={displayName} />
           )}

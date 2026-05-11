@@ -73,8 +73,8 @@ export function Overview() {
         viewabilityConfig={viewabilityConfig}
       />
       <View className="mt-3 flex-row justify-center gap-3">
-        {results?.map((_, index) => (
-          <Dot isActive={index === activeSlide} key={`overview-list-dot-${index}`} />
+        {results?.map((item, index) => (
+          <Dot isActive={index === activeSlide} key={`overview-list-dot-${item?.id ?? index}`} />
         ))}
       </View>
     </View>
@@ -92,8 +92,9 @@ function Dot({ isActive }: { isActive: boolean }) {
 
   const animatedStyle = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(progress.value, [0, 1], [inactiveColor, activeColor]),
+    // react-doctor-disable-next-line react-doctor/rn-animate-layout-property
     width: interpolate(progress.value, [0, 1], [8, 30]),
   }))
 
-  return <Animated.View className="h-2 rounded-[10px]" style={animatedStyle} />
+  return <Animated.View style={[{ borderRadius: 10, height: 8 }, animatedStyle]} />
 }

@@ -28,11 +28,9 @@ export const NetworkThumb = ({
       />
       <View
         className="items-center justify-center"
-        style={[
-          {
-            aspectRatio: isMinimalist ? 1 / 1 : aspectRatio,
-          },
-        ]}
+        style={{
+          aspectRatio: isMinimalist ? 1 / 1 : aspectRatio,
+        }}
       >
         <NetworkLogo id={id} width="70%" />
       </View>
